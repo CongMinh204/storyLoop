@@ -1,0 +1,397 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-sans); }
+
+.screen { display: none; }
+.screen.active { display: flex; }
+
+.app-shell { width: 100%; height: 620px; background: #f5f7fa; border-radius: var(--border-radius-lg); overflow: hidden; display: flex; }
+
+.sidebar { width: 160px; background: #fff; border-right: 0.5px solid #e2e6f0; display: flex; flex-direction: column; padding: 16px 0; flex-shrink: 0; }
+.sidebar-logo { display: flex; align-items: center; gap: 8px; padding: 0 14px 18px; }
+.logo-mark { width: 26px; height: 26px; background: #1a8fa0; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+.logo-text { font-size: 13px; font-weight: 500; color: #1a2340; }
+.nav-item { display: flex; align-items: center; gap: 9px; padding: 8px 14px; font-size: 12px; color: #6b7a99; cursor: pointer; }
+.nav-item.active { background: #eef6f8; color: #1a8fa0; border-left: 2px solid #1a8fa0; }
+.nav-item i { font-size: 16px; }
+
+.main-area { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+
+.hero-banner { background: #1a8fa0; border-radius: var(--border-radius-lg); padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; }
+.hero-text h2 { font-size: 17px; font-weight: 500; color: #fff; line-height: 1.4; margin-bottom: 4px; }
+.hero-text p { font-size: 11px; color: rgba(255,255,255,0.75); margin-bottom: 12px; }
+.progress-row { display: flex; align-items: center; gap: 8px; }
+.hsk-badge { background: rgba(255,255,255,0.2); color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 500; }
+.prog-bar { flex: 1; height: 5px; background: rgba(255,255,255,0.3); border-radius: 20px; max-width: 160px; }
+.prog-fill { height: 5px; border-radius: 20px; background: #f97316; width: 68%; }
+.prog-label { font-size: 10px; color: rgba(255,255,255,0.85); }
+.panda { font-size: 40px; }
+
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.section-title { font-size: 12px; font-weight: 500; color: #1a2340; }
+.section-link { font-size: 11px; color: #1a8fa0; cursor: pointer; }
+
+.continue-card { background: #fff; border-radius: var(--border-radius-lg); border: 0.5px solid #e2e6f0; display: flex; overflow: hidden; }
+.continue-thumb { width: 80px; background: #6c3fc5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.continue-thumb i { font-size: 28px; color: rgba(255,255,255,0.8); }
+.continue-info { padding: 12px 14px; flex: 1; }
+.badge-row { display: flex; gap: 5px; margin-bottom: 6px; }
+.badge { font-size: 9px; padding: 2px 7px; border-radius: 20px; font-weight: 500; }
+.badge-hsk { background: #eef6f8; color: #1a8fa0; }
+.badge-level { background: #f3f0fe; color: #6c3fc5; }
+.continue-title { font-size: 13px; font-weight: 500; color: #1a2340; margin-bottom: 2px; }
+.continue-char { font-size: 11px; color: #6b7a99; margin-bottom: 6px; }
+.continue-quote { font-size: 10px; color: #8a93a8; line-height: 1.5; margin-bottom: 10px; font-style: italic; }
+.continue-footer { display: flex; align-items: center; justify-content: space-between; }
+.btn-continue { background: #f97316; color: #fff; border: none; border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+.btn-continue:hover { background: #ea6a0a; }
+.time-hint { font-size: 10px; color: #8a93a8; }
+
+.library-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.lib-card { background: #fff; border-radius: var(--border-radius-md); border: 0.5px solid #e2e6f0; overflow: hidden; cursor: pointer; }
+.lib-thumb { height: 52px; display: flex; align-items: center; justify-content: center; }
+.lib-thumb.purple { background: #6c3fc5; }
+.lib-thumb.pink { background: #e0417f; }
+.lib-thumb.orange { background: #f97316; }
+.lib-thumb.teal { background: #1a8fa0; }
+.lib-thumb.green { background: #16a34a; }
+.lib-thumb i { font-size: 22px; color: rgba(255,255,255,0.85); }
+.lib-info { padding: 6px 7px; }
+.lib-title { font-size: 10px; font-weight: 500; color: #1a2340; margin-bottom: 4px; line-height: 1.3; }
+.lib-badges { display: flex; gap: 3px; flex-wrap: wrap; }
+.lib-badge { font-size: 8px; padding: 1px 5px; border-radius: 20px; }
+.lb-hsk { background: #eef6f8; color: #0e7a8a; }
+.lb-lv { background: #f3f0fe; color: #5b33a8; }
+
+.daily-banner { background: #fffbf0; border: 0.5px solid #fde8c0; border-radius: var(--border-radius-md); padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; }
+.daily-left { display: flex; align-items: center; gap: 8px; }
+.daily-icon { width: 28px; height: 28px; background: #f97316; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+.daily-icon i { font-size: 14px; color: #fff; }
+.daily-text p { font-size: 12px; font-weight: 500; color: #1a2340; }
+.daily-text span { font-size: 10px; color: #8a6830; }
+.daily-xp { background: #fde8c0; color: #854f0b; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 4px; }
+
+.stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.stat-card { background: #fff; border-radius: var(--border-radius-md); border: 0.5px solid #e2e6f0; padding: 10px 12px; display: flex; align-items: center; gap: 8px; }
+.stat-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.stat-icon.blue { background: #e6f4fb; }
+.stat-icon.orange { background: #fff4ee; }
+.stat-icon.amber { background: #fffbf0; }
+.stat-icon i { font-size: 14px; }
+.stat-icon.blue i { color: #1a8fa0; }
+.stat-icon.orange i { color: #f97316; }
+.stat-icon.amber i { color: #d97706; }
+.stat-val { font-size: 15px; font-weight: 500; color: #1a2340; }
+.stat-lbl { font-size: 10px; color: #8a93a8; }
+
+.streak-footer { background: #fffbf0; border-radius: var(--border-radius-md); padding: 8px 14px; display: flex; align-items: center; gap: 6px; font-size: 11px; color: #8a6830; border: 0.5px solid #fde8c0; }
+
+.topbar { padding: 12px 20px; border-bottom: 0.5px solid #e2e6f0; background: #fff; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.topbar-title { font-size: 13px; font-weight: 500; color: #1a2340; }
+.topbar-right { display: flex; align-items: center; gap: 8px; }
+.streak-pill { background: #fff4ee; color: #f97316; font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 20px; display: flex; align-items: center; gap: 4px; }
+.user-av { width: 26px; height: 26px; border-radius: 50%; background: #1a8fa0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; color: #fff; }
+
+.chat-app { width: 100%; height: 620px; background: #f5f7fa; border-radius: var(--border-radius-lg); overflow: hidden; display: flex; flex-direction: column; }
+.chat-body { flex: 1; display: flex; overflow: hidden; }
+.chat-col { flex: 1; display: flex; flex-direction: column; border-right: 0.5px solid #e2e6f0; background: #fff; }
+.chat-subbar { padding: 8px 14px; border-bottom: 0.5px solid #e2e6f0; display: flex; align-items: center; justify-content: space-between; background: #fff; }
+.live-pill { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #16a34a; font-weight: 500; }
+.live-dot { width: 6px; height: 6px; background: #16a34a; border-radius: 50%; }
+.pinyin-pill { display: flex; align-items: center; gap: 5px; background: #f3f0fe; border-radius: 20px; padding: 3px 9px; font-size: 10px; color: #6c3fc5; cursor: pointer; }
+.messages { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.scene-bubble { background: #f0f4f8; border-radius: var(--border-radius-md); padding: 12px 14px; text-align: center; font-size: 11px; color: #4a5573; line-height: 1.65; max-width: 320px; margin: 0 auto; border: 0.5px solid #e2e6f0; }
+.scene-bubble strong { color: #1a2340; font-weight: 500; }
+.ai-bubble { background: #fff; border: 0.5px solid #e2e6f0; border-radius: var(--border-radius-md); padding: 10px 12px; max-width: 280px; font-size: 12px; color: #1a2340; line-height: 1.6; }
+.ai-bubble .py { font-size: 10px; color: #8a93a8; margin-top: 2px; }
+.hint-row { display: flex; justify-content: center; }
+.hint-btn { display: flex; align-items: center; gap: 5px; background: #f3f0fe; border-radius: 20px; padding: 5px 12px; font-size: 11px; color: #6c3fc5; cursor: pointer; border: 0.5px solid #ddd8f9; }
+.choices { display: flex; gap: 7px; }
+.choice { flex: 1; background: #fff; border: 0.5px solid #e2e6f0; border-radius: var(--border-radius-md); padding: 10px 8px; cursor: pointer; text-align: center; }
+.choice:hover { border-color: #1a8fa0; background: #f5feff; }
+.choice .zh { font-size: 13px; color: #1a2340; line-height: 1.55; }
+.choice .zh .hl { color: #f97316; }
+.choice .py { font-size: 9px; color: #8a93a8; margin-top: 3px; }
+.choice .py .hl { color: #f97316; }
+.chat-input-bar { padding: 10px 12px; border-top: 0.5px solid #e2e6f0; display: flex; align-items: center; gap: 7px; background: #fff; }
+.chat-input-bar input { flex: 1; background: #f5f7fa; border: 0.5px solid #e2e6f0; border-radius: 20px; padding: 7px 12px; font-size: 11px; color: #1a2340; outline: none; }
+.mic-btn { width: 28px; height: 28px; border-radius: 50%; background: #f5f7fa; border: 0.5px solid #e2e6f0; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #6b7a99; }
+.send-btn { width: 28px; height: 28px; border-radius: 50%; background: #1a8fa0; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #fff; }
+
+.right-panel { width: 210px; background: #f9fafb; border-left: 0.5px solid #e2e6f0; display: flex; flex-direction: column; overflow-y: auto; flex-shrink: 0; }
+.rp-section { padding: 12px 14px; border-bottom: 0.5px solid #e2e6f0; }
+.chapter-name { font-size: 13px; font-weight: 500; color: #1a2340; line-height: 1.4; margin-bottom: 3px; }
+.chapter-sub { font-size: 10px; color: #6b7a99; line-height: 1.5; margin-bottom: 8px; }
+.ch-prog-bar { background: #e2e6f0; height: 4px; border-radius: 20px; }
+.ch-prog-fill { background: #6c3fc5; height: 4px; border-radius: 20px; width: 33%; }
+.ch-prog-lbl { font-size: 10px; color: #8a93a8; margin-top: 4px; }
+.rp-label { font-size: 9px; font-weight: 500; color: #8a93a8; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 4px; }
+.rp-label i { font-size: 11px; }
+.task-row { display: flex; align-items: flex-start; gap: 7px; margin-bottom: 7px; }
+.t-radio { width: 15px; height: 15px; border-radius: 50%; border: 1.5px solid #e2e6f0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.t-radio.done { background: #16a34a; border-color: #16a34a; }
+.t-radio.active { background: #6c3fc5; border-color: #6c3fc5; }
+.t-radio i { font-size: 8px; color: #fff; }
+.t-text { font-size: 11px; color: #1a2340; line-height: 1.4; }
+.t-text.done { color: #16a34a; }
+.t-text.locked { color: #c0c7d6; }
+.vocab-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.vocab-pill { background: #f3f0fe; border-radius: 20px; padding: 2px 8px; font-size: 10px; color: #5b33a8; border: 0.5px solid #ddd8f9; }
+.vocab-note { font-size: 9px; color: #a0aab8; margin-top: 6px; line-height: 1.4; }
+</style>
+
+<h2 class="sr-only">StoryLoop — màn hình trang chủ chuyển sang màn hình học câu chuyện The Jade Emperor's Quest</h2>
+
+<div id="homeScreen" class="screen active">
+  <div class="app-shell">
+    <div class="sidebar">
+      <div class="sidebar-logo">
+        <div class="logo-mark"><i class="ti ti-book-2" style="font-size:13px;color:#fff;" aria-hidden="true"></i></div>
+        <span class="logo-text">StoryLoop</span>
+      </div>
+      <div class="nav-item active"><i class="ti ti-home" aria-hidden="true"></i> Trang chủ</div>
+      <div class="nav-item"><i class="ti ti-library" aria-hidden="true"></i> Thư viện</div>
+      <div class="nav-item"><i class="ti ti-chart-line" aria-hidden="true"></i> Tiến trình</div>
+      <div class="nav-item"><i class="ti ti-user" aria-hidden="true"></i> Hồ sơ</div>
+    </div>
+
+    <div class="main-area">
+      <div class="hero-banner">
+        <div class="hero-text">
+          <h2>Tiếp tục hành trình<br>học tiếng Trung!</h2>
+          <p>Học qua vai diễn — biến lý thuyết thành phản xạ tự nhiên.</p>
+          <div class="progress-row">
+            <span class="hsk-badge">HSK 3</span>
+            <div class="prog-bar"><div class="prog-fill"></div></div>
+            <span class="prog-label">68%</span>
+          </div>
+        </div>
+        <div class="panda">🐼</div>
+      </div>
+
+      <div>
+        <div class="section-header">
+          <span class="section-title">Tiếp tục câu chuyện</span>
+          <span class="section-link">Chi tiết &rsaquo;</span>
+        </div>
+        <div class="continue-card">
+          <div class="continue-thumb" style="background:#6c3fc5;">
+            <i class="ti ti-building-castle" style="font-size:30px;color:rgba(255,255,255,0.8);" aria-hidden="true"></i>
+          </div>
+          <div class="continue-info">
+            <div class="badge-row">
+              <span class="badge badge-hsk">HSK 3</span>
+              <span class="badge badge-level">Intermediate</span>
+            </div>
+            <div class="continue-title">The Jade Emperor's Quest</div>
+            <div class="continue-char">Nhân vật: Wei Lin &nbsp;·&nbsp; Chương 4/12</div>
+            <div class="continue-quote">"Hoàng đế cần người tìm viên ngọc đã mất — nhưng con đường phía trước đầy hiểm nguy..."</div>
+            <div class="continue-footer">
+              <button class="btn-continue" id="btnContinue">
+                <i class="ti ti-player-play" style="font-size:11px;" aria-hidden="true"></i>
+                Tiếp tục
+              </button>
+              <span class="time-hint">~12 phút</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-header">
+          <span class="section-title">Thư viện câu chuyện</span>
+          <span class="section-link">Xem tất cả &rsaquo;</span>
+        </div>
+        <div class="library-grid">
+          <div class="lib-card">
+            <div class="lib-thumb purple"><i class="ti ti-building-castle" aria-hidden="true"></i></div>
+            <div class="lib-info">
+              <div class="lib-title">The Jade Emperor's Quest</div>
+              <div class="lib-badges"><span class="lib-badge lb-hsk">HSK3</span><span class="lib-badge lb-lv">Inter</span></div>
+            </div>
+          </div>
+          <div class="lib-card">
+            <div class="lib-thumb pink"><i class="ti ti-pagoda" aria-hidden="true"></i></div>
+            <div class="lib-info">
+              <div class="lib-title">A Night In Old Beijing</div>
+              <div class="lib-badges"><span class="lib-badge lb-hsk">HSK2</span><span class="lib-badge lb-lv">Begin</span></div>
+            </div>
+          </div>
+          <div class="lib-card">
+            <div class="lib-thumb orange"><i class="ti ti-confetti" aria-hidden="true"></i></div>
+            <div class="lib-info">
+              <div class="lib-title">Dragon Festival Secrets</div>
+              <div class="lib-badges"><span class="lib-badge lb-hsk">HSK4</span><span class="lib-badge lb-lv">Inter</span></div>
+            </div>
+          </div>
+          <div class="lib-card">
+            <div class="lib-thumb teal"><i class="ti ti-mail" aria-hidden="true"></i></div>
+            <div class="lib-info">
+              <div class="lib-title">Cherry Blossom Letters</div>
+              <div class="lib-badges"><span class="lib-badge lb-hsk">HSK1</span><span class="lib-badge lb-lv">Begin</span></div>
+            </div>
+          </div>
+          <div class="lib-card">
+            <div class="lib-thumb green"><i class="ti ti-map-route" aria-hidden="true"></i></div>
+            <div class="lib-info">
+              <div class="lib-title">The Silk Road Merchant</div>
+              <div class="lib-badges"><span class="lib-badge lb-hsk">HSK5</span><span class="lib-badge lb-lv">Adv</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="daily-banner">
+        <div class="daily-left">
+          <div class="daily-icon"><i class="ti ti-flame" aria-hidden="true"></i></div>
+          <div class="daily-text">
+            <p>Thử thách hàng ngày <span style="background:#fde8c0;color:#854f0b;font-size:9px;padding:1px 6px;border-radius:20px;margin-left:4px;">Mới</span></p>
+            <span>Hoàn thành 3 cảnh trong câu chuyện mới hôm nay</span>
+          </div>
+        </div>
+        <div class="daily-xp"><i class="ti ti-bolt" style="font-size:12px;" aria-hidden="true"></i> +50 XP</div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="ti ti-book-2" aria-hidden="true"></i></div>
+          <div><div class="stat-val">1,247</div><div class="stat-lbl">Từ đã học</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange"><i class="ti ti-device-gamepad-2" aria-hidden="true"></i></div>
+          <div><div class="stat-val">8</div><div class="stat-lbl">Câu chuyện hoàn thành</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon amber"><i class="ti ti-bolt" aria-hidden="true"></i></div>
+          <div><div class="stat-val">3,890</div><div class="stat-lbl">Tổng XP</div></div>
+        </div>
+      </div>
+
+      <div class="streak-footer">
+        <i class="ti ti-flame" style="font-size:14px;color:#f97316;" aria-hidden="true"></i>
+        <strong style="color:#1a2340;">14 ngày</strong>
+        <i class="ti ti-flame" style="font-size:14px;color:#f97316;" aria-hidden="true"></i>
+        &nbsp; Còn 6 ngày để đạt huy hiệu 20 ngày
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="chatScreen" class="screen">
+  <div class="chat-app">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button id="btnBack" style="background:none;border:none;cursor:pointer;color:#6b7a99;display:flex;align-items:center;gap:4px;font-size:11px;padding:0;">
+          <i class="ti ti-arrow-left" style="font-size:15px;" aria-hidden="true"></i> Trang chủ
+        </button>
+        <span style="color:#e2e6f0;">|</span>
+        <span class="topbar-title">The Jade Emperor's Quest</span>
+      </div>
+      <div class="topbar-right">
+        <span style="font-size:10px;color:#6b7a99;background:#f5f7fa;padding:3px 8px;border-radius:20px;border:0.5px solid #e2e6f0;">Chương 4/12</span>
+        <div class="streak-pill"><i class="ti ti-flame" style="font-size:12px;" aria-hidden="true"></i> 14</div>
+        <div class="user-av">WL</div>
+      </div>
+    </div>
+
+    <div class="chat-body">
+      <div class="chat-col">
+        <div class="chat-subbar">
+          <div class="live-pill"><div class="live-dot"></div> Live Scenario</div>
+          <div class="pinyin-pill"><i class="ti ti-eye" style="font-size:11px;" aria-hidden="true"></i> Đang bật Pinyin</div>
+        </div>
+
+        <div class="messages">
+          <div class="scene-bubble">
+            <strong>Chương 4: Cổng Thiên Đình (天庭之门)</strong><br>
+            Wei Lin đứng trước cổng Thiên Đình. Một vị thần canh gác chặn đường — để được vào, nàng phải chứng minh mình là sứ giả của Ngọc Hoàng.
+          </div>
+
+          <div class="ai-bubble">
+            <div>什么人？你来天庭有何贵干？</div>
+            <div class="py">Shénme rén? Nǐ lái Tiāntíng yǒu hé guìgàn?</div>
+          </div>
+
+          <div class="hint-row">
+            <div class="hint-btn"><i class="ti ti-bulb" style="font-size:12px;" aria-hidden="true"></i> Bí quá? Phân tích tình huống</div>
+          </div>
+
+          <div class="choices">
+            <div class="choice">
+              <div class="zh">我是<span class="hl">玉皇大帝</span>的使者。</div>
+              <div class="py">Wǒ shì <span class="hl">Yùhuáng Dàdì</span> de shǐzhě.</div>
+            </div>
+            <div class="choice">
+              <div class="zh">我来寻找<span class="hl">失落的玉</span>。</div>
+              <div class="py">Wǒ lái xúnzhǎo <span class="hl">shīluò de yù</span>.</div>
+            </div>
+            <div class="choice">
+              <div class="zh">请让我<span class="hl">进入</span>！</div>
+              <div class="py">Qǐng ràng wǒ <span class="hl">jìnrù</span>!</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input-bar">
+          <input placeholder="Nhập câu tiếng Trung của bạn (hoặc chọn bên trên)..." />
+          <div class="mic-btn"><i class="ti ti-microphone" style="font-size:13px;" aria-hidden="true"></i></div>
+          <div class="send-btn"><i class="ti ti-arrow-up" style="font-size:13px;" aria-hidden="true"></i></div>
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <div class="rp-section">
+          <div class="chapter-name">Chương 4: Cổng Thiên Đình (天庭之门)</div>
+          <div class="chapter-sub">Mục tiêu: Thuyết phục thần canh gác để được vào Thiên Đình tìm ngọc.</div>
+          <div class="ch-prog-bar"><div class="ch-prog-fill"></div></div>
+          <div class="ch-prog-lbl">Nhiệm vụ 1/3</div>
+        </div>
+
+        <div class="rp-section">
+          <div class="rp-label"><i class="ti ti-target" aria-hidden="true"></i> Nhiệm vụ hiện tại</div>
+          <div class="task-row">
+            <div class="t-radio done"><i class="ti ti-check" aria-hidden="true"></i></div>
+            <div class="t-text done">Đến được Cổng Thiên Đình</div>
+          </div>
+          <div class="task-row">
+            <div class="t-radio active"><i class="ti ti-point" style="font-size:7px;" aria-hidden="true"></i></div>
+            <div class="t-text">Thuyết phục thần canh gác</div>
+          </div>
+          <div class="task-row">
+            <div class="t-radio"><span></span></div>
+            <div class="t-text locked">??? (Nhiệm vụ ẩn)</div>
+          </div>
+          <div class="task-row">
+            <div class="t-radio"><span></span></div>
+            <div class="t-text locked">??? (Nhiệm vụ ẩn)</div>
+          </div>
+        </div>
+
+        <div class="rp-section">
+          <div class="rp-label"><i class="ti ti-book" aria-hidden="true"></i> Trọng tâm HSK</div>
+          <div class="vocab-pills">
+            <div class="vocab-pill">玉皇大帝</div>
+            <div class="vocab-pill">使者</div>
+            <div class="vocab-pill">天庭</div>
+            <div class="vocab-pill">失落</div>
+            <div class="vocab-pill">进入</div>
+            <div class="vocab-pill">证明</div>
+            <div class="vocab-pill">守卫</div>
+          </div>
+          <div class="vocab-note">* Các từ màu cam trong hội thoại là từ trọng tâm. Trỏ vào để nhắc nghĩa!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('btnContinue').addEventListener('click', function() {
+    document.getElementById('homeScreen').classList.remove('active');
+    document.getElementById('chatScreen').classList.add('active');
+  });
+  document.getElementById('btnBack').addEventListener('click', function() {
+    document.getElementById('chatScreen').classList.remove('active');
+    document.getElementById('homeScreen').classList.add('active');
+  });
+</script>

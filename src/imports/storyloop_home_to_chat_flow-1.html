@@ -1,0 +1,512 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:var(--font-sans);}
+.app{width:100%;background:#f0f2f5;border-radius:var(--border-radius-lg);overflow:hidden;}
+.screen{display:none;}
+.screen.active{display:flex;}
+
+/* ── SHARED SIDEBAR ── */
+.sidebar{width:158px;background:#fff;border-right:0.5px solid #e2e6f0;display:flex;flex-direction:column;padding:14px 0;flex-shrink:0;}
+.logo-row{display:flex;align-items:center;gap:7px;padding:0 13px 16px;}
+.logo-mark{width:25px;height:25px;background:#1a8fa0;border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.logo-text{font-size:13px;font-weight:500;color:#1a2340;}
+.nav-item{display:flex;align-items:center;gap:8px;padding:8px 13px;font-size:12px;color:#6b7a99;cursor:pointer;border-left:2px solid transparent;}
+.nav-item.active{color:#1a8fa0;background:#eef8fa;border-left-color:#1a8fa0;}
+.nav-item i{font-size:15px;}
+
+/* ── TOPBAR ── */
+.topbar{padding:11px 18px;border-bottom:0.5px solid #e2e6f0;background:#fff;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.tb-title{font-size:13px;font-weight:500;color:#1a2340;}
+.tb-right{display:flex;align-items:center;gap:8px;}
+.streak-pill{display:flex;align-items:center;gap:4px;background:#fff4ee;padding:3px 9px;border-radius:20px;font-size:11px;color:#f97316;font-weight:500;}
+.user-av{width:26px;height:26px;border-radius:50%;background:#1a8fa0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:#fff;}
+
+/* ── HOME ── */
+.home-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:14px;}
+.hero{background:#1a8fa0;border-radius:var(--border-radius-lg);padding:18px 20px;display:flex;align-items:center;justify-content:space-between;}
+.hero-txt h2{font-size:16px;font-weight:500;color:#fff;line-height:1.4;margin-bottom:3px;}
+.hero-txt p{font-size:10px;color:rgba(255,255,255,.75);margin-bottom:10px;}
+.prog-row{display:flex;align-items:center;gap:7px;}
+.hsk-badge{background:rgba(255,255,255,.2);color:#fff;font-size:9px;padding:2px 7px;border-radius:20px;font-weight:500;}
+.pb{flex:1;height:4px;background:rgba(255,255,255,.3);border-radius:20px;max-width:140px;}
+.pf{height:4px;border-radius:20px;background:#f97316;width:68%;}
+.panda-icon{font-size:36px;color:rgba(255,255,255,.85);}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
+.sec-ttl{font-size:12px;font-weight:500;color:#1a2340;}
+.sec-lnk{font-size:11px;color:#1a8fa0;cursor:pointer;}
+.continue-card{background:#fff;border-radius:var(--border-radius-lg);border:0.5px solid #e2e6f0;display:flex;overflow:hidden;}
+.ct-thumb{width:78px;background:#6c3fc5;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ct-info{padding:11px 13px;flex:1;}
+.badge-row{display:flex;gap:4px;margin-bottom:5px;}
+.badge{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:500;}
+.b-hsk{background:#eef8fa;color:#0e7a8a;}
+.b-lvl{background:#f3f0fe;color:#5b33a8;}
+.ct-title{font-size:13px;font-weight:500;color:#1a2340;margin-bottom:2px;}
+.ct-char{font-size:10px;color:#6b7a99;margin-bottom:5px;}
+.ct-quote{font-size:10px;color:#8a93a8;line-height:1.5;margin-bottom:9px;font-style:italic;}
+.ct-footer{display:flex;align-items:center;justify-content:space-between;}
+.btn-orange{background:#f97316;color:#fff;border:none;border-radius:20px;padding:6px 14px;font-size:11px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:4px;}
+.btn-orange:hover{background:#ea6a0a;}
+.time-hint{font-size:10px;color:#8a93a8;}
+.lib-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;}
+.lib-card{background:#fff;border-radius:var(--border-radius-md);border:0.5px solid #e2e6f0;overflow:hidden;cursor:pointer;transition:border-color .15s;}
+.lib-card:hover{border-color:#1a8fa0;}
+.lib-thumb{height:48px;display:flex;align-items:center;justify-content:center;}
+.lc-purple{background:#6c3fc5;} .lc-pink{background:#e0417f;} .lc-orange{background:#f97316;} .lc-teal{background:#1a8fa0;} .lc-green{background:#16a34a;}
+.lib-thumb i{font-size:20px;color:rgba(255,255,255,.85);}
+.lib-info{padding:5px 6px;}
+.lib-title{font-size:10px;font-weight:500;color:#1a2340;margin-bottom:3px;line-height:1.3;}
+.lib-badges{display:flex;gap:3px;flex-wrap:wrap;}
+.lb{font-size:8px;padding:1px 5px;border-radius:20px;}
+.lb-h{background:#eef8fa;color:#0e7a8a;} .lb-l{background:#f3f0fe;color:#5b33a8;}
+.daily-strip{background:#fffbf0;border:0.5px solid #fde8c0;border-radius:var(--border-radius-md);padding:9px 13px;display:flex;align-items:center;justify-content:space-between;}
+.daily-l{display:flex;align-items:center;gap:8px;}
+.daily-ic{width:26px;height:26px;background:#f97316;border-radius:7px;display:flex;align-items:center;justify-content:center;}
+.daily-ic i{font-size:13px;color:#fff;}
+.daily-txt p{font-size:11px;font-weight:500;color:#1a2340;}
+.daily-txt span{font-size:10px;color:#8a6830;}
+.xp-pill{background:#fde8c0;color:#854f0b;font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;display:flex;align-items:center;gap:3px;}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
+.stat-card{background:#fff;border-radius:var(--border-radius-md);border:0.5px solid #e2e6f0;padding:9px 11px;display:flex;align-items:center;gap:7px;}
+.stat-ic{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.si-teal{background:#eef8fa;} .si-org{background:#fff4ee;} .si-amb{background:#fffbf0;}
+.si-teal i{color:#1a8fa0;} .si-org i{color:#f97316;} .si-amb i{color:#d97706;}
+.stat-ic i{font-size:13px;}
+.stat-val{font-size:14px;font-weight:500;color:#1a2340;}
+.stat-lbl{font-size:9px;color:#8a93a8;}
+.streak-bar{background:#fffbf0;border-radius:var(--border-radius-md);padding:7px 13px;display:flex;align-items:center;gap:5px;font-size:11px;color:#8a6830;border:0.5px solid #fde8c0;}
+
+/* ── CHAT SCREEN ── */
+.chat-main{flex:1;display:flex;flex-direction:column;}
+.chat-body{flex:1;display:flex;overflow:hidden;}
+.chat-col{flex:1;display:flex;flex-direction:column;background:#fff;}
+.chat-subbar{padding:8px 13px;border-bottom:0.5px solid #e2e6f0;display:flex;align-items:center;justify-content:space-between;}
+.live-pill{display:flex;align-items:center;gap:5px;font-size:11px;color:#16a34a;font-weight:500;}
+.live-dot{width:6px;height:6px;background:#16a34a;border-radius:50%;}
+.pinyin-tog{display:flex;align-items:center;gap:4px;background:#f3f0fe;border-radius:20px;padding:3px 9px;font-size:10px;color:#6c3fc5;cursor:pointer;}
+.messages{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:10px;}
+.scene-bub{background:#f0f4f8;border-radius:var(--border-radius-md);padding:11px 13px;text-align:center;font-size:11px;color:#4a5573;line-height:1.6;max-width:310px;margin:0 auto;border:0.5px solid #e2e6f0;}
+.scene-bub strong{color:#1a2340;font-weight:500;}
+.ai-bub{background:#fff;border:0.5px solid #e2e6f0;border-radius:var(--border-radius-md);padding:9px 11px;max-width:260px;font-size:12px;color:#1a2340;line-height:1.55;}
+.ai-bub .py{font-size:9px;color:#8a93a8;margin-top:2px;}
+.hint-row{display:flex;justify-content:center;}
+.hint-btn{display:flex;align-items:center;gap:5px;background:#f3f0fe;border-radius:20px;padding:5px 11px;font-size:11px;color:#6c3fc5;cursor:pointer;border:0.5px solid #ddd8f9;}
+.choices{display:flex;gap:6px;}
+.choice{flex:1;background:#fff;border:0.5px solid #e2e6f0;border-radius:var(--border-radius-md);padding:9px 7px;cursor:pointer;text-align:center;transition:border-color .15s;}
+.choice:hover{border-color:#1a8fa0;background:#f5feff;}
+.choice .zh{font-size:12px;color:#1a2340;line-height:1.5;}
+.choice .zh .hl{color:#f97316;}
+.choice .pn{font-size:9px;color:#8a93a8;margin-top:2px;}
+.choice .pn .hl{color:#f97316;}
+.chat-input-bar{padding:9px 11px;border-top:0.5px solid #e2e6f0;display:flex;align-items:center;gap:6px;background:#fff;flex-shrink:0;}
+.chat-input-bar input{flex:1;background:#f5f7fa;border:0.5px solid #e2e6f0;border-radius:20px;padding:6px 11px;font-size:11px;color:#1a2340;outline:none;}
+.mic-btn{width:27px;height:27px;border-radius:50%;background:#f5f7fa;border:0.5px solid #e2e6f0;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#6b7a99;}
+.send-btn{width:27px;height:27px;border-radius:50%;background:#1a8fa0;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;}
+.rpanel{width:200px;background:#f9fafb;border-left:0.5px solid #e2e6f0;display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0;}
+.rp-sec{padding:11px 13px;border-bottom:0.5px solid #e2e6f0;}
+.ch-name{font-size:12px;font-weight:500;color:#1a2340;line-height:1.4;margin-bottom:3px;}
+.ch-sub{font-size:10px;color:#6b7a99;line-height:1.5;margin-bottom:7px;}
+.cpb{background:#e2e6f0;height:4px;border-radius:20px;}
+.cpf{background:#6c3fc5;height:4px;border-radius:20px;width:33%;}
+.cp-lbl{font-size:10px;color:#8a93a8;margin-top:3px;}
+.rp-lbl{font-size:9px;font-weight:500;color:#8a93a8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:3px;}
+.rp-lbl i{font-size:11px;}
+.task-row{display:flex;align-items:flex-start;gap:6px;margin-bottom:6px;}
+.t-radio{width:14px;height:14px;border-radius:50%;border:1.5px solid #e2e6f0;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.t-radio.done{background:#16a34a;border-color:#16a34a;}
+.t-radio.act{background:#6c3fc5;border-color:#6c3fc5;}
+.t-radio i{font-size:8px;color:#fff;}
+.t-txt{font-size:11px;color:#1a2340;line-height:1.35;}
+.t-txt.done{color:#16a34a;}
+.t-txt.locked{color:#c0c7d6;}
+.vocab-pills{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px;}
+.vp{background:#f3f0fe;border-radius:20px;padding:2px 7px;font-size:10px;color:#5b33a8;border:0.5px solid #ddd8f9;}
+.vocab-note{font-size:9px;color:#a0aab8;margin-top:5px;line-height:1.4;}
+.chat-tabbar{display:grid;grid-template-columns:1fr 1fr;border-top:0.5px solid #e2e6f0;background:#fff;flex-shrink:0;}
+.ctab{padding:9px;text-align:center;font-size:11px;color:#6b7a99;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;background:none;border:none;}
+.ctab.active{color:#f97316;}
+.ctab i{font-size:15px;}
+
+/* ── BLOOM SCREEN ── */
+.bloom-wrap{flex:1;overflow-y:auto;background:#13151f;}
+.bloom-top{background:#0f1117;padding:10px 14px 0;border-bottom:0.5px solid #2a2d3e;}
+.bl-lbl{font-size:9px;color:#6b7a99;letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px;}
+.bl-steps{display:flex;gap:5px;}
+.bl-step{flex:1;padding:6px 4px 7px;border-radius:7px 7px 0 0;text-align:center;cursor:pointer;border:0.5px solid transparent;border-bottom:none;}
+.bl-step .bsi{font-size:13px;margin-bottom:2px;}
+.bl-step .bsn{font-size:8px;}
+.bl-step .bsl{font-size:10px;font-weight:500;}
+.bl-inactive{background:#1a1d2a;color:#6b7a99;}
+.bl-done{background:#1a2a1e;border-color:#1d5c2e;} .bl-done .bsl,.bl-done .bsn{color:#5dcaa5;}
+.bl-active{background:#13151f;border-color:#2a2d3e;} .bl-active .bsl{color:#e2e8f0;} .bl-active .bsn{color:#1a8fa0;}
+.bl-content{padding:14px;}
+.bl-pbrow{display:flex;align-items:center;gap:7px;margin-bottom:11px;}
+.bl-pb{flex:1;height:4px;background:#2a2d3e;border-radius:20px;}
+.bl-pf{height:4px;border-radius:20px;background:#1a8fa0;transition:width .3s;}
+.bl-pt{font-size:10px;color:#6b7a99;}
+.bl-xp{display:flex;align-items:center;gap:3px;background:#1a2a1e;border:0.5px solid #1d5c2e;border-radius:20px;padding:3px 7px;font-size:10px;color:#5dcaa5;}
+.sbadge{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:4px 11px;font-size:10px;font-weight:500;margin-bottom:11px;}
+.card-main-d{background:#1a1d2a;border-radius:var(--border-radius-lg);padding:18px 14px;text-align:center;border:0.5px solid #2a2d3e;margin-bottom:11px;}
+.src-lbl{font-size:10px;color:#6b7a99;margin-bottom:5px;display:flex;align-items:center;justify-content:center;gap:4px;}
+.src-lbl i{font-size:11px;}
+.q-txt{font-size:11px;color:#8892a4;margin-bottom:9px;}
+.zh-big{font-size:48px;color:#e2e8f0;line-height:1.1;margin-bottom:3px;}
+.pinyin-d{font-size:12px;font-weight:500;margin-bottom:2px;}
+.zh-sent{font-size:14px;color:#e2e8f0;line-height:1.5;margin-bottom:3px;}
+.vi-sent{font-size:11px;color:#8892a4;line-height:1.5;}
+.use-prom{font-size:11px;color:#8892a4;line-height:1.5;margin-bottom:14px;background:#1e2130;border-radius:var(--border-radius-md);padding:9px 11px;border:0.5px solid #2a2d3e;}
+.use-prom strong{color:#e2e8f0;font-weight:500;}
+.dchoices{display:flex;flex-direction:column;gap:6px;margin-bottom:11px;}
+.dchoice{background:#1a1d2a;border:0.5px solid #2a2d3e;border-radius:var(--border-radius-md);padding:10px 12px;cursor:pointer;font-size:12px;color:#e2e8f0;text-align:left;display:flex;align-items:center;justify-content:space-between;transition:border-color .1s;}
+.dchoice:hover{border-color:#1a8fa0;}
+.dchoice.correct{background:#1a2a1e;border-color:#5dcaa5;color:#5dcaa5;}
+.dchoice.wrong{background:#2a1a1a;border-color:#e24b4a;color:#e24b4a;}
+.dchoice .ci{font-size:13px;}
+.write-area{margin-bottom:11px;}
+.write-lbl{font-size:10px;color:#8892a4;margin-bottom:5px;}
+.write-inp{width:100%;background:#1a1d2a;border:0.5px solid #2a2d3e;border-radius:var(--border-radius-md);padding:9px 11px;font-size:13px;color:#e2e8f0;outline:none;resize:none;}
+.write-inp:focus{border-color:#1a8fa0;}
+.write-inp.correct{border-color:#5dcaa5;background:#1a2a1e;}
+.write-inp.wrong{border-color:#e24b4a;background:#2a1a1a;}
+.act-row{display:flex;gap:6px;}
+.btn-teal{flex:1;background:#1a8fa0;color:#fff;border:none;border-radius:var(--border-radius-md);padding:9px;font-size:11px;font-weight:500;cursor:pointer;}
+.btn-teal:hover{background:#158090;}
+.btn-ghost{background:#1a1d2a;color:#6b7a99;border:0.5px solid #2a2d3e;border-radius:var(--border-radius-md);padding:9px 12px;font-size:11px;cursor:pointer;}
+.feedback-d{border-radius:var(--border-radius-md);padding:9px 11px;margin-bottom:11px;font-size:11px;line-height:1.5;display:none;}
+.feedback-d.show{display:block;}
+.feedback-d.ok{background:#1a2a1e;border:0.5px solid #1d5c2e;color:#5dcaa5;}
+.feedback-d.bad{background:#2a1a1a;border:0.5px solid #5c1d1d;color:#f09595;}
+.feedback-d strong{font-weight:500;}
+.bloom-tabbar{display:grid;grid-template-columns:1fr 1fr;background:#0f1117;border-top:0.5px solid #2a2d3e;flex-shrink:0;}
+.btab{padding:9px;text-align:center;font-size:11px;color:#6b7a99;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;background:none;border:none;}
+.btab.active{color:#f97316;}
+.btab i{font-size:15px;}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+</style>
+
+<h2 class="sr-only">StoryLoop — ba màn hình: Trang chủ, Học câu chuyện, Phòng tập từ vựng Bloom</h2>
+
+<div class="app">
+
+<!-- ═══ SCREEN 1: HOME ═══ -->
+<div class="screen active" id="s-home" style="height:620px;">
+  <div class="sidebar">
+    <div class="logo-row">
+      <div class="logo-mark"><i class="ti ti-book-2" style="font-size:12px;color:#fff;" aria-hidden="true"></i></div>
+      <span class="logo-text">StoryLoop</span>
+    </div>
+    <div class="nav-item active"><i class="ti ti-home" aria-hidden="true"></i> Trang chủ</div>
+    <div class="nav-item" onclick="goTo('s-home')"><i class="ti ti-library" aria-hidden="true"></i> Thư viện</div>
+    <div class="nav-item"><i class="ti ti-chart-line" aria-hidden="true"></i> Tiến trình</div>
+    <div class="nav-item"><i class="ti ti-user" aria-hidden="true"></i> Hồ sơ</div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
+    <div class="topbar">
+      <span class="tb-title">Chào buổi sáng, Nguyễn Minh Anh</span>
+      <div class="tb-right">
+        <div class="streak-pill"><i class="ti ti-flame" style="font-size:12px;" aria-hidden="true"></i> 14</div>
+        <div class="user-av">MA</div>
+      </div>
+    </div>
+    <div class="home-body">
+      <div class="hero">
+        <div class="hero-txt">
+          <h2>Tiếp tục hành trình<br>học tiếng Trung!</h2>
+          <p>Học qua vai diễn — biến lý thuyết thành phản xạ tự nhiên.</p>
+          <div class="prog-row">
+            <span class="hsk-badge">HSK 3</span>
+            <div class="pb"><div class="pf"></div></div>
+            <span style="font-size:10px;color:rgba(255,255,255,.85);">68%</span>
+          </div>
+        </div>
+        <div class="panda-icon"><i class="ti ti-mood-happy" aria-hidden="true"></i></div>
+      </div>
+
+      <div>
+        <div class="sec-hdr">
+          <span class="sec-ttl">Tiếp tục câu chuyện</span>
+          <span class="sec-lnk">Chi tiết &rsaquo;</span>
+        </div>
+        <div class="continue-card">
+          <div class="ct-thumb"><i class="ti ti-building-castle" style="font-size:26px;color:rgba(255,255,255,.8);" aria-hidden="true"></i></div>
+          <div class="ct-info">
+            <div class="badge-row"><span class="badge b-hsk">HSK 3</span><span class="badge b-lvl">Intermediate</span></div>
+            <div class="ct-title">The Jade Emperor's Quest</div>
+            <div class="ct-char">Nhân vật: Wei Lin &nbsp;·&nbsp; Chương 4/12</div>
+            <div class="ct-quote">"Hoàng đế cần người tìm viên ngọc đã mất — nhưng con đường phía trước đầy hiểm nguy..."</div>
+            <div class="ct-footer">
+              <button class="btn-orange" onclick="goTo('s-chat')"><i class="ti ti-player-play" style="font-size:10px;" aria-hidden="true"></i> Tiếp tục</button>
+              <span class="time-hint">~12 phút</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sec-hdr">
+          <span class="sec-ttl">Thư viện câu chuyện</span>
+          <span class="sec-lnk" onclick="goTo('s-bloom')" style="cursor:pointer;">Xem tất cả &rsaquo;</span>
+        </div>
+        <div class="lib-grid">
+          <div class="lib-card" onclick="goTo('s-bloom')">
+            <div class="lib-thumb lc-purple"><i class="ti ti-building-castle" aria-hidden="true"></i></div>
+            <div class="lib-info"><div class="lib-title">Jade Emperor's Quest</div><div class="lib-badges"><span class="lb lb-h">HSK3</span><span class="lb lb-l">Inter</span></div></div>
+          </div>
+          <div class="lib-card" onclick="goTo('s-bloom')">
+            <div class="lib-thumb lc-pink"><i class="ti ti-pagoda" aria-hidden="true"></i></div>
+            <div class="lib-info"><div class="lib-title">A Night In Old Beijing</div><div class="lib-badges"><span class="lb lb-h">HSK2</span><span class="lb lb-l">Begin</span></div></div>
+          </div>
+          <div class="lib-card" onclick="goTo('s-bloom')">
+            <div class="lib-thumb lc-orange"><i class="ti ti-confetti" aria-hidden="true"></i></div>
+            <div class="lib-info"><div class="lib-title">Dragon Festival Secrets</div><div class="lib-badges"><span class="lb lb-h">HSK4</span><span class="lb lb-l">Inter</span></div></div>
+          </div>
+          <div class="lib-card" onclick="goTo('s-bloom')">
+            <div class="lib-thumb lc-teal"><i class="ti ti-mail" aria-hidden="true"></i></div>
+            <div class="lib-info"><div class="lib-title">Cherry Blossom Letters</div><div class="lib-badges"><span class="lb lb-h">HSK1</span><span class="lb lb-l">Begin</span></div></div>
+          </div>
+          <div class="lib-card" onclick="goTo('s-bloom')">
+            <div class="lib-thumb lc-green"><i class="ti ti-map-route" aria-hidden="true"></i></div>
+            <div class="lib-info"><div class="lib-title">The Silk Road Merchant</div><div class="lib-badges"><span class="lb lb-h">HSK5</span><span class="lb lb-l">Adv</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="daily-strip">
+        <div class="daily-l">
+          <div class="daily-ic"><i class="ti ti-flame" aria-hidden="true"></i></div>
+          <div class="daily-txt"><p>Thử thách hàng ngày <span style="background:#fde8c0;color:#854f0b;font-size:8px;padding:1px 5px;border-radius:20px;margin-left:3px;">Mới</span></p><span>Hoàn thành 3 cảnh trong câu chuyện mới hôm nay</span></div>
+        </div>
+        <div class="xp-pill"><i class="ti ti-bolt" style="font-size:11px;" aria-hidden="true"></i> +50 XP</div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-ic si-teal"><i class="ti ti-book-2" aria-hidden="true"></i></div><div><div class="stat-val">1,247</div><div class="stat-lbl">Từ đã học</div></div></div>
+        <div class="stat-card"><div class="stat-ic si-org"><i class="ti ti-device-gamepad-2" aria-hidden="true"></i></div><div><div class="stat-val">8</div><div class="stat-lbl">Câu chuyện</div></div></div>
+        <div class="stat-card"><div class="stat-ic si-amb"><i class="ti ti-bolt" aria-hidden="true"></i></div><div><div class="stat-val">3,890</div><div class="stat-lbl">Tổng XP</div></div></div>
+      </div>
+      <div class="streak-bar"><i class="ti ti-flame" style="font-size:13px;color:#f97316;" aria-hidden="true"></i><strong style="color:#1a2340;">14 ngày</strong><i class="ti ti-flame" style="font-size:13px;color:#f97316;" aria-hidden="true"></i>&nbsp; Còn 6 ngày để đạt huy hiệu 20 ngày</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 2: CHAT ═══ -->
+<div class="screen" id="s-chat" style="height:620px;flex-direction:column;">
+  <div style="display:flex;flex:1;overflow:hidden;">
+    <div class="sidebar">
+      <div class="logo-row">
+        <div class="logo-mark"><i class="ti ti-book-2" style="font-size:12px;color:#fff;" aria-hidden="true"></i></div>
+        <span class="logo-text">StoryLoop</span>
+      </div>
+      <div class="nav-item" onclick="goTo('s-home')"><i class="ti ti-home" aria-hidden="true"></i> Trang chủ</div>
+      <div class="nav-item active"><i class="ti ti-device-gamepad-2" aria-hidden="true"></i> Nhiệm vụ</div>
+      <div class="nav-item"><i class="ti ti-chart-line" aria-hidden="true"></i> Tiến trình</div>
+      <div class="nav-item"><i class="ti ti-user" aria-hidden="true"></i> Hồ sơ</div>
+    </div>
+    <div class="chat-main">
+      <div class="topbar">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button onclick="goTo('s-home')" style="background:none;border:none;cursor:pointer;color:#6b7a99;display:flex;align-items:center;gap:3px;font-size:11px;"><i class="ti ti-arrow-left" style="font-size:14px;" aria-hidden="true"></i> Trang chủ</button>
+          <span style="color:#e2e6f0;">|</span>
+          <span class="tb-title">The Jade Emperor's Quest</span>
+        </div>
+        <div class="tb-right">
+          <span style="font-size:10px;color:#6b7a99;background:#f5f7fa;padding:3px 8px;border-radius:20px;border:0.5px solid #e2e6f0;">Chương 4/12</span>
+          <div class="streak-pill"><i class="ti ti-flame" style="font-size:12px;" aria-hidden="true"></i> 14</div>
+          <div class="user-av">WL</div>
+        </div>
+      </div>
+      <div class="chat-body">
+        <div class="chat-col">
+          <div class="chat-subbar">
+            <div class="live-pill"><div class="live-dot"></div> Live Scenario</div>
+            <div class="pinyin-tog"><i class="ti ti-eye" style="font-size:11px;" aria-hidden="true"></i> Đang bật Pinyin</div>
+          </div>
+          <div class="messages">
+            <div class="scene-bub"><strong>Chương 4: Cổng Thiên Đình (天庭之门)</strong><br>Wei Lin đứng trước cổng Thiên Đình. Một vị thần canh gác chặn đường — để được vào, nàng phải chứng minh mình là sứ giả của Ngọc Hoàng.</div>
+            <div class="ai-bub"><div>什么人？你来天庭有何贵干？</div><div class="py">Shénme rén? Nǐ lái Tiāntíng yǒu hé guìgàn?</div></div>
+            <div class="hint-row"><div class="hint-btn"><i class="ti ti-bulb" style="font-size:12px;" aria-hidden="true"></i> Bí quá? Phân tích tình huống</div></div>
+            <div class="choices">
+              <div class="choice"><div class="zh">我是<span class="hl">玉皇大帝</span>的使者。</div><div class="pn">Wǒ shì <span class="hl">Yùhuáng</span> de shǐzhě.</div></div>
+              <div class="choice"><div class="zh">我来寻找<span class="hl">失落的玉</span>。</div><div class="pn">Wǒ lái xúnzhǎo <span class="hl">shīluò de yù</span>.</div></div>
+              <div class="choice"><div class="zh">请让我<span class="hl">进入</span>！</div><div class="pn">Qǐng ràng wǒ <span class="hl">jìnrù</span>!</div></div>
+            </div>
+          </div>
+          <div class="chat-input-bar">
+            <input placeholder="Nhập câu tiếng Trung của bạn..."/>
+            <div class="mic-btn"><i class="ti ti-microphone" style="font-size:12px;" aria-hidden="true"></i></div>
+            <div class="send-btn"><i class="ti ti-arrow-up" style="font-size:12px;" aria-hidden="true"></i></div>
+          </div>
+        </div>
+        <div class="rpanel">
+          <div class="rp-sec">
+            <div class="ch-name">Chương 4: Cổng Thiên Đình (天庭之门)</div>
+            <div class="ch-sub">Mục tiêu: Thuyết phục thần canh gác để vào Thiên Đình tìm ngọc.</div>
+            <div class="cpb"><div class="cpf"></div></div>
+            <div class="cp-lbl">Nhiệm vụ 1/3</div>
+          </div>
+          <div class="rp-sec">
+            <div class="rp-lbl"><i class="ti ti-target" aria-hidden="true"></i> Nhiệm vụ hiện tại</div>
+            <div class="task-row"><div class="t-radio done"><i class="ti ti-check" aria-hidden="true"></i></div><div class="t-txt done">Đến được Cổng Thiên Đình</div></div>
+            <div class="task-row"><div class="t-radio act"><i class="ti ti-point" style="font-size:7px;" aria-hidden="true"></i></div><div class="t-txt">Thuyết phục thần canh gác</div></div>
+            <div class="task-row"><div class="t-radio"></div><div class="t-txt locked">??? (Nhiệm vụ ẩn)</div></div>
+          </div>
+          <div class="rp-sec">
+            <div class="rp-lbl"><i class="ti ti-book" aria-hidden="true"></i> Trọng tâm HSK</div>
+            <div class="vocab-pills"><div class="vp">玉皇大帝</div><div class="vp">使者</div><div class="vp">天庭</div><div class="vp">失落</div><div class="vp">进入</div><div class="vp">证明</div></div>
+            <div class="vocab-note">* Từ màu cam là trọng tâm. Trỏ vào để nhắc nghĩa!</div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-tabbar">
+        <button class="ctab active" onclick="goTo('s-chat')"><i class="ti ti-building-castle" aria-hidden="true"></i> Jade Emperor's Quest</button>
+        <button class="ctab" onclick="goTo('s-bloom')"><i class="ti ti-shield-half" aria-hidden="true"></i> Phòng tập</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 3: BLOOM ═══ -->
+<div class="screen" id="s-bloom" style="height:620px;flex-direction:column;">
+  <div style="display:flex;flex:1;overflow:hidden;">
+    <div class="sidebar">
+      <div class="logo-row">
+        <div class="logo-mark"><i class="ti ti-book-2" style="font-size:12px;color:#fff;" aria-hidden="true"></i></div>
+        <span class="logo-text">StoryLoop</span>
+      </div>
+      <div class="nav-item" onclick="goTo('s-home')"><i class="ti ti-home" aria-hidden="true"></i> Trang chủ</div>
+      <div class="nav-item"><i class="ti ti-library" aria-hidden="true"></i> Thư viện</div>
+      <div class="nav-item"><i class="ti ti-chart-line" aria-hidden="true"></i> Tiến trình</div>
+      <div class="nav-item active"><i class="ti ti-shield-half" aria-hidden="true"></i> Phòng tập</div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
+      <div class="topbar" style="background:#0f1117;border-color:#2a2d3e;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button onclick="goTo('s-home')" style="background:none;border:none;cursor:pointer;color:#6b7a99;display:flex;align-items:center;gap:3px;font-size:11px;"><i class="ti ti-arrow-left" style="font-size:14px;" aria-hidden="true"></i> Trang chủ</button>
+          <span style="color:#2a2d3e;">|</span>
+          <span style="font-size:13px;font-weight:500;color:#e2e8f0;">Phòng tập từ vựng</span>
+        </div>
+        <div class="tb-right">
+          <div style="background:#1e2130;padding:3px 9px;border-radius:20px;font-size:11px;color:#f97316;display:flex;align-items:center;gap:4px;"><i class="ti ti-flame" style="font-size:12px;" aria-hidden="true"></i> 14</div>
+          <div class="user-av">MA</div>
+        </div>
+      </div>
+      <div style="flex:1;overflow-y:auto;background:#13151f;" id="bloom-scroll">
+        <div style="background:#0f1117;padding:10px 14px 0;border-bottom:0.5px solid #2a2d3e;">
+          <div class="bl-lbl">Tăng độ thành thạo theo mô hình Bloom</div>
+          <div class="bl-steps" id="bl-steps">
+            <div class="bl-step bl-done" id="bs0"><div class="bsi"><i class="ti ti-brain" aria-hidden="true"></i></div><div class="bsn">1</div><div class="bsl">Nhớ</div></div>
+            <div class="bl-step bl-active" id="bs1"><div class="bsi"><i class="ti ti-coffee" aria-hidden="true"></i></div><div class="bsn">2</div><div class="bsl">Hiểu</div></div>
+            <div class="bl-step bl-inactive" id="bs2"><div class="bsi"><i class="ti ti-bolt" aria-hidden="true"></i></div><div class="bsn">3</div><div class="bsl">Dùng</div></div>
+            <div class="bl-step bl-inactive" id="bs3"><div class="bsi"><i class="ti ti-pencil" aria-hidden="true"></i></div><div class="bsn">4</div><div class="bsl">Viết</div></div>
+          </div>
+        </div>
+        <div class="bl-content" id="bl-content"></div>
+      </div>
+      <div class="bloom-tabbar">
+        <button class="btab" onclick="goTo('s-chat')"><i class="ti ti-building-castle" aria-hidden="true"></i> Jade Emperor's Quest</button>
+        <button class="btab active"><i class="ti ti-shield-half" aria-hidden="true"></i> Phòng tập</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 's-bloom') { bloomStage = 1; bloomAnswered = false; renderBloom(); }
+}
+
+const bloomData = [
+  { id:0, type:'nhớ', color:'#5dcaa5', bg:'#1a2a1e', border:'#1d5c2e', label:'Kiểm tra trí nhớ',
+    q:'Nghĩa của Hán tự này là gì?', char:'天庭', pinyin:'Tiāntíng', pinyinColor:'#5dcaa5',
+    story:"Jade Emperor's Quest · Chương 4",
+    opts:['Ngôi làng nhỏ','Triều đình mặt đất','Thiên Đình — cung điện trên trời','Con đường thiên lý'],
+    correct:2, explain:'天 (tiān)=trời, 庭 (tíng)=sân/triều. Thiên Đình là cung điện Ngọc Hoàng — Wei Lin đến đây tìm ngọc.' },
+  { id:1, type:'hiểu', color:'#f97316', bg:'#2a1f14', border:'#7a3a10', label:'Hiểu ngữ cảnh',
+    q:'Câu nào dùng đúng 使者 trong tình huống câu chuyện?', sent:'使者 (shǐzhě)', sentVi:'Sứ giả, người được phái đi thực hiện nhiệm vụ',
+    story:"Jade Emperor's Quest · Chương 4",
+    opts:['我是玉皇大帝的使者，请让我进入。','使者喝了很多水。','这个使者很便宜。','我买了一个使者。'],
+    optsVi:['Tôi là sứ giả Ngọc Hoàng, xin cho tôi vào.','Sứ giả uống rất nhiều nước.','Sứ giả này rất rẻ.','Tôi đã mua một sứ giả.'],
+    correct:0, explain:'Đúng! Câu này dùng 使者 đúng ngữ cảnh: tự giới thiệu thân phận với thần canh gác.' },
+  { id:2, type:'dùng', color:'#a78bfa', bg:'#1e1a2a', border:'#4a3a8a', label:'Áp dụng tình huống',
+    q:'Hoàn thành câu theo tình huống:', story:"Jade Emperor's Quest · Chương 4",
+    prompt:'Thần canh gác hỏi: "你来天庭有何贵干？"\nWei Lin đến tìm viên ngọc đã mất (失落的玉). Điền vào chỗ trống:',
+    tmpl:'我来天庭是为了寻找___。', tmplVi:'Tôi đến Thiên Đình để tìm ___.', ans:'失落的玉',
+    hint:'Gợi ý: "viên ngọc đã mất" = 失落的玉 (shīluò de yù)',
+    explain:'完全正确！失落 (shīluò)=mất, 玉 (yù)=ngọc. Câu: 我来天庭是为了寻找失落的玉。' },
+  { id:3, type:'viết', color:'#60a5fa', bg:'#141e2a', border:'#1a4a7a', label:'Tự tạo câu',
+    q:'Viết một câu dùng từ 证明 (zhèngmíng = chứng minh):', story:"Jade Emperor's Quest · Chương 4",
+    prompt:'Wei Lin cần chứng minh (证明) danh tính với thần canh gác. Hãy tự viết một câu tiếng Trung dùng từ 证明:',
+    ph:'Ví dụ: 我能证明我是使者...',
+    explain:'Mẫu: 我能证明我是玉皇大帝的使者。\n(Wǒ néng zhèngmíng wǒ shì Yùhuáng Dàdì de shǐzhě.)\nTôi có thể chứng minh tôi là sứ giả của Ngọc Hoàng.',
+    check: v => v.includes('证明') && v.length > 4 }
+];
+
+let bloomStage = 1, bloomAnswered = false;
+
+function updateStepUI() {
+  for (let i=0;i<4;i++) {
+    const el = document.getElementById('bs'+i);
+    el.className = 'bl-step ' + (i < bloomStage ? 'bl-done' : i === bloomStage ? 'bl-active' : 'bl-inactive');
+  }
+}
+
+function renderBloom() {
+  bloomAnswered = false;
+  updateStepUI();
+  const s = bloomData[bloomStage];
+  const c = document.getElementById('bl-content');
+  const pb = `<div class="bl-pbrow"><div class="bl-pb"><div class="bl-pf" style="width:${Math.round((bloomStage/4)*100)}%"></div></div><div class="bl-pt">${bloomStage}/4</div><div class="bl-xp"><i class="ti ti-bolt" style="font-size:10px;" aria-hidden="true"></i> +${bloomStage*10} XP</div></div>`;
+  const badge = `<div class="sbadge" style="background:${s.bg};border:0.5px solid ${s.border};color:${s.color};"><i class="ti ${s.type==='nhớ'?'ti-brain':s.type==='hiểu'?'ti-coffee':s.type==='dùng'?'ti-bolt':'ti-pencil'}" style="font-size:11px;" aria-hidden="true"></i> ${s.label}</div>`;
+
+  if (s.type==='nhớ') {
+    c.innerHTML = pb+badge+`<div class="card-main-d"><div class="src-lbl"><i class="ti ti-building-castle" aria-hidden="true"></i> ${s.story}</div><div class="q-txt">${s.q}</div><div class="zh-big">${s.char}</div><div class="pinyin-d" style="color:${s.pinyinColor};">${s.pinyin}</div></div><div class="dchoices" id="dc">`+s.opts.map((o,i)=>`<button class="dchoice" onclick="aNho(${i})">${o}</button>`).join('')+`</div><div class="feedback-d" id="fb"></div><div class="act-row" id="acts" style="display:none;"><button class="btn-teal" onclick="nextBloom()">Tiếp theo <i class="ti ti-arrow-right" style="font-size:11px;" aria-hidden="true"></i></button></div>`;
+  } else if (s.type==='hiểu') {
+    c.innerHTML = pb+badge+`<div class="card-main-d"><div class="src-lbl"><i class="ti ti-building-castle" aria-hidden="true"></i> ${s.story}</div><div class="q-txt">${s.q}</div><div class="zh-sent">${s.sent}</div><div class="vi-sent">${s.sentVi}</div></div><div class="dchoices" id="dc">`+s.opts.map((o,i)=>`<button class="dchoice" onclick="aHieu(${i})"><div><div style="font-size:11px;color:#e2e8f0;margin-bottom:2px;">${o}</div><div style="font-size:10px;color:#6b7a99;">${s.optsVi[i]}</div></div></button>`).join('')+`</div><div class="feedback-d" id="fb"></div><div class="act-row" id="acts" style="display:none;"><button class="btn-teal" onclick="nextBloom()">Tiếp theo <i class="ti ti-arrow-right" style="font-size:11px;" aria-hidden="true"></i></button></div>`;
+  } else if (s.type==='dùng') {
+    c.innerHTML = pb+badge+`<div class="card-main-d"><div class="src-lbl"><i class="ti ti-building-castle" aria-hidden="true"></i> ${s.story}</div><div class="q-txt">${s.q}</div></div><div class="use-prom">${s.prompt.replace(/\n/g,'<br>')}<br><br><strong>${s.tmpl}</strong><br><span style="font-size:10px;color:#6b7a99;">${s.tmplVi}</span></div><div class="write-area"><div class="write-lbl">Điền vào chỗ trống (___)</div><input type="text" class="write-inp" id="di" placeholder="${s.hint}"/></div><div class="feedback-d" id="fb"></div><div class="act-row"><button class="btn-ghost" onclick="showDHint()"><i class="ti ti-eye" style="font-size:12px;" aria-hidden="true"></i></button><button class="btn-teal" id="dsub" onclick="aDung()">Kiểm tra <i class="ti ti-check" style="font-size:11px;" aria-hidden="true"></i></button></div>`;
+  } else {
+    c.innerHTML = pb+badge+`<div class="card-main-d"><div class="src-lbl"><i class="ti ti-building-castle" aria-hidden="true"></i> ${s.story}</div><div class="q-txt">${s.q}</div><div class="zh-sent" style="font-size:13px;">证明 (zhèngmíng)</div><div class="vi-sent">chứng minh — xác nhận điều gì đó là sự thật</div></div><div class="use-prom">${s.prompt}</div><div class="write-area"><div class="write-lbl">Câu của bạn:</div><textarea class="write-inp" id="vi" rows="2" placeholder="${s.ph}"></textarea></div><div class="feedback-d" id="fb"></div><div class="act-row"><button class="btn-ghost" onclick="showVModel()"><i class="ti ti-bulb" style="font-size:12px;" aria-hidden="true"></i></button><button class="btn-teal" id="vsub" onclick="aViet()">Nộp bài <i class="ti ti-check" style="font-size:11px;" aria-hidden="true"></i></button></div>`;
+  }
+}
+
+function aNho(idx) {
+  if (bloomAnswered) return; bloomAnswered=true;
+  const s=bloomData[bloomStage]; const btns=document.querySelectorAll('#dc .dchoice'); const fb=document.getElementById('fb');
+  btns[s.correct].classList.add('correct'); btns[s.correct].innerHTML+=' <i class="ti ti-check ci" aria-hidden="true"></i>';
+  if (idx!==s.correct){btns[idx].classList.add('wrong');fb.className='feedback-d show bad';fb.innerHTML='<strong>Chưa đúng.</strong> '+s.explain;}
+  else{fb.className='feedback-d show ok';fb.innerHTML='<strong>Chính xác!</strong> '+s.explain;}
+  document.getElementById('acts').style.display='flex';
+}
+function aHieu(idx) {
+  if (bloomAnswered) return; bloomAnswered=true;
+  const s=bloomData[bloomStage]; const btns=document.querySelectorAll('#dc .dchoice'); const fb=document.getElementById('fb');
+  btns[s.correct].classList.add('correct');
+  if(idx!==s.correct){btns[idx].classList.add('wrong');fb.className='feedback-d show bad';fb.innerHTML='<strong>Chưa đúng.</strong> '+s.explain;}
+  else{fb.className='feedback-d show ok';fb.innerHTML='<strong>Chính xác!</strong> '+s.explain;}
+  document.getElementById('acts').style.display='flex';
+}
+function aDung() {
+  if (bloomAnswered) return;
+  const s=bloomData[bloomStage]; const val=document.getElementById('di').value.trim(); const fb=document.getElementById('fb'); const inp=document.getElementById('di');
+  if (val.includes(s.ans)){bloomAnswered=true;inp.className='write-inp correct';fb.className='feedback-d show ok';fb.innerHTML='<strong>Xuất sắc!</strong> '+s.explain;const b=document.getElementById('dsub');b.innerHTML='Tiếp theo <i class="ti ti-arrow-right" style="font-size:11px;" aria-hidden="true"></i>';b.onclick=nextBloom;}
+  else{inp.className='write-inp wrong';fb.className='feedback-d show bad';fb.innerHTML='<strong>Thử lại!</strong> Đáp án: <strong style="color:#e2e8f0;">'+s.ans+'</strong>';setTimeout(()=>{inp.className='write-inp';inp.value='';},1100);}
+}
+function showDHint(){const s=bloomData[bloomStage];document.getElementById('fb').className='feedback-d show bad';document.getElementById('fb').innerHTML='Đáp án: <strong style="color:#e2e8f0;">'+s.ans+'</strong> — '+s.explain;const b=document.getElementById('dsub');b.innerHTML='Tiếp theo <i class="ti ti-arrow-right" style="font-size:11px;" aria-hidden="true"></i>';b.onclick=nextBloom;bloomAnswered=true;}
+function aViet(){
+  const s=bloomData[bloomStage]; const val=document.getElementById('vi').value.trim(); const fb=document.getElementById('fb'); const inp=document.getElementById('vi');
+  if(s.check(val)){bloomAnswered=true;inp.className='write-inp correct';fb.className='feedback-d show ok';fb.innerHTML='<strong>Tuyệt vời!</strong> '+s.explain.replace(/\n/g,'<br>');const b=document.getElementById('vsub');b.innerHTML='Hoàn thành <i class="ti ti-trophy" style="font-size:11px;" aria-hidden="true"></i>';b.onclick=showComplete;}
+  else{inp.className='write-inp wrong';fb.className='feedback-d show bad';fb.innerHTML='<strong>Hãy dùng từ 证明 trong câu!</strong>';setTimeout(()=>{inp.className='write-inp';},1000);}
+}
+function showVModel(){const s=bloomData[bloomStage];document.getElementById('fb').className='feedback-d show ok';document.getElementById('fb').innerHTML=s.explain.replace(/\n/g,'<br>');const b=document.getElementById('vsub');b.innerHTML='Hoàn thành <i class="ti ti-trophy" style="font-size:11px;" aria-hidden="true"></i>';b.onclick=showComplete;}
+function nextBloom(){if(bloomStage<3){bloomStage++;renderBloom();}else{showComplete();}}
+function showComplete(){
+  for(let i=0;i<4;i++) document.getElementById('bs'+i).className='bl-step bl-done';
+  document.getElementById('bl-content').innerHTML=`<div style="text-align:center;padding:22px 14px;"><div style="width:48px;height:48px;border-radius:50%;background:#1a2a1e;border:1.5px solid #5dcaa5;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;"><i class="ti ti-trophy" style="font-size:20px;color:#5dcaa5;" aria-hidden="true"></i></div><div style="font-size:14px;font-weight:500;color:#e2e8f0;margin-bottom:3px;">Hoàn thành cả 4 cấp độ!</div><div style="font-size:10px;color:#8892a4;margin-bottom:14px;">Bạn đã thành thạo từ vựng Chương 4: Cổng Thiên Đình</div><div style="display:flex;justify-content:center;gap:7px;margin-bottom:14px;"><div style="background:#1a2a1e;border:0.5px solid #1d5c2e;border-radius:var(--border-radius-md);padding:7px 12px;text-align:center;"><div style="font-size:16px;font-weight:500;color:#5dcaa5;">+40</div><div style="font-size:9px;color:#6b7a99;">XP kiếm được</div></div><div style="background:#1a1e2a;border:0.5px solid #2a2d3e;border-radius:var(--border-radius-md);padding:7px 12px;text-align:center;"><div style="font-size:16px;font-weight:500;color:#a78bfa;">7</div><div style="font-size:9px;color:#6b7a99;">Từ đã nắm</div></div><div style="background:#141e2a;border:0.5px solid #1a4a7a;border-radius:var(--border-radius-md);padding:7px 12px;text-align:center;"><div style="font-size:16px;font-weight:500;color:#60a5fa;">Bloom 4</div><div style="font-size:9px;color:#6b7a99;">Cấp độ đạt</div></div></div><button class="btn-teal" onclick="goTo('s-home')" style="width:100%;margin-bottom:7px;">Về trang chủ <i class="ti ti-home" style="font-size:11px;" aria-hidden="true"></i></button><button class="btn-ghost" onclick="bloomStage=1;renderBloom();" style="width:100%;">Luyện lại từ đầu</button></div>`;
+}
+
+renderBloom();
+</script>
