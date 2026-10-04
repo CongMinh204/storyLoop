@@ -1,0 +1,231 @@
+import type { ChatTurn } from "../../types";
+
+// ─── Story: Thử thách của Ngọc Hoàng ───
+export const STORY_TURNS: ChatTurn[] = [
+  {
+    id: 1, speaker: "Thần canh gác", emoji: "⚔️",
+    situation: "Wei Lin tiến đến cổng Thiên Đình. Một vị thần chặn đường.",
+    zh: "什么人？你叫什么名字？从哪里来？",
+    py: "Shénme rén? Nǐ jiào shénme míngzi? Cóng nǎlǐ lái?",
+    vi: "Ngươi là ai? Tên ngươi là gì? Từ đâu đến?",
+    hint: "Thần hỏi tên và quê hương. Dùng 我叫... để giới thiệu tên, 我来自... để nói nơi đến từ.",
+    choices: [
+      {
+        zh: "我叫魏林，我来自中国。我是玉皇大帝的使者！",
+        py: "Wǒ jiào Wèi Lín, wǒ lái zì Zhōngguó. Wǒ shì Yùhuáng Dàdì de shǐzhě!",
+        correct: true,
+        analysis: "Chính xác! Bạn dùng đúng 我叫 (tên), 来自 (đến từ) và xưng danh phận 使者 rõ ràng — thần canh gác có đủ thông tin để xác minh.",
+        vocab: [
+          { word: "我叫", py: "wǒ jiào", vi: "tôi tên là" },
+          { word: "来自", py: "lái zì", vi: "đến từ" },
+          { word: "中国", py: "Zhōngguó", vi: "Trung Quốc" },
+          { word: "使者", py: "shǐzhě", vi: "sứ giả" },
+        ],
+      },
+      {
+        zh: "我不说！你是谁？",
+        py: "Wǒ bù shuō! Nǐ shì shéi?",
+        correct: false,
+        analysis: "Sai! 我不说 (tôi không nói) và hỏi lại thần là hành động cực kỳ thô lỗ và nguy hiểm. Trước cổng Thiên Đình, bạn phải tự giới thiệu trước.",
+        vocab: [
+          { word: "不说", py: "bù shuō", vi: "không nói" },
+          { word: "谁", py: "shéi", vi: "ai" },
+        ],
+      },
+      {
+        zh: "你好！我是三个人，我们来自很多地方。",
+        py: "Nǐ hǎo! Wǒ shì sān gè rén, wǒmen lái zì hěn duō dìfāng.",
+        correct: false,
+        analysis: "Sai! \"我是三个人\" nghĩa là \"Tôi là ba người\" — hoàn toàn vô nghĩa. Bạn nhầm số đếm 三 với cách giới thiệu tên. Phải dùng 我叫 chứ không phải 我是 + số.",
+        vocab: [
+          { word: "三个人", py: "sān gè rén", vi: "ba người (sai nghĩa!)" },
+          { word: "很多", py: "hěn duō", vi: "rất nhiều" },
+        ],
+      },
+    ],
+    replyCorrect: "好，魏林。请进！我带你去见玉皇大帝。\n(Hǎo, Wèi Lín. Qǐng jìn!) — Được, Wei Lin. Mời vào!",
+    replyWrong: "什么？！退下！你不能进！\n(Shénme?! Tuìxià! Nǐ bù néng jìn!) — Cái gì?! Lui ra! Ngươi không được vào!",
+  },
+  {
+    id: 2, speaker: "Tiên nữ", emoji: "🌸",
+    situation: "Trong phòng chờ, một tiên nữ bước ra mời trà.",
+    zh: "你好！你喝茶吗？这是天庭的茶，很好喝！你要不要？",
+    py: "Nǐ hǎo! Nǐ hē chá ma? Zhè shì Tiāntíng de chá, hěn hǎohē! Nǐ yào bu yào?",
+    vi: "Xin chào! Bạn uống trà không? Đây là trà Thiên Đình, rất ngon! Bạn có muốn không?",
+    hint: "Nhận lời mời lịch sự là quan trọng ở Thiên Đình. Dùng 谢谢 + 我想喝 để nhận, hoặc lý do lịch sự để từ chối.",
+    choices: [
+      {
+        zh: "谢谢！我很想喝。天庭的茶一定很好！",
+        py: "Xièxie! Wǒ hěn xiǎng hē. Tiāntíng de chá yīdìng hěn hǎo!",
+        correct: true,
+        analysis: "Tuyệt vời! Bạn nhận lời với 谢谢, dùng 很想 để bày tỏ mong muốn rõ ràng, và khen ngợi trà bằng 一定很好 — cách xử sự rất khéo léo ở Thiên Đình.",
+        vocab: [
+          { word: "谢谢", py: "xièxie", vi: "cảm ơn" },
+          { word: "很想", py: "hěn xiǎng", vi: "rất muốn" },
+          { word: "喝", py: "hē", vi: "uống" },
+          { word: "一定", py: "yīdìng", vi: "chắc chắn" },
+        ],
+      },
+      {
+        zh: "不要！我要水，不要茶！",
+        py: "Bú yào! Wǒ yào shuǐ, bú yào chá!",
+        correct: false,
+        analysis: "Không phù hợp! Từ chối thẳng và đòi thứ khác ngay lập tức là thiếu lịch sự nghiêm trọng ở Thiên Đình. 不要 nói thẳng như vậy nghe rất thô. Nên dùng 谢谢，但是... nếu muốn từ chối.",
+        vocab: [
+          { word: "不要", py: "bú yào", vi: "không muốn (thô)" },
+          { word: "水", py: "shuǐ", vi: "nước" },
+          { word: "茶", py: "chá", vi: "trà" },
+        ],
+      },
+      {
+        zh: "茶不好！我不喝。",
+        py: "Chá bù hǎo! Wǒ bù hē.",
+        correct: false,
+        analysis: "Sai hoàn toàn! Nói \"trà không ngon\" (茶不好) khi chưa thử là xúc phạm tiên nữ và Thiên Đình. Điều này sẽ khiến Ngọc Hoàng nổi giận và nhiệm vụ thất bại.",
+        vocab: [
+          { word: "不好", py: "bù hǎo", vi: "không tốt / không ngon" },
+          { word: "不喝", py: "bù hē", vi: "không uống" },
+        ],
+      },
+    ],
+    replyCorrect: "很好！请坐，请喝茶。玉皇大帝一会儿来。\n(Hěn hǎo! Qǐng zuò, qǐng hē chá.) — Tốt lắm! Mời ngồi, mời uống trà.",
+    replyWrong: "哎呀！真不礼貌！你等着吧！\n(Āiyā! Zhēn bù lǐmào!) — Ôi trời! Thật thiếu lịch sự!",
+  },
+  {
+    id: 3, speaker: "Ngọc Hoàng", emoji: "👑",
+    situation: "Ngọc Hoàng ngự giá xuất hiện, hỏi lý do Wei Lin đến Thiên Đình.",
+    zh: "你是谁？你来这里做什么？你有没有带东西来？",
+    py: "Nǐ shì shéi? Nǐ lái zhèlǐ zuò shénme? Nǐ yǒu méiyǒu dài dōngxi lái?",
+    vi: "Ngươi là ai? Ngươi đến đây làm gì? Ngươi có mang vật gì theo không?",
+    hint: "Ngọc Hoàng hỏi 3 điều: danh tính, mục đích, vật mang theo. Hãy trả lời đầy đủ cả ba bằng từ vựng đơn giản.",
+    choices: [
+      {
+        zh: "我叫魏林，我来找失落的玉。我带来了一封信！",
+        py: "Wǒ jiào Wèi Lín, wǒ lái zhǎo shīluò de yù. Wǒ dài lái le yī fēng xìn!",
+        correct: true,
+        analysis: "Xuất sắc! Bạn trả lời đúng cả 3 câu: tên (我叫), mục đích (找失落的玉), vật mang theo (一封信). Cấu trúc rõ ràng, logic, từ ngữ phù hợp HSK1.",
+        vocab: [
+          { word: "找", py: "zhǎo", vi: "tìm kiếm" },
+          { word: "失落", py: "shīluò", vi: "thất lạc / mất" },
+          { word: "玉", py: "yù", vi: "ngọc" },
+          { word: "带来", py: "dài lái", vi: "mang đến" },
+          { word: "信", py: "xìn", vi: "thư" },
+        ],
+      },
+      {
+        zh: "对不起，我不知道！我只是来玩。",
+        py: "Duìbuqǐ, wǒ bù zhīdào! Wǒ zhǐshì lái wán.",
+        correct: false,
+        analysis: "Sai! Nói 我不知道 (không biết) với Ngọc Hoàng là rất kỳ lạ — bạn phải biết mục đích của chính mình. Và 来玩 (đến chơi) trước mặt Ngọc Hoàng là hoàn toàn không phù hợp.",
+        vocab: [
+          { word: "对不起", py: "duìbuqǐ", vi: "xin lỗi" },
+          { word: "不知道", py: "bù zhīdào", vi: "không biết" },
+          { word: "玩", py: "wán", vi: "chơi" },
+        ],
+      },
+      {
+        zh: "我是你！我来吃饭，我带来了很多水！",
+        py: "Wǒ shì nǐ! Wǒ lái chī fàn, wǒ dài lái le hěn duō shuǐ!",
+        correct: false,
+        analysis: "Sai hoàn toàn! \"我是你\" (Tôi là bạn) vô nghĩa. Nói đến Thiên Đình để 吃饭 (ăn cơm) và mang 水 (nước) không liên quan gì đến nhiệm vụ. Ngọc Hoàng sẽ nổi giận!",
+        vocab: [
+          { word: "吃饭", py: "chī fàn", vi: "ăn cơm" },
+          { word: "很多", py: "hěn duō", vi: "rất nhiều" },
+          { word: "水", py: "shuǐ", vi: "nước" },
+        ],
+      },
+    ],
+    replyCorrect: "很好，魏林！你的回答很清楚。现在，我来考考你！\n(Hěn hǎo! Nǐ de huídá hěn qīngchǔ.) — Tốt lắm! Câu trả lời rất rõ ràng. Bây giờ ta sẽ thử thách ngươi!",
+    replyWrong: "什么？！你来天庭，不知道为什么？！退下！\n(Shénme?! Nǐ bù zhīdào wèishéme?!) — Cái gì?! Ngươi không biết tại sao mình đến đây?! Lui ra!",
+  },
+  {
+    id: 4, speaker: "Ngọc Hoàng", emoji: "👑",
+    situation: "Ngọc Hoàng muốn thử tài. Ngài chỉ vào 5 vị thần trong phòng và hỏi.",
+    zh: "好，现在我考你！这里有几个人？你数数看！一、二……",
+    py: "Hǎo, xiànzài wǒ kǎo nǐ! Zhèlǐ yǒu jǐ gè rén? Nǐ shǔshu kàn! Yī, èr…",
+    vi: "Được, bây giờ ta thử ngươi! Ở đây có bao nhiêu người? Hãy đếm xem! Một, hai...",
+    hint: "Ngọc Hoàng bắt đầu đếm: 一二... Trong phòng có 5 vị thần. Hãy dùng số đếm HSK1 để trả lời đầy đủ.",
+    choices: [
+      {
+        zh: "这里有五个人！一、二、三、四、五！",
+        py: "Zhèlǐ yǒu wǔ gè rén! Yī, èr, sān, sì, wǔ!",
+        correct: true,
+        analysis: "Đúng! Bạn đếm chính xác từ 一 đến 五 và dùng đúng cấu trúc 有 + số lượng + 个 + 人. Ngọc Hoàng rất ấn tượng!",
+        vocab: [
+          { word: "五", py: "wǔ", vi: "năm (số 5)" },
+          { word: "有", py: "yǒu", vi: "có" },
+          { word: "个", py: "gè", vi: "lượng từ chung" },
+          { word: "一二三四五", py: "yī èr sān sì wǔ", vi: "1 2 3 4 5" },
+        ],
+      },
+      {
+        zh: "这里没有人。",
+        py: "Zhèlǐ méiyǒu rén.",
+        correct: false,
+        analysis: "Sai! \"没有人\" (không có ai) là sai thực tế — rõ ràng có 5 vị thần trong phòng. Dùng 没有 khi nói không có gì, còn ở đây phải dùng 有 + số đếm.",
+        vocab: [
+          { word: "没有", py: "méiyǒu", vi: "không có" },
+          { word: "这里", py: "zhèlǐ", vi: "ở đây" },
+        ],
+      },
+      {
+        zh: "很多很多！一百个！两百个！",
+        py: "Hěn duō hěn duō! Yī bǎi gè! Liǎng bǎi gè!",
+        correct: false,
+        analysis: "Sai! Phóng đại \"một trăm, hai trăm\" khi chỉ có 5 người là không chính xác. Ngoài ra 百 (trăm) là từ HSK2, chưa thuộc phạm vi bài học hiện tại.",
+        vocab: [
+          { word: "很多", py: "hěn duō", vi: "rất nhiều" },
+          { word: "百", py: "bǎi", vi: "trăm (HSK2, ngoài phạm vi)" },
+        ],
+      },
+    ],
+    replyCorrect: "对！五个！你很聪明！最后一个问题——\n(Duì! Wǔ gè! Nǐ hěn cōngming!) — Đúng! Năm người! Ngươi rất thông minh! Câu hỏi cuối cùng—",
+    replyWrong: "不对！你看清楚一点！重新数！\n(Bú duì! Nǐ kàn qīngchǔ yīdiǎn! Chóngxīn shǔ!) — Không đúng! Nhìn kỹ hơn! Đếm lại!",
+  },
+  {
+    id: 5, speaker: "Ngọc Hoàng", emoji: "👑",
+    situation: "Ngọc Hoàng gật đầu và hỏi câu hỏi cuối — thử lòng thành của Wei Lin.",
+    zh: "好！你通过了考验。我给你这块玉。得到玉以后，你要做什么？",
+    py: "Hǎo! Nǐ tōngguò le kǎoyàn. Wǒ gěi nǐ zhè kuài yù. Dédào yù yǐhòu, nǐ yào zuò shénme?",
+    vi: "Tốt! Ngươi đã vượt qua thử thách. Ta cho ngươi viên ngọc này. Sau khi nhận ngọc, ngươi sẽ làm gì?",
+    hint: "Ngọc Hoàng muốn biết ý định thực sự. Hãy nói ngọc quan trọng (很重要) và bạn sẽ đem về (带回) cho mọi người (大家).",
+    choices: [
+      {
+        zh: "这块玉对我们很重要！我要把玉带回中国，还给大家。谢谢您！",
+        py: "Zhè kuài yù duì wǒmen hěn zhòngyào! Wǒ yào bǎ yù dài huí Zhōngguó, huán gěi dàjiā. Xièxie nín!",
+        correct: true,
+        analysis: "Hoàn hảo! Bạn khẳng định tầm quan trọng (很重要), hành động rõ ràng (带回中国), đối tượng hưởng lợi (大家), và dùng 您 — đại từ kính trọng với Ngọc Hoàng. Rất xuất sắc!",
+        vocab: [
+          { word: "重要", py: "zhòngyào", vi: "quan trọng" },
+          { word: "带回", py: "dài huí", vi: "mang về" },
+          { word: "大家", py: "dàjiā", vi: "mọi người" },
+          { word: "您", py: "nín", vi: "bạn (kính trọng)" },
+        ],
+      },
+      {
+        zh: "我不要！这个玉很小，我不喜欢！",
+        py: "Wǒ bú yào! Zhège yù hěn xiǎo, wǒ bù xǐhuān!",
+        correct: false,
+        analysis: "Sai hoàn toàn! Từ chối ngọc của Ngọc Hoàng và chê nó 小 (nhỏ) là cực kỳ bất kính. Sau tất cả những gì đã trải qua, đây là câu trả lời tệ nhất có thể!",
+        vocab: [
+          { word: "不要", py: "bú yào", vi: "không muốn" },
+          { word: "小", py: "xiǎo", vi: "nhỏ" },
+          { word: "不喜欢", py: "bù xǐhuān", vi: "không thích" },
+        ],
+      },
+      {
+        zh: "我要用玉买很多东西！吃饭，喝水，买很多！",
+        py: "Wǒ yào yòng yù mǎi hěn duō dōngxi! Chī fàn, hē shuǐ, mǎi hěn duō!",
+        correct: false,
+        analysis: "Sai! Nói sẽ dùng ngọc để 买东西 (mua đồ), 吃饭 (ăn cơm) cho thấy Wei Lin không hiểu giá trị thực sự của ngọc. Ngọc Hoàng sẽ rất thất vọng.",
+        vocab: [
+          { word: "买", py: "mǎi", vi: "mua" },
+          { word: "东西", py: "dōngxi", vi: "đồ vật" },
+          { word: "吃饭", py: "chī fàn", vi: "ăn cơm" },
+        ],
+      },
+    ],
+    replyCorrect: "很好！你是一个好人！拿着玉，平安回去吧！\n(Hěn hǎo! Nǐ shì yī gè hǎo rén! Pínguān huí qù ba!) — Tốt lắm! Ngươi là người tốt! Hãy mang ngọc về bình an!",
+    replyWrong: "唉……你让我很失望。再见！\n(Āi… nǐ ràng wǒ hěn shīwàng.) — Ôi... Ngươi khiến ta rất thất vọng.",
+  },
+];
