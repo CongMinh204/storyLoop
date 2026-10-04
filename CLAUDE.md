@@ -17,10 +17,12 @@ React 18, TypeScript, Vite 6, Tailwind CSS v4 (via `@tailwindcss/vite`, no `tail
 ## Structure
 
 - `src/main.tsx` is the entry point. It renders `App` and imports `styles/index.css`.
-- `src/app/App.tsx` is a single ~1800-line file holding almost the whole app:
-  - Data at the top: the colour palette `C`, `STORY_LIBRARY`, `STORY_TURNS` (chat script), `VOCAB_MAP`, `BLOOM_STAGES`, `HSK1_CARDS`.
-  - `Screen` is `"home" | "chat" | "bloom" | "progress" | "profile" | "library"`. It is held in `useState` in `App`, so there is no router even though `react-router` is installed.
-  - Two parallel layouts, picked with `useIsMobile()`: `MobileApp` (bottom nav, `Mobile*Screen`) and `DesktopApp` (sidebar and topbar, `Desktop*Screen`). They share `ChatStoryEngine`, `BloomContent`, `FlashcardScreen` and `LibraryScreen`.
+- `src/app/App.tsx` (~740 lines) holds the app shell and the screens that are not yet split out:
+  - `Screen` is `"home" | "chat" | "bloom" | "progress" | "profile" | "library"` (defined in `types.ts`). It is held in `useState` in `App`, so there is no router even though `react-router` is installed.
+  - Two parallel layouts, picked with `useIsMobile()`: `MobileApp` (bottom nav, `Mobile*Screen`) and `DesktopApp` (sidebar and topbar, `Desktop*Screen`).
+- `src/app/features/` holds screens shared by both layouts, one folder per feature: `chat/` (`ChatStoryEngine`, `ChatBubbles`, `ResultScreen`), `bloom/` (`BloomContent`), `flashcard/` (`FlashcardScreen`), `library/` (`LibraryScreen`).
+- `src/app/data/` holds the hard-coded content: `library.ts` (`STORY_LIBRARY`), `stories/ngoc-hoang.ts` (chat script `STORY_TURNS`), `vocab.ts` (`VOCAB_MAP`), `bloom.ts`, `flashcards.ts` (`HSK1_CARDS`).
+- `src/app/types.ts` holds the shared types. `src/app/lib/` holds `colors.ts` (palette `C`) and `useIsMobile.ts`.
 - `src/app/components/ProgressScreen.tsx` is the progress screen, used by both layouts.
 - `src/app/components/ui/` is the shadcn component set. Most of it is currently unused. Prefer these over writing new primitives.
 - `src/app/components/figma/ImageWithFallback.tsx` is the Figma helper for images.
@@ -35,7 +37,7 @@ React 18, TypeScript, Vite 6, Tailwind CSS v4 (via `@tailwindcss/vite`, no `tail
 - Keep both the `react()` and `tailwindcss()` Vite plugins. Do not add `.css`, `.ts` or `.tsx` to `assetsInclude`.
 - The original Figma look is the source of truth. Do not restyle existing screens unless asked.
 - Any change to shared flow (chat, bloom, library) must work in both the mobile and desktop layouts.
-- Because `App.tsx` is so large, new features should go in their own files under `src/app/components/`, as `ProgressScreen.tsx` does, rather than growing `App.tsx`.
+- New features go in their own folder under `src/app/features/` (content in `src/app/data/`) rather than growing `App.tsx`.
 
 ## Working rules
 
