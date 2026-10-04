@@ -81,7 +81,15 @@ storyLoop/
 └── src/
     ├── main.tsx            Điểm khởi động
     ├── app/
-    │   ├── App.tsx         Gần như toàn bộ ứng dụng (màn hình, dữ liệu mẫu)
+    │   ├── App.tsx         Vỏ ứng dụng, điều hướng màn hình, layout mobile/desktop
+    │   ├── types.ts        Kiểu dữ liệu dùng chung
+    │   ├── features/       Màn hình dùng chung, mỗi tính năng một thư mục
+    │   │   ├── chat/       Hội thoại nhập vai theo truyện
+    │   │   ├── bloom/      Ôn tập theo giai đoạn
+    │   │   ├── flashcard/  Flashcard HSK1
+    │   │   └── library/    Thư viện truyện
+    │   ├── data/           Dữ liệu mẫu viết cứng (truyện, từ vựng, flashcard)
+    │   ├── lib/            Màu sắc, hook useIsMobile
     │   └── components/
     │       ├── ProgressScreen.tsx   Màn hình tiến độ
     │       └── ui/                  Component shadcn/ui
@@ -94,4 +102,4 @@ storyLoop/
 - Không commit thư mục `node_modules` (đã có trong `.gitignore`).
 - Commit theo từng thay đổi nhỏ, message rõ ràng.
 - Chạy `git pull` trước khi `git push`.
-- Tính năng mới nên tạo file riêng trong `src/app/components/` thay vì viết thêm vào `App.tsx`.
+- Tính năng mới nên tạo thư mục riêng trong `src/app/features/` thay vì viết thêm vào `App.tsx`.
