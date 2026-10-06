@@ -10,14 +10,16 @@ import {
 } from "lucide-react";
 import { C } from "./lib/colors";
 import { useIsMobile } from "./lib/useIsMobile";
-import type { Screen } from "./types";
-import { LIBRARY } from "./data/library";
+import type { Screen, StoryEntry } from "./types";
+import { LIBRARY, DEFAULT_STORY } from "./data/library";
+import { getStoryTurns } from "./data/stories";
 import { VOCAB_MAP } from "./data/vocab";
 import { BLOOM_STAGES, BLOOM_ICONS } from "./data/bloom";
 import { BloomContent } from "./features/bloom/BloomContent";
 import { FlashcardScreen } from "./features/flashcard/FlashcardScreen";
 import { LibraryScreen } from "./features/library/LibraryScreen";
 import { ChatStoryEngine } from "./features/chat/ChatStoryEngine";
+import { StoryComingSoon } from "./features/chat/StoryComingSoon";
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // MOBILE COMPONENTS
@@ -124,8 +126,10 @@ function MobileHomeScreen({ onChat }: { onChat: () => void }) {
   );
 }
 
-function MobileChatScreen({ onHome }: { onHome: () => void }) {
-  return <ChatStoryEngine onHome={onHome} />;
+function MobileChatScreen({ story, onHome }: { story: StoryEntry; onHome: () => void }) {
+  const turns = getStoryTurns(story.id);
+  if (!turns) return <StoryComingSoon story={story} onHome={onHome} />;
+  return <ChatStoryEngine key={story.id} story={story} turns={turns} onHome={onHome} />;
 }
 
 function MobileBloomScreen() {
@@ -309,15 +313,15 @@ function MobileProfileScreen() {
   );
 }
 
-function MobileApp({ screen, setScreen }: { screen: Screen; setScreen: (s: Screen) => void }) {
+function MobileApp({ screen, setScreen, story, onOpenStory }: { screen: Screen; setScreen: (s: Screen) => void; story: StoryEntry; onOpenStory: (s: StoryEntry) => void }) {
   return (
     <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(160deg,#0f172a 0%,#1e293b 50%,#0f2d4a 100%)", fontFamily: "'Plus Jakarta Sans', sans-serif", padding: "20px 0" }}>
       <div style={{ width: 375, height: 812, borderRadius: 44, overflow: "hidden", boxShadow: "0 48px 96px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.09)", display: "flex", flexDirection: "column", position: "relative", background: C.bg }}>
         <MobileStatusBar />
         <div style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column" }}>
-          {screen === "home"     && <MobileHomeScreen onChat={() => setScreen("chat")} />}
-          {screen === "library"  && <LibraryScreen onOpenStory={() => setScreen("chat")} />}
-          {screen === "chat"     && <MobileChatScreen onHome={() => setScreen("home")} />}
+          {screen === "home"     && <MobileHomeScreen onChat={() => onOpenStory(DEFAULT_STORY)} />}
+          {screen === "library"  && <LibraryScreen onOpenStory={onOpenStory} />}
+          {screen === "chat"     && <MobileChatScreen story={story} onHome={() => setScreen("home")} />}
           {screen === "bloom"    && <MobileBloomScreen />}
           {screen === "progress" && <MobileProgressWrapper />}
           {screen === "profile"  && <MobileProfileScreen />}
@@ -467,16 +471,17 @@ function DesktopHomeScreen({ onChat }: { onChat: () => void }) {
   );
 }
 
-function DesktopChatScreen({ onHome }: { onHome: () => void }) {
+function DesktopChatScreen({ story, onHome }: { story: StoryEntry; onHome: () => void }) {
   const [activeVocab, setActiveVocab] = useState<string | null>(null);
+  const turns = getStoryTurns(story.id);
 
   const sidePanel = (
     <div style={{ width: 260, background: "#f9fafb", borderLeft: `0.5px solid ${C.border}`, display: "flex", flexDirection: "column", overflowY: "auto", flexShrink: 0 }}>
       <div style={{ padding: "14px 16px", borderBottom: `0.5px solid ${C.border}` }}>
-        <div style={{ fontSize: 13, fontWeight: 700, color: C.dark, marginBottom: 4 }}>Thử thách của Ngọc Hoàng</div>
-        <div style={{ fontSize: 11, color: C.muted, lineHeight: 1.55, marginBottom: 8 }}>Nhập vai hội thoại với các nhân vật trong Thiên Đình để học tiếng Trung HSK1.</div>
+        <div style={{ fontSize: 13, fontWeight: 700, color: C.dark, marginBottom: 4 }}>{story.title}</div>
+        {story.summary && <div style={{ fontSize: 11, color: C.muted, lineHeight: 1.55, marginBottom: 8 }}>{story.summary}</div>}
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" as const }}>
-          {["Thần thoại", "Phiêu lưu", "HSK 1"].map(t => (
+          {[...story.tags.slice(0, 2), `HSK ${story.hsk}`].map(t => (
             <span key={t} style={{ background: C.purpleBg, border: `0.5px solid #ddd8f9`, borderRadius: 20, padding: "3px 9px", fontSize: 10, color: C.purple }}>{t}</span>
           ))}
         </div>
@@ -503,9 +508,11 @@ function DesktopChatScreen({ onHome }: { onHome: () => void }) {
 
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-      <DesktopTopbar title="Câu chuyện · Thử thách của Ngọc Hoàng" onBack={onHome}
-        right={<span style={{ fontSize: 11, background: C.purpleBg, padding: "3px 10px", borderRadius: 20, border: `0.5px solid #ddd8f9`, marginLeft: 8, color: C.purple }}>HSK 1</span>} />
-      <ChatStoryEngine onHome={onHome} sidePanel={sidePanel} />
+      <DesktopTopbar title={`Câu chuyện · ${story.title}`} onBack={onHome}
+        right={<span style={{ fontSize: 11, background: C.purpleBg, padding: "3px 10px", borderRadius: 20, border: `0.5px solid #ddd8f9`, marginLeft: 8, color: C.purple }}>HSK {story.hsk}</span>} />
+      {turns
+        ? <ChatStoryEngine key={story.id} story={story} turns={turns} onHome={onHome} sidePanel={sidePanel} />
+        : <StoryComingSoon story={story} onHome={onHome} />}
     </div>
   );
 }
@@ -717,14 +724,14 @@ function DesktopProfileScreen() {
   );
 }
 
-function DesktopApp({ screen, setScreen }: { screen: Screen; setScreen: (s: Screen) => void }) {
+function DesktopApp({ screen, setScreen, story, onOpenStory }: { screen: Screen; setScreen: (s: Screen) => void; story: StoryEntry; onOpenStory: (s: StoryEntry) => void }) {
   return (
     <div style={{ display: "flex", height: "100vh", background: C.bg, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <DesktopSidebar active={screen} onChange={setScreen} />
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-        {screen === "home"     && <DesktopHomeScreen onChat={() => setScreen("chat")} />}
-        {screen === "library"  && <LibraryScreen onOpenStory={() => setScreen("chat")} />}
-        {screen === "chat"     && <DesktopChatScreen onHome={() => setScreen("home")} />}
+        {screen === "home"     && <DesktopHomeScreen onChat={() => onOpenStory(DEFAULT_STORY)} />}
+        {screen === "library"  && <LibraryScreen onOpenStory={onOpenStory} />}
+        {screen === "chat"     && <DesktopChatScreen story={story} onHome={() => setScreen("home")} />}
         {screen === "bloom"    && <DesktopBloomScreen />}
         {screen === "progress" && <DesktopProgressWrapper />}
         {screen === "profile"  && <DesktopProfileScreen />}
@@ -737,7 +744,12 @@ function DesktopApp({ screen, setScreen }: { screen: Screen; setScreen: (s: Scre
 export default function App() {
   const isMobile = useIsMobile();
   const [screen, setScreen] = useState<Screen>("home");
+  const [story, setStory] = useState<StoryEntry>(DEFAULT_STORY);
+  function openStory(s: StoryEntry) {
+    setStory(s);
+    setScreen("chat");
+  }
   return isMobile
-    ? <MobileApp screen={screen} setScreen={setScreen} />
-    : <DesktopApp screen={screen} setScreen={setScreen} />;
+    ? <MobileApp screen={screen} setScreen={setScreen} story={story} onOpenStory={openStory} />
+    : <DesktopApp screen={screen} setScreen={setScreen} story={story} onOpenStory={openStory} />;
 }
