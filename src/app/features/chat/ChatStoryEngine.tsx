@@ -1,8 +1,7 @@
 import { useState, useRef } from "react";
 import { ArrowLeft, Eye, EyeOff, Lightbulb } from "lucide-react";
 import { C } from "../../lib/colors";
-import { STORY_TURNS } from "../../data/stories/ngoc-hoang";
-import type { ChatChoice, ChatTurn } from "../../types";
+import type { ChatChoice, ChatTurn, StoryEntry } from "../../types";
 import { SituationBubble, NpcBubble, NpcReplyBubble, PlayerBubble, AnalysisBubble } from "./ChatBubbles";
 import { ResultScreen } from "./ResultScreen";
 
@@ -14,11 +13,11 @@ type ChatMsg =
   | { type: "npcReply"; text: string }
   | { type: "result"; score: number; total: number };
 
-export function ChatStoryEngine({ onHome, sidePanel }: { onHome: () => void; sidePanel?: React.ReactNode }) {
+export function ChatStoryEngine({ story, turns, onHome, sidePanel }: { story: StoryEntry; turns: ChatTurn[]; onHome: () => void; sidePanel?: React.ReactNode }) {
   const [turn, setTurn] = useState(0);
   const [messages, setMessages] = useState<ChatMsg[]>([
-    { type: "situation", text: STORY_TURNS[0].situation },
-    { type: "npc", turn: STORY_TURNS[0], pinyinOn: true },
+    { type: "situation", text: turns[0].situation },
+    { type: "npc", turn: turns[0], pinyinOn: true },
   ]);
   const [chosen, setChosen] = useState<number | null>(null);
   const [pinyinOn, setPinyinOn] = useState(true);
@@ -27,7 +26,7 @@ export function ChatStoryEngine({ onHome, sidePanel }: { onHome: () => void; sid
   const [finished, setFinished] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const currentTurn = STORY_TURNS[turn];
+  const currentTurn = turns[turn];
   const waiting = chosen === null && !finished;
 
   function scrollBottom() {
@@ -52,11 +51,11 @@ export function ChatStoryEngine({ onHome, sidePanel }: { onHome: () => void; sid
     // after a beat, add next turn or result
     setTimeout(() => {
       const nextTurn = turn + 1;
-      if (nextTurn >= STORY_TURNS.length) {
-        setMessages(m => [...m, { type: "result", score: newScore, total: STORY_TURNS.length }]);
+      if (nextTurn >= turns.length) {
+        setMessages(m => [...m, { type: "result", score: newScore, total: turns.length }]);
         setFinished(true);
       } else {
-        const next = STORY_TURNS[nextTurn];
+        const next = turns[nextTurn];
         setMessages(m => [...m,
           { type: "situation", text: next.situation },
           { type: "npc", turn: next, pinyinOn },
@@ -71,13 +70,13 @@ export function ChatStoryEngine({ onHome, sidePanel }: { onHome: () => void; sid
   function restart() {
     setTurn(0); setChosen(null); setScore(0); setFinished(false); setHintOpen(false);
     setMessages([
-      { type: "situation", text: STORY_TURNS[0].situation },
-      { type: "npc", turn: STORY_TURNS[0], pinyinOn: true },
+      { type: "situation", text: turns[0].situation },
+      { type: "npc", turn: turns[0], pinyinOn: true },
     ]);
     setTimeout(() => scrollRef.current?.scrollTo({ top: 0, behavior: "auto" }), 50);
   }
 
-  const pct = Math.round(((turn + (chosen !== null ? 1 : 0)) / STORY_TURNS.length) * 100);
+  const pct = Math.round(((turn + (chosen !== null ? 1 : 0)) / turns.length) * 100);
 
   return (
     <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
@@ -87,10 +86,10 @@ export function ChatStoryEngine({ onHome, sidePanel }: { onHome: () => void; sid
         <div style={{ background: C.white, padding: "10px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0, borderBottom: `0.5px solid ${C.border}` }}>
           <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
             <button onClick={onHome} style={{ background: "none", border: "none", cursor: "pointer", color: C.muted, display: "flex", padding: 4 }}><ArrowLeft size={19} /></button>
-            <div style={{ width: 32, height: 32, borderRadius: 10, background: "#6c3fc522", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>🏯</div>
+            <div style={{ width: 32, height: 32, borderRadius: 10, background: story.color + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>{story.emoji}</div>
             <div>
-              <div style={{ fontSize: 12, fontWeight: 700, color: C.dark }}>Thử thách của Ngọc Hoàng</div>
-              <div style={{ fontSize: 10, color: C.muted }}>Lượt {Math.min(turn + 1, STORY_TURNS.length)}/{STORY_TURNS.length} · HSK 1</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: C.dark }}>{story.title}</div>
+              <div style={{ fontSize: 10, color: C.muted }}>Lượt {Math.min(turn + 1, turns.length)}/{turns.length} · HSK {story.hsk}</div>
             </div>
           </div>
           <button onClick={() => setPinyinOn(v => !v)} style={{ background: pinyinOn ? C.purpleBg : C.bg, border: `0.5px solid ${pinyinOn ? "#ddd8f9" : C.border}`, borderRadius: 20, padding: "5px 10px", fontSize: 10, color: pinyinOn ? C.purple : C.muted, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", gap: 4 }}>

@@ -1,6 +1,8 @@
 export type StoryEntry = {
+  id: string;                                // khoá liên kết tới kịch bản trong data/stories
   title: string; hsk: number; lv: string; color: string; emoji: string;
   tags: string[]; chapters: number; progress?: number; premium?: boolean;
+  summary?: string;                          // mô tả ngắn, hiện ở panel bên của desktop
 };
 
 export type ChatChoice = {
