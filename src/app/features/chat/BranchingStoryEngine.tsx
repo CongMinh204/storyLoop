@@ -7,6 +7,7 @@ import {
   StructureBubble, PlayerPickBubble, PickAnalysisBubble,
 } from "./ChatBubbles";
 import { EndingCard } from "./EndingCard";
+import { getProgress, reportProgress, markCompleted } from "../../lib/progress";
 
 const LINE_DELAY = 550;    // ms giữa hai câu thoại
 const READ_DELAY = 1800;   // ms chờ sau khi hiện phân tích, để kịp đọc
@@ -47,8 +48,10 @@ export function BranchingStoryEngine({ story, tree, onHome, sidePanel }: { story
   const [scene, setScene] = useState(1);
   const [fast, setFast] = useState(false);
   const [pending, setPending] = useState<StoryChoice | null>(null);
-  const [seen, setSeen] = useState<Set<string>>(new Set());
+  // Kết thúc đã mở: đọc từ tiến độ đã lưu để còn nguyên sau khi tải lại trang
+  const [seen, setSeen] = useState<Set<string>>(() => new Set(getProgress(story.id)?.endings ?? []));
   const [score, setScore] = useState({ right: 0, total: 0 });
+  const scoreRef = useRef(score);    // điểm mới nhất, dùng khi ghi hoàn thành trong effect
   const [pinyinOn, setPinyinOn] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
   const readPause = useRef(false);   // true ngay sau khi hiện phân tích: chờ lâu hơn trước câu kế
@@ -90,6 +93,7 @@ export function BranchingStoryEngine({ story, tree, onHome, sidePanel }: { story
       } else if (node.ending) {
         setMessages(m => [...m, { type: "ending", node }]);
         setSeen(s => new Set(s).add(node.id));
+        markCompleted(story.id, { ending: node.id, score: scoreRef.current });
         setPhase("ended");
       } else if (node.choices) {
         setPhase("choose");
@@ -106,7 +110,10 @@ export function BranchingStoryEngine({ story, tree, onHome, sidePanel }: { story
     if (!activePick) return;
     const correct = activePick.options.find(o => o.correct)!;
     setMessages(m => [...m, { type: "pick", option: opt }, { type: "pickAnalysis", option: opt, correct }]);
-    setScore(s => ({ right: s.right + (opt.correct ? 1 : 0), total: s.total + 1 }));
+    const nextScore = { right: score.right + (opt.correct ? 1 : 0), total: score.total + 1 };
+    scoreRef.current = nextScore;
+    setScore(nextScore);
+    reportProgress(story.id, pct);
     setQueue(q => q.slice(1));
     setFast(false);
     readPause.current = true;
@@ -119,6 +126,7 @@ export function BranchingStoryEngine({ story, tree, onHome, sidePanel }: { story
     if (phase !== "choose") return;
     setMessages(m => [...m, { type: "choice", choice: c }, { type: "analysis", choice: c }]);
     setPending(c);
+    reportProgress(story.id, pct);
     setPhase("analysis");
     scrollBottom();
   }
@@ -138,6 +146,7 @@ export function BranchingStoryEngine({ story, tree, onHome, sidePanel }: { story
     setFast(false);
     setPending(null);
     setScore({ right: 0, total: 0 });
+    scoreRef.current = { right: 0, total: 0 };
     readPause.current = false;
     setPhase("reveal");
     setTimeout(() => scrollRef.current?.scrollTo({ top: 0, behavior: "auto" }), 50);

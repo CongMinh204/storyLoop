@@ -27,7 +27,8 @@ React 18, TypeScript, Vite 6, Tailwind CSS v4 (via `@tailwindcss/vite`, no `tail
   - `quiz`: linear turns with right/wrong answers and a score (`ngoc-hoang.ts`, played by `ChatStoryEngine`).
   - `branching`: a graph of scenes where choices lead to different scenes and endings, each choice carrying a sentence-structure analysis (`meo-hoa-hoa.ts`, played by `BranchingStoryEngine`). Every line of "你" is a `pick` step: three options, one correct (the original line), two wrong with an explanation; a wrong pick is scored but does not change the branch. The author's original text lives in `src/imports/stories/*.md`.
   - A story in `library.ts` with no registered script shows `StoryComingSoon`.
-- `src/app/types.ts` holds the shared types. `src/app/lib/` holds `colors.ts` (palette `C`) and `useIsMobile.ts`.
+- `src/app/types.ts` holds the shared types. `src/app/lib/` holds `colors.ts` (palette `C`), `useIsMobile.ts` and `progress.ts`.
+- Story progress is real, stored in `localStorage` (`storyloop.progress.v1`) by `lib/progress.ts`: the chat engines call `reportProgress`/`markCompleted`, and the library ("Đang học", completed counts, card bars), the home banner (`features/home/continueStory.ts`) and the branching ending card (unlocked endings) read it via `useStoryProgress()`. There is no hard-coded `progress` in `library.ts`. "Tiếp tục chơi" restarts a story from the beginning (mid-story position is not saved). The home stats (words, XP, streak) and `ProgressScreen` are still sample data.
 - `src/app/components/ProgressScreen.tsx` is the progress screen, used by both layouts.
 - `src/app/components/ui/` is the shadcn component set. Most of it is currently unused. Prefer these over writing new primitives.
 - `src/app/components/figma/ImageWithFallback.tsx` is the Figma helper for images.

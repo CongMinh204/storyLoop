@@ -2,8 +2,9 @@ import type { StoryEntry } from "../types";
 
 export const STORY_LIBRARY: Record<number, StoryEntry[]> = {
   1: [
-    { id: "ngoc-hoang",       title: "Thử thách của Ngọc Hoàng", hsk: 1, lv: "Beginner",    color: "#6c3fc5", emoji: "🏯", tags: ["Thần thoại","Phiêu lưu","Thiên đình"], chapters: 5, progress: 1,
-      summary: "Nhập vai hội thoại với các nhân vật trong Thiên Đình để học tiếng Trung HSK1." },
+    { id: "ngoc-hoang",       title: "Thử thách của Ngọc Hoàng", hsk: 1, lv: "Beginner",    color: "#6c3fc5", emoji: "🏯", tags: ["Thần thoại","Phiêu lưu","Thiên đình"], chapters: 5,
+      summary: "Nhập vai hội thoại với các nhân vật trong Thiên Đình để học tiếng Trung HSK1.",
+      hero: "của Wei Lin", character: "Wei Lin", minutes: 12, quote: "Hoàng đế cần người tìm viên ngọc đã mất — con đường phía trước đầy hiểm nguy..." },
     { id: "bac-kinh-xua",     title: "Một Đêm Ở Bắc Kinh Xưa",  hsk: 1, lv: "Beginner",    color: "#e0417f", emoji: "🌸", tags: ["Lịch sử","Gia đình","Đêm khuya"],       chapters: 4 },
     { id: "le-hoi-rong",      title: "Lễ Hội Rồng",              hsk: 1, lv: "Beginner",    color: "#f97316", emoji: "🐉", tags: ["Lễ hội","Văn hóa","Mùa hè"],            chapters: 3 },
     { id: "hoa-anh-dao",      title: "Thư Gửi Từ Hoa Anh Đào",  hsk: 1, lv: "Beginner",    color: "#1a8fa0", emoji: "🌊", tags: ["Tình bạn","Thư từ","Nhật Bản"],          chapters: 4 },
@@ -11,7 +12,8 @@ export const STORY_LIBRARY: Record<number, StoryEntry[]> = {
   ],
   2: [
     { id: "meo-hoa-hoa",      title: "Chú Mèo Hoa Hoa",         hsk: 2, lv: "Elementary",  color: "#ca8a04", emoji: "🐱", tags: ["Hài hước","Thú cưng","Du lịch"],        chapters: 1,
-      summary: "小美 rủ bạn đi du lịch cùng một “người bạn mới” bí ẩn. Mỗi lựa chọn dẫn tới một nhánh khác, với 3 kết thúc." },
+      summary: "小美 rủ bạn đi du lịch cùng một “người bạn mới” bí ẩn. Mỗi lựa chọn dẫn tới một nhánh khác, với 3 kết thúc.",
+      hero: "cùng Hoa Hoa", character: "小美 và 花花", minutes: 15, quote: "Chúng mình cùng đi du lịch nhé! Có một người bạn mới sẽ đi cùng..." },
     { id: "thay-tuong",       title: "Bí Mật Của Thầy Tướng",   hsk: 2, lv: "Elementary",  color: "#0891b2", emoji: "🔮", tags: ["Bí ẩn","Dự đoán","Thành phố"],          chapters: 5 },
     { id: "thuong-hai",       title: "Người Bạn Từ Thượng Hải", hsk: 2, lv: "Elementary",  color: "#7c3aed", emoji: "🏙️", tags: ["Bạn bè","Hiện đại","Du học"],           chapters: 6 },
     { id: "cho-dem-thanh-do", title: "Chợ Đêm Thành Đô",        hsk: 2, lv: "Elementary",  color: "#b45309", emoji: "🏮", tags: ["Ẩm thực","Chợ đêm","Tứ Xuyên"],         chapters: 4 },

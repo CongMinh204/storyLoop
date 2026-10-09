@@ -1,6 +1,5 @@
 import { C } from "../lib/colors";
 import type { Screen, StoryEntry } from "../types";
-import { DEFAULT_STORY } from "../data/library";
 import { DesktopSidebar } from "./desktop/DesktopChrome";
 import { DesktopHomeScreen } from "../features/home/DesktopHome";
 import { LibraryScreen } from "../features/library/LibraryScreen";
@@ -14,7 +13,7 @@ export function DesktopApp({ screen, setScreen, story, onOpenStory }: { screen: 
     <div style={{ display: "flex", height: "100vh", background: C.bg, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <DesktopSidebar active={screen} onChange={setScreen} />
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-        {screen === "home"     && <DesktopHomeScreen onChat={() => onOpenStory(DEFAULT_STORY)} />}
+        {screen === "home"     && <DesktopHomeScreen onOpenStory={onOpenStory} />}
         {screen === "library"  && <LibraryScreen onOpenStory={onOpenStory} />}
         {screen === "chat"     && <DesktopChatScreen story={story} onHome={() => setScreen("home")} />}
         {screen === "bloom"    && <DesktopBloomScreen />}
