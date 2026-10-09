@@ -5,17 +5,32 @@ import { BLOOM_STAGES, BLOOM_ICONS } from "../../data/bloom";
 import { DesktopTopbar } from "../../layouts/desktop/DesktopChrome";
 import { BloomContent } from "./BloomContent";
 import { FlashcardScreen } from "../flashcard/FlashcardScreen";
+import { LessonPicker } from "./LessonPicker";
+import { LESSONS } from "../../data/lessons";
 
 export function DesktopBloomScreen() {
   const [mode, setMode] = useState<"bloom" | "flashcard">("bloom");
   const [stage, setStage] = useState(0), [complete, setComplete] = useState(false);
   const [pinyinOn, setPinyinOn] = useState(true);
+  const [lessonId, setLessonId] = useState(LESSONS[0].id);
+  const lesson = LESSONS.find(l => l.id === lessonId)!;
+  const bloom = lesson.bloom;
   const scrollRef = useRef<HTMLDivElement>(null);
   useEffect(() => { scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" }); }, [stage]);
 
-  const tabBtn = (m: "bloom" | "flashcard", label: string) => (
-    <button onClick={() => setMode(m)} style={{ padding: "6px 18px", borderRadius: 8, fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", border: "none", background: mode === m ? C.white : "none", color: mode === m ? C.dark : C.muted, boxShadow: mode === m ? "0 1px 4px rgba(0,0,0,.09)" : "none", transition: "all .15s" }}>{label}</button>
-  );
+  // Đổi bài: Bloom quay về cấp 1; bài không có Bloom (HSK1) thì chuyển sang Flashcard
+  function pickLesson(id: string) {
+    setLessonId(id); setStage(0); setComplete(false);
+    if (!LESSONS.find(l => l.id === id)!.bloom) setMode("flashcard");
+  }
+  const showBloom = mode === "bloom" && !!bloom;
+
+  const tabBtn = (m: "bloom" | "flashcard", label: string) => {
+    const off = m === "bloom" && !bloom;
+    return (
+    <button onClick={() => !off && setMode(m)} disabled={off} title={off ? "Chọn một truyện để luyện Bloom" : undefined} style={{ opacity: off ? 0.4 : 1, padding: "6px 18px", borderRadius: 8, fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", border: "none", background: mode === m ? C.white : "none", color: mode === m ? C.dark : C.muted, boxShadow: mode === m ? "0 1px 4px rgba(0,0,0,.09)" : "none", transition: "all .15s", ...(off ? { cursor: "not-allowed" } : {}) }}>{label}</button>
+    );
+  };
 
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
@@ -28,7 +43,7 @@ export function DesktopBloomScreen() {
               {tabBtn("flashcard", "🃏 Flashcard")}
             </div>
             {/* Bloom-only controls */}
-            {mode === "bloom" && <>
+            {showBloom && <>
               <button onClick={() => setPinyinOn(v => !v)} style={{ display: "flex", alignItems: "center", gap: 5, background: pinyinOn ? C.purpleBg : C.bg, border: `0.5px solid ${pinyinOn ? "#ddd8f9" : C.border}`, borderRadius: 20, padding: "5px 13px", fontSize: 12, color: pinyinOn ? C.purple : C.muted, cursor: "pointer", fontFamily: "inherit", fontWeight: 500 }}>
                 {pinyinOn ? <Eye size={13} /> : <EyeOff size={13} />} {pinyinOn ? "Pinyin: Bật" : "Pinyin: Tắt"}
               </button>
@@ -36,9 +51,13 @@ export function DesktopBloomScreen() {
             </>}
           </div>
         } />
+      {/* Chọn bài */}
+      <div style={{ background: C.white, borderBottom: `0.5px solid ${C.border}`, padding: "10px 28px", flexShrink: 0 }}>
+        <LessonPicker lessons={LESSONS} value={lessonId} onChange={pickLesson} />
+      </div>
 
-      {mode === "flashcard" ? (
-        <FlashcardScreen />
+      {!showBloom || !bloom ? (
+        <FlashcardScreen key={lessonId} cards={lesson.cards} topics={lesson.topics ?? null} hsk={lesson.hsk} title={lesson.title} />
       ) : (
         <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
           {/* Stage panel left */}
@@ -66,13 +85,13 @@ export function DesktopBloomScreen() {
                 <div style={{ textAlign: "center", paddingTop: 40 }}>
                   <div style={{ fontSize: 72, marginBottom: 16 }}>🏆</div>
                   <div style={{ fontSize: 22, fontWeight: 700, color: C.dText, marginBottom: 8 }}>Hoàn thành cả 4 cấp độ!</div>
-                  <div style={{ fontSize: 13, color: C.dSub, marginBottom: 28 }}>Bạn đã thành thạo từ vựng Chương 4: Cổng Thiên Đình</div>
+                  <div style={{ fontSize: 13, color: C.dSub, marginBottom: 28 }}>Bạn đã thành thạo từ vựng {bloom.doneLong}</div>
                   <div style={{ display: "flex", justifyContent: "center", gap: 14, marginBottom: 28 }}>
-                    {[{ val: "+40", sub: "XP kiếm được", bg: C.greenBg, bdr: C.greenBorder, col: C.greenDim }, { val: "7", sub: "Từ đã nắm", bg: C.purpleBg, bdr: "#ddd8f9", col: C.purple }, { val: "Bloom 4", sub: "Cấp độ đạt", bg: C.tealBg, bdr: "#bdeaf0", col: C.teal }].map((s, i) => <div key={i} style={{ background: s.bg, border: `0.5px solid ${s.bdr}`, borderRadius: 14, padding: "14px 24px", textAlign: "center" }}><div style={{ fontSize: 20, fontWeight: 700, color: s.col }}>{s.val}</div><div style={{ fontSize: 10, color: C.muted, marginTop: 3 }}>{s.sub}</div></div>)}
+                    {[{ val: "+40", sub: "XP kiếm được", bg: C.greenBg, bdr: C.greenBorder, col: C.greenDim }, { val: `${bloom.words}`, sub: "Từ đã nắm", bg: C.purpleBg, bdr: "#ddd8f9", col: C.purple }, { val: "Bloom 4", sub: "Cấp độ đạt", bg: C.tealBg, bdr: "#bdeaf0", col: C.teal }].map((s, i) => <div key={i} style={{ background: s.bg, border: `0.5px solid ${s.bdr}`, borderRadius: 14, padding: "14px 24px", textAlign: "center" }}><div style={{ fontSize: 20, fontWeight: 700, color: s.col }}>{s.val}</div><div style={{ fontSize: 10, color: C.muted, marginTop: 3 }}>{s.sub}</div></div>)}
                   </div>
                   <button onClick={() => { setStage(0); setComplete(false); }} style={{ background: C.teal, color: "#fff", border: "none", borderRadius: 14, padding: "14px 40px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "inherit" }}>Luyện lại từ đầu</button>
                 </div>
-              ) : <BloomContent key={stage} stage={stage} onNext={() => setStage(s => s+1)} onComplete={() => setComplete(true)} pinyinOn={pinyinOn} />}
+              ) : <BloomContent key={`${lessonId}-${stage}`} items={bloom.items} emoji={lesson.emoji} stage={stage} onNext={() => setStage(s => s+1)} onComplete={() => setComplete(true)} pinyinOn={pinyinOn} />}
             </div>
           </div>
         </div>

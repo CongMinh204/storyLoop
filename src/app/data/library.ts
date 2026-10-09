@@ -10,6 +10,8 @@ export const STORY_LIBRARY: Record<number, StoryEntry[]> = {
     { id: "to-lua",           title: "Thương Nhân Tơ Lụa",      hsk: 1, lv: "Beginner",    color: "#16a34a", emoji: "🎋", tags: ["Kinh doanh","Con đường tơ lụa"],         chapters: 6, premium: true },
   ],
   2: [
+    { id: "meo-hoa-hoa",      title: "Chú Mèo Hoa Hoa",         hsk: 2, lv: "Elementary",  color: "#ca8a04", emoji: "🐱", tags: ["Hài hước","Thú cưng","Du lịch"],        chapters: 1,
+      summary: "小美 rủ bạn đi du lịch cùng một “người bạn mới” bí ẩn. Mỗi lựa chọn dẫn tới một nhánh khác, với 3 kết thúc." },
     { id: "thay-tuong",       title: "Bí Mật Của Thầy Tướng",   hsk: 2, lv: "Elementary",  color: "#0891b2", emoji: "🔮", tags: ["Bí ẩn","Dự đoán","Thành phố"],          chapters: 5 },
     { id: "thuong-hai",       title: "Người Bạn Từ Thượng Hải", hsk: 2, lv: "Elementary",  color: "#7c3aed", emoji: "🏙️", tags: ["Bạn bè","Hiện đại","Du học"],           chapters: 6 },
     { id: "cho-dem-thanh-do", title: "Chợ Đêm Thành Đô",        hsk: 2, lv: "Elementary",  color: "#b45309", emoji: "🏮", tags: ["Ẩm thực","Chợ đêm","Tứ Xuyên"],         chapters: 4 },

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { Brain, Coffee, Bolt, Pencil, Zap, Eye } from "lucide-react";
 import { C } from "../../lib/colors";
-import { BLOOM_STAGES, BLOOM_DATA } from "../../data/bloom";
+import { BLOOM_STAGES } from "../../data/bloom";
+import type { BloomSet, BloomDung, BloomViet, BloomHieu } from "../../types";
 
-export function BloomContent({ stage, onNext, onComplete, pinyinOn = true }: { stage: number; onNext: () => void; onComplete: () => void; pinyinOn?: boolean }) {
-  const data = BLOOM_DATA[stage], meta = BLOOM_STAGES[stage], xp = (stage + 1) * 10;
+export function BloomContent({ items, emoji, stage, onNext, onComplete, pinyinOn = true }: { items: BloomSet["items"]; emoji: string; stage: number; onNext: () => void; onComplete: () => void; pinyinOn?: boolean }) {
+  const data = items[stage], meta = BLOOM_STAGES[stage], xp = (stage + 1) * 10;
   const [answered, setAnswered] = useState(false);
   const [chosen, setChosen] = useState<number | null>(null);
   const [fillVal, setFillVal] = useState(""), [fillState, setFillState] = useState<"idle"|"correct"|"wrong">("idle");
@@ -32,21 +33,21 @@ export function BloomContent({ stage, onNext, onComplete, pinyinOn = true }: { s
 
   function checkFill() {
     if (answered) return;
-    const d = data as typeof BLOOM_DATA[2];
+    const d = data as BloomDung;
     if (fillVal.includes(d.ans)) { setFillState("correct"); setAnswered(true); setFeedback({ ok: true, text: `<strong>Xuất sắc!</strong> ${d.explain}` }); }
     else { setFillState("wrong"); setFeedback({ ok: false, text: `<strong>Thử lại!</strong> Đáp án: <strong>${d.ans}</strong>` }); setTimeout(() => { setFillState("idle"); setFillVal(""); setFeedback(null); }, 1200); }
   }
 
   function checkWrite() {
-    const d = data as typeof BLOOM_DATA[3];
+    const d = data as BloomViet;
     if (d.check(writeVal)) { setWriteState("correct"); setAnswered(true); setFeedback({ ok: true, text: d.explain.replace(/\n/g, "<br>") }); }
-    else { setWriteState("wrong"); setFeedback({ ok: false, text: "<strong>Hãy dùng từ 证明 trong câu!</strong>" }); setTimeout(() => setWriteState("idle"), 1000); }
+    else { setWriteState("wrong"); setFeedback({ ok: false, text: `<strong>${d.missMsg}</strong>` }); setTimeout(() => setWriteState("idle"), 1000); }
   }
 
   function showHint() {
     setAnswered(true);
-    if (data.type === "dùng") setFeedback({ ok: false, text: `Đáp án: <strong>${(data as typeof BLOOM_DATA[2]).ans}</strong> — ${(data as typeof BLOOM_DATA[2]).explain}` });
-    if (data.type === "viết") setFeedback({ ok: true, text: (data as typeof BLOOM_DATA[3]).explain.replace(/\n/g, "<br>") });
+    if (data.type === "dùng") setFeedback({ ok: false, text: `Đáp án: <strong>${(data as BloomDung).ans}</strong> — ${(data as BloomDung).explain}` });
+    if (data.type === "viết") setFeedback({ ok: true, text: (data as BloomViet).explain.replace(/\n/g, "<br>") });
   }
 
   const MCQOpts = (data as any).opts, MCQCorrect = (data as any).correct;
@@ -64,8 +65,8 @@ export function BloomContent({ stage, onNext, onComplete, pinyinOn = true }: { s
         </div>
       </div>
 
-      {data.type === "nhớ" && <div style={card}><div style={{ fontSize: 10, color: C.dSub, marginBottom: 6 }}>🏯 {data.story}</div><div style={{ fontSize: 11, color: C.dSub, marginBottom: 12 }}>{data.q}</div><div style={{ fontSize: 56, color: C.dText, lineHeight: 1, marginBottom: 6 }}>{data.char}</div>{pinyinOn && <div style={{ fontSize: 13, fontWeight: 600, color: data.pinyinColor }}>{data.pinyin}</div>}</div>}
-      {data.type === "hiểu" && <div style={card}><div style={{ fontSize: 10, color: C.dSub, marginBottom: 6 }}>🏯 {data.story}</div><div style={{ fontSize: 11, color: C.dSub, marginBottom: 12 }}>{data.q}</div><div style={{ fontSize: 15, color: C.dText, lineHeight: 1.5, marginBottom: 4 }}>{stripPy(data.sent)}</div><div style={{ fontSize: 11, color: C.dSub }}>{data.sentVi}</div></div>}
+      {data.type === "nhớ" && <div style={card}><div style={{ fontSize: 10, color: C.dSub, marginBottom: 6 }}>{emoji} {data.story}</div><div style={{ fontSize: 11, color: C.dSub, marginBottom: 12 }}>{data.q}</div><div style={{ fontSize: 56, color: C.dText, lineHeight: 1, marginBottom: 6 }}>{data.char}</div>{pinyinOn && <div style={{ fontSize: 13, fontWeight: 600, color: data.pinyinColor }}>{data.pinyin}</div>}</div>}
+      {data.type === "hiểu" && <div style={card}><div style={{ fontSize: 10, color: C.dSub, marginBottom: 6 }}>{emoji} {data.story}</div><div style={{ fontSize: 11, color: C.dSub, marginBottom: 12 }}>{data.q}</div><div style={{ fontSize: 15, color: C.dText, lineHeight: 1.5, marginBottom: 4 }}>{stripPy(data.sent)}</div><div style={{ fontSize: 11, color: C.dSub }}>{data.sentVi}</div></div>}
 
       {(data.type === "nhớ" || data.type === "hiểu") && (
         <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 12 }}>
@@ -78,7 +79,7 @@ export function BloomContent({ stage, onNext, onComplete, pinyinOn = true }: { s
               <button key={i} onClick={() => answerMCQ(i)} disabled={answered} style={{ background: bg, border: `0.5px solid ${border}`, borderRadius: 12, padding: "11px 13px", cursor: answered ? "default" : "pointer", fontSize: 12, color, textAlign: "left", display: "flex", alignItems: "center", justifyContent: "space-between", fontFamily: "inherit" }}
                 onMouseEnter={e => { if (!answered) e.currentTarget.style.borderColor = C.teal; }}
                 onMouseLeave={e => { if (!answered) e.currentTarget.style.borderColor = C.dBorder; }}>
-                <div>{data.type === "hiểu" ? <><div style={{ fontSize: 12, marginBottom: 2 }}>{opt}</div><div style={{ fontSize: 10, color: C.dSub }}>{(data as typeof BLOOM_DATA[1]).optsVi[i]}</div></> : opt}</div>
+                <div>{data.type === "hiểu" ? <><div style={{ fontSize: 12, marginBottom: 2 }}>{opt}</div><div style={{ fontSize: 10, color: C.dSub }}>{(data as BloomHieu).optsVi[i]}</div></> : opt}</div>
                 {answered && isC && <span style={{ fontSize: 14 }}>✓</span>}
                 {answered && isCh && !isC && <span style={{ fontSize: 14 }}>✗</span>}
               </button>
@@ -87,9 +88,9 @@ export function BloomContent({ stage, onNext, onComplete, pinyinOn = true }: { s
         </div>
       )}
 
-      {data.type === "dùng" && (<><div style={card}><div style={{ fontSize: 10, color: C.dSub, marginBottom: 6 }}>🏯 {data.story}</div><div style={{ fontSize: 11, color: C.dSub }}>{data.q}</div></div><div style={{ background: C.white, borderRadius: 12, padding: "11px 13px", border: `0.5px solid ${C.dBorder}`, fontSize: 11, color: C.dSub, lineHeight: 1.65, marginBottom: 12 }}>{(data as typeof BLOOM_DATA[2]).prompt.split("\n").map((l, i) => <span key={i}>{stripPy(l)}<br /></span>)}<br /><strong style={{ color: C.dText, fontSize: 13 }}>{(data as typeof BLOOM_DATA[2]).tmpl}</strong><br /><span style={{ fontSize: 10 }}>{(data as typeof BLOOM_DATA[2]).tmplVi}</span></div><div style={{ marginBottom: 12 }}><div style={{ fontSize: 10, color: C.dSub, marginBottom: 6 }}>Điền vào chỗ trống (___)</div><input value={fillVal} onChange={e => setFillVal(e.target.value)} placeholder={stripPy((data as typeof BLOOM_DATA[2]).hint)} style={{ ...inp, background: fillState === "correct" ? C.greenBg : fillState === "wrong" ? C.redBg : C.dSurface, border: `0.5px solid ${fillState === "correct" ? C.greenDim : fillState === "wrong" ? C.red : C.dBorder}` }} /></div></>)}
+      {data.type === "dùng" && (<><div style={card}><div style={{ fontSize: 10, color: C.dSub, marginBottom: 6 }}>{emoji} {data.story}</div><div style={{ fontSize: 11, color: C.dSub }}>{data.q}</div></div><div style={{ background: C.white, borderRadius: 12, padding: "11px 13px", border: `0.5px solid ${C.dBorder}`, fontSize: 11, color: C.dSub, lineHeight: 1.65, marginBottom: 12 }}>{(data as BloomDung).prompt.split("\n").map((l, i) => <span key={i}>{stripPy(l)}<br /></span>)}<br /><strong style={{ color: C.dText, fontSize: 13 }}>{(data as BloomDung).tmpl}</strong><br /><span style={{ fontSize: 10 }}>{(data as BloomDung).tmplVi}</span></div><div style={{ marginBottom: 12 }}><div style={{ fontSize: 10, color: C.dSub, marginBottom: 6 }}>Điền vào chỗ trống (___)</div><input value={fillVal} onChange={e => setFillVal(e.target.value)} placeholder={stripPy((data as BloomDung).hint)} style={{ ...inp, background: fillState === "correct" ? C.greenBg : fillState === "wrong" ? C.redBg : C.dSurface, border: `0.5px solid ${fillState === "correct" ? C.greenDim : fillState === "wrong" ? C.red : C.dBorder}` }} /></div></>)}
 
-      {data.type === "viết" && (<><div style={card}><div style={{ fontSize: 10, color: C.dSub, marginBottom: 6 }}>🏯 {data.story}</div><div style={{ fontSize: 11, color: C.dSub, marginBottom: 10 }}>{stripPy(data.q)}</div><div style={{ fontSize: 15, color: C.dText, lineHeight: 1.5, marginBottom: 3 }}>{pinyinOn ? "证明 (zhèngmíng)" : "证明"}</div><div style={{ fontSize: 11, color: C.dSub }}>chứng minh — xác nhận điều gì đó là sự thật</div></div><div style={{ background: C.white, borderRadius: 12, padding: "11px 13px", border: `0.5px solid ${C.dBorder}`, fontSize: 11, color: C.dSub, lineHeight: 1.65, marginBottom: 12 }}>{(data as typeof BLOOM_DATA[3]).prompt}</div><div style={{ marginBottom: 12 }}><div style={{ fontSize: 10, color: C.dSub, marginBottom: 6 }}>Câu của bạn:</div><textarea value={writeVal} onChange={e => setWriteVal(e.target.value)} rows={3} placeholder={(data as typeof BLOOM_DATA[3]).ph} style={{ ...inp, background: writeState === "correct" ? C.greenBg : writeState === "wrong" ? C.redBg : C.dSurface, border: `0.5px solid ${writeState === "correct" ? C.greenDim : writeState === "wrong" ? C.red : C.dBorder}`, resize: "none" }} /></div></>)}
+      {data.type === "viết" && (<><div style={card}><div style={{ fontSize: 10, color: C.dSub, marginBottom: 6 }}>{emoji} {data.story}</div><div style={{ fontSize: 11, color: C.dSub, marginBottom: 10 }}>{stripPy(data.q)}</div><div style={{ fontSize: 15, color: C.dText, lineHeight: 1.5, marginBottom: 3 }}>{pinyinOn ? `${data.word} (${data.wordPy})` : data.word}</div><div style={{ fontSize: 11, color: C.dSub }}>{data.wordVi}</div></div><div style={{ background: C.white, borderRadius: 12, padding: "11px 13px", border: `0.5px solid ${C.dBorder}`, fontSize: 11, color: C.dSub, lineHeight: 1.65, marginBottom: 12 }}>{(data as BloomViet).prompt}</div><div style={{ marginBottom: 12 }}><div style={{ fontSize: 10, color: C.dSub, marginBottom: 6 }}>Câu của bạn:</div><textarea value={writeVal} onChange={e => setWriteVal(e.target.value)} rows={3} placeholder={(data as BloomViet).ph} style={{ ...inp, background: writeState === "correct" ? C.greenBg : writeState === "wrong" ? C.redBg : C.dSurface, border: `0.5px solid ${writeState === "correct" ? C.greenDim : writeState === "wrong" ? C.red : C.dBorder}`, resize: "none" }} /></div></>)}
 
       {feedback && <div style={{ borderRadius: 12, padding: "11px 13px", marginBottom: 12, fontSize: 11, lineHeight: 1.6, background: feedback.ok ? C.greenBg : C.redBg, border: `0.5px solid ${feedback.ok ? C.greenBorder : C.redBorder}`, color: feedback.ok ? C.greenDim : "#f09595" }} dangerouslySetInnerHTML={{ __html: feedback.text }} />}
 

@@ -21,7 +21,12 @@ React 18, TypeScript, Vite 6, Tailwind CSS v4 (via `@tailwindcss/vite`, no `tail
   - `Screen` is `"home" | "chat" | "bloom" | "progress" | "profile" | "library"` (defined in `types.ts`). It is held in `useState` in `App`, so there is no router even though `react-router` is installed.
   - Two parallel layouts, picked with `useIsMobile()`: `MobileApp` (bottom nav, `Mobile*Screen`) and `DesktopApp` (sidebar and topbar, `Desktop*Screen`).
 - `src/app/features/` holds screens shared by both layouts, one folder per feature: `chat/` (`ChatStoryEngine`, `ChatBubbles`, `ResultScreen`), `bloom/` (`BloomContent`), `flashcard/` (`FlashcardScreen`), `library/` (`LibraryScreen`).
-- `src/app/data/` holds the hard-coded content: `library.ts` (`STORY_LIBRARY`), `stories/ngoc-hoang.ts` (chat script `STORY_TURNS`), `vocab.ts` (`VOCAB_MAP`), `bloom.ts`, `flashcards.ts` (`HSK1_CARDS`).
+- `src/app/data/` holds the hard-coded content: `library.ts` (`STORY_LIBRARY`), `stories/`, `bloom.ts` (`BLOOM_SETS`), `flashcards.ts` (`HSK1_CARDS`), `lessons.ts` (`LESSONS`).
+- The practice room (Phòng tập, `MobileBloom`/`DesktopBloom`) is organised by lesson: one lesson per story that has a script, plus an "HSK1" lesson (flashcards only, 6 topics). `LessonPicker` drives both the BLOOM and Flashcard tabs. A lesson's flashcards come from its story vocab entries that have an example (`ex`); its Bloom set (4 items: nhớ, hiểu, dùng, viết) lives in `BLOOM_SETS[storyId]`.
+- Stories come in two kinds, registered in `data/stories/index.ts` (`getStoryScript(id)`, keyed by `StoryEntry.id`):
+  - `quiz`: linear turns with right/wrong answers and a score (`ngoc-hoang.ts`, played by `ChatStoryEngine`).
+  - `branching`: a graph of scenes where choices lead to different scenes and endings, each choice carrying a sentence-structure analysis (`meo-hoa-hoa.ts`, played by `BranchingStoryEngine`). Every line of "你" is a `pick` step: three options, one correct (the original line), two wrong with an explanation; a wrong pick is scored but does not change the branch. The author's original text lives in `src/imports/stories/*.md`.
+  - A story in `library.ts` with no registered script shows `StoryComingSoon`.
 - `src/app/types.ts` holds the shared types. `src/app/lib/` holds `colors.ts` (palette `C`) and `useIsMobile.ts`.
 - `src/app/components/ProgressScreen.tsx` is the progress screen, used by both layouts.
 - `src/app/components/ui/` is the shadcn component set. Most of it is currently unused. Prefer these over writing new primitives.
