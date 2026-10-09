@@ -1,9 +1,12 @@
 import { Flame, Lock, Zap } from "lucide-react";
 import { C } from "../../lib/colors";
 import { LIBRARY } from "../../data/library";
+import { useContinueStory, heroText } from "./continueStory";
+import type { StoryEntry } from "../../types";
 import { DesktopTopbar } from "../../layouts/desktop/DesktopChrome";
 
-export function DesktopHomeScreen({ onChat }: { onChat: () => void }) {
+export function DesktopHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry) => void }) {
+  const target = useContinueStory(), txt = heroText(target), st = target.story;
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
       <DesktopTopbar title="Chào buổi sáng, Nguyễn Minh Anh 👋" />
@@ -14,24 +17,24 @@ export function DesktopHomeScreen({ onChat }: { onChat: () => void }) {
             <div style={{ background: `linear-gradient(135deg, ${C.teal} 0%, #0e7490 100%)`, borderRadius: 18, padding: "28px 32px", position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", right: -20, bottom: -20, fontSize: 130, opacity: 0.1, lineHeight: 1 }}>🐼</div>
               <div style={{ position: "relative" }}>
-                <div style={{ fontSize: 13, color: "rgba(255,255,255,.8)", marginBottom: 6, fontWeight: 500 }}>Thử thách của Ngọc Hoàng · Chương 4</div>
-                <div style={{ fontSize: 26, fontWeight: 700, color: "#fff", lineHeight: 1.3, marginBottom: 16 }}>Tiếp tục hành trình<br />của Wei Lin!</div>
+                <div style={{ fontSize: 13, color: "rgba(255,255,255,.8)", marginBottom: 6, fontWeight: 500 }}>{st.title}</div>
+                <div style={{ fontSize: 26, fontWeight: 700, color: "#fff", lineHeight: 1.3, marginBottom: 16 }}>{txt.headline}<br />{txt.hero}!</div>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 22 }}>
-                  <span style={{ background: "rgba(255,255,255,.2)", color: "#fff", fontSize: 11, padding: "4px 11px", borderRadius: 20, fontWeight: 600 }}>HSK 1</span>
-                  <div style={{ flex: 1, height: 6, background: "rgba(255,255,255,.25)", borderRadius: 20, maxWidth: 200 }}><div style={{ height: 6, borderRadius: 20, background: C.orange, width: "68%" }} /></div>
-                  <span style={{ fontSize: 12, color: "rgba(255,255,255,.9)", fontWeight: 600 }}>68% hoàn thành</span>
+                  <span style={{ background: "rgba(255,255,255,.2)", color: "#fff", fontSize: 11, padding: "4px 11px", borderRadius: 20, fontWeight: 600 }}>HSK {st.hsk}</span>
+                  <div style={{ flex: 1, height: 6, background: "rgba(255,255,255,.25)", borderRadius: 20, maxWidth: 200 }}><div style={{ height: 6, borderRadius: 20, background: C.orange, width: `${target.pct}%` }} /></div>
+                  <span style={{ fontSize: 12, color: "rgba(255,255,255,.9)", fontWeight: 600 }}>{target.pct}% hoàn thành</span>
                 </div>
-                <button onClick={onChat} style={{ background: C.orange, color: "#fff", border: "none", borderRadius: 28, padding: "13px 28px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "inherit", display: "inline-flex", alignItems: "center", gap: 8 }}>▶ Tiếp tục chơi ngay</button>
+                <button onClick={() => onOpenStory(st)} style={{ background: C.orange, color: "#fff", border: "none", borderRadius: 28, padding: "13px 28px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "inherit", display: "inline-flex", alignItems: "center", gap: 8 }}>▶ {txt.button} ngay</button>
               </div>
             </div>
             <div style={{ background: C.white, borderRadius: 16, border: `0.5px solid ${C.border}`, overflow: "hidden" }}>
               <div style={{ display: "flex", gap: 0 }}>
-                <div style={{ width: 100, background: C.purple, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 36, flexShrink: 0 }}>🏯</div>
+                <div style={{ width: 100, background: st.color, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 36, flexShrink: 0 }}>{st.emoji}</div>
                 <div style={{ padding: "16px 20px", flex: 1 }}>
-                  <div style={{ display: "flex", gap: 6, marginBottom: 8 }}><span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 20, background: C.tealBg, color: C.teal, fontWeight: 600 }}>HSK 1</span><span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 20, background: C.purpleBg, color: C.purple, fontWeight: 600 }}>Beginner</span></div>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: C.dark, marginBottom: 4 }}>Thử thách của Ngọc Hoàng</div>
-                  <div style={{ fontSize: 12, color: C.muted, marginBottom: 8 }}>Nhân vật: Wei Lin · Chương 4/12 · ~12 phút</div>
-                  <div style={{ fontSize: 12, color: C.faint, lineHeight: 1.6, fontStyle: "italic" }}>&ldquo;Hoàng đế cần người tìm viên ngọc đã mất — con đường phía trước đầy hiểm nguy...&rdquo;</div>
+                  <div style={{ display: "flex", gap: 6, marginBottom: 8 }}><span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 20, background: C.tealBg, color: C.teal, fontWeight: 600 }}>HSK {st.hsk}</span><span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 20, background: C.purpleBg, color: C.purple, fontWeight: 600 }}>{st.lv}</span></div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: C.dark, marginBottom: 4 }}>{st.title}</div>
+                  <div style={{ fontSize: 12, color: C.muted, marginBottom: 8 }}>{[st.character && `Nhân vật: ${st.character}`, st.minutes && `~${st.minutes} phút`].filter(Boolean).join(" · ")}</div>
+                  <div style={{ fontSize: 12, color: C.faint, lineHeight: 1.6, fontStyle: "italic" }}>{st.quote && <>&ldquo;{st.quote}&rdquo;</>}</div>
                 </div>
               </div>
             </div>

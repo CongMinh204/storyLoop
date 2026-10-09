@@ -1,8 +1,11 @@
 import { Flame, Lock, Zap } from "lucide-react";
 import { C } from "../../lib/colors";
 import { LIBRARY } from "../../data/library";
+import { useContinueStory, heroText } from "./continueStory";
+import type { StoryEntry } from "../../types";
 
-export function MobileHomeScreen({ onChat }: { onChat: () => void }) {
+export function MobileHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry) => void }) {
+  const target = useContinueStory(), txt = heroText(target);
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: C.bg }}>
       <div style={{ background: C.white, padding: "10px 18px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0, borderBottom: `0.5px solid ${C.border}` }}>
@@ -19,14 +22,14 @@ export function MobileHomeScreen({ onChat }: { onChat: () => void }) {
         <div style={{ background: `linear-gradient(135deg, ${C.teal} 0%, #0e7490 100%)`, borderRadius: 18, padding: "20px 18px 18px", position: "relative", overflow: "hidden", minHeight: 206, flexShrink: 0 }}>
           <div style={{ position: "absolute", right: -16, bottom: -12, fontSize: 90, opacity: 0.12, lineHeight: 1, pointerEvents: "none" }}>🐼</div>
           <div style={{ position: "relative" }}>
-            <div style={{ fontSize: 11, color: "rgba(255,255,255,.75)", marginBottom: 4 }}>Thử thách của Ngọc Hoàng · Chương 4</div>
-            <div style={{ fontSize: 18, fontWeight: 700, color: "#fff", lineHeight: 1.35, marginBottom: 12 }}>Tiếp tục hành trình<br />của Wei Lin!</div>
+            <div style={{ fontSize: 11, color: "rgba(255,255,255,.75)", marginBottom: 4 }}>{target.story.title}</div>
+            <div style={{ fontSize: 18, fontWeight: 700, color: "#fff", lineHeight: 1.35, marginBottom: 12 }}>{txt.headline}<br />{txt.hero}!</div>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
-              <span style={{ background: "rgba(255,255,255,.2)", color: "#fff", fontSize: 9, padding: "3px 9px", borderRadius: 20, fontWeight: 600 }}>HSK 1</span>
-              <div style={{ flex: 1, height: 5, background: "rgba(255,255,255,.25)", borderRadius: 20, maxWidth: 120 }}><div style={{ height: 5, borderRadius: 20, background: C.orange, width: "68%" }} /></div>
-              <span style={{ fontSize: 10, color: "rgba(255,255,255,.9)", fontWeight: 600 }}>68%</span>
+              <span style={{ background: "rgba(255,255,255,.2)", color: "#fff", fontSize: 9, padding: "3px 9px", borderRadius: 20, fontWeight: 600 }}>HSK {target.story.hsk}</span>
+              <div style={{ flex: 1, height: 5, background: "rgba(255,255,255,.25)", borderRadius: 20, maxWidth: 120 }}><div style={{ height: 5, borderRadius: 20, background: C.orange, width: `${target.pct}%` }} /></div>
+              <span style={{ fontSize: 10, color: "rgba(255,255,255,.9)", fontWeight: 600 }}>{target.pct}%</span>
             </div>
-            <button onClick={onChat} style={{ background: C.orange, color: "#fff", border: "none", borderRadius: 24, padding: "11px 22px", fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "inherit", display: "inline-flex", alignItems: "center", justifyContent: "center", minWidth: 154, boxShadow: "0 8px 18px rgba(249,115,22,.28)", position: "relative", zIndex: 2 }}>▶ Tiếp tục chơi</button>
+            <button onClick={() => onOpenStory(target.story)} style={{ background: C.orange, color: "#fff", border: "none", borderRadius: 24, padding: "11px 22px", fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "inherit", display: "inline-flex", alignItems: "center", justifyContent: "center", minWidth: 154, boxShadow: "0 8px 18px rgba(249,115,22,.28)", position: "relative", zIndex: 2 }}>▶ {txt.button}</button>
           </div>
         </div>
         <div style={{ background: "#fffbf0", border: `0.5px solid #fde8c0`, borderRadius: 14, padding: "12px 14px", display: "flex", alignItems: "center", gap: 10 }}>

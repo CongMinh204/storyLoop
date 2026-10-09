@@ -1,6 +1,5 @@
 import { C } from "../lib/colors";
 import type { Screen, StoryEntry } from "../types";
-import { DEFAULT_STORY } from "../data/library";
 import { MobileStatusBar, MobileBottomNav } from "./mobile/MobileChrome";
 import { MobileHomeScreen } from "../features/home/MobileHome";
 import { LibraryScreen } from "../features/library/LibraryScreen";
@@ -15,7 +14,7 @@ export function MobileApp({ screen, setScreen, story, onOpenStory }: { screen: S
       <div style={{ width: 375, height: 812, borderRadius: 44, overflow: "hidden", boxShadow: "0 48px 96px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.09)", display: "flex", flexDirection: "column", position: "relative", background: C.bg }}>
         <MobileStatusBar />
         <div style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column" }}>
-          {screen === "home"     && <MobileHomeScreen onChat={() => onOpenStory(DEFAULT_STORY)} />}
+          {screen === "home"     && <MobileHomeScreen onOpenStory={onOpenStory} />}
           {screen === "library"  && <LibraryScreen onOpenStory={onOpenStory} />}
           {screen === "chat"     && <MobileChatScreen story={story} onHome={() => setScreen("home")} />}
           {screen === "bloom"    && <MobileBloomScreen />}
