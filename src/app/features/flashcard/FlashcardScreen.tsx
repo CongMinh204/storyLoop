@@ -2,18 +2,20 @@ import { useState, useEffect } from "react";
 import { ArrowLeft, Eye, EyeOff, CheckCircle2, Circle, ChevronRight } from "lucide-react";
 import { C } from "../../lib/colors";
 import { HSK1_TOPICS, HSK1_CARDS } from "../../data/flashcards";
+import type { HSK1Card } from "../../types";
 
-export function FlashcardScreen({ compact = false }: { compact?: boolean }) {
+// Mặc định là bộ HSK1 (chia chủ đề). Bộ thẻ của một truyện: truyền cards + title, không có topics.
+export function FlashcardScreen({ compact = false, cards = HSK1_CARDS, topics = HSK1_TOPICS, hsk = 1, title = "" }: { compact?: boolean; cards?: HSK1Card[]; topics?: string[] | null; hsk?: number; title?: string }) {
   const [topicIdx, setTopicIdx] = useState<number | null>(null);
   const [cardIdx, setCardIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [known, setKnown] = useState<Set<number>>(new Set());
   const [pinyinOn, setPinyinOn] = useState(true);
 
-  const filtered = topicIdx === null ? HSK1_CARDS : HSK1_CARDS.filter(c => c.topicIdx === topicIdx);
+  const filtered = topicIdx === null ? cards : cards.filter(c => c.topicIdx === topicIdx);
   const total = filtered.length;
   const card = filtered[Math.min(cardIdx, total - 1)];
-  const globalIdx = card ? HSK1_CARDS.indexOf(card) : -1;
+  const globalIdx = card ? cards.indexOf(card) : -1;
   const isKnown = globalIdx >= 0 && known.has(globalIdx);
 
   useEffect(() => { setCardIdx(0); setFlipped(false); }, [topicIdx]);
@@ -27,21 +29,23 @@ export function FlashcardScreen({ compact = false }: { compact?: boolean }) {
     setKnown(prev => { const n = new Set(prev); n.has(globalIdx) ? n.delete(globalIdx) : n.add(globalIdx); return n; });
   }
 
-  const knownCount = filtered.filter((c) => known.has(HSK1_CARDS.indexOf(c))).length;
+  const knownCount = filtered.filter((c) => known.has(cards.indexOf(c))).length;
   const ci = Math.min(cardIdx, total - 1);
 
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: C.bg }}>
-      {/* Topic filter */}
+      {/* Topic filter (chỉ bộ có chia chủ đề) */}
+      {topics && (
       <div style={{ background: C.white, borderBottom: `0.5px solid ${C.border}`, padding: compact ? "10px 14px" : "12px 24px", flexShrink: 0 }}>
         <div style={{ display: "flex", gap: 6, overflowX: "auto", scrollbarWidth: "none" as const, paddingBottom: 2 }}>
-          {([null, ...HSK1_TOPICS.map((_, i) => i)] as (number | null)[]).map((ti, idx) => (
+          {([null, ...topics.map((_, i) => i)] as (number | null)[]).map((ti, idx) => (
             <button key={idx} onClick={() => setTopicIdx(ti)} style={{ flexShrink: 0, background: topicIdx === ti ? C.teal : C.bg, color: topicIdx === ti ? "#fff" : C.muted, border: `0.5px solid ${topicIdx === ti ? C.teal : C.border}`, borderRadius: 20, padding: "5px 12px", fontSize: 11, cursor: "pointer", fontFamily: "inherit", fontWeight: topicIdx === ti ? 600 : 400 }}>
-              {ti === null ? `Tất cả (${HSK1_CARDS.length})` : `${HSK1_TOPICS[ti]}`}
+              {ti === null ? `Tất cả (${cards.length})` : `${topics[ti]}`}
             </button>
           ))}
         </div>
       </div>
+      )}
       {/* Progress bar */}
       <div style={{ height: 3, background: C.border, flexShrink: 0 }}>
         <div style={{ height: 3, background: C.teal, width: total > 0 ? `${((ci + 1) / total) * 100}%` : "0%", transition: "width .2s" }} />
@@ -64,7 +68,7 @@ export function FlashcardScreen({ compact = false }: { compact?: boolean }) {
             <div style={{ transformStyle: "preserve-3d" as const, transition: "transform .45s", transform: flipped ? "rotateY(180deg)" : "none", position: "relative", height: compact ? 230 : 260 }}>
               {/* Front */}
               <div style={{ position: "absolute", inset: 0, backfaceVisibility: "hidden" as const, background: C.white, borderRadius: 20, border: `0.5px solid ${C.border}`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 24, boxShadow: "0 4px 20px rgba(0,0,0,.06)" }}>
-                <div style={{ position: "absolute", top: 12, left: 14, fontSize: 9, color: C.faint, fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: ".05em" }}>HSK 1 · {HSK1_TOPICS[card.topicIdx]}</div>
+                <div style={{ position: "absolute", top: 12, left: 14, fontSize: 9, color: C.faint, fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: ".05em" }}>HSK {hsk} · {topics ? topics[card.topicIdx] : title}</div>
                 <div style={{ position: "absolute", top: 12, right: 14, fontSize: 9, color: C.faint }}>nhấn để lật ↩</div>
                 <div style={{ fontSize: compact ? 60 : 72, lineHeight: 1, color: C.dark, marginBottom: 10 }}>{card.ch}</div>
                 {pinyinOn && <div style={{ fontSize: 15, color: C.teal, fontWeight: 600 }}>{card.py}</div>}
@@ -78,7 +82,7 @@ export function FlashcardScreen({ compact = false }: { compact?: boolean }) {
               </div>
               {/* Back */}
               <div style={{ position: "absolute", inset: 0, backfaceVisibility: "hidden" as const, transform: "rotateY(180deg)", background: C.white, borderRadius: 20, border: `0.5px solid ${C.border}`, display: "flex", flexDirection: "column", padding: compact ? 18 : 22, boxShadow: "0 4px 20px rgba(0,0,0,.06)" }}>
-                <div style={{ fontSize: 9, color: C.faint, marginBottom: 5, fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: ".05em" }}>HSK 1 · {HSK1_TOPICS[card.topicIdx]}</div>
+                <div style={{ fontSize: 9, color: C.faint, marginBottom: 5, fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: ".05em" }}>HSK {hsk} · {topics ? topics[card.topicIdx] : title}</div>
                 <div style={{ fontSize: compact ? 28 : 34, color: C.dark, fontWeight: 700, marginBottom: 2 }}>{card.ch}</div>
                 {pinyinOn && <div style={{ fontSize: 13, color: C.teal, fontWeight: 600, marginBottom: 7 }}>{card.py}</div>}
                 <div style={{ fontSize: compact ? 15 : 17, color: C.dark, fontWeight: 600, marginBottom: 10 }}>{card.vi}</div>

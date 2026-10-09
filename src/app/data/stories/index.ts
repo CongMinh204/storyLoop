@@ -1,6 +1,5 @@
 import type { BranchingStory, ChatTurn, VocabItem } from "../../types";
-import { VOCAB_MAP } from "../vocab";
-import { STORY_TURNS as NGOC_HOANG } from "./ngoc-hoang";
+import { STORY_TURNS as NGOC_HOANG, NGOC_HOANG_VOCAB } from "./ngoc-hoang";
 import { MEO_HOA_HOA } from "./meo-hoa-hoa";
 
 // Hai loại kịch bản:
@@ -13,10 +12,7 @@ export type StoryScript =
 // Khoá = StoryEntry.id trong data/library.ts.
 // Thêm truyện mới: tạo file kịch bản trong thư mục này rồi đăng ký một dòng ở đây.
 const STORY_SCRIPTS: Record<string, StoryScript> = {
-  "ngoc-hoang": {
-    kind: "quiz", turns: NGOC_HOANG,
-    vocab: Object.entries(VOCAB_MAP).map(([word, vi]) => ({ word, py: "", vi })),
-  },
+  "ngoc-hoang": { kind: "quiz", turns: NGOC_HOANG, vocab: NGOC_HOANG_VOCAB },
   "meo-hoa-hoa": { kind: "branching", story: MEO_HOA_HOA, vocab: MEO_HOA_HOA.vocab },
 };
 

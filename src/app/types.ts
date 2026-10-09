@@ -23,7 +23,10 @@ export type ChatTurn = {
 };
 
 // ─── Truyện rẽ nhánh (vd. data/stories/meo-hoa-hoa.ts) ───
-export type VocabItem = { word: string; py: string; vi: string };   // py có thể rỗng
+export type VocabItem = {
+  word: string; py: string; vi: string;                              // py có thể rỗng
+  ex?: { zh: string; py: string; vi: string };                       // câu ví dụ trong truyện → thẻ flashcard
+};
 
 // Một đáp án trong bước "pick": đúng một đáp án có correct = true (câu gốc của truyện).
 // Chọn sai không đổi nhánh, truyện vẫn chạy tiếp; chỉ hiện phân tích lỗi và tính vào điểm.
@@ -62,6 +65,31 @@ export type BranchingStory = {
   characters: Record<string, string>;                               // tên nhân vật → emoji
   nodes: Record<string, StoryNode>;
   vocab: VocabItem[];                                                // từ vựng của cả truyện
+};
+
+// ─── Phòng tập: mỗi truyện là một bài, có bộ Bloom 4 cấp và bộ flashcard ───
+export type BloomNho  = { type: "nhớ"; story: string; q: string; char: string; pinyin: string; pinyinColor: string; opts: string[]; correct: number; explain: string };
+export type BloomHieu = { type: "hiểu"; story: string; q: string; sent: string; sentVi: string; opts: string[]; optsVi: string[]; correct: number; explain: string };
+export type BloomDung = { type: "dùng"; story: string; q: string; prompt: string; tmpl: string; tmplVi: string; ans: string; hint: string; explain: string };
+export type BloomViet = {
+  type: "viết"; story: string; q: string; prompt: string; ph: string; explain: string;
+  word: string; wordPy: string; wordVi: string;                      // từ khoá hiện trên thẻ
+  missMsg: string;                                                   // báo lỗi khi câu không có từ khoá
+  check: (v: string) => boolean;
+};
+export type BloomSet = {
+  items: [BloomNho, BloomHieu, BloomDung, BloomViet];
+  doneShort: string;                                                 // màn hoàn thành mobile, vd. "Chương 4"
+  doneLong: string;                                                  // màn hoàn thành desktop
+  words: number;                                                     // số "Từ đã nắm" ở màn hoàn thành
+};
+
+export type Lesson = {
+  id: string;                                                        // = StoryEntry.id, hoặc "hsk1"
+  title: string; chip: string; emoji: string; hsk: number;
+  cards: HSK1Card[];
+  topics?: string[];                                                 // chỉ bộ HSK1 chia chủ đề
+  bloom?: BloomSet;                                                  // bộ HSK1 không có Bloom
 };
 
 export type BloomStage ={ id: number; type: "nhớ"|"hiểu"|"dùng"|"viết"; label: string; color: string; bg: string; border: string };
