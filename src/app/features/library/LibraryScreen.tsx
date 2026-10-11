@@ -3,6 +3,9 @@ import { ChevronDown, Library } from "lucide-react";
 import { C } from "../../lib/colors";
 import { STORY_LIBRARY } from "../../data/library";
 import type { StoryEntry } from "../../types";
+import { useStoryProgress, type StoryProgress } from "../../lib/progress";
+
+type ProgressMap = Record<string, StoryProgress>;
 
 export function LibStoryTag({ label }: { label: string }) {
   return (
@@ -12,8 +15,8 @@ export function LibStoryTag({ label }: { label: string }) {
   );
 }
 
-export function LibStoryCard({ story, onStart }: { story: StoryEntry; onStart: () => void }) {
-  const pct = story.progress ? Math.round((story.progress / story.chapters) * 100) : 0;
+export function LibStoryCard({ story, prog, onStart }: { story: StoryEntry; prog?: StoryProgress; onStart: () => void }) {
+  const pct = prog?.pct ?? 0;
   return (
     <button
       onClick={story.premium ? undefined : onStart}
@@ -32,13 +35,13 @@ export function LibStoryCard({ story, onStart }: { story: StoryEntry; onStart: (
           <div style={{ fontSize: 12, fontWeight: 700, color: story.premium ? C.muted : C.dark, marginBottom: 5, lineHeight: 1.35, paddingRight: story.premium ? 56 : 0 }}>
             {story.title}
           </div>
-          <div style={{ display: "flex", flexWrap: "wrap" as const, gap: 4, marginBottom: story.progress ? 8 : 0 }}>
+          <div style={{ display: "flex", flexWrap: "wrap" as const, gap: 4, marginBottom: prog ? 8 : 0 }}>
             {story.tags.map(t => <LibStoryTag key={t} label={t} />)}
           </div>
-          {!!story.progress && (
+          {!!prog && (
             <>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
-                <span style={{ fontSize: 9, color: C.muted }}>Chương {story.progress} / {story.chapters}</span>
+                <span style={{ fontSize: 9, color: C.muted }}>{prog.status === "completed" ? "Hoàn thành ✓" : `Đã học ${pct}%`}</span>
                 <span style={{ fontSize: 9, color: C.teal, fontWeight: 700 }}>{pct}%</span>
               </div>
               <div style={{ height: 4, background: "#e9ecf2", borderRadius: 2, overflow: "hidden" }}>
@@ -52,11 +55,11 @@ export function LibStoryCard({ story, onStart }: { story: StoryEntry; onStart: (
   );
 }
 
-export function LibHSKAccordion({ level, stories, onStart }: { level: number; stories: StoryEntry[]; onStart: (s: StoryEntry) => void }) {
+export function LibHSKAccordion({ level, stories, progress, onStart }: { level: number; stories: StoryEntry[]; progress: ProgressMap; onStart: (s: StoryEntry) => void }) {
   const [open, setOpen] = useState(level === 1);
   const ACCENT = ["#6c3fc5","#1a8fa0","#16a34a","#b45309","#1d4ed8","#0f172a"][level - 1];
   const LABEL  = ["Beginner","Elementary","Intermediate","Upper-Int.","Advanced","Mastery"][level - 1];
-  const done   = stories.filter(s => s.progress && s.progress >= s.chapters).length;
+  const done   = stories.filter(s => progress[s.id]?.status === "completed").length;
   return (
     <div style={{ border: `0.5px solid ${C.border}`, borderRadius: 16, overflow: "hidden", marginBottom: 10 }}>
       <button
@@ -81,7 +84,7 @@ export function LibHSKAccordion({ level, stories, onStart }: { level: number; st
       </button>
       {open && (
         <div style={{ borderTop: `0.5px solid ${C.border}`, padding: "10px 12px 12px", display: "flex", flexDirection: "column", gap: 9, background: "#f8f9fc" }}>
-          {stories.map(s => <LibStoryCard key={s.title} story={s} onStart={() => onStart(s)} />)}
+          {stories.map(s => <LibStoryCard key={s.title} story={s} prog={progress[s.id]} onStart={() => onStart(s)} />)}
         </div>
       )}
     </div>
@@ -91,9 +94,13 @@ export function LibHSKAccordion({ level, stories, onStart }: { level: number; st
 export function LibraryScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry) => void }) {
   const [filterTag, setFilterTag] = useState<string | null>(null);
   const allTags = [...new Set(Object.values(STORY_LIBRARY).flat().flatMap(s => s.tags))];
-  const inProgress = Object.values(STORY_LIBRARY).flat().filter(s => s.progress && s.progress > 0 && s.progress < s.chapters);
+  const progress = useStoryProgress();
+  // Đang học = đã bắt đầu nhưng chưa hoàn thành, truyện chơi gần nhất lên đầu
+  const inProgress = Object.values(STORY_LIBRARY).flat()
+    .filter(s => progress[s.id]?.status === "started")
+    .sort((a, b) => progress[b.id].lastPlayed - progress[a.id].lastPlayed);
   const totalStories = Object.values(STORY_LIBRARY).flat().length;
-  const totalDone    = Object.values(STORY_LIBRARY).flat().filter(s => s.progress && s.progress >= s.chapters).length;
+  const totalDone    = Object.values(STORY_LIBRARY).flat().filter(s => progress[s.id]?.status === "completed").length;
 
   const filteredLibrary: Record<number, StoryEntry[]> = filterTag
     ? Object.fromEntries(Object.entries(STORY_LIBRARY).map(([k, arr]) => [k, arr.filter(s => s.tags.includes(filterTag))]))
@@ -142,7 +149,7 @@ export function LibraryScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry) =>
               <span style={{ background: C.tealBg, border: `0.5px solid #bdeaf0`, borderRadius: 20, padding: "1px 8px", fontSize: 10, color: C.teal, fontWeight: 600 }}>{inProgress.length}</span>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {inProgress.map(s => <LibStoryCard key={s.title} story={s} onStart={() => onOpenStory(s)} />)}
+              {inProgress.map(s => <LibStoryCard key={s.title} story={s} prog={progress[s.id]} onStart={() => onOpenStory(s)} />)}
             </div>
             <div style={{ height: 1, background: C.border, margin: "18px 0 0" }} />
           </div>
@@ -155,7 +162,7 @@ export function LibraryScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry) =>
         {([1,2,3,4,5,6] as const).map(lvl => {
           const stories = filteredLibrary[lvl] ?? [];
           if (filterTag && stories.length === 0) return null;
-          return <LibHSKAccordion key={lvl} level={lvl} stories={stories} onStart={onOpenStory} />;
+          return <LibHSKAccordion key={lvl} level={lvl} stories={stories} progress={progress} onStart={onOpenStory} />;
         })}
       </div>
     </div>

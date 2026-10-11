@@ -17,10 +17,18 @@ React 18, TypeScript, Vite 6, Tailwind CSS v4 (via `@tailwindcss/vite`, no `tail
 ## Structure
 
 - `src/main.tsx` is the entry point. It renders `App` and imports `styles/index.css`.
-- `src/app/App.tsx` is a single ~1800-line file holding almost the whole app:
-  - Data at the top: the colour palette `C`, `STORY_LIBRARY`, `STORY_TURNS` (chat script), `VOCAB_MAP`, `BLOOM_STAGES`, `HSK1_CARDS`.
-  - `Screen` is `"home" | "chat" | "bloom" | "progress" | "profile" | "library"`. It is held in `useState` in `App`, so there is no router even though `react-router` is installed.
-  - Two parallel layouts, picked with `useIsMobile()`: `MobileApp` (bottom nav, `Mobile*Screen`) and `DesktopApp` (sidebar and topbar, `Desktop*Screen`). They share `ChatStoryEngine`, `BloomContent`, `FlashcardScreen` and `LibraryScreen`.
+- `src/app/App.tsx` (~740 lines) holds the app shell and the screens that are not yet split out:
+  - `Screen` is `"home" | "chat" | "bloom" | "progress" | "profile" | "library"` (defined in `types.ts`). It is held in `useState` in `App`, so there is no router even though `react-router` is installed.
+  - Two parallel layouts, picked with `useIsMobile()`: `MobileApp` (bottom nav, `Mobile*Screen`) and `DesktopApp` (sidebar and topbar, `Desktop*Screen`).
+- `src/app/features/` holds screens shared by both layouts, one folder per feature: `chat/` (`ChatStoryEngine`, `ChatBubbles`, `ResultScreen`), `bloom/` (`BloomContent`), `flashcard/` (`FlashcardScreen`), `library/` (`LibraryScreen`).
+- `src/app/data/` holds the hard-coded content: `library.ts` (`STORY_LIBRARY`), `stories/`, `bloom.ts` (`BLOOM_SETS`), `flashcards.ts` (`HSK1_CARDS`), `lessons.ts` (`LESSONS`).
+- The practice room (Phòng tập, `MobileBloom`/`DesktopBloom`) is organised by lesson: one lesson per story that has a script, plus an "HSK1" lesson (flashcards only, 6 topics). `LessonPicker` drives both the BLOOM and Flashcard tabs. A lesson's flashcards come from its story vocab entries that have an example (`ex`); its Bloom set (4 items: nhớ, hiểu, dùng, viết) lives in `BLOOM_SETS[storyId]`.
+- Stories come in two kinds, registered in `data/stories/index.ts` (`getStoryScript(id)`, keyed by `StoryEntry.id`):
+  - `quiz`: linear turns with right/wrong answers and a score (`ngoc-hoang.ts`, played by `ChatStoryEngine`).
+  - `branching`: a graph of scenes where choices lead to different scenes and endings, each choice carrying a sentence-structure analysis (`meo-hoa-hoa.ts`, played by `BranchingStoryEngine`). Every line of "你" is a `pick` step: three options, one correct (the original line), two wrong with an explanation; a wrong pick is scored but does not change the branch. The author's original text lives in `src/imports/stories/*.md`.
+  - A story in `library.ts` with no registered script shows `StoryComingSoon`.
+- `src/app/types.ts` holds the shared types. `src/app/lib/` holds `colors.ts` (palette `C`), `useIsMobile.ts` and `progress.ts`.
+- Story progress is real, stored in `localStorage` (`storyloop.progress.v1`) by `lib/progress.ts`: the chat engines call `reportProgress`/`markCompleted`, and the library ("Đang học", completed counts, card bars), the home banner (`features/home/continueStory.ts`) and the branching ending card (unlocked endings) read it via `useStoryProgress()`. There is no hard-coded `progress` in `library.ts`. "Tiếp tục chơi" restarts a story from the beginning (mid-story position is not saved). The home stats (words, XP, streak) and `ProgressScreen` are still sample data.
 - `src/app/components/ProgressScreen.tsx` is the progress screen, used by both layouts.
 - `src/app/components/ui/` is the shadcn component set. Most of it is currently unused. Prefer these over writing new primitives.
 - `src/app/components/figma/ImageWithFallback.tsx` is the Figma helper for images.
@@ -35,7 +43,7 @@ React 18, TypeScript, Vite 6, Tailwind CSS v4 (via `@tailwindcss/vite`, no `tail
 - Keep both the `react()` and `tailwindcss()` Vite plugins. Do not add `.css`, `.ts` or `.tsx` to `assetsInclude`.
 - The original Figma look is the source of truth. Do not restyle existing screens unless asked.
 - Any change to shared flow (chat, bloom, library) must work in both the mobile and desktop layouts.
-- Because `App.tsx` is so large, new features should go in their own files under `src/app/components/`, as `ProgressScreen.tsx` does, rather than growing `App.tsx`.
+- New features go in their own folder under `src/app/features/` (content in `src/app/data/`) rather than growing `App.tsx`.
 
 ## Working rules
 

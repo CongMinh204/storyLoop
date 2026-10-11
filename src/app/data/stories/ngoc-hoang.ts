@@ -1,4 +1,4 @@
-import type { ChatTurn } from "../../types";
+import type { ChatTurn, VocabItem } from "../../types";
 
 // ─── Story: Thử thách của Ngọc Hoàng ───
 export const STORY_TURNS: ChatTurn[] = [
@@ -228,4 +228,29 @@ export const STORY_TURNS: ChatTurn[] = [
     replyCorrect: "很好！你是一个好人！拿着玉，平安回去吧！\n(Hěn hǎo! Nǐ shì yī gè hǎo rén! Pínguān huí qù ba!) — Tốt lắm! Ngươi là người tốt! Hãy mang ngọc về bình an!",
     replyWrong: "唉……你让我很失望。再见！\n(Āi… nǐ ràng wǒ hěn shīwàng.) — Ôi... Ngươi khiến ta rất thất vọng.",
   },
+];
+
+// Từ vựng của bài (panel desktop khi chơi, và bộ flashcard ở Phòng tập).
+// Câu ví dụ lấy từ kịch bản trên, trừ 对不起 (truyện không có câu nào dùng từ này).
+export const NGOC_HOANG_VOCAB: VocabItem[] = [
+  { word: "我叫", py: "wǒ jiào", vi: "tôi tên là",
+    ex: { zh: "我叫魏林。", py: "Wǒ jiào Wèi Lín.", vi: "Tôi tên là Ngụy Lâm." } },
+  { word: "来自", py: "láizì", vi: "đến từ",
+    ex: { zh: "我来自中国。", py: "Wǒ láizì Zhōngguó.", vi: "Tôi đến từ Trung Quốc." } },
+  { word: "谢谢", py: "xièxie", vi: "cảm ơn",
+    ex: { zh: "谢谢您！", py: "Xièxie nín!", vi: "Cảm ơn ngài!" } },
+  { word: "对不起", py: "duìbuqǐ", vi: "xin lỗi",
+    ex: { zh: "对不起，我不知道。", py: "Duìbuqǐ, wǒ bù zhīdào.", vi: "Xin lỗi, tôi không biết." } },
+  { word: "有", py: "yǒu", vi: "có",
+    ex: { zh: "这里有五个人。", py: "Zhèlǐ yǒu wǔ gè rén.", vi: "Ở đây có năm người." } },
+  { word: "没有", py: "méiyǒu", vi: "không có",
+    ex: { zh: "你有没有带东西来？", py: "Nǐ yǒu méiyǒu dài dōngxi lái?", vi: "Ngươi có mang theo gì không?" } },
+  { word: "要", py: "yào", vi: "muốn, sẽ",
+    ex: { zh: "我要把玉带回中国。", py: "Wǒ yào bǎ yù dài huí Zhōngguó.", vi: "Ta sẽ mang ngọc về Trung Quốc." } },
+  { word: "不要", py: "bú yào", vi: "không muốn",
+    ex: { zh: "你要不要？", py: "Nǐ yào bu yào?", vi: "Bạn có muốn không?" } },
+  { word: "大家", py: "dàjiā", vi: "mọi người",
+    ex: { zh: "还给大家。", py: "Huán gěi dàjiā.", vi: "Trả lại cho mọi người." } },
+  { word: "重要", py: "zhòngyào", vi: "quan trọng",
+    ex: { zh: "这块玉对我们很重要！", py: "Zhè kuài yù duì wǒmen hěn zhòngyào!", vi: "Viên ngọc này rất quan trọng với chúng tôi!" } },
 ];
