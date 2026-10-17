@@ -41,6 +41,15 @@ export const passwordLimiter = rateLimit({
   message: { error: "Nhập sai quá nhiều lần, hãy thử lại sau 15 phút" },
 });
 
+// API tiến độ (sau requireAuth): mỗi bước chơi gọi một lần nên để rộng, chỉ chặn vòng lặp spam
+export const progressLimiter = rateLimit({
+  ...common,
+  windowMs: 60_000,
+  limit: 120,
+  keyGenerator: req => `progress|${req.auth?.sub ?? ip(req)}`,
+  message: { error: "Gửi tiến độ quá nhanh, hãy thử lại sau ít giây" },
+});
+
 // Chặn spam tạo tài khoản. Để rộng vì cả lớp có thể dùng chung một IP.
 export const signupLimiter = rateLimit({
   ...common,

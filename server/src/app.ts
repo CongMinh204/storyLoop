@@ -1,10 +1,12 @@
 import cors from "cors";
 import express, { type ErrorRequestHandler } from "express";
+import { adminRouter } from "./admin/routes.js";
 import { authRouter } from "./auth/routes.js";
 import { pool } from "./db.js";
 import { env } from "./env.js";
 import { HttpError } from "./http.js";
 import { meRouter } from "./me/routes.js";
+import { progressRouter } from "./progress/routes.js";
 
 export const app = express();
 
@@ -26,6 +28,8 @@ app.get("/api/health", async (_req, res) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/me", meRouter);
+app.use("/api/progress", progressRouter);
+app.use("/api/admin", adminRouter);
 
 app.use((_req, res) => {
   res.status(404).json({ error: "Không tìm thấy" });
