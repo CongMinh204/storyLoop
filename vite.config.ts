@@ -17,8 +17,9 @@ function figmaAssetResolver() {
 }
 
 export default defineConfig({
-  // GitHub Pages phục vụ app ở https://<user>.github.io/storyLoop/ nên cần base này (dev cũng chạy ở /storyLoop/)
-  base: '/storyLoop/',
+  // App chạy ở tên miền riêng https://storyloop.io.vn/ (GitHub Pages với Custom domain), nên base là gốc "/".
+  // Dev cũng chạy ở http://localhost:5173/
+  base: '/',
   plugins: [
     figmaAssetResolver(),
     // The React and Tailwind plugins are both required for Make, even if
