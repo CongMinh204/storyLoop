@@ -36,7 +36,7 @@ export function DesktopProfileScreen() {
               <div>
                 <div style={{ fontSize: 18, fontWeight: 700, color: C.onFill, marginBottom: 6 }}>{u.name}</div>
                 <div style={{ display: "flex", gap: 7, flexWrap: "wrap" as const, marginBottom: 6 }}><span style={{ background: C.reward, color: C.ink, fontSize: 10, padding: "3px 10px", borderRadius: 20, fontWeight: 700, display: "flex", alignItems: "center", gap: 3 }}><Crown size={10} /> Student Premium</span></div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,.92)" }}>{u.signedIn ? `HSK 1 · 🔥 ${u.streak} ngày streak · ${formatNumber(u.xp)} XP` : "HSK 1 · Đang chơi với tư cách khách"}</div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,.92)" }}>{u.signedIn ? `🔥 ${u.streak} ngày streak · ${formatNumber(u.xp)} XP` : "Đang chơi với tư cách khách"}</div>
               </div>
             </div>
             {(u.signedIn || u.authEnabled) && <div>

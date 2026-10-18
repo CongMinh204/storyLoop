@@ -1,6 +1,6 @@
 # StoryLoop
 
-StoryLoop là ứng dụng học tiếng Trung (HSK1) qua hội thoại nhập vai theo truyện, kèm ôn tập theo các giai đoạn, flashcard và theo dõi tiến độ. Đây là dự án nhóm môn EXE201.
+StoryLoop là ứng dụng học tiếng Trung (HSK) qua hội thoại nhập vai theo truyện, kèm ôn tập theo các giai đoạn, flashcard và theo dõi tiến độ. Đây là dự án nhóm môn EXE201.
 
 **Stack chính:** React 18, TypeScript, Vite 6, Tailwind CSS v4, shadcn/ui (Radix).
 

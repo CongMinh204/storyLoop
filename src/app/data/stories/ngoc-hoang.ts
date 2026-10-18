@@ -144,7 +144,7 @@ export const STORY_TURNS: ChatTurn[] = [
     zh: "好，现在我考你！这里有几个人？你数数看！一、二……",
     py: "Hǎo, xiànzài wǒ kǎo nǐ! Zhèlǐ yǒu jǐ gè rén? Nǐ shǔshu kàn! Yī, èr…",
     vi: "Được, bây giờ ta thử ngươi! Ở đây có bao nhiêu người? Hãy đếm xem! Một, hai...",
-    hint: "Ngọc Hoàng bắt đầu đếm: 一二... Trong phòng có 5 vị thần. Hãy dùng số đếm HSK1 để trả lời đầy đủ.",
+    hint: "Ngọc Hoàng bắt đầu đếm: 一二... Trong phòng có 5 vị thần. Hãy dùng số đếm trong HSK1 để trả lời đầy đủ.",
     choices: [
       {
         zh: "这里有五个人！一、二、三、四、五！",
@@ -233,24 +233,44 @@ export const STORY_TURNS: ChatTurn[] = [
 // Từ vựng của bài (panel desktop khi chơi, và bộ flashcard ở Phòng tập).
 // Câu ví dụ lấy từ kịch bản trên, trừ 对不起 (truyện không có câu nào dùng từ này).
 export const NGOC_HOANG_VOCAB: VocabItem[] = [
-  { word: "我叫", py: "wǒ jiào", vi: "tôi tên là",
-    ex: { zh: "我叫魏林。", py: "Wǒ jiào Wèi Lín.", vi: "Tôi tên là Ngụy Lâm." } },
-  { word: "来自", py: "láizì", vi: "đến từ",
-    ex: { zh: "我来自中国。", py: "Wǒ láizì Zhōngguó.", vi: "Tôi đến từ Trung Quốc." } },
-  { word: "谢谢", py: "xièxie", vi: "cảm ơn",
-    ex: { zh: "谢谢您！", py: "Xièxie nín!", vi: "Cảm ơn ngài!" } },
-  { word: "对不起", py: "duìbuqǐ", vi: "xin lỗi",
-    ex: { zh: "对不起，我不知道。", py: "Duìbuqǐ, wǒ bù zhīdào.", vi: "Xin lỗi, tôi không biết." } },
-  { word: "有", py: "yǒu", vi: "có",
-    ex: { zh: "这里有五个人。", py: "Zhèlǐ yǒu wǔ gè rén.", vi: "Ở đây có năm người." } },
-  { word: "没有", py: "méiyǒu", vi: "không có",
-    ex: { zh: "你有没有带东西来？", py: "Nǐ yǒu méiyǒu dài dōngxi lái?", vi: "Ngươi có mang theo gì không?" } },
-  { word: "要", py: "yào", vi: "muốn, sẽ",
-    ex: { zh: "我要把玉带回中国。", py: "Wǒ yào bǎ yù dài huí Zhōngguó.", vi: "Ta sẽ mang ngọc về Trung Quốc." } },
-  { word: "不要", py: "bú yào", vi: "không muốn",
-    ex: { zh: "你要不要？", py: "Nǐ yào bu yào?", vi: "Bạn có muốn không?" } },
-  { word: "大家", py: "dàjiā", vi: "mọi người",
-    ex: { zh: "还给大家。", py: "Huán gěi dàjiā.", vi: "Trả lại cho mọi người." } },
-  { word: "重要", py: "zhòngyào", vi: "quan trọng",
-    ex: { zh: "这块玉对我们很重要！", py: "Zhè kuài yù duì wǒmen hěn zhòngyào!", vi: "Viên ngọc này rất quan trọng với chúng tôi!" } },
+  {
+    word: "我叫", py: "wǒ jiào", vi: "tôi tên là",
+    ex: { zh: "我叫魏林。", py: "Wǒ jiào Wèi Lín.", vi: "Tôi tên là Ngụy Lâm." }
+  },
+  {
+    word: "来自", py: "láizì", vi: "đến từ",
+    ex: { zh: "我来自中国。", py: "Wǒ láizì Zhōngguó.", vi: "Tôi đến từ Trung Quốc." }
+  },
+  {
+    word: "谢谢", py: "xièxie", vi: "cảm ơn",
+    ex: { zh: "谢谢您！", py: "Xièxie nín!", vi: "Cảm ơn ngài!" }
+  },
+  {
+    word: "对不起", py: "duìbuqǐ", vi: "xin lỗi",
+    ex: { zh: "对不起，我不知道。", py: "Duìbuqǐ, wǒ bù zhīdào.", vi: "Xin lỗi, tôi không biết." }
+  },
+  {
+    word: "有", py: "yǒu", vi: "có",
+    ex: { zh: "这里有五个人。", py: "Zhèlǐ yǒu wǔ gè rén.", vi: "Ở đây có năm người." }
+  },
+  {
+    word: "没有", py: "méiyǒu", vi: "không có",
+    ex: { zh: "你有没有带东西来？", py: "Nǐ yǒu méiyǒu dài dōngxi lái?", vi: "Ngươi có mang theo gì không?" }
+  },
+  {
+    word: "要", py: "yào", vi: "muốn, sẽ",
+    ex: { zh: "我要把玉带回中国。", py: "Wǒ yào bǎ yù dài huí Zhōngguó.", vi: "Ta sẽ mang ngọc về Trung Quốc." }
+  },
+  {
+    word: "不要", py: "bú yào", vi: "không muốn",
+    ex: { zh: "你要不要？", py: "Nǐ yào bu yào?", vi: "Bạn có muốn không?" }
+  },
+  {
+    word: "大家", py: "dàjiā", vi: "mọi người",
+    ex: { zh: "还给大家。", py: "Huán gěi dàjiā.", vi: "Trả lại cho mọi người." }
+  },
+  {
+    word: "重要", py: "zhòngyào", vi: "quan trọng",
+    ex: { zh: "这块玉对我们很重要！", py: "Zhè kuài yù duì wǒmen hěn zhòngyào!", vi: "Viên ngọc này rất quan trọng với chúng tôi!" }
+  },
 ];

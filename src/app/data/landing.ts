@@ -12,7 +12,7 @@ export const NAV = [
 ];
 
 export const HERO = {
-  label: "Học tiếng Trung HSK1",
+  label: "Học tiếng Trung HSK",
   title: "Học tiếng Trung,",
   titleAccent: "qua từng câu chuyện.",
   sub: "Nhập vai cùng nhân vật, chọn câu trả lời, nhận phân tích ngữ pháp ngay trong truyện, rồi ôn lại từ vựng với Bloom và flashcard.",
@@ -67,7 +67,7 @@ export const HOW = {
 export const SHELF = {
   label: "Thư viện truyện",
   title: "Câu chuyện đang chờ bạn",
-  sub: "HSK1 đang mở. Các cấp cao hơn sẽ lần lượt ra mắt.",
+  sub: "Truyện chia theo cấp HSK. Các cấp đang mở chơi được ngay, các cấp cao hơn sẽ lần lượt ra mắt.",
   cta: "Vào thư viện",
 };
 
@@ -79,7 +79,7 @@ export const PRICING = {
     name: "Miễn phí",
     price: "0đ",
     text: "Mọi thứ bạn cần để bắt đầu.",
-    includes: ["Các truyện HSK1 đang mở", "Ôn tập Bloom và flashcard", "XP và chuỗi ngày học khi có tài khoản", "Lưu tiến độ trên mọi thiết bị"],
+    includes: ["Các truyện đang mở", "Ôn tập Bloom và flashcard", "XP và chuỗi ngày học khi có tài khoản", "Lưu tiến độ trên mọi thiết bị"],
     cta: "Chơi thử ngay",
   },
   premium: {
