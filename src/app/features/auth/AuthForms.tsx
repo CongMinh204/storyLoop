@@ -15,16 +15,16 @@ import { GoogleButton } from "./GoogleButton";
 // Form đăng ký / đăng nhập, dùng chung cho mobile và desktop. Luật kiểm tra lấy từ
 // server/src/shared/validation.ts nên báo lỗi giống hệt server.
 
-const INPUT = "h-11 rounded-xl border-[#e2e6f0] bg-[#f0f2f5] px-3.5 text-[#1a2340] placeholder:text-[#8a93a8] focus-visible:border-[#1a8fa0] focus-visible:ring-[#1a8fa0]/20";
+const INPUT = "h-11 rounded-xl border-[var(--sl-border)] bg-[var(--sl-bg-sunken)] px-3.5 text-[var(--sl-ink)] placeholder:text-[var(--sl-ink-faint)] focus-visible:border-[var(--sl-primary)] focus-visible:ring-[var(--sl-primary)]/20";
 
 export function PasswordHint({ value, strict }: { value: string; strict?: boolean }) {
   const c = passwordChecks(value);
   // Phần nào đạt thì xanh; strict (đã bấm gửi / rời ô) thì phần chưa đạt đỏ
   const part = (ok: boolean, text: string) => (
-    <span style={{ color: ok ? C.green : strict ? C.red : C.muted, fontWeight: ok ? 600 : 400 }}>{text}</span>
+    <span style={{ color: ok ? C.success : strict ? C.danger : C.inkMuted, fontWeight: ok ? 600 : 400 }}>{text}</span>
   );
   return (
-    <p style={{ fontSize: 11.5, lineHeight: 1.5, color: C.muted, margin: 0 }}>
+    <p style={{ fontSize: 11.5, lineHeight: 1.5, color: C.inkMuted, margin: 0 }}>
       {part(c.length, "Tối thiểu 12 ký tự")}, gồm {part(c.upper, "chữ hoa")}, {part(c.lower, "chữ thường")} và {part(c.digit, "số")}
     </p>
   );
@@ -33,9 +33,9 @@ export function PasswordHint({ value, strict }: { value: string; strict?: boolea
 function Field({ id, label, error, children }: { id: string; label: string; error?: string | null; children: React.ReactNode }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-      <Label htmlFor={id} style={{ fontSize: 12, fontWeight: 600, color: C.dark }}>{label}</Label>
+      <Label htmlFor={id} style={{ fontSize: 12, fontWeight: 600, color: C.ink }}>{label}</Label>
       {children}
-      {error && <p id={`${id}-error`} role="alert" style={{ fontSize: 11.5, color: C.red, margin: 0 }}>{error}</p>}
+      {error && <p id={`${id}-error`} role="alert" style={{ fontSize: 11.5, color: C.danger, margin: 0 }}>{error}</p>}
     </div>
   );
 }
@@ -57,7 +57,7 @@ function PasswordInput({ id, bind, invalid, autoComplete, placeholder }: { id: s
         aria-invalid={invalid || undefined} aria-describedby={invalid ? `${id}-error` : undefined}
         autoComplete={autoComplete} placeholder={placeholder} className={cn(INPUT, "pr-11")} />
       <button type="button" onClick={() => setShow(v => !v)} aria-label={show ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
-        style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: C.muted, display: "flex", padding: 6 }}>
+        style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: C.inkMuted, display: "flex", padding: 6 }}>
         {show ? <EyeOff size={16} /> : <Eye size={16} />}
       </button>
     </div>
@@ -112,7 +112,7 @@ function useForm<K extends string>(initial: Record<K, string>, checks: Record<K,
 function FormError({ message }: { message: string | null }) {
   if (!message) return null;
   return (
-    <div role="alert" style={{ display: "flex", gap: 8, alignItems: "flex-start", fontSize: 12, color: C.red, background: C.redBg, border: `0.5px solid ${C.redBorder}`, borderRadius: 10, padding: "9px 12px", lineHeight: 1.5 }}>
+    <div role="alert" style={{ display: "flex", gap: 8, alignItems: "flex-start", fontSize: 12, color: C.danger, background: C.dangerBg, border: `0.5px solid ${C.dangerBorder}`, borderRadius: 10, padding: "9px 12px", lineHeight: 1.5 }}>
       <CircleAlert size={15} style={{ flexShrink: 0, marginTop: 1 }} /> {message}
     </div>
   );
@@ -120,7 +120,7 @@ function FormError({ message }: { message: string | null }) {
 
 function OrDivider() {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 10, color: C.faint, fontSize: 10.5, fontWeight: 600, letterSpacing: ".08em" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 10, color: C.inkFaint, fontSize: 10.5, fontWeight: 600, letterSpacing: ".08em" }}>
       <span style={{ flex: 1, height: 1, background: C.border }} />HOẶC DÙNG EMAIL<span style={{ flex: 1, height: 1, background: C.border }} />
     </div>
   );
@@ -129,27 +129,27 @@ function OrDivider() {
 function Heading({ title, sub }: { title: string; sub: string }) {
   return (
     <div>
-      <h1 style={{ fontSize: 22, fontWeight: 800, color: C.dark, margin: 0, lineHeight: 1.25 }}>{title}</h1>
-      <p style={{ fontSize: 13, color: C.muted, margin: "6px 0 0", lineHeight: 1.5 }}>{sub}</p>
+      <h1 style={{ fontSize: 22, fontWeight: 800, color: C.ink, margin: 0, lineHeight: 1.25 }}>{title}</h1>
+      <p style={{ fontSize: 13, color: C.inkMuted, margin: "6px 0 0", lineHeight: 1.5 }}>{sub}</p>
     </div>
   );
 }
 
 function SubmitButton({ busy, label, busyLabel }: { busy: boolean; label: string; busyLabel: string }) {
   return (
-    <Button type="submit" disabled={busy} className="h-11 w-full rounded-xl bg-[#1a8fa0] text-[14px] font-bold text-white hover:bg-[#167d8c]">
+    <Button type="submit" disabled={busy} className="h-12 w-full rounded-xl bg-[var(--sl-cta)] text-[19px] font-bold text-white hover:bg-[var(--sl-cta-hover)]">
       {busy && <LoaderCircle className="animate-spin" />} {busy ? busyLabel : label}
     </Button>
   );
 }
 
-const linkBtn: React.CSSProperties = { background: "none", border: "none", padding: 0, color: C.teal, fontWeight: 700, cursor: "pointer", fontFamily: "inherit", fontSize: "inherit" };
+const linkBtn: React.CSSProperties = { background: "none", border: "none", padding: 0, color: C.primaryText, fontWeight: 700, cursor: "pointer", fontFamily: "inherit", fontSize: "inherit" };
 
 function Footer({ question, action, onAction }: { question: string; action: string; onAction: () => void }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-      <p style={{ fontSize: 12.5, color: C.muted, margin: 0 }}>{question} <button type="button" onClick={onAction} style={linkBtn}>{action}</button></p>
-      <Button type="button" variant="ghost" onClick={chooseGuest} className="h-9 rounded-full text-[13px] font-semibold text-[#6b7a99] hover:bg-[#f0f2f5]">
+      <p style={{ fontSize: 12.5, color: C.inkMuted, margin: 0 }}>{question} <button type="button" onClick={onAction} style={linkBtn}>{action}</button></p>
+      <Button type="button" variant="ghost" onClick={chooseGuest} className="h-9 rounded-full text-[13px] font-semibold text-[var(--sl-ink-muted)] hover:bg-[var(--sl-bg-sunken)] hover:text-[var(--sl-ink)]">
         Chơi với tư cách khách
       </Button>
     </div>
