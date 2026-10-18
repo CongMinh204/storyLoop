@@ -58,7 +58,7 @@ export function GoogleButton({ text, width, onError }: {
             }
           },
         });
-        id.renderButton(box.current, { type: "standard", theme: "outline", size: "large", shape: "pill", text, width, locale: "vi" });
+        id.renderButton(box.current, { type: "standard", theme: "outline", size: "large", shape: "rectangular", text, width, locale: "vi" });
       })
       .catch(() => report.current("Không tải được nút Google. Hãy kiểm tra mạng hoặc dùng email."));
     return () => { alive = false; };

@@ -1,6 +1,8 @@
 import { useState } from "react";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { CircleAlert, Eye, EyeOff, LoaderCircle } from "lucide-react";
 import { C } from "../../lib/colors";
+import { FONT_DISPLAY } from "../landing/theme";
 import { ApiError } from "../../lib/api";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
@@ -12,19 +14,19 @@ import {
 import { chooseGuest, login, openAuth, register, useAuth } from "./useAuth";
 import { GoogleButton } from "./GoogleButton";
 
-// Form đăng ký / đăng nhập, dùng chung cho mobile và desktop. Luật kiểm tra lấy từ
-// server/src/shared/validation.ts nên báo lỗi giống hệt server.
+// Nội dung hộp thoại đăng ký / đăng nhập (khung hộp thoại ở AuthScreen.tsx), dùng chung cho mobile và desktop.
+// Luật kiểm tra lấy từ server/src/shared/validation.ts nên báo lỗi giống hệt server.
 
-const INPUT = "h-11 rounded-xl border-[#e2e6f0] bg-[#f0f2f5] px-3.5 text-[#1a2340] placeholder:text-[#8a93a8] focus-visible:border-[#1a8fa0] focus-visible:ring-[#1a8fa0]/20";
+const INPUT = "h-12 rounded-2xl border-[var(--sl-primary-border)] bg-[var(--sl-primary-bg)] px-4 text-[15px] text-[var(--sl-ink)] placeholder:text-[var(--sl-ink-faint)] focus-visible:border-[var(--sl-primary)] focus-visible:ring-[var(--sl-primary)]/20";
 
 export function PasswordHint({ value, strict }: { value: string; strict?: boolean }) {
   const c = passwordChecks(value);
   // Phần nào đạt thì xanh; strict (đã bấm gửi / rời ô) thì phần chưa đạt đỏ
   const part = (ok: boolean, text: string) => (
-    <span style={{ color: ok ? C.green : strict ? C.red : C.muted, fontWeight: ok ? 600 : 400 }}>{text}</span>
+    <span style={{ color: ok ? C.success : strict ? C.danger : C.inkMuted, fontWeight: ok ? 600 : 400 }}>{text}</span>
   );
   return (
-    <p style={{ fontSize: 11.5, lineHeight: 1.5, color: C.muted, margin: 0 }}>
+    <p style={{ fontSize: 11.5, lineHeight: 1.5, color: C.inkMuted, margin: 0 }}>
       {part(c.length, "Tối thiểu 12 ký tự")}, gồm {part(c.upper, "chữ hoa")}, {part(c.lower, "chữ thường")} và {part(c.digit, "số")}
     </p>
   );
@@ -33,9 +35,9 @@ export function PasswordHint({ value, strict }: { value: string; strict?: boolea
 function Field({ id, label, error, children }: { id: string; label: string; error?: string | null; children: React.ReactNode }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-      <Label htmlFor={id} style={{ fontSize: 12, fontWeight: 600, color: C.dark }}>{label}</Label>
+      <Label htmlFor={id} style={{ fontSize: 14, fontWeight: 700, color: C.ink }}>{label}</Label>
       {children}
-      {error && <p id={`${id}-error`} role="alert" style={{ fontSize: 11.5, color: C.red, margin: 0 }}>{error}</p>}
+      {error && <p id={`${id}-error`} role="alert" style={{ fontSize: 11.5, color: C.danger, margin: 0 }}>{error}</p>}
     </div>
   );
 }
@@ -57,7 +59,7 @@ function PasswordInput({ id, bind, invalid, autoComplete, placeholder }: { id: s
         aria-invalid={invalid || undefined} aria-describedby={invalid ? `${id}-error` : undefined}
         autoComplete={autoComplete} placeholder={placeholder} className={cn(INPUT, "pr-11")} />
       <button type="button" onClick={() => setShow(v => !v)} aria-label={show ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
-        style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: C.muted, display: "flex", padding: 6 }}>
+        style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: C.inkMuted, display: "flex", padding: 6 }}>
         {show ? <EyeOff size={16} /> : <Eye size={16} />}
       </button>
     </div>
@@ -112,7 +114,7 @@ function useForm<K extends string>(initial: Record<K, string>, checks: Record<K,
 function FormError({ message }: { message: string | null }) {
   if (!message) return null;
   return (
-    <div role="alert" style={{ display: "flex", gap: 8, alignItems: "flex-start", fontSize: 12, color: C.red, background: C.redBg, border: `0.5px solid ${C.redBorder}`, borderRadius: 10, padding: "9px 12px", lineHeight: 1.5 }}>
+    <div role="alert" style={{ display: "flex", gap: 8, alignItems: "flex-start", fontSize: 12, color: C.danger, background: C.dangerBg, border: `0.5px solid ${C.dangerBorder}`, borderRadius: 10, padding: "9px 12px", lineHeight: 1.5 }}>
       <CircleAlert size={15} style={{ flexShrink: 0, marginTop: 1 }} /> {message}
     </div>
   );
@@ -120,43 +122,50 @@ function FormError({ message }: { message: string | null }) {
 
 function OrDivider() {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 10, color: C.faint, fontSize: 10.5, fontWeight: 600, letterSpacing: ".08em" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 14, color: C.inkFaint, fontSize: 11, fontWeight: 700, letterSpacing: ".1em" }}>
       <span style={{ flex: 1, height: 1, background: C.border }} />HOẶC DÙNG EMAIL<span style={{ flex: 1, height: 1, background: C.border }} />
     </div>
   );
 }
 
+// Tiêu đề và mô tả của hộp thoại (Title/Description của Radix để trình đọc màn hình đọc được)
 function Heading({ title, sub }: { title: string; sub: string }) {
   return (
-    <div>
-      <h1 style={{ fontSize: 22, fontWeight: 800, color: C.dark, margin: 0, lineHeight: 1.25 }}>{title}</h1>
-      <p style={{ fontSize: 13, color: C.muted, margin: "6px 0 0", lineHeight: 1.5 }}>{sub}</p>
+    <div style={{ textAlign: "center", padding: "0 20px 8px" }}>
+      <DialogPrimitive.Title style={{ fontFamily: FONT_DISPLAY, fontSize: 28, fontWeight: 700, color: C.ink, margin: 0, lineHeight: 1.2 }}>{title}</DialogPrimitive.Title>
+      <DialogPrimitive.Description style={{ fontSize: 14, color: C.inkMuted, margin: "10px 0 0", lineHeight: 1.6 }}>{sub}</DialogPrimitive.Description>
     </div>
   );
 }
 
 function SubmitButton({ busy, label, busyLabel }: { busy: boolean; label: string; busyLabel: string }) {
   return (
-    <Button type="submit" disabled={busy} className="h-11 w-full rounded-xl bg-[#1a8fa0] text-[14px] font-bold text-white hover:bg-[#167d8c]">
+    <Button type="submit" disabled={busy} className="mt-1 h-14 w-full rounded-full bg-[var(--sl-cta)] text-[19px] font-bold text-white shadow-[0_10px_22px_rgba(212,93,51,.28)] hover:bg-[var(--sl-cta-hover)]">
       {busy && <LoaderCircle className="animate-spin" />} {busy ? busyLabel : label}
     </Button>
   );
 }
 
-const linkBtn: React.CSSProperties = { background: "none", border: "none", padding: 0, color: C.teal, fontWeight: 700, cursor: "pointer", fontFamily: "inherit", fontSize: "inherit" };
-
-function Footer({ question, action, onAction }: { question: string; action: string; onAction: () => void }) {
+// Chân hộp thoại: đường kẻ, rồi một dòng liên kết gạch chân để chuyển giữa đăng nhập và đăng ký;
+// khách chưa chọn gì thì có thêm lối "Chơi với tư cách khách" (đang chơi khách rồi thì không cần).
+function Footer({ text, onAction }: { text: string; onAction: () => void }) {
+  const { guestChosen } = useAuth();
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-      <p style={{ fontSize: 12.5, color: C.muted, margin: 0 }}>{question} <button type="button" onClick={onAction} style={linkBtn}>{action}</button></p>
-      <Button type="button" variant="ghost" onClick={chooseGuest} className="h-9 rounded-full text-[13px] font-semibold text-[#6b7a99] hover:bg-[#f0f2f5]">
-        Chơi với tư cách khách
-      </Button>
+    <div style={{ borderTop: `1px solid ${C.border}`, marginTop: 4, paddingTop: 18, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+      <button type="button" onClick={onAction}
+        style={{ background: "none", border: "none", padding: 0, color: C.primaryText, fontWeight: 700, fontSize: 14, textDecoration: "underline", textUnderlineOffset: 3, cursor: "pointer", fontFamily: "inherit" }}>
+        {text}
+      </button>
+      {!guestChosen && (
+        <Button type="button" variant="ghost" onClick={chooseGuest} className="h-9 rounded-full text-[13px] font-semibold text-[var(--sl-ink-muted)] hover:bg-[var(--sl-bg-sunken)] hover:text-[var(--sl-ink)]">
+          Chơi với tư cách khách
+        </Button>
+      )}
     </div>
   );
 }
 
-const formStyle: React.CSSProperties = { display: "flex", flexDirection: "column", gap: 14 };
+const formStyle: React.CSSProperties = { display: "flex", flexDirection: "column", gap: 16 };
 
 export function RegisterForm({ googleWidth }: { googleWidth: number }) {
   const { googleEnabled } = useAuth();
@@ -173,7 +182,7 @@ export function RegisterForm({ googleWidth }: { googleWidth: number }) {
   const pwError = f.error("password");
   return (
     <form noValidate onSubmit={e => { e.preventDefault(); void f.submit(register); }} style={formStyle}>
-      <Heading title="Tạo Tài Khoản Mới" sub="Đăng ký để lưu tiến độ học trên mọi thiết bị" />
+      <Heading title="Tạo Tài Khoản Mới" sub="Đăng ký để lưu tiến độ học và học tiếp trên mọi thiết bị" />
       {googleEnabled && <><GoogleButton text="signup_with" width={googleWidth} onError={f.setFormError} /><OrDivider /></>}
       <Field id="auth-fullName" label="Họ và tên" error={f.error("fullName")}>
         <TextInput id="auth-fullName" bind={f.bind("fullName")} invalid={!!f.error("fullName")} autoComplete="name" placeholder="Nguyễn Văn A" />
@@ -190,7 +199,7 @@ export function RegisterForm({ googleWidth }: { googleWidth: number }) {
       </Field>
       <FormError message={f.formError} />
       <SubmitButton busy={f.busy} label="Đăng Ký Tài Khoản" busyLabel="Đang tạo tài khoản..." />
-      <Footer question="Đã có tài khoản?" action="Đăng nhập" onAction={() => openAuth("login")} />
+      <Footer text="Đã có tài khoản? Đăng nhập" onAction={() => openAuth("login")} />
     </form>
   );
 }
@@ -206,7 +215,7 @@ export function LoginForm({ googleWidth }: { googleWidth: number }) {
   );
   return (
     <form noValidate onSubmit={e => { e.preventDefault(); void f.submit(v => login(v.email, v.password)); }} style={formStyle}>
-      <Heading title="Đăng Nhập" sub="Chào mừng bạn quay lại! Đăng nhập để học tiếp trên mọi thiết bị" />
+      <Heading title="Đăng Nhập StoryLoop" sub="Chào mừng bạn quay lại! Đăng nhập để xem tiến độ và học tiếp trên mọi thiết bị" />
       {googleEnabled && <><GoogleButton text="signin_with" width={googleWidth} onError={f.setFormError} /><OrDivider /></>}
       <Field id="auth-email" label="Địa chỉ Email" error={f.error("email")}>
         <TextInput id="auth-email" bind={f.bind("email")} invalid={!!f.error("email")} type="email" inputMode="email" autoComplete="email" placeholder="ban@email.com" />
@@ -216,7 +225,7 @@ export function LoginForm({ googleWidth }: { googleWidth: number }) {
       </Field>
       <FormError message={f.formError} />
       <SubmitButton busy={f.busy} label="Đăng Nhập" busyLabel="Đang đăng nhập..." />
-      <Footer question="Chưa có tài khoản?" action="Tạo tài khoản" onAction={() => openAuth("register")} />
+      <Footer text="Chưa có tài khoản? Đăng ký miễn phí" onAction={() => openAuth("register")} />
     </form>
   );
 }

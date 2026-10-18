@@ -88,24 +88,24 @@ export function ChatStoryEngine({ story, turns, onHome, sidePanel }: { story: St
   return (
     <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
       {/* Main chat column */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: "#f0f2f7" }}>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: C.bgSunken }}>
         {/* Header */}
-        <div style={{ background: C.white, padding: "10px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0, borderBottom: `0.5px solid ${C.border}` }}>
+        <div style={{ background: C.surface, padding: "10px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0, borderBottom: `0.5px solid ${C.border}` }}>
           <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-            <button onClick={onHome} style={{ background: "none", border: "none", cursor: "pointer", color: C.muted, display: "flex", padding: 4 }}><ArrowLeft size={19} /></button>
+            <button onClick={onHome} style={{ background: "none", border: "none", cursor: "pointer", color: C.inkMuted, display: "flex", padding: 4 }}><ArrowLeft size={19} /></button>
             <div style={{ width: 32, height: 32, borderRadius: 10, background: story.color + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>{story.emoji}</div>
             <div>
-              <div style={{ fontSize: 12, fontWeight: 700, color: C.dark }}>{story.title}</div>
-              <div style={{ fontSize: 10, color: C.muted }}>Lượt {Math.min(turn + 1, turns.length)}/{turns.length} · HSK {story.hsk}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: C.ink }}>{story.title}</div>
+              <div style={{ fontSize: 10, color: C.inkMuted }}>Lượt {Math.min(turn + 1, turns.length)}/{turns.length} · HSK {story.hsk}</div>
             </div>
           </div>
-          <button onClick={() => setPinyinOn(v => !v)} style={{ background: pinyinOn ? C.purpleBg : C.bg, border: `0.5px solid ${pinyinOn ? "#ddd8f9" : C.border}`, borderRadius: 20, padding: "5px 10px", fontSize: 10, color: pinyinOn ? C.purple : C.muted, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", gap: 4 }}>
+          <button onClick={() => setPinyinOn(v => !v)} style={{ background: pinyinOn ? C.inkBg : C.bg, border: `0.5px solid ${pinyinOn ? C.inkBorder : C.border}`, borderRadius: 20, padding: "5px 10px", fontSize: 10, color: pinyinOn ? C.ink : C.inkMuted, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", gap: 4 }}>
             {pinyinOn ? <Eye size={10} /> : <EyeOff size={10} />} Pinyin
           </button>
         </div>
         {/* Progress */}
         <div style={{ height: 3, background: C.border, flexShrink: 0 }}>
-          <div style={{ height: 3, background: C.purple, width: `${pct}%`, transition: "width .5s ease" }} />
+          <div style={{ height: 3, background: C.primary, width: `${pct}%`, transition: "width .5s ease" }} />
         </div>
 
         {/* Message stream */}
@@ -126,12 +126,12 @@ export function ChatStoryEngine({ story, turns, onHome, sidePanel }: { story: St
           {waiting && !finished && (
             <>
               <div style={{ display: "flex", justifyContent: "center" }}>
-                <button onClick={() => setHintOpen(v => !v)} style={{ display: "flex", alignItems: "center", gap: 5, background: hintOpen ? "#fffbf0" : C.bg, border: `0.5px solid ${hintOpen ? "#fde8c0" : C.border}`, borderRadius: 20, padding: "5px 13px", fontSize: 10, color: hintOpen ? "#7a5c1e" : C.muted, cursor: "pointer", fontFamily: "inherit" }}>
-                  <Lightbulb size={11} color={hintOpen ? "#f5a623" : C.muted} /> {hintOpen ? "Ẩn gợi ý" : "Gợi ý"}
+                <button onClick={() => setHintOpen(v => !v)} style={{ display: "flex", alignItems: "center", gap: 5, background: hintOpen ? C.rewardBg : C.bg, border: `0.5px solid ${hintOpen ? C.rewardBorder : C.border}`, borderRadius: 20, padding: "5px 13px", fontSize: 10, color: hintOpen ? C.ink : C.inkMuted, cursor: "pointer", fontFamily: "inherit" }}>
+                  <Lightbulb size={11} color={hintOpen ? C.rewardDeep : C.inkMuted} /> {hintOpen ? "Ẩn gợi ý" : "Gợi ý"}
                 </button>
               </div>
               {hintOpen && (
-                <div style={{ background: "#fffbf0", border: "0.5px solid #fde8c0", borderRadius: 12, padding: "10px 13px", fontSize: 11, color: "#7a5c1e", lineHeight: 1.65 }}>
+                <div style={{ background: C.rewardBg, border: `0.5px solid ${C.rewardBorder}`, borderRadius: 12, padding: "10px 13px", fontSize: 11, color: C.ink, lineHeight: 1.65 }}>
                   💡 {currentTurn.hint}
                 </div>
               )}
@@ -141,19 +141,19 @@ export function ChatStoryEngine({ story, turns, onHome, sidePanel }: { story: St
 
         {/* Choice bar */}
         {waiting && (
-          <div style={{ background: C.white, borderTop: `0.5px solid ${C.border}`, padding: "10px 13px 14px", flexShrink: 0 }}>
-            <div style={{ fontSize: 10, color: C.muted, fontWeight: 600, marginBottom: 8, letterSpacing: ".04em" }}>CHỌN CÂU TRẢ LỜI:</div>
+          <div style={{ background: C.surface, borderTop: `0.5px solid ${C.border}`, padding: "10px 13px 14px", flexShrink: 0 }}>
+            <div style={{ fontSize: 10, color: C.inkMuted, fontWeight: 600, marginBottom: 8, letterSpacing: ".04em" }}>CHỌN CÂU TRẢ LỜI:</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
               {currentTurn.choices.map((c, i) => (
                 <button key={i} onClick={() => handleChoose(i)}
                   style={{ background: C.bg, border: `0.5px solid ${C.border}`, borderRadius: 13, padding: "10px 13px", cursor: "pointer", textAlign: "left", fontFamily: "inherit", transition: "all .12s" }}
-                  onMouseEnter={e => { e.currentTarget.style.background = C.purpleBg; e.currentTarget.style.borderColor = C.purple; }}
+                  onMouseEnter={e => { e.currentTarget.style.background = C.inkBg; e.currentTarget.style.borderColor = C.ink; }}
                   onMouseLeave={e => { e.currentTarget.style.background = C.bg; e.currentTarget.style.borderColor = C.border; }}>
                   <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
-                    <span style={{ width: 20, height: 20, borderRadius: "50%", background: C.white, border: `0.5px solid ${C.border}`, display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 10, color: C.muted, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>{String.fromCharCode(65 + i)}</span>
+                    <span style={{ width: 20, height: 20, borderRadius: "50%", background: C.surface, border: `0.5px solid ${C.border}`, display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 10, color: C.inkMuted, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>{String.fromCharCode(65 + i)}</span>
                     <div>
-                      <div style={{ fontSize: 13, color: C.dark, lineHeight: 1.5 }}>{c.zh}</div>
-                      {pinyinOn && <div style={{ fontSize: 10, color: C.faint, marginTop: 2 }}>{c.py}</div>}
+                      <div style={{ fontSize: 13, color: C.ink, lineHeight: 1.5 }}>{c.zh}</div>
+                      {pinyinOn && <div style={{ fontSize: 10, color: C.inkFaint, marginTop: 2 }}>{c.py}</div>}
                     </div>
                   </div>
                 </button>

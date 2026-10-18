@@ -93,9 +93,22 @@ function signOutLocal() {
   set({ session: false, user: null, guestChosen: false, view: null });
 }
 
-// Mở màn chào / đăng nhập / đăng ký (vd. khách bấm "Đăng ký" ở trang chủ hay Profile)
+// Mở trang giới thiệu / hộp thoại đăng nhập / đăng ký (vd. khách bấm "Đăng ký" ở trang chủ hay Profile)
 export function openAuth(view: AuthView) {
   if (API_ENABLED) set({ view });
+}
+
+// Khách quay lại trang giới thiệu (bỏ lựa chọn "chơi khách"). Tiến độ chơi khách vẫn còn trên máy.
+// Người đã đăng nhập không dùng lối này (muốn thoát thì đăng xuất).
+export function showIntro() {
+  if (!API_ENABLED || state.session) return;
+  writeGuestChosen(false);
+  set({ guestChosen: false, view: null });
+}
+
+// Đóng hộp thoại đăng nhập / đăng ký: về trang giới thiệu (nếu chưa chọn gì) hoặc về lại app (nếu đang chơi khách)
+export function closeAuth() {
+  set({ view: null });
 }
 
 // Các hàm dưới ném ApiError khi thất bại: message là câu báo lỗi, fields là lỗi của từng ô trong form
@@ -173,6 +186,7 @@ export function useAuth() {
   const needsEntry = API_ENABLED && !s.session && !s.guestChosen;
   return {
     ...s,
+    needsEntry,
     enabled: API_ENABLED,
     googleEnabled: API_ENABLED && !!import.meta.env.VITE_GOOGLE_CLIENT_ID,
     screen: s.session ? null : s.view ?? (needsEntry ? "welcome" as const : null),
