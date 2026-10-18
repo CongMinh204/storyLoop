@@ -6,6 +6,8 @@ import type { StoryEntry } from "../../types";
 import { useStoryProgress } from "../../lib/progress";
 import { useViewer, streakLine, formatNumber } from "../auth/viewer";
 import { GuestReminder } from "../auth/GuestReminder";
+import { showIntro } from "../auth/useAuth";
+import { BrandMark } from "../../components/BrandMark";
 
 export function MobileHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry) => void }) {
   const target = useContinueStory(), txt = heroText(target);
@@ -14,7 +16,12 @@ export function MobileHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry)
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: C.bg }}>
       <div style={{ background: C.surface, padding: "10px 18px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0, borderBottom: `0.5px solid ${C.border}` }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 30, height: 30, background: C.primary, borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15 }}>🐼</div>
+          {/* Khách bấm logo để quay lại trang giới thiệu */}
+          {!v.signedIn && v.authEnabled ? (
+            <button onClick={showIntro} aria-label="Về trang giới thiệu" title="Về trang giới thiệu" style={{ background: "none", border: "none", padding: 0, cursor: "pointer", display: "flex" }}>
+              <BrandMark size={30} radius={9} />
+            </button>
+          ) : <BrandMark size={30} radius={9} />}
           <div><div style={{ fontSize: 10, color: C.inkMuted }}>Chào buổi sáng 👋</div><div style={{ fontSize: 13, fontWeight: 700, color: C.ink }}>{v.name}</div></div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>

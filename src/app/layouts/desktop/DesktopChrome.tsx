@@ -1,8 +1,9 @@
 import { Home, Library, Castle, Shield, TrendingUp, User, Flame, ArrowLeft, CloudUpload } from "lucide-react";
 import { C } from "../../lib/colors";
 import type { Screen } from "../../types";
+import { BrandMark } from "../../components/BrandMark";
 import { useViewer } from "../../features/auth/viewer";
-import { openAuth } from "../../features/auth/useAuth";
+import { openAuth, showIntro } from "../../features/auth/useAuth";
 
 const D_NAV = [
   { key: "home"     as Screen, Icon: Home,       label: "Trang chủ"  },
@@ -15,11 +16,22 @@ const D_NAV = [
 
 export function DesktopSidebar({ active, onChange }: { active: Screen; onChange: (s: Screen) => void }) {
   const v = useViewer();
+  const guest = !v.signedIn && v.authEnabled;
   return (
     <aside style={{ width: 220, height: "100vh", background: C.surface, borderRight: `0.5px solid ${C.border}`, display: "flex", flexDirection: "column", flexShrink: 0 }}>
       <div style={{ padding: "22px 18px 18px", display: "flex", alignItems: "center", gap: 9, borderBottom: `0.5px solid ${C.border}` }}>
-        <div style={{ width: 34, height: 34, background: C.primary, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17 }}>🐼</div>
-        <span style={{ fontSize: 16, fontWeight: 700, color: C.ink }}>StoryLoop</span>
+        {/* Khách bấm logo để quay lại trang giới thiệu */}
+        {guest ? (
+          <button onClick={showIntro} title="Về trang giới thiệu" style={{ display: "flex", alignItems: "center", gap: 9, background: "none", border: "none", padding: 0, cursor: "pointer", fontFamily: "inherit" }}>
+            <BrandMark size={34} radius={10} />
+            <span style={{ fontSize: 16, fontWeight: 700, color: C.ink }}>StoryLoop</span>
+          </button>
+        ) : (
+          <>
+            <BrandMark size={34} radius={10} />
+            <span style={{ fontSize: 16, fontWeight: 700, color: C.ink }}>StoryLoop</span>
+          </>
+        )}
       </div>
       <div style={{ padding: "10px 0", flex: 1 }}>
         {D_NAV.map(({ key, Icon, label }) => (

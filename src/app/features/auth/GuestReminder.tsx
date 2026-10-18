@@ -1,6 +1,8 @@
 import { CloudUpload } from "lucide-react";
 import { C } from "../../lib/colors";
-import { openAuth, useAuth } from "./useAuth";
+import { openAuth, showIntro, useAuth } from "./useAuth";
+
+const linkStyle: React.CSSProperties = { background: "none", border: "none", padding: 0, color: C.primaryText, fontWeight: 700, cursor: "pointer", fontFamily: "inherit", fontSize: "inherit" };
 
 // Lời nhắc cho khách ở trang chủ và Profile. Không có backend (thiếu VITE_API_URL) thì không hiện.
 export function GuestReminder() {
@@ -15,7 +17,9 @@ export function GuestReminder() {
         <div style={{ fontSize: 12, fontWeight: 700, color: C.ink, marginBottom: 2 }}>Đăng ký để lưu tiến độ trên mọi máy</div>
         <div style={{ fontSize: 10.5, color: C.inkMuted, lineHeight: 1.5 }}>
           Bạn đang chơi với tư cách khách.{" "}
-          <button onClick={() => openAuth("login")} style={{ background: "none", border: "none", padding: 0, color: C.primaryText, fontWeight: 700, cursor: "pointer", fontFamily: "inherit", fontSize: "inherit" }}>Đăng nhập</button>
+          <button onClick={() => openAuth("login")} style={linkStyle}>Đăng nhập</button>
+          {" · "}
+          <button onClick={showIntro} style={linkStyle}>Về trang giới thiệu</button>
         </div>
       </div>
       <button onClick={() => openAuth("register")} style={{ background: C.primaryDeep, color: C.onFill, border: "none", borderRadius: 20, padding: "7px 13px", fontSize: 11, fontWeight: 700, cursor: "pointer", fontFamily: "inherit", flexShrink: 0 }}>
