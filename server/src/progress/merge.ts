@@ -1,4 +1,5 @@
-// Luật gộp tiến độ, bám theo src/app/lib/progress.ts của frontend. Hàm thuần, không đụng DB.
+// Luật gộp tiến độ, dùng chung cho server và frontend (src/app/lib/progress.ts import thẳng file này).
+// Hàm thuần, không import gì, để frontend import được (frontend không có các thư viện của server).
 
 export type Score = { right: number; total: number };
 

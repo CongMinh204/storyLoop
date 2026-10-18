@@ -4,12 +4,16 @@ import { LIBRARY } from "../../data/library";
 import { useContinueStory, heroText } from "./continueStory";
 import type { StoryEntry } from "../../types";
 import { DesktopTopbar } from "../../layouts/desktop/DesktopChrome";
+import { useStoryProgress } from "../../lib/progress";
+import { useViewer, streakLine, formatNumber } from "../auth/viewer";
+import { GuestReminder } from "../auth/GuestReminder";
 
 export function DesktopHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry) => void }) {
   const target = useContinueStory(), txt = heroText(target), st = target.story;
+  const v = useViewer(), sl = streakLine(v.streak), played = Object.keys(useStoryProgress()).length;
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-      <DesktopTopbar title="Chào buổi sáng, Nguyễn Minh Anh 👋" />
+      <DesktopTopbar title={`Chào buổi sáng, ${v.name} 👋`} />
       <div style={{ flex: 1, overflowY: "auto", padding: "28px 32px", background: C.bg }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: 20, marginBottom: 24 }}>
           {/* Left: Hero + Continue */}
@@ -42,7 +46,7 @@ export function DesktopHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry
           {/* Right: Stats + Daily */}
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-              {[{ icon: "📚", bg: "#eef8fa", val: "1,247", lbl: "Từ đã học" }, { icon: "🎮", bg: "#fff4ee", val: "8", lbl: "Câu chuyện" }, { icon: "⚡", bg: "#fffbf0", val: "3,890", lbl: "Tổng XP" }, { icon: "🏆", bg: "#fffbeb", val: "5/10", lbl: "Thành tích" }].map((s, i) => (
+              {[{ icon: "📚", bg: "#eef8fa", val: "1,247", lbl: "Từ đã học" }, { icon: "🎮", bg: "#fff4ee", val: String(played), lbl: "Câu chuyện" }, { icon: "⚡", bg: "#fffbf0", val: formatNumber(v.xp), lbl: "Tổng XP" }, { icon: "🏆", bg: "#fffbeb", val: "5/10", lbl: "Thành tích" }].map((s, i) => (
                 <div key={i} style={{ background: C.white, borderRadius: 14, border: `0.5px solid ${C.border}`, padding: "14px 12px", display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}>
                   <div style={{ width: 36, height: 36, borderRadius: 10, background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17 }}>{s.icon}</div>
                   <div style={{ fontSize: 18, fontWeight: 700, color: C.dark }}>{s.val}</div>
@@ -55,10 +59,12 @@ export function DesktopHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry
               <div style={{ flex: 1 }}><div style={{ fontSize: 13, fontWeight: 700, color: C.dark, marginBottom: 3 }}>Thử thách hàng ngày <span style={{ background: "#fde8c0", color: "#854f0b", fontSize: 9, padding: "1px 7px", borderRadius: 20, marginLeft: 4, fontWeight: 600 }}>Mới</span></div><div style={{ fontSize: 11, color: "#8a6830" }}>Hoàn thành 3 cảnh trong câu chuyện hôm nay</div></div>
               <div style={{ background: C.orange, color: "#fff", fontSize: 11, fontWeight: 700, padding: "6px 12px", borderRadius: 20, display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}><Zap size={12} /> +50 XP</div>
             </div>
-            <div style={{ background: "#fffbf0", borderRadius: 14, padding: "13px 16px", display: "flex", alignItems: "center", gap: 8, border: `0.5px solid #fde8c0` }}>
-              <Flame size={16} color={C.orange} />
-              <span style={{ fontSize: 12, color: "#8a6830" }}><strong style={{ color: C.dark }}>14 ngày streak 🔥</strong> — Còn 6 ngày đến huy hiệu 20 ngày!</span>
-            </div>
+            {v.signedIn || !v.authEnabled ? (
+              <div style={{ background: "#fffbf0", borderRadius: 14, padding: "13px 16px", display: "flex", alignItems: "center", gap: 8, border: `0.5px solid #fde8c0` }}>
+                <Flame size={16} color={C.orange} />
+                <span style={{ fontSize: 12, color: "#8a6830" }}><strong style={{ color: C.dark }}>{sl.title}</strong> — {sl.sub}</span>
+              </div>
+            ) : <GuestReminder />}
           </div>
         </div>
         {/* Library grid */}

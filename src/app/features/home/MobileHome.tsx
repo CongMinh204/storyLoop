@@ -3,19 +3,23 @@ import { C } from "../../lib/colors";
 import { LIBRARY } from "../../data/library";
 import { useContinueStory, heroText } from "./continueStory";
 import type { StoryEntry } from "../../types";
+import { useStoryProgress } from "../../lib/progress";
+import { useViewer, streakLine, formatNumber } from "../auth/viewer";
+import { GuestReminder } from "../auth/GuestReminder";
 
 export function MobileHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry) => void }) {
   const target = useContinueStory(), txt = heroText(target);
+  const v = useViewer(), sl = streakLine(v.streak), played = Object.keys(useStoryProgress()).length;
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: C.bg }}>
       <div style={{ background: C.white, padding: "10px 18px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0, borderBottom: `0.5px solid ${C.border}` }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <div style={{ width: 30, height: 30, background: C.teal, borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15 }}>🐼</div>
-          <div><div style={{ fontSize: 10, color: C.muted }}>Chào buổi sáng 👋</div><div style={{ fontSize: 13, fontWeight: 700, color: C.dark }}>Nguyễn Minh Anh</div></div>
+          <div><div style={{ fontSize: 10, color: C.muted }}>Chào buổi sáng 👋</div><div style={{ fontSize: 13, fontWeight: 700, color: C.dark }}>{v.name}</div></div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <div style={{ background: "#fff4ee", color: C.orange, fontSize: 11, fontWeight: 700, padding: "4px 10px", borderRadius: 20, display: "flex", alignItems: "center", gap: 4 }}><Flame size={12} /> 14</div>
-          <div style={{ width: 32, height: 32, borderRadius: "50%", background: C.teal, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff" }}>MA</div>
+          {v.signedIn && <div style={{ background: "#fff4ee", color: C.orange, fontSize: 11, fontWeight: 700, padding: "4px 10px", borderRadius: 20, display: "flex", alignItems: "center", gap: 4 }}><Flame size={12} /> {v.streak}</div>}
+          <div style={{ width: 32, height: 32, borderRadius: "50%", background: C.teal, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff" }}>{v.initials}</div>
         </div>
       </div>
       <div style={{ flex: 1, overflowY: "auto", padding: "14px 16px 24px", display: "flex", flexDirection: "column", gap: 14 }}>
@@ -52,7 +56,7 @@ export function MobileHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry)
           </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
-          {[{ icon: "📚", bg: "#eef8fa", val: "1,247", lbl: "Từ đã học" }, { icon: "🎮", bg: "#fff4ee", val: "8", lbl: "Câu chuyện" }, { icon: "⚡", bg: "#fffbf0", val: "3,890", lbl: "Tổng XP" }].map((s, i) => (
+          {[{ icon: "📚", bg: "#eef8fa", val: "1,247", lbl: "Từ đã học" }, { icon: "🎮", bg: "#fff4ee", val: String(played), lbl: "Câu chuyện" }, { icon: "⚡", bg: "#fffbf0", val: formatNumber(v.xp), lbl: "Tổng XP" }].map((s, i) => (
             <div key={i} style={{ background: C.white, borderRadius: 14, border: `0.5px solid ${C.border}`, padding: "14px 10px", display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}>
               <div style={{ width: 34, height: 34, borderRadius: 10, background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>{s.icon}</div>
               <div style={{ fontSize: 16, fontWeight: 700, color: C.dark }}>{s.val}</div>
@@ -60,10 +64,12 @@ export function MobileHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry)
             </div>
           ))}
         </div>
-        <div style={{ background: "#fffbf0", borderRadius: 14, padding: "12px 14px", display: "flex", alignItems: "center", gap: 8, border: `0.5px solid #fde8c0` }}>
-          <Flame size={16} color={C.orange} />
-          <span style={{ fontSize: 12, color: "#8a6830" }}><strong style={{ color: C.dark }}>14 ngày streak 🔥</strong> — Còn 6 ngày đến huy hiệu 20 ngày!</span>
-        </div>
+        {v.signedIn || !v.authEnabled ? (
+          <div style={{ background: "#fffbf0", borderRadius: 14, padding: "12px 14px", display: "flex", alignItems: "center", gap: 8, border: `0.5px solid #fde8c0` }}>
+            <Flame size={16} color={C.orange} />
+            <span style={{ fontSize: 12, color: "#8a6830" }}><strong style={{ color: C.dark }}>{sl.title}</strong> — {sl.sub}</span>
+          </div>
+        ) : <GuestReminder />}
       </div>
     </div>
   );

@@ -113,7 +113,8 @@ export function BranchingStoryEngine({ story, tree, onHome, sidePanel }: { story
     const nextScore = { right: score.right + (opt.correct ? 1 : 0), total: score.total + 1 };
     scoreRef.current = nextScore;
     setScore(nextScore);
-    reportProgress(story.id, pct);
+    // Khoá bước = cảnh + vị trí câu "你" trong cảnh, để server cộng XP mỗi câu một lần
+    reportProgress(story.id, pct, { key: `${nodeId}#${node.lines.indexOf(activePick)}`, correct: opt.correct });
     setQueue(q => q.slice(1));
     setFast(false);
     readPause.current = true;
