@@ -7,8 +7,13 @@ import { DesktopChatScreen } from "../features/chat/DesktopChatScreen";
 import { DesktopBloomScreen } from "../features/bloom/DesktopBloom";
 import { DesktopProgressWrapper } from "../features/progress/DesktopProgress";
 import { DesktopProfileScreen } from "../features/profile/DesktopProfile";
+import { useAuth } from "../features/auth/useAuth";
+import { AuthScreen } from "../features/auth/AuthScreen";
 
 export function DesktopApp({ screen, setScreen, story, onOpenStory }: { screen: Screen; setScreen: (s: Screen) => void; story: StoryEntry; onOpenStory: (s: StoryEntry) => void }) {
+  // Màn chào / đăng nhập / đăng ký chiếm cả màn hình
+  const { screen: authScreen } = useAuth();
+  if (authScreen) return <AuthScreen view={authScreen} />;
   return (
     <div style={{ display: "flex", height: "100vh", background: C.bg, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
       <DesktopSidebar active={screen} onChange={setScreen} />

@@ -42,9 +42,11 @@ export function ChatStoryEngine({ story, turns, onHome, sidePanel }: { story: St
     setScore(newScore);
     setHintOpen(false);
 
-    // Lưu tiến độ: lượt cuối thì hoàn thành kèm điểm, còn lại ghi phần trăm số lượt đã qua
-    if (turn + 1 >= turns.length) markCompleted(story.id, { score: { right: newScore, total: turns.length } });
-    else reportProgress(story.id, ((turn + 1) / turns.length) * 100);
+    // Lưu tiến độ: lượt cuối thì hoàn thành kèm điểm, còn lại ghi phần trăm số lượt đã qua.
+    // step: lượt này đúng hay sai, để server cộng XP (mỗi lượt chỉ được cộng một lần)
+    const step = { key: `t${currentTurn.id}`, correct: c.correct };
+    if (turn + 1 >= turns.length) markCompleted(story.id, { score: { right: newScore, total: turns.length }, step });
+    else reportProgress(story.id, ((turn + 1) / turns.length) * 100, step);
 
     const playerMsg: ChatMsg = { type: "player", choice: c, pinyinOn };
     const analysisMsg: ChatMsg = { type: "analysis", choice: c };

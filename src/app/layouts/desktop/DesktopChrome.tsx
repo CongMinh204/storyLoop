@@ -1,6 +1,8 @@
-import { Home, Library, Castle, Shield, TrendingUp, User, Flame, ArrowLeft } from "lucide-react";
+import { Home, Library, Castle, Shield, TrendingUp, User, Flame, ArrowLeft, CloudUpload } from "lucide-react";
 import { C } from "../../lib/colors";
 import type { Screen } from "../../types";
+import { useViewer } from "../../features/auth/viewer";
+import { openAuth } from "../../features/auth/useAuth";
 
 const D_NAV = [
   { key: "home"     as Screen, Icon: Home,       label: "Trang chủ"  },
@@ -12,6 +14,7 @@ const D_NAV = [
 ];
 
 export function DesktopSidebar({ active, onChange }: { active: Screen; onChange: (s: Screen) => void }) {
+  const v = useViewer();
   return (
     <aside style={{ width: 220, height: "100vh", background: C.white, borderRight: `0.5px solid ${C.border}`, display: "flex", flexDirection: "column", flexShrink: 0 }}>
       <div style={{ padding: "22px 18px 18px", display: "flex", alignItems: "center", gap: 9, borderBottom: `0.5px solid ${C.border}` }}>
@@ -29,16 +32,24 @@ export function DesktopSidebar({ active, onChange }: { active: Screen; onChange:
         ))}
       </div>
       <div style={{ padding: "14px 16px", borderTop: `0.5px solid ${C.border}` }}>
-        <div style={{ background: "#fff4ee", borderRadius: 12, padding: "11px 13px", display: "flex", alignItems: "center", gap: 9 }}>
-          <Flame size={16} color={C.orange} />
-          <div><div style={{ fontSize: 12, fontWeight: 700, color: C.dark }}>14 ngày streak</div><div style={{ fontSize: 10, color: C.muted }}>Giữ vững mỗi ngày!</div></div>
-        </div>
+        {v.signedIn || !v.authEnabled ? (
+          <div style={{ background: "#fff4ee", borderRadius: 12, padding: "11px 13px", display: "flex", alignItems: "center", gap: 9 }}>
+            <Flame size={16} color={C.orange} />
+            <div><div style={{ fontSize: 12, fontWeight: 700, color: C.dark }}>{v.streak > 0 ? `${v.streak} ngày streak` : "Chưa có streak"}</div><div style={{ fontSize: 10, color: C.muted }}>{v.streak > 0 ? "Giữ vững mỗi ngày!" : "Học hôm nay để bắt đầu!"}</div></div>
+          </div>
+        ) : (
+          <button onClick={() => openAuth("register")} style={{ width: "100%", background: C.tealBg, border: "none", borderRadius: 12, padding: "11px 13px", display: "flex", alignItems: "center", gap: 9, cursor: "pointer", fontFamily: "inherit", textAlign: "left" }}>
+            <CloudUpload size={16} color={C.teal} />
+            <div><div style={{ fontSize: 12, fontWeight: 700, color: C.dark }}>Đang chơi khách</div><div style={{ fontSize: 10, color: C.teal, fontWeight: 600 }}>Đăng ký để lưu tiến độ</div></div>
+          </button>
+        )}
       </div>
     </aside>
   );
 }
 
 export function DesktopTopbar({ title, onBack, right }: { title: string; onBack?: () => void; right?: React.ReactNode }) {
+  const v = useViewer();
   return (
     <div style={{ height: 58, background: C.white, borderBottom: `0.5px solid ${C.border}`, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px", flexShrink: 0 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -48,8 +59,8 @@ export function DesktopTopbar({ title, onBack, right }: { title: string; onBack?
         {right}
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <div style={{ background: "#fff4ee", color: C.orange, fontSize: 12, fontWeight: 700, padding: "5px 13px", borderRadius: 20, display: "flex", alignItems: "center", gap: 5 }}><Flame size={13} /> 14 ngày streak</div>
-        <div style={{ width: 34, height: 34, borderRadius: "50%", background: C.teal, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff" }}>MA</div>
+        {v.signedIn && <div style={{ background: "#fff4ee", color: C.orange, fontSize: 12, fontWeight: 700, padding: "5px 13px", borderRadius: 20, display: "flex", alignItems: "center", gap: 5 }}><Flame size={13} /> {v.streak} ngày streak</div>}
+        <div title={v.name} style={{ width: 34, height: 34, borderRadius: "50%", background: C.teal, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff" }}>{v.initials}</div>
       </div>
     </div>
   );

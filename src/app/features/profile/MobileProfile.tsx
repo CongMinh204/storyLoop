@@ -1,18 +1,24 @@
 import { useState } from "react";
-import { User, Phone, Mail, Crown, Calendar, KeyRound, LogOut, ChevronRight, CheckCircle2, Eye, EyeOff, Star, RefreshCw } from "lucide-react";
+import { User, Mail, Crown, Calendar, KeyRound, LogOut, ChevronRight, CheckCircle2, Eye, EyeOff, Star, RefreshCw } from "lucide-react";
 import { C } from "../../lib/colors";
+import { useViewer, formatNumber } from "../auth/viewer";
+import { logout } from "../auth/useAuth";
+import { useChangePassword } from "../auth/useChangePassword";
+import { GuestReminder } from "../auth/GuestReminder";
+import { PasswordHint } from "../auth/AuthForms";
 
 export function MobileProfileScreen() {
+  const u = useViewer();
   const [showPwModal, setShowPwModal] = useState(false), [showUpgradeModal, setShowUpgradeModal] = useState(false), [logoutConfirm, setLogoutConfirm] = useState(false);
-  const [oldPw, setOldPw] = useState(""), [newPw, setNewPw] = useState(""), [confirmPw, setConfirmPw] = useState("");
+  const { oldPw, setOldPw, newPw, setNewPw, confirmPw, setConfirmPw, msg: pwMsg, saving: pwSaving, submit: submitPw, reset: resetPw } = useChangePassword(u.hasPassword);
   const [showOld, setShowOld] = useState(false), [showNew, setShowNew] = useState(false), [showConfirm, setShowConfirm] = useState(false);
-  const [pwMsg, setPwMsg] = useState<{ ok: boolean; text: string } | null>(null);
+  const [loggingOut, setLoggingOut] = useState(false);
   function handlePwSubmit() {
-    if (!oldPw || !newPw || !confirmPw) { setPwMsg({ ok: false, text: "Vui lòng điền đầy đủ thông tin." }); return; }
-    if (newPw.length < 8) { setPwMsg({ ok: false, text: "Mật khẩu mới phải có ít nhất 8 ký tự." }); return; }
-    if (newPw !== confirmPw) { setPwMsg({ ok: false, text: "Mật khẩu xác nhận không khớp." }); return; }
-    setPwMsg({ ok: true, text: "Đổi mật khẩu thành công!" });
-    setTimeout(() => { setShowPwModal(false); setOldPw(""); setNewPw(""); setConfirmPw(""); setPwMsg(null); }, 1500);
+    void submitPw(() => setShowPwModal(false));
+  }
+  async function handleLogout() {
+    setLoggingOut(true);
+    await logout(); // xong thì màn chào hiện ra thay cho app
   }
   const inp: React.CSSProperties = { width: "100%", background: C.bg, border: `0.5px solid ${C.border}`, borderRadius: 10, padding: "11px 14px", fontSize: 13, color: C.dark, outline: "none", fontFamily: "inherit", boxSizing: "border-box" };
   const sRow: React.CSSProperties = { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "13px 16px", borderBottom: `0.5px solid ${C.border}` };
@@ -22,17 +28,19 @@ export function MobileProfileScreen() {
       <div style={{ flex: 1, overflowY: "auto", padding: "14px 16px 32px" }}>
         <div style={{ background: `linear-gradient(135deg, ${C.teal} 0%, #0e7490 100%)`, borderRadius: 18, padding: "20px 18px", display: "flex", alignItems: "center", gap: 14, marginBottom: 16 }}>
           <div style={{ width: 60, height: 60, borderRadius: "50%", background: "rgba(255,255,255,.18)", border: "2px solid rgba(255,255,255,.4)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 26, flexShrink: 0 }}>🐼</div>
-          <div style={{ flex: 1 }}><div style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 4 }}>Nguyễn Minh Anh</div><div style={{ display: "flex", gap: 6, flexWrap: "wrap" as const }}><span style={{ background: C.orange, color: "#fff", fontSize: 9, padding: "3px 9px", borderRadius: 20, fontWeight: 700, display: "flex", alignItems: "center", gap: 3 }}><Crown size={9} /> Student Premium</span><span style={{ fontSize: 10, color: "rgba(255,255,255,.8)" }}>HSK 1 · 🔥 14</span></div></div>
-          <div style={{ textAlign: "center", flexShrink: 0 }}><div style={{ fontSize: 20, fontWeight: 700, color: "#fff" }}>3,890</div><div style={{ fontSize: 9, color: "rgba(255,255,255,.7)" }}>Tổng XP</div></div>
+          <div style={{ flex: 1 }}><div style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 4 }}>{u.name}</div><div style={{ display: "flex", gap: 6, flexWrap: "wrap" as const }}><span style={{ background: C.orange, color: "#fff", fontSize: 9, padding: "3px 9px", borderRadius: 20, fontWeight: 700, display: "flex", alignItems: "center", gap: 3 }}><Crown size={9} /> Student Premium</span><span style={{ fontSize: 10, color: "rgba(255,255,255,.8)" }}>{u.signedIn ? `HSK 1 · 🔥 ${u.streak}` : "HSK 1 · Khách"}</span></div></div>
+          {u.signedIn && <div style={{ textAlign: "center", flexShrink: 0 }}><div style={{ fontSize: 20, fontWeight: 700, color: "#fff" }}>{formatNumber(u.xp)}</div><div style={{ fontSize: 9, color: "rgba(255,255,255,.7)" }}>Tổng XP</div></div>}
         </div>
-        <div style={{ fontSize: 10, fontWeight: 700, color: C.muted, letterSpacing: ".07em", textTransform: "uppercase" as const, marginBottom: 8 }}>Thông tin tài khoản</div>
+        {(u.signedIn || u.authEnabled) && <div style={{ fontSize: 10, fontWeight: 700, color: C.muted, letterSpacing: ".07em", textTransform: "uppercase" as const, marginBottom: 8 }}>Thông tin tài khoản</div>}
+        {!u.signedIn ? (u.authEnabled && <div style={{ marginBottom: 16 }}><GuestReminder /></div>) : (
         <div style={{ background: C.white, borderRadius: 16, border: `0.5px solid ${C.border}`, overflow: "hidden", marginBottom: 16 }}>
-          {[{ icon: <User size={14} color={C.teal} />, bg: C.tealBg, lbl: "Họ và tên", val: "Nguyễn Minh Anh" }, { icon: <Phone size={14} color={C.orange} />, bg: "#fff4ee", lbl: "Số điện thoại", val: "0912 345 678" }, { icon: <Mail size={14} color={C.purple} />, bg: C.purpleBg, lbl: "Email", val: "minhanh@email.com", last: true }].map((r, i) => (
+          {[{ icon: <User size={14} color={C.teal} />, bg: C.tealBg, lbl: "Họ và tên", val: u.name }, { icon: <Mail size={14} color={C.purple} />, bg: C.purpleBg, lbl: "Email", val: u.email, last: true }].map((r, i) => (
             <div key={i} style={{ ...sRow, ...(r.last ? { borderBottom: "none" } : {}) }}>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}><div style={{ width: 32, height: 32, borderRadius: 9, background: r.bg, display: "flex", alignItems: "center", justifyContent: "center" }}>{r.icon}</div><div><div style={{ fontSize: 10, color: C.muted, marginBottom: 1 }}>{r.lbl}</div><div style={{ fontSize: 13, fontWeight: 500, color: C.dark }}>{r.val}</div></div></div>
             </div>
           ))}
         </div>
+        )}
         <div style={{ fontSize: 10, fontWeight: 700, color: C.muted, letterSpacing: ".07em", textTransform: "uppercase" as const, marginBottom: 8 }}>Gói đăng ký</div>
         <div style={{ background: C.white, borderRadius: 16, border: `0.5px solid ${C.border}`, overflow: "hidden", marginBottom: 16 }}>
           <div style={{ padding: "14px 16px", borderBottom: `0.5px solid ${C.border}` }}>
@@ -51,10 +59,11 @@ export function MobileProfileScreen() {
             <button onClick={() => setShowUpgradeModal(true)} style={{ flex: 1, background: C.tealBg, color: C.teal, border: `0.5px solid #bdeaf0`, borderRadius: 12, padding: "10px 0", fontSize: 12, fontWeight: 700, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", justifyContent: "center", gap: 5 }}><RefreshCw size={13} /> Gia hạn</button>
           </div>
         </div>
+        {u.signedIn && <>
         <div style={{ fontSize: 10, fontWeight: 700, color: C.muted, letterSpacing: ".07em", textTransform: "uppercase" as const, marginBottom: 8 }}>Bảo mật & Tài khoản</div>
         <div style={{ background: C.white, borderRadius: 16, border: `0.5px solid ${C.border}`, overflow: "hidden" }}>
           <button onClick={() => setShowPwModal(true)} style={{ ...sRow, width: "100%", cursor: "pointer", background: "none", fontFamily: "inherit", textAlign: "left" as const }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}><div style={{ width: 32, height: 32, borderRadius: 9, background: "#fff4ee", display: "flex", alignItems: "center", justifyContent: "center" }}><KeyRound size={14} color={C.orange} /></div><span style={{ fontSize: 13, fontWeight: 500, color: C.dark }}>Đổi mật khẩu</span></div>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}><div style={{ width: 32, height: 32, borderRadius: 9, background: "#fff4ee", display: "flex", alignItems: "center", justifyContent: "center" }}><KeyRound size={14} color={C.orange} /></div><span style={{ fontSize: 13, fontWeight: 500, color: C.dark }}>{u.hasPassword ? "Đổi mật khẩu" : "Đặt mật khẩu"}</span></div>
             <ChevronRight size={15} color={C.muted} />
           </button>
           <button onClick={() => setLogoutConfirm(true)} style={{ ...sRow, borderBottom: "none", width: "100%", cursor: "pointer", background: "none", fontFamily: "inherit", textAlign: "left" as const }}>
@@ -62,19 +71,20 @@ export function MobileProfileScreen() {
             <ChevronRight size={15} color="#e24b4a" />
           </button>
         </div>
+        </>}
       </div>
       {showPwModal && (
         <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,.5)", display: "flex", alignItems: "flex-end", zIndex: 50 }}>
           <div style={{ background: C.white, borderRadius: "22px 22px 0 0", padding: "20px 18px 32px", width: "100%" }}>
             <div style={{ width: 36, height: 4, background: C.border, borderRadius: 2, margin: "0 auto 16px" }} />
-            <div style={{ fontSize: 15, fontWeight: 700, color: C.dark, marginBottom: 16 }}>Đổi mật khẩu</div>
-            {[{ label: "Mật khẩu hiện tại", val: oldPw, set: setOldPw, show: showOld, toggle: () => setShowOld(v => !v) }, { label: "Mật khẩu mới", val: newPw, set: setNewPw, show: showNew, toggle: () => setShowNew(v => !v) }, { label: "Xác nhận mật khẩu mới", val: confirmPw, set: setConfirmPw, show: showConfirm, toggle: () => setShowConfirm(v => !v) }].map((f, i) => (
-              <div key={i} style={{ marginBottom: 12 }}><div style={{ fontSize: 11, color: C.muted, marginBottom: 5 }}>{f.label}</div><div style={{ position: "relative" }}><input type={f.show ? "text" : "password"} value={f.val} onChange={e => f.set(e.target.value)} style={{ ...inp, paddingRight: 40 }} /><button onClick={f.toggle} style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: C.muted, display: "flex", padding: 0 }}>{f.show ? <EyeOff size={15} /> : <Eye size={15} />}</button></div></div>
+            <div style={{ fontSize: 15, fontWeight: 700, color: C.dark, marginBottom: 16 }}>{u.hasPassword ? "Đổi mật khẩu" : "Đặt mật khẩu"}</div>
+            {[...(u.hasPassword ? [{ label: "Mật khẩu hiện tại", val: oldPw, set: setOldPw, show: showOld, toggle: () => setShowOld(v => !v), hint: false }] : []), { label: "Mật khẩu mới", val: newPw, set: setNewPw, show: showNew, toggle: () => setShowNew(v => !v), hint: true }, { label: "Xác nhận mật khẩu mới", val: confirmPw, set: setConfirmPw, show: showConfirm, toggle: () => setShowConfirm(v => !v), hint: false }].map((f, i) => (
+              <div key={i} style={{ marginBottom: 12 }}><div style={{ fontSize: 11, color: C.muted, marginBottom: 5 }}>{f.label}</div><div style={{ position: "relative" }}><input type={f.show ? "text" : "password"} value={f.val} onChange={e => f.set(e.target.value)} style={{ ...inp, paddingRight: 40 }} /><button onClick={f.toggle} style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: C.muted, display: "flex", padding: 0 }}>{f.show ? <EyeOff size={15} /> : <Eye size={15} />}</button></div>{f.hint && <div style={{ marginTop: 6 }}><PasswordHint value={newPw} /></div>}</div>
             ))}
             {pwMsg && <div style={{ fontSize: 12, color: pwMsg.ok ? C.green : "#e24b4a", background: pwMsg.ok ? C.greenBg : "#fff1f2", border: `0.5px solid ${pwMsg.ok ? C.greenBorder : "#fecdd3"}`, borderRadius: 10, padding: "9px 12px", marginBottom: 12 }}>{pwMsg.text}</div>}
             <div style={{ display: "flex", gap: 8 }}>
-              <button onClick={() => { setShowPwModal(false); setOldPw(""); setNewPw(""); setConfirmPw(""); setPwMsg(null); }} style={{ flex: 1, background: C.bg, color: C.muted, border: `0.5px solid ${C.border}`, borderRadius: 12, padding: "12px 0", fontSize: 13, cursor: "pointer", fontFamily: "inherit" }}>Huỷ</button>
-              <button onClick={handlePwSubmit} style={{ flex: 1, background: C.teal, color: "#fff", border: "none", borderRadius: 12, padding: "12px 0", fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "inherit" }}>Lưu</button>
+              <button onClick={() => { setShowPwModal(false); resetPw(); }} style={{ flex: 1, background: C.bg, color: C.muted, border: `0.5px solid ${C.border}`, borderRadius: 12, padding: "12px 0", fontSize: 13, cursor: "pointer", fontFamily: "inherit" }}>Huỷ</button>
+              <button onClick={handlePwSubmit} disabled={pwSaving} style={{ flex: 1, background: C.teal, color: "#fff", border: "none", borderRadius: 12, padding: "12px 0", fontSize: 13, fontWeight: 700, cursor: pwSaving ? "default" : "pointer", opacity: pwSaving ? 0.7 : 1, fontFamily: "inherit" }}>{pwSaving ? "Đang lưu..." : "Lưu"}</button>
             </div>
           </div>
         </div>
@@ -99,7 +109,7 @@ export function MobileProfileScreen() {
             <div style={{ fontSize: 12, color: C.muted, marginBottom: 22 }}>Bạn có chắc muốn đăng xuất khỏi tài khoản?</div>
             <div style={{ display: "flex", gap: 10 }}>
               <button onClick={() => setLogoutConfirm(false)} style={{ flex: 1, background: C.bg, color: C.muted, border: `0.5px solid ${C.border}`, borderRadius: 12, padding: "12px 0", fontSize: 13, cursor: "pointer", fontFamily: "inherit" }}>Huỷ</button>
-              <button style={{ flex: 1, background: "#e24b4a", color: "#fff", border: "none", borderRadius: 12, padding: "12px 0", fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "inherit" }}>Đăng xuất</button>
+              <button onClick={handleLogout} disabled={loggingOut} style={{ flex: 1, background: "#e24b4a", color: "#fff", border: "none", borderRadius: 12, padding: "12px 0", fontSize: 13, fontWeight: 700, cursor: loggingOut ? "default" : "pointer", opacity: loggingOut ? 0.7 : 1, fontFamily: "inherit" }}>{loggingOut ? "Đang đăng xuất..." : "Đăng xuất"}</button>
             </div>
           </div>
         </div>
