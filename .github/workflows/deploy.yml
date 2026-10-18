@@ -1,6 +1,6 @@
 name: Deploy to GitHub Pages
 
-# Mỗi lần push lên main: build và đăng lên https://congminh204.github.io/storyLoop/
+# Mỗi lần push lên main: build và đăng lên https://storyloop.io.vn/ (tên miền riêng, cấu hình ở Settings > Pages)
 on:
   push:
     branches: [main]
@@ -26,7 +26,12 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Địa chỉ backend và Google Client ID lấy từ Settings > Secrets and variables > Actions > Variables.
+      # Không đặt thì web build ra chạy chế độ khách như trước (không có đăng nhập).
       - run: npm run build
+        env:
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          VITE_GOOGLE_CLIENT_ID: ${{ vars.VITE_GOOGLE_CLIENT_ID }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -28,7 +28,7 @@ export function DesktopBloomScreen() {
   const tabBtn = (m: "bloom" | "flashcard", label: string) => {
     const off = m === "bloom" && !bloom;
     return (
-    <button onClick={() => !off && setMode(m)} disabled={off} title={off ? "Chọn một truyện để luyện Bloom" : undefined} style={{ opacity: off ? 0.4 : 1, padding: "6px 18px", borderRadius: 8, fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", border: "none", background: mode === m ? C.white : "none", color: mode === m ? C.dark : C.muted, boxShadow: mode === m ? "0 1px 4px rgba(0,0,0,.09)" : "none", transition: "all .15s", ...(off ? { cursor: "not-allowed" } : {}) }}>{label}</button>
+    <button onClick={() => !off && setMode(m)} disabled={off} title={off ? "Chọn một truyện để luyện Bloom" : undefined} style={{ opacity: off ? 0.4 : 1, padding: "6px 18px", borderRadius: 8, fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", border: "none", background: mode === m ? C.surface : "none", color: mode === m ? C.ink : C.inkMuted, boxShadow: mode === m ? "0 1px 4px rgba(0,0,0,.09)" : "none", transition: "all .15s", ...(off ? { cursor: "not-allowed" } : {}) }}>{label}</button>
     );
   };
 
@@ -44,15 +44,15 @@ export function DesktopBloomScreen() {
             </div>
             {/* Bloom-only controls */}
             {showBloom && <>
-              <button onClick={() => setPinyinOn(v => !v)} style={{ display: "flex", alignItems: "center", gap: 5, background: pinyinOn ? C.purpleBg : C.bg, border: `0.5px solid ${pinyinOn ? "#ddd8f9" : C.border}`, borderRadius: 20, padding: "5px 13px", fontSize: 12, color: pinyinOn ? C.purple : C.muted, cursor: "pointer", fontFamily: "inherit", fontWeight: 500 }}>
+              <button onClick={() => setPinyinOn(v => !v)} style={{ display: "flex", alignItems: "center", gap: 5, background: pinyinOn ? C.inkBg : C.bg, border: `0.5px solid ${pinyinOn ? C.inkBorder : C.border}`, borderRadius: 20, padding: "5px 13px", fontSize: 12, color: pinyinOn ? C.ink : C.inkMuted, cursor: "pointer", fontFamily: "inherit", fontWeight: 500 }}>
                 {pinyinOn ? <Eye size={13} /> : <EyeOff size={13} />} {pinyinOn ? "Pinyin: Bật" : "Pinyin: Tắt"}
               </button>
-              <div style={{ display: "flex", alignItems: "center", gap: 5, background: C.greenBg, border: `0.5px solid ${C.greenBorder}`, borderRadius: 20, padding: "4px 11px", fontSize: 11, color: C.greenDim, fontWeight: 600 }}><Zap size={12} /> +{(stage+1)*10} XP</div>
+              <div style={{ display: "flex", alignItems: "center", gap: 5, background: C.rewardBg, border: `0.5px solid ${C.rewardBorder}`, borderRadius: 20, padding: "4px 11px", fontSize: 11, color: C.ink, fontWeight: 600 }}><Zap size={12} /> +{(stage+1)*10} XP</div>
             </>}
           </div>
         } />
       {/* Chọn bài */}
-      <div style={{ background: C.white, borderBottom: `0.5px solid ${C.border}`, padding: "10px 28px", flexShrink: 0 }}>
+      <div style={{ background: C.surface, borderBottom: `0.5px solid ${C.border}`, padding: "10px 28px", flexShrink: 0 }}>
         <LessonPicker lessons={LESSONS} value={lessonId} onChange={pickLesson} />
       </div>
 
@@ -61,35 +61,35 @@ export function DesktopBloomScreen() {
       ) : (
         <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
           {/* Stage panel left */}
-          <div style={{ width: 200, background: C.white, borderRight: `0.5px solid ${C.border}`, flexShrink: 0, display: "flex", flexDirection: "column" }}>
+          <div style={{ width: 200, background: C.surface, borderRight: `0.5px solid ${C.border}`, flexShrink: 0, display: "flex", flexDirection: "column" }}>
             <div style={{ padding: "16px 14px", borderBottom: `0.5px solid ${C.border}` }}>
-              <div style={{ fontSize: 11, fontWeight: 600, color: C.muted, marginBottom: 10, textTransform: "uppercase" as const, letterSpacing: ".05em" }}>Cấp độ Bloom</div>
+              <div style={{ fontSize: 11, fontWeight: 600, color: C.inkMuted, marginBottom: 10, textTransform: "uppercase" as const, letterSpacing: ".05em" }}>Cấp độ Bloom</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                 {BLOOM_STAGES.map((bs, i) => { const Icon = BLOOM_ICONS[i], isDone = complete || i < stage, isActive = !complete && i === stage; return (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 9, padding: "9px 11px", borderRadius: 10, background: isDone ? C.greenBg : isActive ? C.tealBg : C.bg, border: `0.5px solid ${isDone ? C.greenBorder : isActive ? "#bdeaf0" : C.border}` }}>
-                    <div style={{ color: isDone ? C.greenDim : isActive ? C.teal : C.muted }}><Icon size={15} /></div>
-                    <div><div style={{ fontSize: 11, fontWeight: 600, color: isDone ? C.greenDim : isActive ? C.teal : C.muted }}>{bs.label}</div><div style={{ fontSize: 9, color: isDone ? C.green : isActive ? C.teal : C.faint }}>{isDone ? "Hoàn thành ✓" : isActive ? "Đang làm..." : "Chưa mở"}</div></div>
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 9, padding: "9px 11px", borderRadius: 10, background: isDone ? C.successBg : isActive ? C.primaryBg : C.bg, border: `0.5px solid ${isDone ? C.successBorder : isActive ? C.primaryBorder : C.border}` }}>
+                    <div style={{ color: isDone ? C.success : isActive ? C.primaryText : C.inkMuted }}><Icon size={15} /></div>
+                    <div><div style={{ fontSize: 11, fontWeight: 600, color: isDone ? C.success : isActive ? C.primaryText : C.inkMuted }}>{bs.label}</div><div style={{ fontSize: 9, color: isDone ? C.success : isActive ? C.primaryText : C.inkFaint }}>{isDone ? "Hoàn thành ✓" : isActive ? "Đang làm..." : "Chưa mở"}</div></div>
                   </div>
                 ); })}
               </div>
             </div>
             <div style={{ padding: "14px", flex: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
-              <div style={{ height: 5, background: C.border, borderRadius: 20, marginBottom: 6 }}><div style={{ height: 5, background: C.teal, width: `${Math.round(((stage+1)/4)*100)}%`, borderRadius: 20, transition: "width .35s" }} /></div>
-              <div style={{ fontSize: 10, color: C.muted, textAlign: "center" }}>{stage+1}/4 cấp độ</div>
+              <div style={{ height: 5, background: C.border, borderRadius: 20, marginBottom: 6 }}><div style={{ height: 5, background: C.primary, width: `${Math.round(((stage+1)/4)*100)}%`, borderRadius: 20, transition: "width .35s" }} /></div>
+              <div style={{ fontSize: 10, color: C.inkMuted, textAlign: "center" }}>{stage+1}/4 cấp độ</div>
             </div>
           </div>
           {/* Content */}
-          <div ref={scrollRef} style={{ flex: 1, overflowY: "auto", padding: "28px", background: C.dBg }}>
+          <div ref={scrollRef} style={{ flex: 1, overflowY: "auto", padding: "28px", background: C.bg }}>
             <div style={{ maxWidth: 600, margin: "0 auto" }}>
               {complete ? (
                 <div style={{ textAlign: "center", paddingTop: 40 }}>
                   <div style={{ fontSize: 72, marginBottom: 16 }}>🏆</div>
-                  <div style={{ fontSize: 22, fontWeight: 700, color: C.dText, marginBottom: 8 }}>Hoàn thành cả 4 cấp độ!</div>
-                  <div style={{ fontSize: 13, color: C.dSub, marginBottom: 28 }}>Bạn đã thành thạo từ vựng {bloom.doneLong}</div>
+                  <div style={{ fontSize: 22, fontWeight: 700, color: C.ink, marginBottom: 8 }}>Hoàn thành cả 4 cấp độ!</div>
+                  <div style={{ fontSize: 13, color: C.inkMuted, marginBottom: 28 }}>Bạn đã thành thạo từ vựng {bloom.doneLong}</div>
                   <div style={{ display: "flex", justifyContent: "center", gap: 14, marginBottom: 28 }}>
-                    {[{ val: "+40", sub: "XP kiếm được", bg: C.greenBg, bdr: C.greenBorder, col: C.greenDim }, { val: `${bloom.words}`, sub: "Từ đã nắm", bg: C.purpleBg, bdr: "#ddd8f9", col: C.purple }, { val: "Bloom 4", sub: "Cấp độ đạt", bg: C.tealBg, bdr: "#bdeaf0", col: C.teal }].map((s, i) => <div key={i} style={{ background: s.bg, border: `0.5px solid ${s.bdr}`, borderRadius: 14, padding: "14px 24px", textAlign: "center" }}><div style={{ fontSize: 20, fontWeight: 700, color: s.col }}>{s.val}</div><div style={{ fontSize: 10, color: C.muted, marginTop: 3 }}>{s.sub}</div></div>)}
+                    {[{ val: "+40", sub: "XP kiếm được", bg: C.rewardBg, bdr: C.rewardBorder, col: C.rewardDeep }, { val: `${bloom.words}`, sub: "Từ đã nắm", bg: C.inkBg, bdr: C.inkBorder, col: C.ink }, { val: "Bloom 4", sub: "Cấp độ đạt", bg: C.primaryBg, bdr: C.primaryBorder, col: C.primary }].map((s, i) => <div key={i} style={{ background: s.bg, border: `0.5px solid ${s.bdr}`, borderRadius: 14, padding: "14px 24px", textAlign: "center" }}><div style={{ fontSize: 20, fontWeight: 700, color: s.col }}>{s.val}</div><div style={{ fontSize: 10, color: C.inkMuted, marginTop: 3 }}>{s.sub}</div></div>)}
                   </div>
-                  <button onClick={() => { setStage(0); setComplete(false); }} style={{ background: C.teal, color: "#fff", border: "none", borderRadius: 14, padding: "14px 40px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "inherit" }}>Luyện lại từ đầu</button>
+                  <button onClick={() => { setStage(0); setComplete(false); }} style={{ background: C.primaryDeep, color: C.onFill, border: "none", borderRadius: 14, padding: "14px 40px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "inherit" }}>Luyện lại từ đầu</button>
                 </div>
               ) : <BloomContent key={`${lessonId}-${stage}`} items={bloom.items} emoji={lesson.emoji} stage={stage} onNext={() => setStage(s => s+1)} onComplete={() => setComplete(true)} pinyinOn={pinyinOn} />}
             </div>

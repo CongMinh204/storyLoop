@@ -1,0 +1,67 @@
+/* Hiệu ứng của trang giới thiệu. Chỉ dùng transform / opacity cho nhẹ máy, và tắt gần hết khi người dùng
+   bật "giảm chuyển động" của hệ điều hành (prefers-reduced-motion). Biến --d là độ trễ của từng phần tử. */
+
+@keyframes ld-rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes ld-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes ld-bob { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-7px) rotate(1.5deg); } }
+@keyframes ld-twinkle { 0%, 100% { opacity: .25; transform: scale(.6) rotate(0deg); } 50% { opacity: 1; transform: scale(1) rotate(25deg); } }
+@keyframes ld-drift {
+  0% { transform: translate3d(0, -30px, 0) rotate(0deg); opacity: 0; }
+  10% { opacity: .75; }
+  90% { opacity: .75; }
+  100% { transform: translate3d(var(--dx, 70px), 560px, 0) rotate(var(--rot, 220deg)); opacity: 0; }
+}
+@keyframes ld-pop { 0% { transform: scale(.7); } 45% { transform: scale(1.18); } 100% { transform: scale(1); } }
+@keyframes ld-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(212, 93, 51, .5), 0 10px 22px rgba(212, 93, 51, .28); }
+  70%, 100% { box-shadow: 0 0 0 18px rgba(212, 93, 51, 0), 0 10px 22px rgba(212, 93, 51, .28); }
+}
+@keyframes ld-wiggle { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-10deg) scale(1.08); } 60% { transform: rotate(8deg) scale(1.08); } }
+@keyframes ld-kenburns { from { transform: scale(1); } to { transform: scale(1.12); } }
+
+/* Vào trang: lần lượt trượt lên */
+.ld-rise { opacity: 0; animation: ld-rise .9s cubic-bezier(.2, .7, .2, 1) var(--d, 0ms) forwards; }
+
+/* Cuộn tới: hiện dần (class is-in do Reveal.tsx thêm vào). translate dành riêng cho hiệu ứng rê chuột nên không đè lên transform */
+.ld-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .8s ease var(--d, 0ms), transform .8s cubic-bezier(.2, .7, .2, 1) var(--d, 0ms), translate .25s ease, box-shadow .25s ease;
+}
+.ld-reveal.is-in { opacity: 1; transform: none; }
+
+/* Rê chuột lên thẻ */
+.ld-lift:hover { translate: 0 -6px; box-shadow: 0 16px 34px rgba(25, 62, 65, .13); }
+.ld-lift:hover .ld-icon { animation: ld-wiggle .7s ease; }
+.ld-emoji { display: inline-block; transition: transform .3s ease; }
+.ld-lift:hover .ld-emoji { transform: scale(1.18) rotate(-6deg); }
+
+/* Nút */
+.ld-btn { transition: transform .2s ease, box-shadow .2s ease, background-color .2s ease; }
+.ld-btn:hover:not(:disabled) { transform: translateY(-2px) scale(1.03); }
+.ld-btn:active:not(:disabled) { transform: scale(.97); }
+.ld-pulse { animation: ld-pulse 2.8s ease-out 1.6s infinite; }
+
+/* Chuyển động liên tục */
+.ld-float { animation: ld-float 7s ease-in-out var(--d, 0ms) infinite; }
+.ld-bob { animation: ld-bob 5s ease-in-out var(--d, 0ms) infinite; }
+.ld-twinkle { animation: ld-twinkle 3.2s ease-in-out var(--d, 0ms) infinite; }
+.ld-leaf { opacity: 0; animation: ld-drift var(--t, 16s) linear var(--d, 0s) infinite; will-change: transform; }
+.ld-pop { display: inline-flex; align-items: center; gap: 5px; animation: ld-pop .5s cubic-bezier(.3, 1.6, .5, 1); }
+.ld-kenburns { animation: ld-kenburns 14s ease-in-out infinite alternate; }
+
+/* Thanh tiến độ chạy khi cuộn tới */
+.ld-bar { transition: width 1.5s cubic-bezier(.2, .7, .2, 1) .2s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ld-rise { opacity: 1; animation: none; }
+  .ld-reveal { opacity: 1; transform: none; transition: none; }
+  .ld-float, .ld-bob, .ld-twinkle, .ld-pulse, .ld-pop, .ld-kenburns { animation: none; }
+  .ld-twinkle { opacity: .7; }
+  .ld-leaf { display: none; }
+  .ld-btn, .ld-emoji, .ld-bar { transition: none; }
+  .ld-btn:hover:not(:disabled) { transform: none; }
+  .ld-lift:hover { translate: none; }
+  .ld-lift:hover .ld-icon { animation: none; }
+  .ld-lift:hover .ld-emoji { transform: none; }
+}
