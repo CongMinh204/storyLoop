@@ -1,6 +1,6 @@
 name: Deploy to GitHub Pages
 
-# Mỗi lần push lên main: build và đăng lên https://congminh204.github.io/storyLoop/
+# Mỗi lần push lên main: build và đăng lên https://storyloop.io.vn/ (tên miền riêng, cấu hình ở Settings > Pages)
 on:
   push:
     branches: [main]
