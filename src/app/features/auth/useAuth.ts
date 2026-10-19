@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from "react";
 import { api, API_ENABLED, ApiError, getTokens, onSessionExpired, setTokens, TOKENS_KEY, type Tokens } from "../../lib/api";
 import { flushProgress, onProgressStats, setProgressAccount } from "../../lib/progress";
+import { track } from "../../lib/analytics";
 
 // Trạng thái đăng nhập dùng chung cho cả app (mobile và desktop), đồng bộ giữa các tab.
 // Không có VITE_API_URL thì luôn là khách và không hiện màn chào, app chạy như trước khi có backend.
@@ -115,15 +116,18 @@ export function closeAuth() {
 
 export async function login(email: string, password: string) {
   signIn(await api<AuthResponse>("/api/auth/login", { method: "POST", body: { email, password } }));
+  track("login", { method: "email" });
 }
 
 export async function register(form: RegisterForm) {
   signIn(await api<AuthResponse>("/api/auth/register", { method: "POST", body: form }));
+  track("sign_up", { method: "email" });
 }
 
 // idToken: chuỗi Google Identity Services trả về sau khi người dùng chọn tài khoản Google
 export async function loginWithGoogle(idToken: string) {
   signIn(await api<AuthResponse>("/api/auth/google", { method: "POST", body: { idToken } }));
+  track("login", { method: "google" });
 }
 
 export async function logout() {
@@ -135,6 +139,7 @@ export async function logout() {
 }
 
 export function chooseGuest() {
+  track("guest_start");
   writeGuestChosen(true);
   set({ guestChosen: true, view: null });
 }
