@@ -1,6 +1,6 @@
 import { C, GRADIENT } from "../lib/colors";
 import type { Screen, StoryEntry } from "../types";
-import { MobileStatusBar, MobileBottomNav } from "./mobile/MobileChrome";
+import { MobileBottomNav } from "./mobile/MobileChrome";
 import { MobileHomeScreen } from "../features/home/MobileHome";
 import { LibraryScreen } from "../features/library/LibraryScreen";
 import { MobileChatScreen } from "../features/chat/MobileChatScreen";
@@ -15,14 +15,17 @@ export function MobileApp({ screen, setScreen, story, onOpenStory }: { screen: S
   const { screen: authScreen, needsEntry } = useAuth();
   // Đăng nhập / đăng ký là hộp thoại nổi lên trên nền: trang giới thiệu (chưa chọn gì) hoặc chính app (đang chơi khách)
   const dialog = authScreen === "login" || authScreen === "register" ? <AuthScreen view={authScreen} /> : null;
-  // Trang giới thiệu là trang cuộn toàn màn hình, không nằm trong khung điện thoại
+  // Trang giới thiệu là trang cuộn toàn màn hình
   if (needsEntry || authScreen === "welcome") return <><LandingScreen />{dialog}</>;
+  // App chiếm trọn màn hình điện thoại (class sl-shell ở index.html: cao đúng bằng phần nhìn thấy, kể cả khi thanh địa chỉ ẩn/hiện).
+  // Cửa sổ hẹp trên máy tính: cột rộng tối đa 480px nằm giữa, hai bên là nền tối.
   return (
     <>
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: GRADIENT.frame, fontFamily: "'Plus Jakarta Sans', sans-serif", padding: "20px 0" }}>
-        <div style={{ width: 375, height: 812, borderRadius: 44, overflow: "hidden", boxShadow: "0 48px 96px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.09)", display: "flex", flexDirection: "column", position: "relative", background: C.bg }}>
-          <MobileStatusBar />
-          <div style={{ flex: 1, overflow: "hidden", display: "flex", flexDirection: "column" }}>
+      <div className="sl-shell" style={{ display: "flex", justifyContent: "center", background: GRADIENT.frame, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+        <div style={{ width: "100%", maxWidth: 480, height: "100%", display: "flex", flexDirection: "column", position: "relative", overflow: "hidden", background: C.bg }}>
+          {/* Chừa chỗ cho tai thỏ / thanh trạng thái khi mở như app cài trên màn hình chính */}
+          <div style={{ height: "env(safe-area-inset-top)", background: C.surface, flexShrink: 0 }} />
+          <div style={{ flex: 1, minHeight: 0, overflow: "hidden", display: "flex", flexDirection: "column" }}>
             {screen === "home"     && <MobileHomeScreen onOpenStory={onOpenStory} />}
             {screen === "library"  && <LibraryScreen onOpenStory={onOpenStory} />}
             {screen === "chat"     && <MobileChatScreen story={story} onHome={() => setScreen("home")} />}
@@ -31,9 +34,6 @@ export function MobileApp({ screen, setScreen, story, onOpenStory }: { screen: S
             {screen === "profile"  && <MobileProfileScreen />}
           </div>
           <MobileBottomNav active={screen} onChange={setScreen} />
-          <div style={{ height: 28, background: C.surface, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-            <div style={{ width: 120, height: 4, background: C.ink, borderRadius: 2, opacity: 0.14 }} />
-          </div>
         </div>
       </div>
       {dialog}
