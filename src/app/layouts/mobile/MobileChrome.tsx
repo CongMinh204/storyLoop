@@ -2,6 +2,8 @@ import { Home, TrendingUp, User, Shield, Library } from "lucide-react";
 import { C } from "../../lib/colors";
 import type { Screen } from "../../types";
 
+// Thanh trạng thái giả (giờ, sóng, pin) của khung điện thoại trong bản Figma. App giờ chạy toàn màn hình
+// trên điện thoại thật nên không dùng nữa; giữ lại để tham khảo.
 export function MobileStatusBar() {
   return (
     <div style={{ height: 50, background: C.surface, display: "flex", alignItems: "flex-end", justifyContent: "space-between", padding: "0 22px 8px", flexShrink: 0 }}>
@@ -26,15 +28,16 @@ const M_NAV = [
   { key: "profile"  as Screen, Icon: User,       label: "Hồ sơ"     },
 ];
 
+// Thanh điều hướng dưới: cao 56px, cộng thêm phần vạch vuốt của iPhone (safe-area) để nút không bị đè
 export function MobileBottomNav({ active, onChange }: { active: Screen; onChange: (s: Screen) => void }) {
   return (
-    <div style={{ height: 56, background: C.surface, borderTop: `0.5px solid ${C.border}`, display: "flex", flexShrink: 0 }}>
+    <nav aria-label="Điều hướng chính" style={{ height: "calc(56px + env(safe-area-inset-bottom))", paddingBottom: "env(safe-area-inset-bottom)", background: C.surface, borderTop: `0.5px solid ${C.border}`, display: "flex", flexShrink: 0 }}>
       {M_NAV.map(({ key, Icon, label }) => (
         <button key={key} onClick={() => onChange(key)} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 3, background: "none", border: "none", cursor: "pointer", fontFamily: "inherit", color: active === key ? C.primaryText : C.inkMuted }}>
           <Icon size={20} strokeWidth={active === key ? 2.5 : 1.8} />
           <span style={{ fontSize: 9, fontWeight: active === key ? 600 : 400 }}>{label}</span>
         </button>
       ))}
-    </div>
+    </nav>
   );
 }

@@ -75,7 +75,7 @@ export function MobileProfileScreen() {
       </div>
       {showPwModal && (
         <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,.5)", display: "flex", alignItems: "flex-end", zIndex: 50 }}>
-          <div style={{ background: C.surface, borderRadius: "22px 22px 0 0", padding: "20px 18px 32px", width: "100%" }}>
+          <div style={{ background: C.surface, borderRadius: "22px 22px 0 0", padding: "20px 18px 32px", width: "100%", maxHeight: "100%", overflowY: "auto" }}>
             <div style={{ width: 36, height: 4, background: C.border, borderRadius: 2, margin: "0 auto 16px" }} />
             <div style={{ fontSize: 15, fontWeight: 700, color: C.ink, marginBottom: 16 }}>{u.hasPassword ? "Đổi mật khẩu" : "Đặt mật khẩu"}</div>
             {[...(u.hasPassword ? [{ label: "Mật khẩu hiện tại", val: oldPw, set: setOldPw, show: showOld, toggle: () => setShowOld(v => !v), hint: false }] : []), { label: "Mật khẩu mới", val: newPw, set: setNewPw, show: showNew, toggle: () => setShowNew(v => !v), hint: true }, { label: "Xác nhận mật khẩu mới", val: confirmPw, set: setConfirmPw, show: showConfirm, toggle: () => setShowConfirm(v => !v), hint: false }].map((f, i) => (
@@ -91,7 +91,7 @@ export function MobileProfileScreen() {
       )}
       {showUpgradeModal && (
         <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,.5)", display: "flex", alignItems: "flex-end", zIndex: 50 }}>
-          <div style={{ background: C.surface, borderRadius: "22px 22px 0 0", padding: "20px 18px 36px", width: "100%" }}>
+          <div style={{ background: C.surface, borderRadius: "22px 22px 0 0", padding: "20px 18px 36px", width: "100%", maxHeight: "100%", overflowY: "auto" }}>
             <div style={{ width: 36, height: 4, background: C.border, borderRadius: 2, margin: "0 auto 16px" }} />
             <div style={{ textAlign: "center", marginBottom: 18 }}><div style={{ fontSize: 32, marginBottom: 6 }}>👑</div><div style={{ fontSize: 15, fontWeight: 700, color: C.ink, marginBottom: 3 }}>Nâng cấp / Gia hạn</div><div style={{ fontSize: 12, color: C.inkMuted }}>Chọn gói phù hợp</div></div>
             {[{ name: "Student Premium", price: "99.000đ", period: "/ tháng", highlight: false, badge: "Đang dùng" }, { name: "Pro Annual", price: "799.000đ", period: "/ năm", highlight: true, badge: "Tiết kiệm 34%" }].map((p, i) => <div key={i} style={{ border: `1.5px solid ${p.highlight ? C.cta : C.border}`, borderRadius: 14, padding: "13px 15px", marginBottom: 10, background: p.highlight ? C.ctaBg : C.surface }}><div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}><div style={{ fontSize: 13, fontWeight: 700, color: C.ink }}>{p.name}</div><span style={{ fontSize: 9, padding: "3px 8px", borderRadius: 20, background: p.highlight ? C.cta : C.successBg, color: p.highlight ? C.onFill : C.success, fontWeight: 700 }}>{p.badge}</span></div><div style={{ fontSize: 18, fontWeight: 700, color: p.highlight ? C.cta : C.primaryText }}>{p.price}<span style={{ fontSize: 11, fontWeight: 400, color: C.inkMuted }}>{p.period}</span></div></div>)}
@@ -102,7 +102,7 @@ export function MobileProfileScreen() {
       )}
       {logoutConfirm && (
         <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,.5)", display: "flex", alignItems: "flex-end", zIndex: 50 }}>
-          <div style={{ background: C.surface, borderRadius: "22px 22px 0 0", padding: "24px 18px 36px", width: "100%", textAlign: "center" }}>
+          <div style={{ background: C.surface, borderRadius: "22px 22px 0 0", padding: "24px 18px 36px", width: "100%", maxHeight: "100%", overflowY: "auto", textAlign: "center" }}>
             <div style={{ width: 36, height: 4, background: C.border, borderRadius: 2, margin: "0 auto 20px" }} />
             <div style={{ fontSize: 36, marginBottom: 10 }}>👋</div>
             <div style={{ fontSize: 15, fontWeight: 700, color: C.ink, marginBottom: 6 }}>Đăng xuất?</div>
