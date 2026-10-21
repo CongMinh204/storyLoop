@@ -1,8 +1,14 @@
 import { useState, useEffect } from "react";
-import { ArrowLeft, Eye, EyeOff, CheckCircle2, Circle, ChevronRight } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, CheckCircle2, Circle, ChevronRight, Volume2 } from "lucide-react";
 import { C } from "../../lib/colors";
+import { useSpeech } from "../../lib/speak";
+import { SpeakButton } from "./SpeakButton";
 import { HSK1_TOPICS, HSK1_CARDS } from "../../data/flashcards";
 import type { HSK1Card } from "../../types";
+
+const AUTOREAD_KEY = "storyloop.flashcard.autoread.v1";
+function loadAutoRead() { try { return localStorage.getItem(AUTOREAD_KEY) === "1"; } catch { return false; } }
+function saveAutoRead(on: boolean) { try { localStorage.setItem(AUTOREAD_KEY, on ? "1" : "0"); } catch { /* không lưu được thì thôi */ } }
 
 // Mặc định là bộ HSK1 (chia chủ đề). Bộ thẻ của một truyện: truyền cards + title, không có topics.
 export function FlashcardScreen({ compact = false, cards = HSK1_CARDS, topics = HSK1_TOPICS, hsk = 1, title = "" }: { compact?: boolean; cards?: HSK1Card[]; topics?: string[] | null; hsk?: number; title?: string }) {
@@ -11,6 +17,8 @@ export function FlashcardScreen({ compact = false, cards = HSK1_CARDS, topics = 
   const [flipped, setFlipped] = useState(false);
   const [known, setKnown] = useState<Set<number>>(new Set());
   const [pinyinOn, setPinyinOn] = useState(true);
+  const [autoRead, setAutoRead] = useState(loadAutoRead);
+  const { status, available, speak, stop } = useSpeech();
 
   const filtered = topicIdx === null ? cards : cards.filter(c => c.topicIdx === topicIdx);
   const total = filtered.length;
@@ -18,12 +26,22 @@ export function FlashcardScreen({ compact = false, cards = HSK1_CARDS, topics = 
   const globalIdx = card ? cards.indexOf(card) : -1;
   const isKnown = globalIdx >= 0 && known.has(globalIdx);
 
-  useEffect(() => { setCardIdx(0); setFlipped(false); }, [topicIdx]);
+  useEffect(() => { setCardIdx(0); setFlipped(false); stop(); }, [topicIdx]);
+  useEffect(() => stop, []); // rời màn hình / đổi bài thì ngừng đọc
 
   function go(dir: 1 | -1) {
+    const next = filtered[Math.max(0, Math.min(total - 1, cardIdx + dir))];
     setCardIdx(i => Math.max(0, Math.min(total - 1, i + dir)));
     setFlipped(false);
+    // Gọi ngay trong lúc bấm (không đợi render) vì Safari trên iPhone chỉ cho phát tiếng ngay sau thao tác của người dùng
+    if (autoRead && available && next && next !== card) speak(next.ch, false); else stop();
   }
+  function toggleAutoRead() {
+    const on = !autoRead;
+    setAutoRead(on); saveAutoRead(on);
+    if (on && available && card) speak(card.ch, false); else stop();
+  }
+  function flip() { setFlipped(f => !f); stop(); }
   function toggleKnown() {
     if (globalIdx < 0) return;
     setKnown(prev => { const n = new Set(prev); n.has(globalIdx) ? n.delete(globalIdx) : n.add(globalIdx); return n; });
@@ -55,16 +73,28 @@ export function FlashcardScreen({ compact = false, cards = HSK1_CARDS, topics = 
         {/* Stats row */}
         <div style={{ width: "100%", maxWidth: 480, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ fontSize: 11, color: C.inkMuted }}>{ci + 1} / {total} thẻ</div>
-          <div style={{ display: "flex", gap: 7, alignItems: "center" }}>
+          <div style={{ display: "flex", gap: 7, alignItems: "center", flexWrap: "wrap", justifyContent: "flex-end" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 4, background: C.successBg, border: `0.5px solid ${C.successBorder}`, borderRadius: 20, padding: "3px 10px", fontSize: 10, color: C.success, fontWeight: 600 }}>✓ {knownCount} thuộc</div>
+            {available && (
+              <button onClick={toggleAutoRead} aria-pressed={autoRead} title="Tự đọc từ khi sang thẻ mới" style={{ display: "flex", alignItems: "center", gap: 4, background: autoRead ? C.primaryDeep : C.bg, border: `0.5px solid ${autoRead ? C.primaryDeep : C.border}`, borderRadius: 20, padding: "3px 10px", fontSize: 10, color: autoRead ? C.onFill : C.inkMuted, cursor: "pointer", fontFamily: "inherit" }}>
+                <Volume2 size={10} /> Tự đọc
+              </button>
+            )}
             <button onClick={() => setPinyinOn(v => !v)} style={{ display: "flex", alignItems: "center", gap: 4, background: pinyinOn ? C.inkBg : C.bg, border: `0.5px solid ${pinyinOn ? C.inkBorder : C.border}`, borderRadius: 20, padding: "3px 10px", fontSize: 10, color: pinyinOn ? C.ink : C.inkMuted, cursor: "pointer", fontFamily: "inherit" }}>
               {pinyinOn ? <Eye size={10} /> : <EyeOff size={10} />} Pinyin
             </button>
           </div>
         </div>
+        {status !== "ok" && (
+          <div role="status" style={{ width: "100%", maxWidth: 480, fontSize: 11, lineHeight: 1.5, color: C.inkMuted, background: C.bgSunken, borderRadius: 10, padding: "8px 12px" }}>
+            {status === "unsupported"
+              ? "Trình duyệt này không hỗ trợ phát âm. Hãy thử Chrome, Edge hoặc Safari."
+              : "Máy bạn chưa có giọng đọc tiếng Trung nên chưa nghe được phát âm. Hãy cài thêm ngôn ngữ tiếng Trung (Trung Quốc) trong phần cài đặt giọng nói của thiết bị."}
+          </div>
+        )}
         {/* Flip card */}
         {card && (
-          <div style={{ width: "100%", maxWidth: 480, perspective: "1000px", cursor: "pointer" }} onClick={() => setFlipped(f => !f)}>
+          <div style={{ width: "100%", maxWidth: 480, perspective: "1000px", cursor: "pointer" }} onClick={flip}>
             <div style={{ transformStyle: "preserve-3d" as const, transition: "transform .45s", transform: flipped ? "rotateY(180deg)" : "none", position: "relative", display: "grid", minHeight: compact ? 230 : 260 }}>
               {/* Hai mặt chồng lên nhau trong cùng một ô lưới nên thẻ cao bằng mặt dài hơn: bật Pinyin / câu ví dụ dài không bị tràn */}
               {/* Front */}
@@ -73,6 +103,7 @@ export function FlashcardScreen({ compact = false, cards = HSK1_CARDS, topics = 
                 <div style={{ position: "absolute", top: 12, right: 14, fontSize: 9, color: C.inkFaint }}>nhấn để lật ↩</div>
                 <div style={{ fontSize: compact ? 60 : 72, lineHeight: 1, color: C.ink, marginBottom: 10 }}>{card.ch}</div>
                 {pinyinOn && <div style={{ fontSize: 15, color: C.primaryText, fontWeight: 600 }}>{card.py}</div>}
+                <div style={{ marginTop: 10 }}><SpeakButton text={card.ch} size={compact ? 38 : 40} focusable={!flipped} /></div>
                 {/* Dot pagination */}
                 <div style={{ position: "absolute", bottom: 14, left: "50%", transform: "translateX(-50%)", display: "flex", gap: 5 }}>
                   {filtered.slice(Math.max(0, ci - 2), Math.min(total, ci + 3)).map((_, j) => {
@@ -84,12 +115,18 @@ export function FlashcardScreen({ compact = false, cards = HSK1_CARDS, topics = 
               {/* Back */}
               <div style={{ gridArea: "1 / 1", backfaceVisibility: "hidden" as const, transform: "rotateY(180deg)", background: C.surface, borderRadius: 20, border: `0.5px solid ${C.border}`, display: "flex", flexDirection: "column", padding: compact ? 18 : 22, boxShadow: "0 4px 20px rgba(0,0,0,.06)" }}>
                 <div style={{ fontSize: 9, color: C.inkFaint, marginBottom: 5, fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: ".05em" }}>HSK {hsk} · {topics ? topics[card.topicIdx] : title}</div>
-                <div style={{ fontSize: compact ? 28 : 34, color: C.ink, fontWeight: 700, marginBottom: 2 }}>{card.ch}</div>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 2 }}>
+                  <div style={{ fontSize: compact ? 28 : 34, color: C.ink, fontWeight: 700 }}>{card.ch}</div>
+                  <SpeakButton text={card.ch} size={36} focusable={flipped} />
+                </div>
                 {pinyinOn && <div style={{ fontSize: 13, color: C.primaryText, fontWeight: 600, marginBottom: 7 }}>{card.py}</div>}
                 <div style={{ fontSize: compact ? 15 : 17, color: C.ink, fontWeight: 600, marginBottom: 10 }}>{card.vi}</div>
                 <div style={{ flex: 1, background: C.bg, borderRadius: 12, padding: "10px 13px", display: "flex", flexDirection: "column", gap: 4, minHeight: 0 }}>
                   <div style={{ fontSize: 9, color: C.inkFaint, fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: ".04em", marginBottom: 2 }}>Ví dụ</div>
-                  <div style={{ fontSize: compact ? 12 : 13, color: C.ink, lineHeight: 1.6 }}>{card.exCh}</div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <div style={{ flex: 1, minWidth: 0, fontSize: compact ? 12 : 13, color: C.ink, lineHeight: 1.6 }}>{card.exCh}</div>
+                    <SpeakButton text={card.exCh} size={34} focusable={flipped} />
+                  </div>
                   {pinyinOn && <div style={{ fontSize: 10, color: C.inkMuted, lineHeight: 1.5 }}>{card.exPy}</div>}
                   <div style={{ fontSize: 10, color: C.inkMuted, lineHeight: 1.5 }}>→ {card.exVi}</div>
                 </div>
