@@ -65,9 +65,10 @@ export function FlashcardScreen({ compact = false, cards = HSK1_CARDS, topics = 
         {/* Flip card */}
         {card && (
           <div style={{ width: "100%", maxWidth: 480, perspective: "1000px", cursor: "pointer" }} onClick={() => setFlipped(f => !f)}>
-            <div style={{ transformStyle: "preserve-3d" as const, transition: "transform .45s", transform: flipped ? "rotateY(180deg)" : "none", position: "relative", height: compact ? 230 : 260 }}>
+            <div style={{ transformStyle: "preserve-3d" as const, transition: "transform .45s", transform: flipped ? "rotateY(180deg)" : "none", position: "relative", display: "grid", minHeight: compact ? 230 : 260 }}>
+              {/* Hai mặt chồng lên nhau trong cùng một ô lưới nên thẻ cao bằng mặt dài hơn: bật Pinyin / câu ví dụ dài không bị tràn */}
               {/* Front */}
-              <div style={{ position: "absolute", inset: 0, backfaceVisibility: "hidden" as const, background: C.surface, borderRadius: 20, border: `0.5px solid ${C.border}`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 24, boxShadow: "0 4px 20px rgba(0,0,0,.06)" }}>
+              <div style={{ gridArea: "1 / 1", position: "relative", backfaceVisibility: "hidden" as const, background: C.surface, borderRadius: 20, border: `0.5px solid ${C.border}`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 24, boxShadow: "0 4px 20px rgba(0,0,0,.06)" }}>
                 <div style={{ position: "absolute", top: 12, left: 14, fontSize: 9, color: C.inkFaint, fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: ".05em" }}>HSK {hsk} · {topics ? topics[card.topicIdx] : title}</div>
                 <div style={{ position: "absolute", top: 12, right: 14, fontSize: 9, color: C.inkFaint }}>nhấn để lật ↩</div>
                 <div style={{ fontSize: compact ? 60 : 72, lineHeight: 1, color: C.ink, marginBottom: 10 }}>{card.ch}</div>
@@ -81,7 +82,7 @@ export function FlashcardScreen({ compact = false, cards = HSK1_CARDS, topics = 
                 </div>
               </div>
               {/* Back */}
-              <div style={{ position: "absolute", inset: 0, backfaceVisibility: "hidden" as const, transform: "rotateY(180deg)", background: C.surface, borderRadius: 20, border: `0.5px solid ${C.border}`, display: "flex", flexDirection: "column", padding: compact ? 18 : 22, boxShadow: "0 4px 20px rgba(0,0,0,.06)" }}>
+              <div style={{ gridArea: "1 / 1", backfaceVisibility: "hidden" as const, transform: "rotateY(180deg)", background: C.surface, borderRadius: 20, border: `0.5px solid ${C.border}`, display: "flex", flexDirection: "column", padding: compact ? 18 : 22, boxShadow: "0 4px 20px rgba(0,0,0,.06)" }}>
                 <div style={{ fontSize: 9, color: C.inkFaint, marginBottom: 5, fontWeight: 600, textTransform: "uppercase" as const, letterSpacing: ".05em" }}>HSK {hsk} · {topics ? topics[card.topicIdx] : title}</div>
                 <div style={{ fontSize: compact ? 28 : 34, color: C.ink, fontWeight: 700, marginBottom: 2 }}>{card.ch}</div>
                 {pinyinOn && <div style={{ fontSize: 13, color: C.primaryText, fontWeight: 600, marginBottom: 7 }}>{card.py}</div>}
