@@ -8,6 +8,7 @@ import { getStoryScript } from "./stories";
 const CHIP: Record<string, string> = {
   "ngoc-hoang": "Ngọc Hoàng",
   "meo-hoa-hoa": "Hoa Hoa",
+  "meo-hoa-hoa-2": "Hoa Hoa 2",
 };
 
 // Từ vựng có câu ví dụ → thẻ flashcard
