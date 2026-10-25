@@ -43,4 +43,14 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "觉得", wordPy: "juéde", wordVi: "cảm thấy, nghĩ rằng — nói ý kiến của mình", missMsg: "Hãy dùng từ 觉得 trong câu!" },
     ],
   },
+  "tron-hoc": {
+    doneShort: "bài Trốn Học", doneLong: "bài Trốn Học", words: 4,
+    items: [
+      { type: "nhớ", char: "生病", pinyin: "Shēngbìng", pinyinColor: C.success, story: "Trốn Học", q: "Nghĩa của từ này là gì?", opts: ["Nghỉ ngơi", "Bị ốm", "Xuất viện", "Chạy bộ"], correct: 1, explain: "生 (shēng) = sinh ra, 病 (bìng) = bệnh. Trong truyện: 我生病了，今天不能来 (Tớ bị ốm rồi, hôm nay không thể đến được)." },
+      { type: "hiểu", sent: "休息 (xiūxi)", sentVi: "Nghỉ ngơi", story: "Trốn Học", q: "Câu nào dùng đúng 休息 trong tình huống câu chuyện?", opts: ["这个休息很好吃。", "我休息了一本书。", "休息在桌子上。", "医生让我吃药，多休息。"], optsVi: ["Cái nghỉ ngơi này rất ngon.", "Tôi đã nghỉ ngơi một quyển sách.", "Nghỉ ngơi ở trên bàn.", "Bác sĩ bảo tớ uống thuốc và nghỉ ngơi nhiều."], correct: 3, explain: "休息 là động từ \"nghỉ ngơi\": không ăn được, không đặt lên bàn được và không có tân ngữ là đồ vật. 多休息 = nghỉ ngơi nhiều." },
+      { type: "dùng", story: "Trốn Học", q: "Hoàn thành câu theo tình huống:", prompt: "小林 nhắn cho Tiểu Vương rằng tuần sau cậu ấy sẽ được ra khỏi bệnh viện.\nĐiền vào chỗ trống:", tmpl: "我下个星期就能___了。", tmplVi: "Tuần sau tớ có thể ___ rồi.", ans: "出院", hint: "Gợi ý: 出院 (chūyuàn)", explain: "出 (chū) = ra, 院 (yuàn) = viện: 出院 = xuất viện. Ngược lại, phải nằm viện là 住院 (zhùyuàn)." },
+      { type: "viết", story: "Trốn Học", q: "Viết một câu dùng từ 每 (měi = mỗi):", prompt: "Kể một việc bạn làm đều đặn, giống 小林 sáng nào cũng chạy bộ. Nhớ dùng 每, ví dụ 每天.", ph: "Ví dụ: 我每天早上七点起床。", explain: "Mẫu: 我每天早上跑步。 / 小林每天都来上课。", check: (v: string) => v.includes("每") && v.length > 3,
+        word: "每", wordPy: "měi", wordVi: "mỗi — 每天 (mỗi ngày), 每个人 (mỗi người)", missMsg: "Hãy dùng từ 每 trong câu!" },
+    ],
+  },
 };
