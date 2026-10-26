@@ -20,9 +20,13 @@ export const STORY_LIBRARY: Record<number, StoryEntry[]> = {
     { id: "tron-hoc",         title: "Trốn Học",                hsk: 2, lv: "Elementary",  color: "#4f46e5", emoji: "🎒", tags: ["Tình bạn","Bí ẩn","Học đường"],         chapters: 1,
       summary: "小林 nghỉ học và nói mình bị ốm, nhưng một bức ảnh lại cho thấy cậu ấy đang chạy bộ ở công viên. Bạn vào vai 小王 đi tìm sự thật: mỗi lựa chọn dẫn tới một nhánh khác, với 2 kết thúc.",
       hero: "tìm Tiểu Lâm", character: "小王 và 小林", minutes: 12, quote: "Tớ bị ốm rồi, hôm nay không thể đến được..." },
+    { id: "sinh-nhat",        title: "Tiệc sinh nhật của Tiểu Mỹ",hsk: 2,lv: "Elementary", color: "#f43f5e", emoji: "🎂", tags: ["Bí ẩn","Sinh nhật","Bạn bè"],           chapters: 3,
+      summary: "Hôm nay là sinh nhật 小丽, nhưng 小王 bất ngờ nhờ bạn giúp hai người bạn mới chưa quen ai. Bạn vào vai 小美: đợi họ, bắt đầu tiệc trước hay dẫn họ đi làm quen? Mỗi lựa chọn dẫn tới một nhánh khác, với 5 kết thúc.",
+      hero: "giúp bạn mới hòa nhập", character: "小美 và 小丽", minutes: 10, quote: "Hôm nay thật vui! Tớ đã quen được hai người bạn mới!" },
     { id: "thay-tuong",       title: "Bí Mật Của Thầy Tướng",   hsk: 2, lv: "Elementary",  color: "#0891b2", emoji: "🔮", tags: ["Bí ẩn","Dự đoán","Thành phố"],          chapters: 5 },
     { id: "thuong-hai",       title: "Người Bạn Từ Thượng Hải", hsk: 2, lv: "Elementary",  color: "#7c3aed", emoji: "🏙️", tags: ["Bạn bè","Hiện đại","Du học"],           chapters: 6 },
     { id: "cho-dem-thanh-do", title: "Chợ Đêm Thành Đô",        hsk: 2, lv: "Elementary",  color: "#b45309", emoji: "🏮", tags: ["Ẩm thực","Chợ đêm","Tứ Xuyên"],         chapters: 4 },
+    
   ],
   3: [
     { id: "tham-tu",          title: "Thám Tử Trên Đường Phố",  hsk: 3, lv: "Intermediate",color: "#1d4ed8", emoji: "🕵️", tags: ["Trinh thám","Logic","Đô thị"],          chapters: 8 },

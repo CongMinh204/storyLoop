@@ -10,6 +10,7 @@ const CHIP: Record<string, string> = {
   "meo-hoa-hoa": "Hoa Hoa",
   "meo-hoa-hoa-2": "Hoa Hoa 2",
   "tron-hoc": "Trốn học",
+  "sinh-nhat": "Sinh nhật",
 };
 
 // Từ vựng có câu ví dụ → thẻ flashcard

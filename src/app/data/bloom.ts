@@ -53,4 +53,14 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "每", wordPy: "měi", wordVi: "mỗi — 每天 (mỗi ngày), 每个人 (mỗi người)", missMsg: "Hãy dùng từ 每 trong câu!" },
     ],
   },
+    "sinh-nhat": {
+    doneShort: "bài Tiệc Sinh Nhật", doneLong: "bài Tiệc Sinh Nhật", words: 4,
+    items: [
+      { type: "nhớ", char: "生日", pinyin: "Shēngrì", pinyinColor: C.success, story: "Tiệc Sinh Nhật", q: "Nghĩa của từ này là gì?", opts: ["Bánh kem", "Quà tặng", "Sinh nhật", "Nhà hàng"], correct: 2, explain: "生 (shēng) = sinh ra, 日 (rì) = ngày. Trong truyện: 今天是小丽的生日 (Hôm nay là sinh nhật của Tiểu Lệ)." },
+      { type: "hiểu", sent: "介绍 (jièshào)", sentVi: "Giới thiệu", story: "Tiệc Sinh Nhật", q: "Câu nào dùng đúng 介绍 trong tình huống câu chuyện?", opts: ["这个介绍很好吃。", "我来给你介绍一下，这是小安。", "我介绍了一杯水。", "介绍在桌子上。"], optsVi: ["Cái giới thiệu này rất ngon.", "Để tớ giới thiệu với cậu một chút, đây là Tiểu An.", "Tôi đã giới thiệu một cốc nước.", "Giới thiệu ở trên bàn."], correct: 1, explain: "介绍 là động từ \"giới thiệu\", dùng với người: 介绍新朋友. Không ăn được, không đặt lên bàn được. 给你介绍一下 = giới thiệu với cậu một chút." },
+      { type: "dùng", story: "Tiệc Sinh Nhật", q: "Hoàn thành câu theo tình huống:", prompt: "Tiểu Lệ hỏi bánh kem đâu rồi.\nTiểu Mỹ nói bánh đã được mua xong từ trước. Điền vào chỗ trống:", tmpl: "我___买好了蛋糕。", tmplVi: "Tớ ___ mua bánh kem xong rồi.", ans: "已经", hint: "Gợi ý: 已经 (yǐjīng)", explain: "已经 = đã, đứng trước động từ: 已经买好了 = đã mua xong rồi. Trong truyện: 小美已经买好了蛋糕." },
+      { type: "viết", story: "Tiệc Sinh Nhật", q: "Viết một câu dùng từ 帮 (bāng = giúp):", prompt: "Tiểu Mỹ muốn giúp hai người bạn mới làm quen với mọi người. Hãy viết một câu nói bạn giúp ai làm gì, nhớ dùng 帮.", ph: "Ví dụ: 我可以帮你们认识大家。", explain: "Mẫu: 我可以帮你们认识大家。 / 请小安帮我拿蛋糕。", check: (v: string) => v.includes("帮") && v.length > 3,
+        word: "帮", wordPy: "bāng", wordVi: "giúp — 帮 + người + động từ (帮你介绍)", missMsg: "Hãy dùng từ 帮 trong câu!" },
+    ],
+  },
 };
