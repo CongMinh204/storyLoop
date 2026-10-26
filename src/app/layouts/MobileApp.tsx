@@ -11,7 +11,7 @@ import { useAuth } from "../features/auth/useAuth";
 import { AuthScreen } from "../features/auth/AuthScreen";
 import { LandingScreen } from "../features/landing/LandingScreen";
 
-export function MobileApp({ screen, setScreen, story, onOpenStory }: { screen: Screen; setScreen: (s: Screen) => void; story: StoryEntry; onOpenStory: (s: StoryEntry) => void }) {
+export function MobileApp({ screen, setScreen, story, onOpenStory, onBack, onLibrary }: { screen: Screen; setScreen: (s: Screen) => void; story: StoryEntry; onOpenStory: (s: StoryEntry) => void; onBack: () => void; onLibrary: () => void }) {
   const { screen: authScreen, needsEntry } = useAuth();
   // Đăng nhập / đăng ký là hộp thoại nổi lên trên nền: trang giới thiệu (chưa chọn gì) hoặc chính app (đang chơi khách)
   const dialog = authScreen === "login" || authScreen === "register" ? <AuthScreen view={authScreen} /> : null;
@@ -28,7 +28,7 @@ export function MobileApp({ screen, setScreen, story, onOpenStory }: { screen: S
           <div style={{ flex: 1, minHeight: 0, overflow: "hidden", display: "flex", flexDirection: "column" }}>
             {screen === "home"     && <MobileHomeScreen onOpenStory={onOpenStory} />}
             {screen === "library"  && <LibraryScreen onOpenStory={onOpenStory} />}
-            {screen === "chat"     && <MobileChatScreen story={story} onHome={() => setScreen("home")} />}
+            {screen === "chat"     && <MobileChatScreen story={story} onHome={() => setScreen("home")} onBack={onBack} onLibrary={onLibrary} />}
             {screen === "bloom"    && <MobileBloomScreen />}
             {screen === "progress" && <MobileProgressWrapper />}
             {screen === "profile"  && <MobileProfileScreen />}

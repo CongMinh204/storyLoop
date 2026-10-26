@@ -14,7 +14,8 @@ type ChatMsg =
   | { type: "npcReply"; text: string }
   | { type: "result"; score: number; total: number };
 
-export function ChatStoryEngine({ story, turns, onHome, sidePanel }: { story: StoryEntry; turns: ChatTurn[]; onHome: () => void; sidePanel?: React.ReactNode }) {
+// onBack: mũi tên ← ở đầu khung (về màn vừa đến, mặc định là onHome); onHome: nút "Về trang chủ" ở màn kết quả
+export function ChatStoryEngine({ story, turns, onHome, onBack, sidePanel }: { story: StoryEntry; turns: ChatTurn[]; onHome: () => void; onBack?: () => void; sidePanel?: React.ReactNode }) {
   const [turn, setTurn] = useState(0);
   const [messages, setMessages] = useState<ChatMsg[]>([
     { type: "situation", text: turns[0].situation },
@@ -92,7 +93,7 @@ export function ChatStoryEngine({ story, turns, onHome, sidePanel }: { story: St
         {/* Header */}
         <div style={{ background: C.surface, padding: "10px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0, borderBottom: `0.5px solid ${C.border}` }}>
           <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-            <button onClick={onHome} style={{ background: "none", border: "none", cursor: "pointer", color: C.inkMuted, display: "flex", padding: 4 }}><ArrowLeft size={19} /></button>
+            <button onClick={onBack ?? onHome} aria-label="Quay lại" style={{ background: "none", border: "none", cursor: "pointer", color: C.inkMuted, display: "flex", padding: 4 }}><ArrowLeft size={19} /></button>
             <div style={{ width: 32, height: 32, borderRadius: 10, background: story.color + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>{story.emoji}</div>
             <div>
               <div style={{ fontSize: 12, fontWeight: 700, color: C.ink }}>{story.title}</div>
