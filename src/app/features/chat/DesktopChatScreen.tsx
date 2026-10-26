@@ -8,7 +8,8 @@ import { ChatStoryEngine } from "./ChatStoryEngine";
 import { BranchingStoryEngine } from "./BranchingStoryEngine";
 import { StoryComingSoon } from "./StoryComingSoon";
 
-export function DesktopChatScreen({ story, onHome }: { story: StoryEntry; onHome: () => void }) {
+// onBack: về màn người dùng vừa đến (Thư viện, Trang chủ...); onHome: nút "Về trang chủ" cuối truyện; onLibrary: chọn truyện khác
+export function DesktopChatScreen({ story, onHome, onBack, onLibrary }: { story: StoryEntry; onHome: () => void; onBack: () => void; onLibrary: () => void }) {
   const [activeVocab, setActiveVocab] = useState<string | null>(null);
   const script = getStoryScript(story.id);
   const vocab = script?.vocab ?? [];
@@ -48,13 +49,13 @@ export function DesktopChatScreen({ story, onHome }: { story: StoryEntry; onHome
 
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-      <DesktopTopbar title={`Câu chuyện · ${story.title}`} onBack={onHome}
+      <DesktopTopbar title={`Câu chuyện · ${story.title}`} onBack={onBack}
         right={<span style={{ fontSize: 11, background: C.inkBg, padding: "3px 10px", borderRadius: 20, border: `0.5px solid ${C.inkBorder}`, marginLeft: 8, color: C.ink }}>HSK {story.hsk}</span>} />
       {!script
-        ? <StoryComingSoon story={story} onHome={onHome} />
+        ? <StoryComingSoon story={story} onLibrary={onLibrary} />
         : script.kind === "quiz"
-          ? <ChatStoryEngine key={story.id} story={story} turns={script.turns} onHome={onHome} sidePanel={sidePanel} />
-          : <BranchingStoryEngine key={story.id} story={story} tree={script.story} onHome={onHome} sidePanel={sidePanel} />}
+          ? <ChatStoryEngine key={story.id} story={story} turns={script.turns} onHome={onHome} onBack={onBack} sidePanel={sidePanel} />
+          : <BranchingStoryEngine key={story.id} story={story} tree={script.story} onHome={onHome} onBack={onBack} sidePanel={sidePanel} />}
     </div>
   );
 }

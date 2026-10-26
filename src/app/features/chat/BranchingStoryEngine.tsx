@@ -40,7 +40,8 @@ function longestPath(tree: BranchingStory): number {
   return walk(tree.start);
 }
 
-export function BranchingStoryEngine({ story, tree, onHome, sidePanel }: { story: StoryEntry; tree: BranchingStory; onHome: () => void; sidePanel?: React.ReactNode }) {
+// onBack: mũi tên ← ở đầu khung (về màn vừa đến, mặc định là onHome); onHome: nút "Về trang chủ" ở thẻ kết thúc
+export function BranchingStoryEngine({ story, tree, onHome, onBack, sidePanel }: { story: StoryEntry; tree: BranchingStory; onHome: () => void; onBack?: () => void; sidePanel?: React.ReactNode }) {
   const [nodeId, setNodeId] = useState(tree.start);
   const [queue, setQueue] = useState<StoryLine[]>(tree.nodes[tree.start].lines);
   const [messages, setMessages] = useState<Msg[]>([]);
@@ -183,7 +184,7 @@ export function BranchingStoryEngine({ story, tree, onHome, sidePanel }: { story
         {/* Header */}
         <div style={{ background: C.surface, padding: "10px 14px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0, borderBottom: `0.5px solid ${C.border}` }}>
           <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-            <button onClick={onHome} style={{ background: "none", border: "none", cursor: "pointer", color: C.inkMuted, display: "flex", padding: 4 }}><ArrowLeft size={19} /></button>
+            <button onClick={onBack ?? onHome} aria-label="Quay lại" style={{ background: "none", border: "none", cursor: "pointer", color: C.inkMuted, display: "flex", padding: 4 }}><ArrowLeft size={19} /></button>
             <div style={{ width: 32, height: 32, borderRadius: 10, background: story.color + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>{story.emoji}</div>
             <div>
               <div style={{ fontSize: 12, fontWeight: 700, color: C.ink }}>{story.title}</div>
