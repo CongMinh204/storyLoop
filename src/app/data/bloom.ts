@@ -53,7 +53,7 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "每", wordPy: "měi", wordVi: "mỗi — 每天 (mỗi ngày), 每个人 (mỗi người)", missMsg: "Hãy dùng từ 每 trong câu!" },
     ],
   },
-    "sinh-nhat": {
+  "sinh-nhat": {
     doneShort: "bài Tiệc Sinh Nhật", doneLong: "bài Tiệc Sinh Nhật", words: 4,
     items: [
       { type: "nhớ", char: "生日", pinyin: "Shēngrì", pinyinColor: C.success, story: "Tiệc Sinh Nhật", q: "Nghĩa của từ này là gì?", opts: ["Bánh kem", "Quà tặng", "Sinh nhật", "Nhà hàng"], correct: 2, explain: "生 (shēng) = sinh ra, 日 (rì) = ngày. Trong truyện: 今天是小丽的生日 (Hôm nay là sinh nhật của Tiểu Lệ)." },

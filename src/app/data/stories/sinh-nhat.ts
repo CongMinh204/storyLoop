@@ -4,6 +4,8 @@ import type { BranchingStory } from "../../types";
 // Bản gốc của người viết: src/imports/stories/sinh-nhat.md
 // Mỗi câu của 小美 là một bước chọn: câu gốc là đáp án đúng, hai đáp án sai và phần phân tích chỉ có ở file này.
 // Pinyin viết theo cách của app (xǐhuan, péngyou); lời 旁白 và 结局 hiện dạng chữ Hán + pinyin + phụ đề (quote).
+// Chỉnh nhỏ so với bản gốc: thêm câu "小丽很快就接了电话" ở 02B (để từ 接 có câu ví dụ thật trong truyện) và câu
+// "这时候，小丽也到了饭店" ở 03B, 03C (bản gốc để 小丽 có mặt mà chưa nói cô đã đến).
 export const SINH_NHAT: BranchingStory = {
   start: "01",
   characters: { "小王": "👦", "小丽": "👧", "小安": "🧑", "小林": "🧒" },
@@ -15,11 +17,11 @@ export const SINH_NHAT: BranchingStory = {
     { word: "给", py: "gěi", vi: "cho, đưa cho; (dẫn ra người nhận)",
       ex: { zh: "我来给你介绍！", py: "Wǒ lái gěi nǐ jièshào!", vi: "Để tớ giới thiệu với cậu!" } },
     { word: "接", py: "jiē", vi: "nhận; nghe (điện thoại)",
-      ex: { zh: "小丽接了电话，她已经出门了。", py: "Xiǎo Lì jiē le diànhuà, tā yǐjīng chūmén le.", vi: "Tiểu Lệ nghe máy, cô ấy đã ra khỏi nhà rồi." } },
+      ex: { zh: "小丽很快就接了电话。", py: "Xiǎo Lì hěn kuài jiù jiē le diànhuà.", vi: "Tiểu Lệ nhanh chóng nghe máy." } },
     { word: "晚上", py: "wǎnshang", vi: "buổi tối",
       ex: { zh: "晚上六点，小美来到饭店。", py: "Wǎnshang liù diǎn, Xiǎo Měi láidào fàndiàn.", vi: "Sáu giờ tối, Tiểu Mỹ đến nhà hàng." } },
     { word: "问", py: "wèn", vi: "hỏi",
-      ex: { zh: "小美问小丽：“你什么时候来？”", py: "Xiǎo Měi wèn Xiǎo Lì: “Nǐ shénme shíhou lái?”", vi: "Tiểu Mỹ hỏi Tiểu Lệ: “Khi nào cậu đến?”" } },
+      ex: { zh: "小美先给小丽打电话，问她什么时候来。", py: "Xiǎo Měi xiān gěi Xiǎo Lì dǎ diànhuà, wèn tā shénme shíhou lái.", vi: "Tiểu Mỹ gọi điện cho Tiểu Lệ trước, hỏi cô ấy khi nào đến." } },
     { word: "非常", py: "fēicháng", vi: "rất, vô cùng",
       ex: { zh: "她非常喜欢认识新朋友。", py: "Tā fēicháng xǐhuan rènshi xīn péngyou.", vi: "Cậu ấy rất thích làm quen với bạn mới." } },
     { word: "开始", py: "kāishǐ", vi: "bắt đầu",
@@ -27,7 +29,7 @@ export const SINH_NHAT: BranchingStory = {
     { word: "已经", py: "yǐjīng", vi: "đã",
       ex: { zh: "我已经出门了。", py: "Wǒ yǐjīng chūmén le.", vi: "Tớ ra khỏi nhà rồi." } },
     { word: "长", py: "cháng", vi: "dài, lâu",
-      ex: { zh: "小美等了很长时间。", py: "Xiǎo Měi děng le hěn cháng shíjiān.", vi: "Tiểu Mỹ đã đợi rất lâu." } },
+      ex: { zh: "小美在饭店等了很长时间。", py: "Xiǎo Měi zài fàndiàn děng le hěn cháng shíjiān.", vi: "Tiểu Mỹ đã đợi ở nhà hàng rất lâu." } },
     { word: "两", py: "liǎng", vi: "hai",
       ex: { zh: "我有两个朋友想介绍给你。", py: "Wǒ yǒu liǎng ge péngyou xiǎng jièshào gěi nǐ.", vi: "Tớ có hai người bạn muốn giới thiệu với cậu." } },
     { word: "帮", py: "bāng", vi: "giúp",
@@ -138,7 +140,7 @@ export const SINH_NHAT: BranchingStory = {
       id: "02B",
       lines: [
         { kind: "narration", text: "📍 Nhà hàng" },
-        { kind: "quote", zh: "小美给小丽打电话。", py: "Xiǎo Měi gěi Xiǎo Lì dǎ diànhuà.", vi: "Tiểu Mỹ gọi điện cho Tiểu Lệ." },
+        { kind: "quote", zh: "小美给小丽打电话。小丽很快就接了电话。", py: "Xiǎo Měi gěi Xiǎo Lì dǎ diànhuà. Xiǎo Lì hěn kuài jiù jiē le diànhuà.", vi: "Tiểu Mỹ gọi điện cho Tiểu Lệ. Tiểu Lệ nhanh chóng nghe máy." },
         { kind: "pick", options: [
           { zh: "你来什么时候？生日会快开始了！", py: "Nǐ lái shénme shíhou? Shēngrì huì kuài kāishǐ le!", vi: "Cậu đến khi nào? Tiệc sinh nhật sắp bắt đầu rồi!", correct: false,
             analysis: { structure: "Sai vị trí từ chỉ thời gian", explain: "Từ chỉ thời gian (kể cả từ hỏi 什么时候) đứng trước động từ: 什么时候来, không đặt sau động từ như tiếng Việt “đến khi nào”." },
@@ -207,7 +209,7 @@ export const SINH_NHAT: BranchingStory = {
           { zh: "别害怕，我来给介绍你们大家。", py: "Bié hàipà, wǒ lái gěi jièshào nǐmen dàjiā.", vi: "Đừng sợ, tớ đến giới thiệu cho các cậu mọi người.", correct: false,
             analysis: { structure: "Sai vị trí người sau 给", explain: "给 + người nhận + động từ: người nhận (你们) phải đứng ngay sau 给, trước 介绍: 给你们介绍大家." },
             vocab: [{ word: "给", py: "gěi", vi: "cho, với" }, { word: "介绍", py: "jièshào", vi: "giới thiệu" }] },
-          { zh: "别害怕，我来给你们介绍大家。", py: "Bié hàipà, wǒ lái gěi nǐmen jièshào dàjiā.", vi: "Đừng lo, để tớ giới thiệu mọi người với các cậu.", correct: true,
+          { zh: "别害怕，我来给你们介绍大家。", py: "Bié hàipà, wǒ lái gěi nǐmen jièshào dàjiā.", vi: "Đừng sợ, để tớ giới thiệu mọi người với các cậu.", correct: true,
             analysis: { structure: "别 + Động từ; 我来 + 给 + Người + Động từ", explain: "别 + động từ = đừng…, dùng để khuyên, trấn an: 别害怕 = đừng sợ. 我来… = để tớ… (chủ động nhận làm). 给你们介绍大家 = giới thiệu mọi người cho các cậu." },
             vocab: [{ word: "别", py: "bié", vi: "đừng" }, { word: "害怕", py: "hàipà", vi: "sợ" }, { word: "给", py: "gěi", vi: "cho, với" }, { word: "介绍", py: "jièshào", vi: "giới thiệu" }] },
           { zh: "不害怕，我来给你们介绍大家。", py: "Bú hàipà, wǒ lái gěi nǐmen jièshào dàjiā.", vi: "Không sợ, tớ đến giới thiệu mọi người với các cậu.", correct: false,
@@ -232,6 +234,7 @@ export const SINH_NHAT: BranchingStory = {
       id: "03B",
       lines: [
         { kind: "narration", text: "📍 Nhà hàng" },
+        { kind: "quote", zh: "这时候，小丽也到了饭店。", py: "Zhè shíhou, Xiǎo Lì yě dào le fàndiàn.", vi: "Lúc này, Tiểu Lệ cũng đã đến nhà hàng." },
         { kind: "quote", zh: "小美决定先开始生日会。她请大家坐下来，然后给小丽送上蛋糕。小丽非常高兴，但是她看了看门口。", py: "Xiǎo Měi juédìng xiān kāishǐ shēngrì huì. Tā qǐng dàjiā zuò xiàlai, ránhòu gěi Xiǎo Lì sòng shàng dàngāo. Xiǎo Lì fēicháng gāoxìng, dànshì tā kàn le kàn ménkǒu.", vi: "Tiểu Mỹ quyết định bắt đầu tiệc sinh nhật trước. Cô mời mọi người ngồi xuống, sau đó mang bánh kem tặng Tiểu Lệ. Tiểu Lệ rất vui, nhưng cô nhìn về phía cửa." },
         { kind: "npc", speaker: "小丽", zh: "小王的两个朋友呢？他们还没来吗？", py: "Xiǎo Wáng de liǎng ge péngyou ne? Tāmen hái méi lái ma?", vi: "Hai người bạn của Tiểu Vương đâu rồi? Họ vẫn chưa đến à?" },
         { kind: "npc", speaker: "小王", zh: "他们还在路上。", py: "Tāmen hái zài lùshang.", vi: "Họ vẫn đang trên đường đến." },
@@ -242,10 +245,10 @@ export const SINH_NHAT: BranchingStory = {
             analysis: { structure: "Sai vị trí 吧", explain: "进来 là một động từ ghép (động từ + bổ ngữ xu hướng), không tách ra. 吧 luôn đứng cuối câu: 快进来吧." },
             vocab: [{ word: "进来", py: "jìnlai", vi: "đi vào" }, { word: "吧", py: "ba", vi: "(trợ từ giục, rủ)" }] },
           { zh: "欢迎你们！快进来吧。我给你们介绍一下大家！", py: "Huānyíng nǐmen! Kuài jìn lái ba. Wǒ gěi nǐmen jièshào yíxià dàjiā!", vi: "Chào mừng các cậu! Mau vào đi. Để tớ giới thiệu mọi người với các cậu!", correct: true,
-            analysis: { structure: "快 + Động từ + 吧; 介绍 + 一下 + Tân ngữ", explain: "快进来吧 = mau vào đi (快 giục, 吧 làm lời mời). 一下 đứng ngay sau động từ để làm hành động nhẹ nhàng, ngắn gọn: 介绍一下大家 = giới thiệu mọi người một chút." },
+            analysis: { structure: "快 + Động từ + 吧; 介绍 + 一下 + Tân ngữ", explain: "快进来吧 = mau vào đi (快 giục, 吧 làm lời mời). 一下 đứng sau động từ để làm hành động nhẹ nhàng, ngắn gọn: 介绍一下 = giới thiệu một chút, và 介绍一下大家 = giới thiệu mọi người một chút." },
             vocab: [{ word: "欢迎", py: "huānyíng", vi: "chào mừng" }, { word: "进来", py: "jìnlai", vi: "đi vào" }, { word: "一下", py: "yíxià", vi: "một chút" }] },
-          { zh: "欢迎你们！快进来吧。我给你们介绍大家一下！", py: "Huānyíng nǐmen! Kuài jìn lái ba. Wǒ gěi nǐmen jièshào dàjiā yíxià!", vi: "Chào mừng các cậu! Mau vào đi. Để tớ giới thiệu mọi người một chút với các cậu!", correct: false,
-            analysis: { structure: "Sai vị trí 一下", explain: "一下 phải đứng ngay sau động từ, trước tân ngữ: 介绍一下大家, không đặt ở cuối câu." },
+          { zh: "欢迎你们！快进来吧。我一下给你们介绍大家！", py: "Huānyíng nǐmen! Kuài jìn lái ba. Wǒ yíxià gěi nǐmen jièshào dàjiā!", vi: "Chào mừng các cậu! Mau vào đi. Tớ một chút giới thiệu mọi người với các cậu!", correct: false,
+            analysis: { structure: "Sai vị trí 一下", explain: "一下 (một chút) bổ nghĩa cho động từ nên phải đứng SAU động từ: 介绍一下 (giới thiệu một chút). Không đặt 一下 trước 给 hay trước động từ." },
             vocab: [{ word: "一下", py: "yíxià", vi: "một chút" }] },
         ] },
       ],
@@ -264,6 +267,7 @@ export const SINH_NHAT: BranchingStory = {
       id: "03C",
       lines: [
         { kind: "narration", text: "📍 Nhà hàng" },
+        { kind: "quote", zh: "这时候，小丽也到了饭店。", py: "Zhè shíhou, Xiǎo Lì yě dào le fàndiàn.", vi: "Lúc này, Tiểu Lệ cũng đã đến nhà hàng." },
         { kind: "quote", zh: "小美带小安和小林去认识其他朋友。她先介绍了小丽。", py: "Xiǎo Měi dài Xiǎo Ān hé Xiǎo Lín qù rènshi qítā péngyou. Tā xiān jièshào le Xiǎo Lì.", vi: "Tiểu Mỹ dẫn Tiểu An và Tiểu Lâm đi làm quen với những người bạn khác. Cô giới thiệu Tiểu Lệ trước." },
         { kind: "pick", options: [
           { zh: "这是小丽，今天是她生日的。", py: "Zhè shì Xiǎo Lì, jīntiān shì tā shēngrì de.", vi: "Đây là Tiểu Lệ, hôm nay là sinh nhật của cô ấy cái.", correct: false,

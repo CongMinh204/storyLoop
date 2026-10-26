@@ -19,7 +19,7 @@ const STORY_SCRIPTS: Record<string, StoryScript> = {
   "meo-hoa-hoa": { kind: "branching", story: MEO_HOA_HOA, vocab: MEO_HOA_HOA.vocab },
   "meo-hoa-hoa-2": { kind: "branching", story: MEO_HOA_HOA_2, vocab: MEO_HOA_HOA_2.vocab },
   "tron-hoc": { kind: "branching", story: TRON_HOC, vocab: TRON_HOC.vocab },
-  "sinh-nhat": { kind: "branching", story: SINH_NHAT, vocab: SINH_NHAT.vocab }, // TODO: tạm dùng kịch bản Sinh Nhật
+  "sinh-nhat": { kind: "branching", story: SINH_NHAT, vocab: SINH_NHAT.vocab },
 };
 
 // Trả về null nếu truyện chưa có kịch bản.
