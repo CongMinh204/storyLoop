@@ -151,6 +151,16 @@ function checkBranching(id, story) {
   visit(story.start);
 
   checkVocab(`${id} › vocab`, story.vocab, { needEx: true });
+
+  // Câu ví dụ của flashcard nên là câu có thật trong truyện (lời thoại, lời dẫn, lựa chọn hoặc đáp án), không tự bịa thêm
+  const strip = s => s.replace(/[\s，。！？、；：“”‘’（）()…—·,.!?;:"'~～]/g, "");
+  const corpus = strip(Object.values(nodes).flatMap(n => [
+    ...(n.lines ?? []).flatMap(l => (l.kind === "pick" ? l.options.map(o => o.zh) : [l.zh ?? l.text ?? ""])),
+    ...(n.choices ?? []).map(c => c.zh),
+  ]).join("|"));
+  for (const v of story.vocab ?? []) {
+    if (v.ex && !corpus.includes(strip(v.ex.zh))) warn(`${id} › vocab`, `câu ví dụ của "${v.word}" không có trong truyện: ${v.ex.zh}`);
+  }
   return stats;
 }
 
