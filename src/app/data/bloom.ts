@@ -63,4 +63,14 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "帮", wordPy: "bāng", wordVi: "giúp — 帮 + người + động từ (帮你介绍)", missMsg: "Hãy dùng từ 帮 trong câu!" },
     ],
   },
+  "cuoc-goi-bi-an": {
+    doneShort: "bài Ai Đã Gọi Điện Đến?", doneLong: "bài Ai Đã Gọi Điện Đến?", words: 4,
+    items: [
+      { type: "nhớ", char: "接", pinyin: "Jiē", pinyinColor: C.success, story: "Ai Đã Gọi Điện Đến?", q: "Nghĩa của từ này trong 接电话 là gì?", opts: ["Gọi điện thoại", "Nghe / nhận điện thoại", "Tắt điện thoại", "Mua điện thoại"], correct: 1, explain: "接 (jiē) = nhận, đón; 接电话 = nghe hoặc nhận cuộc gọi. Trong truyện: 小雨给小林打电话，可是没有人接 (Tiểu Vũ gọi cho Tiểu Lâm nhưng không ai nghe máy)." },
+      { type: "hiểu", sent: "已经 (yǐjīng)", sentVi: "Đã (hoàn thành việc gì đó)", story: "Ai Đã Gọi Điện Đến?", q: "Câu nào dùng đúng 已经 trong tình huống câu chuyện?", opts: ["我买了一个已经。", "这个已经非常快乐。", "晚上七点，小雨已经准备好了生日蛋糕。", "已经是一位好朋友。"], optsVi: ["Tôi đã mua một cái đã.", "Cái đã này vô cùng vui vẻ.", "Lúc 7 giờ tối, Tiểu Vũ đã chuẩn bị xong bánh sinh nhật.", "Đã là một người bạn tốt."], correct: 2, explain: "已经 là phó từ chỉ việc đã diễn ra hoặc hoàn tất, đứng trước động từ (已经准备好了 = đã chuẩn bị xong), không phải danh từ nên không đứng sau lượng từ." },
+      { type: "dùng", story: "Ai Đã Gọi Điện Đến?", q: "Hoàn thành câu theo tình huống:", prompt: "Ở cửa rạp chiếu phim, 小美 muốn giới thiệu anh trai của Tiểu Lâm với Tiểu Vũ.\nĐiền vào chỗ trống:", tmpl: "你终于来了！我想给你___一个人。", tmplVi: "Cuối cùng cậu cũng đến! Tớ muốn ___ với cậu một người.", ans: "介绍", hint: "Gợi ý: 介绍 (jièshào)", explain: "介绍 (jièshào) = giới thiệu. Cấu trúc 给 + người + 介绍… = giới thiệu… cho ai." },
+      { type: "viết", story: "Ai Đã Gọi Điện Đến?", q: "Viết một câu dùng từ 给 (gěi = cho):", prompt: "Viết một câu theo cấu trúc 给 + người + động từ (ví dụ: gọi điện cho bạn hoặc tặng quà sinh nhật cho bạn). Nhớ dùng 给.", ph: "Ví dụ: 我给小林打电话。", explain: "Mẫu: 我给小林打电话。 / 小林给小雨送了一本书。", check: (v: string) => v.includes("给") && v.length > 3,
+        word: "给", wordPy: "gěi", wordVi: "cho — 给 + người + động từ (làm gì cho ai)", missMsg: "Hãy dùng từ 给 trong câu!" },
+    ],
+  },
 };
