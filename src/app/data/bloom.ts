@@ -33,4 +33,24 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "一起", wordPy: "yìqǐ", wordVi: "cùng nhau — làm việc gì đó với người khác", missMsg: "Hãy dùng từ 一起 trong câu!" },
     ],
   },
+  "meo-hoa-hoa-2": {
+    doneShort: "bài Chú Mèo Hoa Hoa 2", doneLong: "bài Chú Mèo Hoa Hoa 2", words: 4,
+    items: [
+      { type: "nhớ", char: "眼睛", pinyin: "Yǎnjing", pinyinColor: C.success, story: "Chú Mèo Hoa Hoa 2", q: "Nghĩa của từ này là gì?", opts: ["Cái mũ", "Đôi mắt", "Điện thoại", "Quả bóng"], correct: 1, explain: "眼睛 (yǎnjing) = mắt. Trong truyện: 它的眼睛又大又漂亮 (Mắt nó vừa to vừa đẹp)." },
+      { type: "hiểu", sent: "新 (xīn)", sentVi: "Mới", story: "Chú Mèo Hoa Hoa 2", q: "Câu nào dùng đúng 新 trong tình huống câu chuyện?", opts: ["这个新很好吃。", "我新了一个朋友。", "小雨的手机也有一条新消息。", "花花的眼睛很新。"], optsVi: ["Cái mới này rất ngon.", "Tôi đã mới một người bạn.", "Điện thoại của Tiểu Vũ cũng có một tin nhắn mới.", "Mắt của Hoa Hoa rất mới."], correct: 2, explain: "新 là tính từ \"mới\", đứng trước danh từ: 新消息 (tin nhắn mới), 新朋友 (bạn mới). 新 không dùng làm động từ, và không dùng để tả đôi mắt." },
+      { type: "dùng", story: "Chú Mèo Hoa Hoa 2", q: "Hoàn thành câu theo tình huống:", prompt: "Cô bé biết Hoa Hoa ở đâu nhưng mãi đến hôm nay mới nói.\nLâm Na trách nhẹ cô bé. Điền vào chỗ trống:", tmpl: "你___不早点告诉我？", tmplVi: "___ em không nói với chị sớm hơn?", ans: "为什么", hint: "Gợi ý: 为什么 (wèishénme)", explain: "为什么 = tại sao, đứng sau chủ ngữ để hỏi lý do. 为什么不… dùng để trách nhẹ: sao không…" },
+      { type: "viết", story: "Chú Mèo Hoa Hoa 2", q: "Viết một câu dùng từ 觉得 (juéde = cảm thấy, nghĩ):", prompt: "Lâm Na nhận được một tin nhắn lạ. Bạn nghĩ gì về người gửi tin nhắn? Nhớ dùng 觉得.", ph: "Ví dụ: 我觉得这个人认识花花。", explain: "Mẫu: 我觉得这条消息是小女孩发的。 / 我觉得这个人认识花花。", check: (v: string) => v.includes("觉得") && v.length > 3,
+        word: "觉得", wordPy: "juéde", wordVi: "cảm thấy, nghĩ rằng — nói ý kiến của mình", missMsg: "Hãy dùng từ 觉得 trong câu!" },
+    ],
+  },
+  "tron-hoc": {
+    doneShort: "bài Trốn Học", doneLong: "bài Trốn Học", words: 4,
+    items: [
+      { type: "nhớ", char: "生病", pinyin: "Shēngbìng", pinyinColor: C.success, story: "Trốn Học", q: "Nghĩa của từ này là gì?", opts: ["Nghỉ ngơi", "Bị ốm", "Xuất viện", "Chạy bộ"], correct: 1, explain: "生 (shēng) = sinh ra, 病 (bìng) = bệnh. Trong truyện: 我生病了，今天不能来 (Tớ bị ốm rồi, hôm nay không thể đến được)." },
+      { type: "hiểu", sent: "休息 (xiūxi)", sentVi: "Nghỉ ngơi", story: "Trốn Học", q: "Câu nào dùng đúng 休息 trong tình huống câu chuyện?", opts: ["这个休息很好吃。", "我休息了一本书。", "休息在桌子上。", "医生让我吃药，多休息。"], optsVi: ["Cái nghỉ ngơi này rất ngon.", "Tôi đã nghỉ ngơi một quyển sách.", "Nghỉ ngơi ở trên bàn.", "Bác sĩ bảo tớ uống thuốc và nghỉ ngơi nhiều."], correct: 3, explain: "休息 là động từ \"nghỉ ngơi\": không ăn được, không đặt lên bàn được và không có tân ngữ là đồ vật. 多休息 = nghỉ ngơi nhiều." },
+      { type: "dùng", story: "Trốn Học", q: "Hoàn thành câu theo tình huống:", prompt: "小林 nhắn cho Tiểu Vương rằng tuần sau cậu ấy sẽ được ra khỏi bệnh viện.\nĐiền vào chỗ trống:", tmpl: "我下个星期就能___了。", tmplVi: "Tuần sau tớ có thể ___ rồi.", ans: "出院", hint: "Gợi ý: 出院 (chūyuàn)", explain: "出 (chū) = ra, 院 (yuàn) = viện: 出院 = xuất viện. Ngược lại, phải nằm viện là 住院 (zhùyuàn)." },
+      { type: "viết", story: "Trốn Học", q: "Viết một câu dùng từ 每 (měi = mỗi):", prompt: "Kể một việc bạn làm đều đặn, giống 小林 sáng nào cũng chạy bộ. Nhớ dùng 每, ví dụ 每天.", ph: "Ví dụ: 我每天早上七点起床。", explain: "Mẫu: 我每天早上跑步。 / 小林每天都来上课。", check: (v: string) => v.includes("每") && v.length > 3,
+        word: "每", wordPy: "měi", wordVi: "mỗi — 每天 (mỗi ngày), 每个人 (mỗi người)", missMsg: "Hãy dùng từ 每 trong câu!" },
+    ],
+  },
 };

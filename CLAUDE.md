@@ -9,6 +9,7 @@ storyLoop: a Chinese-learning app (HSK1) built around narrative roleplay chat, "
 - `npm run build` creates a production build.
 - `npm run preview` serves the build.
 - There are no tests and no linter configured.
+- `node scripts/check-stories.mjs` checks the story data: choices pointing to missing scenes, unreachable scenes, each `pick` having exactly one correct option, missing pinyin/subtitles, duplicate vocab keys, flashcards and Bloom sets. Run it after adding or editing a story.
 
 ## Stack
 

@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from "react";
 import { api, ApiError, withLock } from "./api";
 import { applyReport, mergeProgress, type ProgressDto, type Score } from "../../../server/src/progress/merge";
+import { track } from "./analytics";
 
 // Tiến độ học của từng truyện. Khoá = StoryEntry.id.
 // - Khách: lưu trong localStorage của trình duyệt như trước.
@@ -82,6 +83,11 @@ export function reportProgress(id: string, pct: number, step?: StepInfo) {
 
 // Gọi khi tới màn kết quả / kết thúc. Đã hoàn thành thì luôn giữ trạng thái hoàn thành.
 export function markCompleted(id: string, info: { ending?: string; score?: Score; step?: StepInfo } = {}) {
+  track("story_complete", {
+    story_id: id,
+    ...(info.ending ? { ending: info.ending } : {}),
+    ...(validScore(info.score) ? { score_right: info.score.right, score_total: info.score.total } : {}),
+  });
   update(id, p => applyReport(p, { complete: { ending: info.ending, score: info.score } }, Date.now()));
   enqueue(id, {
     complete: { ...(info.ending ? { ending: info.ending } : {}), ...(validScore(info.score) ? { score: info.score } : {}) },
