@@ -63,4 +63,14 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "给", wordPy: "gěi", wordVi: "cho — 给 + người + động từ (làm gì cho ai)", missMsg: "Hãy dùng từ 给 trong câu!" },
     ],
   },
+  "buc-anh-bi-an": {
+    doneShort: "bài Ai Đã Gửi Bức Ảnh?", doneLong: "bài Ai Đã Gửi Bức Ảnh?", words: 4,
+    items: [
+      { type: "nhớ", char: "准备", pinyin: "Zhǔnbèi", pinyinColor: C.success, story: "Ai Đã Gửi Bức Ảnh?", q: "Nghĩa của từ này là gì?", opts: ["Ôn tập", "Chuẩn bị", "Bắt đầu", "Nghỉ ngơi"], correct: 1, explain: "准备 = chuẩn bị. Trong truyện: 明天就要考试了，我还没准备好！ (Ngày mai thi rồi mà tớ vẫn chưa chuẩn bị xong!)." },
+      { type: "hiểu", sent: "意思 (yìsi)", sentVi: "Ý nghĩa, ý", story: "Ai Đã Gửi Bức Ảnh?", q: "Câu nào dùng đúng 意思 trong tình huống câu chuyện?", opts: ["我买了一个意思。", "这个咖啡很意思。", "这是什么意思？你是谁？", "意思在桌子上。"], optsVi: ["Tôi mua một cái ý.", "Cà phê này rất ý.", "Ý này là sao? Cậu là ai?", "Ý ở trên bàn."], correct: 2, explain: "是什么意思 = có ý gì / ý nghĩa gì (dùng để hỏi ý định hoặc nội dung chưa hiểu)." },
+      { type: "dùng", story: "Ai Đã Gửi Bức Ảnh?", q: "Hoàn thành câu theo tình huống:", prompt: "Người lạ nhắn tin hẹn Tiểu Minh đến điểm gặp trước cổng trường.\nĐiền vào chỗ trống:", tmpl: "如果你想知道真相，明天来学校___。", tmplVi: "Nếu muốn biết sự thật, ngày mai hãy đến bên ___ trường.", ans: "外面", hint: "Gợi ý: 外面 (wàimiàn)", explain: "外面 = bên ngoài (danh từ phương vị chỉ không gian phía ngoài trường học)." },
+      { type: "viết", story: "Ai Đã Gửi Bức Ảnh?", q: "Viết một câu dùng từ 以后 (yǐhòu = sau này, sau khi):", prompt: "Viết câu hẹn làm một việc gì đó sau khi thi xong, nhớ dùng 以后.", ph: "Ví dụ: 考试以后，我们去喝咖啡吧。", explain: "Mẫu: 考试以后，我们去喝咖啡吧。 / 明天考试以后，我会告诉你。", check: (v: string) => v.includes("以后") && v.length > 3,
+        word: "以后", wordPy: "yǐhòu", wordVi: "sau này, sau khi — 考试以后 (sau kỳ thi)", missMsg: "Hãy dùng từ 以后 trong câu!" },
+    ],
+  },
 };
