@@ -4,6 +4,12 @@ import type { BranchingStory } from "../../types";
 // Bản gốc của người viết: src/imports/stories/cuoc-goi-bi-an.md (tên gốc: 谁打来的电话？)
 // Mỗi câu thoại/tin nhắn của 小雨 là một bước chọn (pick): câu gốc là đáp án đúng, hai đáp án sai và phần phân tích chỉ có ở file này.
 // Lời dẫn truyện, tấm thiệp và kết quả hiện dạng chữ Hán + pinyin + phụ đề (quote).
+// Chỉnh nhỏ so với bản gốc để câu văn tự nhiên và mạch truyện khớp với mọi đường đi:
+// - 01: 小雨觉得非常奇怪 (bản gốc "小雨非常奇怪" nghĩa là Tiểu Vũ là người kỳ quặc), 不让她等, 你别等小林了; bạn bè hẹn nhau chứ không "đến nhà"
+// - 02A: tin nhắn đầu "trước 7 giờ 30 đừng ra ngoài" (bản gốc là 8 giờ, mâu thuẫn với tin nhắn "7 giờ 30 đến rạp")
+// - 02B: thêm câu 小美 gợi ý đến rạp 7 giờ 30 (để đường 02B → 03C có lý do tới rạp)
+// - 03A, 03B, 04A, 04B, END_2: bỏ chi tiết chỉ đúng với một đường vào (vé xem phim, "ở nhà", "不参加生日惊喜"...)
+// - hai đáp án "sai" ở 02B (打电话给我) và 04B (没能) thực ra đúng ngữ pháp nên đã thay bằng câu sai thật sự
 export const CUOC_GOI_BI_AN: BranchingStory = {
   start: "01",
   characters: {
@@ -23,13 +29,13 @@ export const CUOC_GOI_BI_AN: BranchingStory = {
     { word: "接", py: "jiē", vi: "nhận, nghe điện thoại",
       ex: { zh: "小雨给小林打电话，可是没有人接。", py: "Xiǎoyǔ gěi Xiǎolín dǎ diànhuà, kěshì méiyǒu rén jiē.", vi: "Tiểu Vũ gọi điện cho Tiểu Lâm nhưng không ai nghe máy." } },
     { word: "晚上", py: "wǎnshang", vi: "buổi tối",
-      ex: { zh: "今天晚上，你不能等小林。", py: "Jīntiān wǎnshang, nǐ bù néng děng Xiǎolín.", vi: "Tối nay, bạn đừng đợi Tiểu Lâm." } },
+      ex: { zh: "今天晚上，你别等小林了。", py: "Jīntiān wǎnshang, nǐ bié děng Xiǎolín le.", vi: "Tối nay, bạn đừng đợi Tiểu Lâm nữa." } },
     { word: "问", py: "wèn", vi: "hỏi",
       ex: { zh: "一个男人问：“请问，你是小雨吗？”", py: "Yí ge nánrén wèn: “Qǐngwèn, nǐ shì Xiǎoyǔ ma?”", vi: "Một người đàn ông hỏi: “Xin hỏi, bạn có phải Tiểu Vũ không?”" } },
     { word: "非常", py: "fēicháng", vi: "rất, vô cùng",
       ex: { zh: "小雨非常快乐。", py: "Xiǎoyǔ fēicháng kuàilè.", vi: "Tiểu Vũ vô cùng vui vẻ." } },
     { word: "开始", py: "kāishǐ", vi: "bắt đầu",
-      ex: { zh: "电影已经开始了，可是小林还没有出现。", py: "Diànyǐng yǐjīng kāishǐ le, kěshì Xiǎolín hái méiyǒu chūxiàn.", vi: "Bộ phim đã bắt đầu nhưng Tiểu Lâm vẫn chưa xuất hiện." } },
+      ex: { zh: "电影马上就要开始了，可是小林还没有出现。", py: "Diànyǐng mǎshàng jiù yào kāishǐ le, kěshì Xiǎolín hái méiyǒu chūxiàn.", vi: "Bộ phim sắp bắt đầu rồi mà Tiểu Lâm vẫn chưa xuất hiện." } },
     { word: "已经", py: "yǐjīng", vi: "đã",
       ex: { zh: "晚上七点，小雨已经准备好了生日蛋糕和饮料。", py: "Wǎnshang qī diǎn, Xiǎoyǔ yǐjīng zhǔnbèi hǎo le shēngrì dàngāo hé yǐnliào.", vi: "Lúc 7 giờ tối, Tiểu Vũ đã chuẩn bị xong bánh sinh nhật và đồ uống." } },
     { word: "长", py: "cháng", vi: "dài, lâu",
@@ -47,7 +53,7 @@ export const CUOC_GOI_BI_AN: BranchingStory = {
       id: "01",
       lines: [
         { kind: "narration", text: "📍 19:00 · Nhà Tiểu Vũ" },
-        { kind: "quote", zh: "今天是小雨的生日。她非常快乐，因为晚上八点，她的朋友们要来她家给她过生日。", py: "Jīntiān shì Xiǎoyǔ de shēngrì. Tā fēicháng kuàilè, yīnwèi wǎnshang bā diǎn, tā de péngyoumen yào lái tā jiā gěi tā guò shēngrì.", vi: "Hôm nay là sinh nhật Tiểu Vũ. Cô ấy rất vui vì lúc 8 giờ tối, bạn bè sẽ đến nhà tổ chức sinh nhật cho cô." },
+        { kind: "quote", zh: "今天是小雨的生日。她非常快乐，因为晚上八点，她和朋友们约好一起过生日。", py: "Jīntiān shì Xiǎoyǔ de shēngrì. Tā fēicháng kuàilè, yīnwèi wǎnshang bā diǎn, tā hé péngyoumen yuēhǎo yìqǐ guò shēngrì.", vi: "Hôm nay là sinh nhật Tiểu Vũ. Cô ấy rất vui vì lúc 8 giờ tối, cô đã hẹn bạn bè cùng nhau tổ chức sinh nhật." },
         { kind: "quote", zh: "晚上七点，小雨已经准备好了生日蛋糕和饮料。可是，她最好的朋友小林还没有来。", py: "Wǎnshang qī diǎn, Xiǎoyǔ yǐjīng zhǔnbèi hǎo le shēngrì dàngāo hé yǐnliào. Kěshì, tā zuì hǎo de péngyou Xiǎolín hái méiyǒu lái.", vi: "Lúc 7 giờ tối, Tiểu Vũ đã chuẩn bị xong bánh sinh nhật và đồ uống. Nhưng người bạn thân nhất của cô, Tiểu Lâm, vẫn chưa đến." },
         { kind: "quote", zh: "突然，电话响了。小雨接了电话。", py: "Tūrán, diànhuà xiǎng le. Xiǎoyǔ jiē le diànhuà.", vi: "Đột nhiên, điện thoại reo. Tiểu Vũ nghe điện thoại." },
         { kind: "npc", speaker: "神秘的人", zh: "请问，你是小雨吗？", py: "Qǐngwèn, nǐ shì Xiǎoyǔ ma?", vi: "Xin hỏi, bạn có phải Tiểu Vũ không?" },
@@ -62,8 +68,8 @@ export const CUOC_GOI_BI_AN: BranchingStory = {
             analysis: { structure: "Thừa 吗", explain: "Câu đã có từ để hỏi 谁 (ai) thì không thêm trợ từ nghi vấn 吗 ở cuối câu." },
             vocab: [{ word: "吗", py: "ma", vi: "trợ từ nghi vấn" }] },
         ] },
-        { kind: "npc", speaker: "神秘的人", zh: "今天晚上，你不能等小林。他不会来。", py: "Jīntiān wǎnshang, nǐ bù néng děng Xiǎolín. Tā bú huì lái.", vi: "Tối nay, bạn đừng đợi Tiểu Lâm. Cậu ấy sẽ không đến đâu." },
-        { kind: "quote", zh: "电话马上挂了。小雨非常奇怪。为什么这个人知道小林的名字？他为什么不让自己等小林？", py: "Diànhuà mǎshàng guà le. Xiǎoyǔ fēicháng qíguài. Wèishénme zhège rén zhīdào Xiǎolín de míngzi? Tā wèishénme bú ràng zìjǐ děng Xiǎolín?", vi: "Cuộc gọi lập tức bị ngắt. Tiểu Vũ vô cùng thắc mắc. Tại sao người này biết tên Tiểu Lâm? Tại sao anh ta không muốn cô đợi Tiểu Lâm?" },
+        { kind: "npc", speaker: "神秘的人", zh: "今天晚上，你别等小林了。他不会来。", py: "Jīntiān wǎnshang, nǐ bié děng Xiǎolín le. Tā bú huì lái.", vi: "Tối nay, bạn đừng đợi Tiểu Lâm nữa. Cậu ấy sẽ không đến đâu." },
+        { kind: "quote", zh: "电话马上挂了。小雨觉得非常奇怪。为什么这个人知道小林的名字？他为什么不让她等小林？", py: "Diànhuà mǎshàng guà le. Xiǎoyǔ juéde fēicháng qíguài. Wèishénme zhège rén zhīdào Xiǎolín de míngzi? Tā wèishénme bú ràng tā děng Xiǎolín?", vi: "Cuộc gọi lập tức bị ngắt. Tiểu Vũ vô cùng thắc mắc. Tại sao người này biết tên Tiểu Lâm? Tại sao anh ta không muốn cô đợi Tiểu Lâm?" },
       ],
       choices: [
         {
@@ -95,7 +101,7 @@ export const CUOC_GOI_BI_AN: BranchingStory = {
       lines: [
         { kind: "quote", zh: "小雨给小林打电话，可是没有人接。她又打了两次电话，还是没有人接。", py: "Xiǎoyǔ gěi Xiǎolín dǎ diànhuà, kěshì méiyǒu rén jiē. Tā yòu dǎ le liǎng cì diànhuà, háishi méiyǒu rén jiē.", vi: "Tiểu Vũ gọi điện cho Tiểu Lâm nhưng không ai nghe máy. Cô gọi thêm hai lần nữa nhưng vẫn không có ai nghe." },
         { kind: "quote", zh: "这时候，小雨收到了一条短信：", py: "Zhè shíhou, Xiǎoyǔ shōudào le yì tiáo duǎnxìn:", vi: "Lúc này, Tiểu Vũ nhận được một tin nhắn:" },
-        { kind: "npc", speaker: "短信", zh: "别找我。晚上八点以前，不要出门。", py: "Bié zhǎo wǒ. Wǎnshang bā diǎn yǐqián, bú yào chūmén.", vi: "Đừng tìm tớ. Trước 8 giờ tối, đừng ra ngoài." },
+        { kind: "npc", speaker: "短信", zh: "别找我。晚上七点半以前，不要出门。", py: "Bié zhǎo wǒ. Wǎnshang qī diǎn bàn yǐqián, bú yào chūmén.", vi: "Đừng tìm tớ. Trước 7 giờ 30 tối, đừng ra ngoài." },
         { kind: "quote", zh: "小雨认出这是小林的电话号码。", py: "Xiǎoyǔ rènchū zhè shì Xiǎolín de diànhuà hàomǎ.", vi: "Tiểu Vũ nhận ra đây là số điện thoại của Tiểu Lâm." },
       ],
       choices: [
@@ -121,8 +127,8 @@ export const CUOC_GOI_BI_AN: BranchingStory = {
       lines: [
         { kind: "quote", zh: "小雨给小美打电话。", py: "Xiǎoyǔ gěi Xiǎoměi dǎ diànhuà.", vi: "Tiểu Vũ gọi điện cho Tiểu Mỹ." },
         { kind: "pick", options: [
-          { zh: "你知道小林在哪里吗？刚才有一个奇怪的人打电话给我。", py: "Nǐ zhīdào Xiǎolín zài nǎlǐ ma? Gāngcái yǒu yí ge qíguài de rén dǎ diànhuà gěi wǒ.", vi: "Cậu có biết Tiểu Lâm đang ở đâu không? Vừa rồi có một người kỳ lạ gọi điện cho tớ.", correct: false,
-            analysis: { structure: "Sai vị trí 给 + Người", explain: "Trong tiếng Trung chuẩn HSK, cụm 给 + người đứng trước động từ: 给我打电话 (gọi điện cho tớ), không đặt 给我 ở cuối câu như tiếng Việt." },
+          { zh: "你知道小林在哪里吗？刚才有一个奇怪的人给打电话我。", py: "Nǐ zhīdào Xiǎolín zài nǎlǐ ma? Gāngcái yǒu yí ge qíguài de rén gěi dǎ diànhuà wǒ.", vi: "Cậu có biết Tiểu Lâm đang ở đâu không? Vừa rồi có một người kỳ lạ cho gọi điện tớ.", correct: false,
+            analysis: { structure: "Sai vị trí 给 + Người", explain: "Người nhận phải đứng ngay sau 给 và trước động từ: 给我打电话 (gọi điện cho tớ). Không chen 打电话 vào giữa 给 và 我." },
             vocab: [{ word: "给", py: "gěi", vi: "cho" }] },
           { zh: "你知道小林在哪里吗？刚才有一个奇怪的人给我打电话。", py: "Nǐ zhīdào Xiǎolín zài nǎlǐ ma? Gāngcái yǒu yí ge qíguài de rén gěi wǒ dǎ diànhuà.", vi: "Cậu có biết Tiểu Lâm đang ở đâu không? Vừa rồi có một người kỳ lạ gọi cho tớ.", correct: true,
             analysis: { structure: "知道…吗？; 给 + Người + 打电话", explain: "你知道…吗？ dùng để hỏi xem đối phương có biết thông tin không. 给我打电话 = gọi điện cho tớ (给 + người nhận + hành động)." },
@@ -133,7 +139,8 @@ export const CUOC_GOI_BI_AN: BranchingStory = {
         ] },
         { kind: "quote", zh: "小美安静了一会儿。", py: "Xiǎoměi ānjìng le yíhuìr.", vi: "Tiểu Mỹ im lặng một lúc." },
         { kind: "npc", speaker: "小美", zh: "我不知道。你先别着急。", py: "Wǒ bù zhīdào. Nǐ xiān bié zháojí.", vi: "Tớ không biết. Cậu đừng lo lắng vội." },
-        { kind: "quote", zh: "小雨觉得小美的声音很奇怪，好像她知道什么，但是不想告诉自己。", py: "Xiǎoyǔ juéde Xiǎoměi de shēngyīn hěn qíguài, hǎoxiàng tā zhīdào shénme, dànshì bù xiǎng gàosu zìjǐ.", vi: "Tiểu Vũ cảm thấy giọng Tiểu Mỹ rất lạ, cứ như cô ấy biết điều gì đó nhưng không muốn nói với mình." },
+        { kind: "npc", speaker: "小美", zh: "但是，如果你一定要找他，晚上七点半去电影院看看吧。", py: "Dànshì, rúguǒ nǐ yídìng yào zhǎo tā, wǎnshang qī diǎn bàn qù diànyǐngyuàn kànkan ba.", vi: "Nhưng nếu cậu nhất định muốn tìm cậu ấy, 7 giờ 30 tối hãy đến rạp chiếu phim xem thử nhé." },
+        { kind: "quote", zh: "小雨觉得小美的声音很奇怪，好像她知道什么，但是不想告诉小雨。", py: "Xiǎoyǔ juéde Xiǎoměi de shēngyīn hěn qíguài, hǎoxiàng tā zhīdào shénme, dànshì bù xiǎng gàosu Xiǎoyǔ.", vi: "Tiểu Vũ cảm thấy giọng Tiểu Mỹ rất lạ, cứ như cô ấy biết điều gì đó nhưng không muốn nói với mình." },
       ],
       choices: [
         {
@@ -183,9 +190,9 @@ export const CUOC_GOI_BI_AN: BranchingStory = {
     "03A": {
       id: "03A",
       lines: [
-        { kind: "quote", zh: "小雨在家等了一会儿，突然发现手机里还有一条短信。", py: "Xiǎoyǔ zài jiā děng le yíhuìr, tūrán fāxiàn shǒujī lǐ hái yǒu yì tiáo duǎnxìn.", vi: "Tiểu Vũ đợi ở nhà một lúc rồi đột nhiên phát hiện điện thoại còn một tin nhắn." },
+        { kind: "quote", zh: "小雨等了一会儿，突然发现手机里还有一条短信。", py: "Xiǎoyǔ děng le yíhuìr, tūrán fāxiàn shǒujī lǐ hái yǒu yì tiáo duǎnxìn.", vi: "Tiểu Vũ đợi một lúc rồi đột nhiên phát hiện điện thoại còn một tin nhắn." },
         { kind: "npc", speaker: "短信", zh: "如果你想知道真相，晚上七点半去电影院。", py: "Rúguǒ nǐ xiǎng zhīdào zhēnxiàng, wǎnshang qī diǎn bàn qù diànyǐngyuàn.", vi: "Nếu muốn biết sự thật, hãy đến rạp chiếu phim lúc 7 giờ 30 tối." },
-        { kind: "quote", zh: "小雨看了看桌上的两张电影票。电影已经开始了，可是小林还没有出现。", py: "Xiǎoyǔ kàn le kàn zhuō shàng de liǎng zhāng diànyǐng piào. Diànyǐng yǐjīng kāishǐ le, kěshì Xiǎolín hái méiyǒu chūxiàn.", vi: "Tiểu Vũ nhìn hai tấm vé trên bàn. Bộ phim đã bắt đầu nhưng Tiểu Lâm vẫn chưa xuất hiện." },
+        { kind: "quote", zh: "快到七点半了，电影马上就要开始了，可是小林还没有出现。", py: "Kuài dào qī diǎn bàn le, diànyǐng mǎshàng jiù yào kāishǐ le, kěshì Xiǎolín hái méiyǒu chūxiàn.", vi: "Sắp đến 7 giờ 30 rồi, bộ phim sắp bắt đầu mà Tiểu Lâm vẫn chưa xuất hiện." },
       ],
       choices: [
         {
@@ -222,13 +229,13 @@ export const CUOC_GOI_BI_AN: BranchingStory = {
         ] },
         { kind: "npc", speaker: "神秘的人", zh: "我不是坏人。我只是想帮小林。", py: "Wǒ bú shì huàirén. Wǒ zhǐshì xiǎng bāng Xiǎolín.", vi: "Tôi không phải người xấu. Tôi chỉ muốn giúp Tiểu Lâm." },
         { kind: "pick", options: [
-          { zh: "帮他什么？", py: "Bāng tā shénme?", vi: "Giúp cậu ấy chuyện gì?", correct: true,
-            analysis: { structure: "帮 + Người + 什么？", explain: "帮 (giúp) + người được giúp (他) + nội dung giúp (什么): 帮他什么？ = giúp cậu ấy việc gì?" },
-            vocab: [{ word: "帮", py: "bāng", vi: "giúp" }, { word: "什么", py: "shénme", vi: "gì, chuyện gì" }] },
-          { zh: "什么帮他？", py: "Shénme bāng tā?", vi: "Cái gì giúp cậu ấy?", correct: false,
-            analysis: { structure: "Sai vị trí 什么", explain: "Đặt 什么 ở đầu câu biến 什么 thành chủ ngữ (\"cái gì giúp cậu ấy\"). Muốn hỏi \"giúp cậu ấy chuyện gì\" thì 什么 phải đứng sau 帮他." },
+          { zh: "帮他什么忙？", py: "Bāng tā shénme máng?", vi: "Giúp cậu ấy chuyện gì?", correct: true,
+            analysis: { structure: "帮 + Người + 什么忙？", explain: "帮忙 = giúp đỡ. Khi có người được giúp, tách ra: 帮 + người + 什么忙 = giúp ai việc gì. 帮他什么忙？ = giúp cậu ấy việc gì?" },
+            vocab: [{ word: "帮", py: "bāng", vi: "giúp" }, { word: "什么", py: "shénme", vi: "gì, chuyện gì" }, { word: "忙", py: "máng", vi: "việc giúp" }] },
+          { zh: "什么忙帮他？", py: "Shénme máng bāng tā?", vi: "Việc gì giúp cậu ấy?", correct: false,
+            analysis: { structure: "Sai vị trí 什么忙", explain: "Đặt 什么忙 ở đầu câu biến nó thành chủ ngữ (\"việc gì giúp cậu ấy\"). Muốn hỏi \"giúp cậu ấy việc gì\" thì 什么忙 phải đứng sau 帮他." },
             vocab: [{ word: "帮", py: "bāng", vi: "giúp" }] },
-          { zh: "帮他什么吗？", py: "Bāng tā shénme ma?", vi: "Giúp cậu ấy chuyện gì không?", correct: false,
+          { zh: "帮他什么忙吗？", py: "Bāng tā shénme máng ma?", vi: "Giúp cậu ấy việc gì không?", correct: false,
             analysis: { structure: "Thừa 吗", explain: "Câu đã có từ để hỏi 什么 thì không thêm 吗 ở cuối." },
             vocab: [{ word: "吗", py: "ma", vi: "trợ từ nghi vấn" }] },
         ] },
@@ -295,7 +302,7 @@ export const CUOC_GOI_BI_AN: BranchingStory = {
       id: "04A",
       lines: [
         { kind: "narration", text: "📍 Bên trong rạp chiếu phim" },
-        { kind: "quote", zh: "小雨走进电影院，发现里面没有电影观众，只有小林和几个朋友。", py: "Xiǎoyǔ zǒu jìn diànyǐngyuàn, fāxiàn lǐmiàn méiyǒu diànyǐng guānzhòng, zhǐ yǒu Xiǎolín hé jǐ ge péngyou.", vi: "Tiểu Vũ bước vào rạp chiếu phim và phát hiện bên trong không có khán giả, chỉ có Tiểu Lâm và vài người bạn." },
+        { kind: "quote", zh: "小雨走进电影院，发现里面没有观众，只有小林和几个朋友。", py: "Xiǎoyǔ zǒu jìn diànyǐngyuàn, fāxiàn lǐmiàn méiyǒu guānzhòng, zhǐ yǒu Xiǎolín hé jǐ ge péngyou.", vi: "Tiểu Vũ bước vào rạp chiếu phim và phát hiện bên trong không có khán giả, chỉ có Tiểu Lâm và vài người bạn." },
         { kind: "quote", zh: "桌子上有一个大蛋糕，旁边还有一张纸。纸上写着：“生日快乐，小雨！”", py: "Zhuōzi shàng yǒu yí ge dà dàngāo, pángbiān hái yǒu yì zhāng zhǐ. Zhǐ shàng xiězhe: “Shēngrì kuàilè, Xiǎoyǔ!”", vi: "Trên bàn có một chiếc bánh lớn, bên cạnh còn có một tờ giấy. Trên giấy viết: “Chúc mừng sinh nhật, Tiểu Vũ!”" },
         { kind: "npc", speaker: "小林", zh: "对不起，我没有早点告诉你。我们想给你一个特别的生日。", py: "Duìbuqǐ, wǒ méiyǒu zǎodiǎn gàosu nǐ. Wǒmen xiǎng gěi nǐ yí ge tèbié de shēngrì.", vi: "Xin lỗi vì không nói với cậu sớm hơn. Bọn tớ muốn dành cho cậu một sinh nhật đặc biệt." },
         { kind: "pick", options: [
@@ -332,6 +339,7 @@ export const CUOC_GOI_BI_AN: BranchingStory = {
     "04B": {
       id: "04B",
       lines: [
+        { kind: "quote", zh: "小雨对小美说：", py: "Xiǎoyǔ duì Xiǎoměi shuō:", vi: "Tiểu Vũ nói với Tiểu Mỹ:" },
         { kind: "pick", options: [
           { zh: "你是不是早就知道这件事吗？", py: "Nǐ shì bu shì zǎo jiù zhīdào zhè jiàn shì ma?", vi: "Có phải cậu đã biết chuyện này từ trước rồi không à?", correct: false,
             analysis: { structure: "Thừa 吗", explain: "Cấu trúc chính phản 是不是 đã tạo thành câu hỏi, không thêm 吗 ở cuối câu." },
@@ -348,9 +356,9 @@ export const CUOC_GOI_BI_AN: BranchingStory = {
           { zh: "可是，为什么不能告诉我直接？", py: "Kěshì, wèishénme bù néng gàosu wǒ zhíjiē?", vi: "Nhưng tại sao không thể nói với tớ thẳng?", correct: false,
             analysis: { structure: "Sai vị trí 直接", explain: "Phó từ 直接 (trực tiếp, thẳng) phải đứng trước động từ 告诉: 直接告诉我." },
             vocab: [{ word: "直接", py: "zhíjiē", vi: "trực tiếp, thẳng" }] },
-          { zh: "可是，为什么没能直接告诉我？", py: "Kěshì, wèishénme méi néng zhíjiē gàosu wǒ?", vi: "Nhưng tại sao đã không thể nói thẳng với tớ?", correct: false,
-            analysis: { structure: "Dùng sai từ phủ định", explain: "Phủ định khả năng hoặc lý lẽ (\"không thể\") dùng 不能, không dùng 没能 trong câu trách nhẹ này." },
-            vocab: [{ word: "不能", py: "bù néng", vi: "không thể" }] },
+          { zh: "可是，为什么不能直接告诉我吗？", py: "Kěshì, wèishénme bù néng zhíjiē gàosu wǒ ma?", vi: "Nhưng tại sao không thể nói thẳng với tớ à?", correct: false,
+            analysis: { structure: "Thừa 吗", explain: "Câu đã có từ để hỏi 为什么 (tại sao) thì không thêm trợ từ nghi vấn 吗 ở cuối câu." },
+            vocab: [{ word: "吗", py: "ma", vi: "trợ từ nghi vấn" }] },
           { zh: "可是，为什么不能直接告诉我？", py: "Kěshì, wèishénme bù néng zhíjiē gàosu wǒ?", vi: "Nhưng tại sao không thể nói thẳng với tớ?", correct: true,
             analysis: { structure: "为什么 + 不能 + 直接 + Động từ", explain: "为什么不能…？ = tại sao không thể…? 直接告诉我 = nói thẳng cho tớ biết." },
             vocab: [{ word: "可是", py: "kěshì", vi: "nhưng" }, { word: "直接", py: "zhíjiē", vi: "trực tiếp, thẳng" }, { word: "告诉", py: "gàosu", vi: "nói cho biết" }] },
@@ -437,7 +445,7 @@ export const CUOC_GOI_BI_AN: BranchingStory = {
     "END_2": {
       id: "END_2",
       lines: [
-        { kind: "quote", zh: "小雨没有参加生日惊喜。她回到家，一个人坐在房间里。晚上八点，小林给她打电话。", py: "Xiǎoyǔ méiyǒu cānjiā shēngrì jīngxǐ. Tā huídào jiā, yí ge rén zuò zài fángjiān lǐ. Wǎnshang bā diǎn, Xiǎolín gěi tā dǎ diànhuà.", vi: "Tiểu Vũ không tham gia buổi tiệc bất ngờ. Cô về nhà và ngồi một mình trong phòng. Tám giờ tối, Tiểu Lâm gọi điện cho cô." },
+        { kind: "quote", zh: "小雨没有和朋友们一起过生日。她回到家，一个人坐在房间里。晚上八点，小林给她打电话。", py: "Xiǎoyǔ méiyǒu hé péngyoumen yìqǐ guò shēngrì. Tā huídào jiā, yí ge rén zuò zài fángjiān lǐ. Wǎnshang bā diǎn, Xiǎolín gěi tā dǎ diànhuà.", vi: "Tiểu Vũ không cùng bạn bè tổ chức sinh nhật. Cô về nhà và ngồi một mình trong phòng. Tám giờ tối, Tiểu Lâm gọi điện cho cô." },
         { kind: "npc", speaker: "小林", zh: "对不起。我只是想让你快乐，没有想到你会这么担心。", py: "Duìbuqǐ. Wǒ zhǐ shì xiǎng ràng nǐ kuàilè, méi xiǎngdào nǐ huì zhème dānxīn.", vi: "Xin lỗi. Tớ chỉ muốn cậu vui, không ngờ cậu lại lo lắng đến vậy." },
         { kind: "pick", options: [
           { zh: "我知道你是为了我好，但是请你直接告诉我以后。", py: "Wǒ zhīdào nǐ shì wèile wǒ hǎo, dànshì qǐng nǐ zhíjiē gàosu wǒ yǐhòu.", vi: "Tớ biết cậu có ý tốt, nhưng hãy nói thẳng với tớ sau này.", correct: false,

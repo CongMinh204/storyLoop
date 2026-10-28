@@ -92,6 +92,7 @@ export type BloomSet = {
 export type Lesson = {
   id: string;                                                        // = StoryEntry.id, hoặc "hsk1"
   title: string; chip: string; emoji: string; hsk: number;
+  chapters?: number;                                                 // số chương của truyện (bộ HSK1 không có)
   cards: HSK1Card[];
   topics?: string[];                                                 // chỉ bộ HSK1 chia chủ đề
   bloom?: BloomSet;                                                  // bộ HSK1 không có Bloom

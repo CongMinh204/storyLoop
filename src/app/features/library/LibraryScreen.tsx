@@ -7,6 +7,10 @@ import { useStoryProgress, type StoryProgress } from "../../lib/progress";
 
 type ProgressMap = Record<string, StoryProgress>;
 
+// Nhớ mục HSK đang mở và thẻ lọc trong phiên làm việc, để vào một truyện rồi bấm "Quay lại" thì Thư viện
+// còn nguyên như lúc rời đi (mở lại trang thì quay về mặc định: chỉ mở HSK 1).
+const memory: { open: Set<number>; tag: string | null } = { open: new Set([1]), tag: null };
+
 export function LibStoryTag({ label }: { label: string }) {
   return (
     <span style={{ background: C.primaryBg, border: `0.5px solid ${C.primaryBorder}`, borderRadius: 20, padding: "2px 8px", fontSize: 10, color: C.primaryText, fontWeight: 500, whiteSpace: "nowrap" as const }}>
@@ -56,14 +60,15 @@ export function LibStoryCard({ story, prog, onStart }: { story: StoryEntry; prog
 }
 
 export function LibHSKAccordion({ level, stories, progress, onStart }: { level: number; stories: StoryEntry[]; progress: ProgressMap; onStart: (s: StoryEntry) => void }) {
-  const [open, setOpen] = useState(level === 1);
+  const [open, setOpen] = useState(() => memory.open.has(level));
+  const toggle = () => setOpen(v => { if (v) memory.open.delete(level); else memory.open.add(level); return !v; });
   const ACCENT = [C.primaryText, C.ink, C.ctaText, C.rewardDeep, C.primaryDeep, C.inkMuted][level - 1];
   const LABEL  = ["Beginner","Elementary","Intermediate","Upper-Int.","Advanced","Mastery"][level - 1];
   const done   = stories.filter(s => progress[s.id]?.status === "completed").length;
   return (
     <div style={{ border: `0.5px solid ${C.border}`, borderRadius: 16, overflow: "hidden", marginBottom: 10 }}>
       <button
-        onClick={() => setOpen(v => !v)}
+        onClick={toggle}
         style={{ width: "100%", background: C.surface, border: "none", padding: "13px 15px", display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", fontFamily: "inherit" }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -92,7 +97,8 @@ export function LibHSKAccordion({ level, stories, progress, onStart }: { level: 
 }
 
 export function LibraryScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry) => void }) {
-  const [filterTag, setFilterTag] = useState<string | null>(null);
+  const [filterTag, setFilterTagState] = useState<string | null>(memory.tag);
+  const setFilterTag = (tag: string | null) => { memory.tag = tag; setFilterTagState(tag); };
   const allTags = [...new Set(Object.values(STORY_LIBRARY).flat().flatMap(s => s.tags))];
   const progress = useStoryProgress();
   // Đang học = đã bắt đầu nhưng chưa hoàn thành, truyện chơi gần nhất lên đầu

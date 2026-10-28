@@ -10,7 +10,8 @@ const CHIP: Record<string, string> = {
   "meo-hoa-hoa": "Hoa Hoa",
   "meo-hoa-hoa-2": "Hoa Hoa 2",
   "tron-hoc": "Trốn học",
-  "cuoc-goi-bi-an": "Cuộc gọi",
+  "sinh-nhat": "Sinh nhật",
+  "cuoc-goi-bi-an": "Ai đã gọi điện đến?",
   "buc-anh-bi-an": "Bức ảnh",
 };
 
@@ -24,7 +25,7 @@ export const LESSONS: Lesson[] = [
   ...Object.values(STORY_LIBRARY).flat().flatMap((s): Lesson[] => {
     const script = getStoryScript(s.id);
     if (!script) return [];
-    return [{ id: s.id, title: s.title, chip: CHIP[s.id] ?? s.title, emoji: s.emoji, hsk: s.hsk, cards: toCards(script.vocab), bloom: BLOOM_SETS[s.id] }];
+    return [{ id: s.id, title: s.title, chip: CHIP[s.id] ?? s.title, emoji: s.emoji, hsk: s.hsk, chapters: s.chapters, cards: toCards(script.vocab), bloom: BLOOM_SETS[s.id] }];
   }),
   { id: "hsk1", title: "Từ vựng HSK1", chip: "HSK1", emoji: "📚", hsk: 1, cards: HSK1_CARDS, topics: HSK1_TOPICS },
 ];
