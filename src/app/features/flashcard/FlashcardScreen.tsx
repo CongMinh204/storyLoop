@@ -5,17 +5,19 @@ import { useSpeech } from "../../lib/speak";
 import { SpeakButton } from "./SpeakButton";
 import { HSK1_TOPICS, HSK1_CARDS } from "../../data/flashcards";
 import type { HSK1Card } from "../../types";
+import { getPractice, setKnownCards } from "../practice/practiceProgress";
 
 const AUTOREAD_KEY = "storyloop.flashcard.autoread.v1";
 function loadAutoRead() { try { return localStorage.getItem(AUTOREAD_KEY) === "1"; } catch { return false; } }
 function saveAutoRead(on: boolean) { try { localStorage.setItem(AUTOREAD_KEY, on ? "1" : "0"); } catch { /* không lưu được thì thôi */ } }
 
 // Mặc định là bộ HSK1 (chia chủ đề). Bộ thẻ của một truyện: truyền cards + title, không có topics.
-export function FlashcardScreen({ compact = false, cards = HSK1_CARDS, topics = HSK1_TOPICS, hsk = 1, title = "" }: { compact?: boolean; cards?: HSK1Card[]; topics?: string[] | null; hsk?: number; title?: string }) {
+// Truyền lessonId thì các thẻ "đã thuộc" được nhớ lại (features/practice/practiceProgress.ts); không truyền thì chỉ giữ trong lần mở này.
+export function FlashcardScreen({ compact = false, cards = HSK1_CARDS, topics = HSK1_TOPICS, hsk = 1, title = "", lessonId }: { compact?: boolean; cards?: HSK1Card[]; topics?: string[] | null; hsk?: number; title?: string; lessonId?: string }) {
   const [topicIdx, setTopicIdx] = useState<number | null>(null);
   const [cardIdx, setCardIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
-  const [known, setKnown] = useState<Set<number>>(new Set());
+  const [known, setKnown] = useState<Set<number>>(() => new Set(lessonId ? (getPractice(lessonId)?.known ?? []).filter(i => i < cards.length) : []));
   const [pinyinOn, setPinyinOn] = useState(true);
   const [autoRead, setAutoRead] = useState(loadAutoRead);
   const { status, available, speak, stop } = useSpeech();
@@ -44,7 +46,10 @@ export function FlashcardScreen({ compact = false, cards = HSK1_CARDS, topics = 
   function flip() { setFlipped(f => !f); stop(); }
   function toggleKnown() {
     if (globalIdx < 0) return;
-    setKnown(prev => { const n = new Set(prev); n.has(globalIdx) ? n.delete(globalIdx) : n.add(globalIdx); return n; });
+    const n = new Set(known);
+    n.has(globalIdx) ? n.delete(globalIdx) : n.add(globalIdx);
+    setKnown(n);
+    if (lessonId) setKnownCards(lessonId, n);
   }
 
   const knownCount = filtered.filter((c) => known.has(cards.indexOf(c))).length;
