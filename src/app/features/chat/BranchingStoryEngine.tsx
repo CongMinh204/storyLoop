@@ -227,7 +227,7 @@ export function BranchingStoryEngine({ story, tree, onHome, onBack, sidePanel }:
         {/* Choice bar */}
         {options.length > 0 && (
           <div style={{ background: C.surface, borderTop: `0.5px solid ${C.border}`, padding: "10px 13px 14px", flexShrink: 0 }}>
-            <div style={{ fontSize: 10, color: C.inkMuted, fontWeight: 600, marginBottom: 8, letterSpacing: ".04em" }}>BẠN SẼ NÓI GÌ?</div>
+            <div style={{ fontSize: 10, color: C.inkMuted, fontWeight: 600, marginBottom: 8, letterSpacing: ".04em" }}>{activePick ? "BẠN SẼ NÓI GÌ?" : "BẠN SẼ HÀNH ĐỘNG NHƯ THẾ NÀO?"}</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
               {options.map((o, i) => (
                 <button key={`${nodeId}-${queue.length}-${i}`} onClick={o.onPick}
