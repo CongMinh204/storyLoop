@@ -83,4 +83,14 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "告诉", wordPy: "gàosu", wordVi: "nói cho biết — 告诉 + người + việc (告诉我你在哪儿)", missMsg: "Hãy dùng từ 告诉 trong câu!" },
     ],
   },
+  "mot-gio-cuoi-cung": {
+    doneShort: "bài Một Giờ Cuối Cùng", doneLong: "bài Một Giờ Cuối Cùng", words: 4,
+    items: [
+      { type: "nhớ", char: "机场", pinyin: "Jīchǎng", pinyinColor: C.success, story: "Một Giờ Cuối Cùng", q: "Nghĩa của từ này là gì?", opts: ["Nhà ga", "Sân bay", "Bến xe buýt", "Trường học"], correct: 1, explain: "机场 (jīchǎng) = sân bay: 机 trong 飞机 (máy bay), 场 = bãi, nơi rộng. Trong truyện: 这里离机场很近，但是离学校很远！ (Chỗ này rất gần sân bay, nhưng cách trường rất xa!)" },
+      { type: "hiểu", sent: "离 (lí)", sentVi: "Cách (khoảng cách giữa hai nơi)", story: "Một Giờ Cuối Cùng", q: "Câu nào dùng đúng 离 trong tình huống câu chuyện?", opts: ["我买了一个离。", "学校离机场很远。", "这个离很好吃。", "离在桌子上。"], optsVi: ["Tôi mua một cái cách.", "Trường cách sân bay rất xa.", "Cái cách này rất ngon.", "Cách ở trên bàn."], correct: 1, explain: "离 nối hai nơi để nói khoảng cách: A 离 B + 远/近 (学校离机场很远 = trường cách sân bay rất xa). 离 không phải danh từ nên không mua, ăn hay đặt lên bàn được." },
+      { type: "dùng", story: "Một Giờ Cuối Cùng", q: "Hoàn thành câu theo tình huống:", prompt: "Tiểu Vũ ngồi xe buýt rất lâu mà vẫn chưa tới, liền nhắn cho Tiểu Lâm.\nĐiền vào chỗ trống:", tmpl: "___过了半个小时！", tmplVi: "___ trôi qua nửa tiếng rồi!", ans: "已经", hint: "Gợi ý: 已经 (yǐjīng)", explain: "已经 = đã, đứng trước động từ để nói việc đã xảy ra: 已经过了半个小时 = đã nửa tiếng trôi qua rồi." },
+      { type: "viết", story: "Một Giờ Cuối Cùng", q: "Viết một câu dùng từ 路 (lù = con đường):", prompt: "Tiểu Vũ phải hỏi đường để đến trường. Hãy viết một câu hỏi đường hoặc chỉ đường, nhớ dùng 路.", ph: "Ví dụ: 你可以走这条路。", explain: "Mẫu: 你可以走这条路。 / 这条路很长。 / 我应该走哪条路？ (lượng từ của 路 là 条)", check: (v: string) => v.includes("路") && v.length > 2,
+        word: "路", wordPy: "lù", wordVi: "con đường — 一条路, 走这条路 (đi đường này)", missMsg: "Hãy dùng từ 路 trong câu!" },
+    ],
+  },
 };
