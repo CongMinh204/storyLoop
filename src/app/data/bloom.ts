@@ -73,4 +73,14 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "给", wordPy: "gěi", wordVi: "cho — 给 + người + động từ (làm gì cho ai)", missMsg: "Hãy dùng từ 给 trong câu!" },
     ],
   },
+  "nguoi-ngoai-cua-la-ai": {
+    doneShort: "bài Người Ngoài Cửa Là Ai?", doneLong: "bài Người Ngoài Cửa Là Ai?", words: 4,
+    items: [
+      { type: "nhớ", char: "游泳", pinyin: "Yóuyǒng", pinyinColor: C.success, story: "Người Ngoài Cửa Là Ai?", q: "Nghĩa của từ này là gì?", opts: ["Chạy bộ", "Bơi", "Chơi bóng rổ", "Đi xe đạp"], correct: 1, explain: "游泳 (yóuyǒng) = bơi. Trong truyện: 记住，不要一个人去游泳 (Nhớ nhé, đừng đi bơi một mình)." },
+      { type: "hiểu", sent: "经常 (jīngcháng)", sentVi: "Thường, thường xuyên", story: "Người Ngoài Cửa Là Ai?", q: "Câu nào dùng đúng 经常 trong tình huống câu chuyện?", opts: ["这个经常很好吃。", "我买了两公斤经常。", "姐姐经常去打篮球。", "经常在桌子上。"], optsVi: ["Cái thường này rất ngon.", "Tôi mua hai ki-lô-gam thường.", "Chị gái thường đi chơi bóng rổ.", "Thường ở trên bàn."], correct: 2, explain: "经常 là phó từ chỉ việc lặp lại nhiều lần, đứng trước động từ (经常去打篮球 = thường đi chơi bóng rổ). Nó không phải danh từ nên không ăn, mua hay đặt lên bàn được. Trong truyện: 去我经常打篮球的地方." },
+      { type: "dùng", story: "Người Ngoài Cửa Là Ai?", q: "Hoàn thành câu theo tình huống:", prompt: "Chị gái về nhà, hỏi vì sao Tiểu Minh khóa cửa.\nTiểu Minh giải thích lý do. Điền vào chỗ trống:", tmpl: "___我很害怕，所以我在家等你。", tmplVi: "___ em rất sợ, cho nên em ở nhà đợi chị.", ans: "因为", hint: "Gợi ý: 因为 (yīnwèi)", explain: "因为…，所以… = bởi vì…, cho nên…: 因为 nêu nguyên nhân (我很害怕), 所以 nêu kết quả (我在家等你)." },
+      { type: "viết", story: "Người Ngoài Cửa Là Ai?", q: "Viết một câu dùng từ 告诉 (gàosu = nói cho biết):", prompt: "Tiểu Minh muốn lần sau chị gái báo cho mình biết chị đi đâu. Hãy viết một câu nhờ ai đó nói cho bạn biết một điều, nhớ dùng 告诉.", ph: "Ví dụ: 下次告诉我你去哪儿，好吗？", explain: "Mẫu: 下次告诉我你去哪儿，好吗？ / 那你告诉我，你在哪儿！", check: (v: string) => v.includes("告诉") && v.length > 3,
+        word: "告诉", wordPy: "gàosu", wordVi: "nói cho biết — 告诉 + người + việc (告诉我你在哪儿)", missMsg: "Hãy dùng từ 告诉 trong câu!" },
+    ],
+  },
 };
