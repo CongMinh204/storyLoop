@@ -93,4 +93,34 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "一下", wordPy: "yíxià", wordVi: "một chút — đứng sau động từ để làm nhẹ ngữ khí (看一下)", missMsg: "Hãy dùng từ 一下 trong câu!" },
     ],
   },
+  "nguoi-ngoai-cua-la-ai": {
+    doneShort: "bài Người Ngoài Cửa Là Ai?", doneLong: "bài Người Ngoài Cửa Là Ai?", words: 4,
+    items: [
+      { type: "nhớ", char: "游泳", pinyin: "Yóuyǒng", pinyinColor: C.success, story: "Người Ngoài Cửa Là Ai?", q: "Nghĩa của từ này là gì?", opts: ["Chạy bộ", "Bơi", "Chơi bóng rổ", "Đi xe đạp"], correct: 1, explain: "游泳 (yóuyǒng) = bơi. Trong truyện: 记住，不要一个人去游泳 (Nhớ nhé, đừng đi bơi một mình)." },
+      { type: "hiểu", sent: "经常 (jīngcháng)", sentVi: "Thường, thường xuyên", story: "Người Ngoài Cửa Là Ai?", q: "Câu nào dùng đúng 经常 trong tình huống câu chuyện?", opts: ["这个经常很好吃。", "我买了两公斤经常。", "姐姐经常去打篮球。", "经常在桌子上。"], optsVi: ["Cái thường này rất ngon.", "Tôi mua hai ki-lô-gam thường.", "Chị gái thường đi chơi bóng rổ.", "Thường ở trên bàn."], correct: 2, explain: "经常 là phó từ chỉ việc lặp lại nhiều lần, đứng trước động từ (经常去打篮球 = thường đi chơi bóng rổ). Nó không phải danh từ nên không ăn, mua hay đặt lên bàn được. Trong truyện: 去我经常打篮球的地方." },
+      { type: "dùng", story: "Người Ngoài Cửa Là Ai?", q: "Hoàn thành câu theo tình huống:", prompt: "Chị gái về nhà, hỏi vì sao Tiểu Minh khóa cửa.\nTiểu Minh giải thích lý do. Điền vào chỗ trống:", tmpl: "___我很害怕，所以我在家等你。", tmplVi: "___ em rất sợ, cho nên em ở nhà đợi chị.", ans: "因为", hint: "Gợi ý: 因为 (yīnwèi)", explain: "因为…，所以… = bởi vì…, cho nên…: 因为 nêu nguyên nhân (我很害怕), 所以 nêu kết quả (我在家等你)." },
+      { type: "viết", story: "Người Ngoài Cửa Là Ai?", q: "Viết một câu dùng từ 告诉 (gàosu = nói cho biết):", prompt: "Tiểu Minh muốn lần sau chị gái báo cho mình biết chị đi đâu. Hãy viết một câu nhờ ai đó nói cho bạn biết một điều, nhớ dùng 告诉.", ph: "Ví dụ: 下次告诉我你去哪儿，好吗？", explain: "Mẫu: 下次告诉我你去哪儿，好吗？ / 那你告诉我，你在哪儿！", check: (v: string) => v.includes("告诉") && v.length > 3,
+        word: "告诉", wordPy: "gàosu", wordVi: "nói cho biết — 告诉 + người + việc (告诉我你在哪儿)", missMsg: "Hãy dùng từ 告诉 trong câu!" },
+    ],
+  },
+  "mot-gio-cuoi-cung": {
+    doneShort: "bài Một Giờ Cuối Cùng", doneLong: "bài Một Giờ Cuối Cùng", words: 4,
+    items: [
+      { type: "nhớ", char: "机场", pinyin: "Jīchǎng", pinyinColor: C.success, story: "Một Giờ Cuối Cùng", q: "Nghĩa của từ này là gì?", opts: ["Nhà ga", "Sân bay", "Bến xe buýt", "Trường học"], correct: 1, explain: "机场 (jīchǎng) = sân bay: 机 trong 飞机 (máy bay), 场 = bãi, nơi rộng. Trong truyện: 这里离机场很近，但是离学校很远！ (Chỗ này rất gần sân bay, nhưng cách trường rất xa!)" },
+      { type: "hiểu", sent: "离 (lí)", sentVi: "Cách (khoảng cách giữa hai nơi)", story: "Một Giờ Cuối Cùng", q: "Câu nào dùng đúng 离 trong tình huống câu chuyện?", opts: ["我买了一个离。", "学校离机场很远。", "这个离很好吃。", "离在桌子上。"], optsVi: ["Tôi mua một cái cách.", "Trường cách sân bay rất xa.", "Cái cách này rất ngon.", "Cách ở trên bàn."], correct: 1, explain: "离 nối hai nơi để nói khoảng cách: A 离 B + 远/近 (学校离机场很远 = trường cách sân bay rất xa). 离 không phải danh từ nên không mua, ăn hay đặt lên bàn được." },
+      { type: "dùng", story: "Một Giờ Cuối Cùng", q: "Hoàn thành câu theo tình huống:", prompt: "Tiểu Vũ ngồi xe buýt rất lâu mà vẫn chưa tới, liền nhắn cho Tiểu Lâm.\nĐiền vào chỗ trống:", tmpl: "___过了半个小时！", tmplVi: "___ trôi qua nửa tiếng rồi!", ans: "已经", hint: "Gợi ý: 已经 (yǐjīng)", explain: "已经 = đã, đứng trước động từ để nói việc đã xảy ra: 已经过了半个小时 = đã nửa tiếng trôi qua rồi." },
+      { type: "viết", story: "Một Giờ Cuối Cùng", q: "Viết một câu dùng từ 路 (lù = con đường):", prompt: "Tiểu Vũ phải hỏi đường để đến trường. Hãy viết một câu hỏi đường hoặc chỉ đường, nhớ dùng 路.", ph: "Ví dụ: 你可以走这条路。", explain: "Mẫu: 你可以走这条路。 / 这条路很长。 / 我应该走哪条路？ (lượng từ của 路 là 条)", check: (v: string) => v.includes("路") && v.length > 2,
+        word: "路", wordPy: "lù", wordVi: "con đường — 一条路, 走这条路 (đi đường này)", missMsg: "Hãy dùng từ 路 trong câu!" },
+    ],
+  },
+  "ai-lay-quan-ao": {
+    doneShort: "bài Ai Đã Lấy Quần Áo Của Tôi?", doneLong: "bài Ai Đã Lấy Quần Áo Của Tôi?", words: 4,
+    items: [
+      { type: "nhớ", char: "颜色", pinyin: "Yánsè", pinyinColor: C.success, story: "Ai Đã Lấy Quần Áo Của Tôi?", q: "Nghĩa của từ này là gì?", opts: ["Kích cỡ", "Màu sắc", "Giá tiền", "Kiểu dáng"], correct: 1, explain: "颜色 (yánsè) = màu sắc. Trong truyện: 那个人穿什么颜色的衣服？ (Người đó mặc quần áo màu gì?)" },
+      { type: "hiểu", sent: "一直 (yìzhí)", sentVi: "Cứ, suốt, liên tục", story: "Ai Đã Lấy Quần Áo Của Tôi?", q: "Câu nào dùng đúng 一直 trong tình huống câu chuyện?", opts: ["我买了一个一直。", "这件衣服一直很贵。", "因为我一直在找衣服！", "一直在椅子上。"], optsVi: ["Tôi mua một cái cứ.", "Chiếc áo này cứ rất đắt.", "Bởi vì tôi cứ phải tìm quần áo!", "Cứ ở trên ghế."], correct: 2, explain: "一直 là phó từ chỉ việc liên tục không dừng, đứng trước động từ (一直在找衣服 = cứ liên tục tìm quần áo). Nó không phải danh từ nên không mua được hay đặt lên ghế được; còn 一直很贵 không hợp vì \"đắt\" không phải hành động kéo dài." },
+      { type: "dùng", story: "Ai Đã Lấy Quần Áo Của Tôi?", q: "Hoàn thành câu theo tình huống:", prompt: "Ăn xong, Tiểu Minh phát hiện quần áo biến mất.\nĐiền vào chỗ trống:", tmpl: "小明很___。", tmplVi: "Tiểu Minh rất ___.", ans: "着急", hint: "Gợi ý: 着急 (zháojí)", explain: "着急 (zháojí) = sốt ruột, lo lắng. Trong truyện: 小明很着急 (Tiểu Minh rất sốt ruột)." },
+      { type: "viết", story: "Ai Đã Lấy Quần Áo Của Tôi?", q: "Viết một câu dùng từ 看见 (kànjiàn = nhìn thấy):", prompt: "Tiểu Minh hỏi một người xem họ có nhìn thấy quần áo của mình không. Hãy viết một câu hỏi như vậy, nhớ dùng 看见.", ph: "Ví dụ: 你看见我的衣服了吗？", explain: "Mẫu: 你看见我的衣服了吗？ / 请问，你看见我的朋友了吗？", check: (v: string) => v.includes("看见") && v.length > 3,
+        word: "看见", wordPy: "kànjiàn", wordVi: "nhìn thấy — 看见 + người/vật (看见我的衣服了吗)", missMsg: "Hãy dùng từ 看见 trong câu!" },
+    ],
+  },
 };
