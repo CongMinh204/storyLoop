@@ -12,6 +12,8 @@ const CHIP: Record<string, string> = {
   "tron-hoc": "Trốn học",
   "sinh-nhat": "Sinh nhật",
   "cuoc-goi-bi-an": "Ai đã gọi điện đến?",
+  "dong-ho-bien-mat": "Đồng hồ biến mất",
+  "cam-nham-qua": "Cầm nhầm quà",
   "nguoi-ngoai-cua-la-ai": "Người ngoài cửa",
   "mot-gio-cuoi-cung": "Một giờ cuối cùng",
   "ai-lay-quan-ao": "Quần áo",
