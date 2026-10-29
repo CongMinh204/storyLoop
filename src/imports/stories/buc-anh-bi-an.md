@@ -135,18 +135,18 @@ Tiểu Minh: Chiếc hộp đó là của cậu à?
 *Xiǎolán: Shì de. Kěshì, wǒ xiǎng xiān wèn nǐ yí jiàn shì.*  
 Tiểu Lan: Đúng vậy. Nhưng tớ muốn hỏi cậu một chuyện trước.
 
-**小兰：** 上个月，你在咖啡馆拿了我的东西，对吗？  
-*Xiǎolán: Shàng ge yuè, nǐ zài kāfēiguǎn ná le wǒ de dōngxi, duì ma?*  
-Tiểu Lan: Tháng trước, cậu đã lấy đồ của tớ ở quán cà phê, đúng không?
+**小兰：** 上个月，你在咖啡馆拿了我的盒子，对吗？  
+*Xiǎolán: Shàng ge yuè, nǐ zài kāfēiguǎn ná le wǒ de hézi, duì ma?*  
+Tiểu Lan: Tháng trước, cậu đã cầm chiếc hộp của tớ ở quán cà phê, đúng không?
 
 **Lựa chọn của người chơi**
 
 * **A.** 说自己不记得了。  
   *Shuō zìjǐ bú jìde le.*  
   Nói rằng mình không nhớ. → **NODE 4A**  
-* **B.** 问她到底是什么东西。  
-  *Wèn tā dàodǐ shì shénme dōngxi.*  
-  Hỏi rốt cuộc đó là đồ gì. → **NODE 4B**
+* **B.** 问她盒子里到底是什么。  
+  *Wèn tā hézi lǐ dàodǐ shì shénme.*  
+  Hỏi rốt cuộc trong hộp là gì. → **NODE 4B**
 
 ## **NODE 3B — 旧照片里的秘密**
 
@@ -158,9 +158,9 @@ Tiểu Minh tìm lại ảnh trong điện thoại. Cậu nhớ ra hôm đó mì
 *Xiǎomíng: Zhè tiān, wǒ zhǐ mǎi le yì bēi kāfēi.*  
 Tiểu Minh: Hôm đó, tớ chỉ mua một cốc cà phê.
 
-**小明：** 等一下！桌子上还有一个黑色的盒子。  
-*Xiǎomíng: Děng yíxià! Zhuōzi shàng hái yǒu yí ge hēisè de hézi.*  
-Tiểu Minh: Khoan đã! Trên bàn còn có một chiếc hộp màu đen.
+**小明：** 等一下！我手里还拿着一个黑色的盒子。我想把它交给店员。  
+*Xiǎomíng: Děng yíxià! Wǒ shǒu lǐ hái názhe yí ge hēisè de hézi. Wǒ xiǎng bǎ tā jiāo gěi diànyuán.*  
+Tiểu Minh: Khoan đã! Trên tay tớ còn cầm một chiếc hộp màu đen. Tớ định đưa nó cho nhân viên.
 
 Cậu phóng to bức ảnh. Trên hộp có một mảnh giấy ghi tên “小兰”.
 
@@ -199,9 +199,9 @@ Tiểu Mỹ: Vì tớ đã hứa với một người rằng sẽ không kể ch
 *Xiǎomíng: Nàge rén shì shéi?*  
 Tiểu Minh: Người đó là ai?
 
-**小美：** 我现在还不能告诉你。  
-*Xiǎoměi: Wǒ xiànzài hái bù néng gàosu nǐ.*  
-Tiểu Mỹ: Bây giờ tớ vẫn chưa thể nói cho cậu biết.
+**小美：** 我现在还不能告诉你。她也在咖啡馆，她还有一个盒子想给你。  
+*Xiǎoměi: Wǒ xiànzài hái bù néng gàosu nǐ. Tā yě zài kāfēiguǎn, tā hái yǒu yí ge hézi xiǎng gěi nǐ.*  
+Tiểu Mỹ: Bây giờ tớ vẫn chưa thể nói cho cậu biết. Cô ấy cũng ở quán cà phê hôm đó, và cô ấy có một chiếc hộp muốn đưa cho cậu.
 
 Tiểu Minh bắt đầu nghi ngờ rằng Tiểu Mỹ đang che giấu điều gì đó.
 
@@ -222,19 +222,19 @@ Tiểu Minh bắt đầu nghi ngờ rằng Tiểu Mỹ đang che giấu điều 
 *Xiǎomíng: Duìbuqǐ, wǒ zhēn de bú jìde le.*  
 Tiểu Minh: Xin lỗi, tớ thật sự không nhớ nữa.
 
-**小兰：** 那你还记得这个吗？  
-*Xiǎolán: Nà nǐ hái jìde zhège ma?*  
-Tiểu Lan: Vậy cậu còn nhớ cái này không?
+**小兰：** 那你还记得小美吗？  
+*Xiǎolán: Nà nǐ hái jìde Xiǎoměi ma?*  
+Tiểu Lan: Vậy cậu còn nhớ Tiểu Mỹ không?
 
-Tiểu Lan mở chiếc hộp. Bên trong là một chiếc vé xem phim và một tấm ảnh cũ.
+Tiểu Lan lấy điện thoại ra, đưa cho cậu xem một bức ảnh Tiểu Mỹ đang ngồi khóc một mình ở quán cà phê.
 
-**小明：** 这张照片……是我吗？  
-*Xiǎomíng: Zhè zhāng zhàopiàn… shì wǒ ma?*  
-Tiểu Minh: Bức ảnh này… là tớ sao?
+**小明：** 这张照片……是小美吗？  
+*Xiǎomíng: Zhè zhāng zhàopiàn… shì Xiǎoměi ma?*  
+Tiểu Minh: Bức ảnh này… là Tiểu Mỹ sao?
 
-**小兰：** 对。你以前帮过我，可是你忘了。  
-*Xiǎolán: Duì. Nǐ yǐqián bāng guo wǒ, kěshì nǐ wàng le.*  
-Tiểu Lan: Đúng vậy. Trước đây cậu từng giúp tớ, nhưng cậu quên mất rồi.
+**小兰：** 对。那天你帮过她，可是你忘了。  
+*Xiǎolán: Duì. Nà tiān nǐ bāng guo tā, kěshì nǐ wàng le.*  
+Tiểu Lan: Đúng vậy. Hôm đó cậu đã giúp cô ấy, nhưng cậu quên mất rồi.
 
 **Lựa chọn của người chơi**
 
@@ -261,11 +261,11 @@ Tiểu Lan: Trong hộp có một món đồ rất quan trọng.
 *Xiǎomíng: Nà nǐ wèishénme bù zhíjiē gàosu wǒ?*  
 Tiểu Minh: Vậy sao cậu không nói thẳng với tớ?
 
-**小兰：** 因为我想知道，你还记不记得我。  
-*Xiǎolán: Yīnwèi wǒ xiǎng zhīdào, nǐ hái jì bu jìde wǒ.*  
-Tiểu Lan: Vì tớ muốn biết cậu còn nhớ tớ hay không.
+**小兰：** 因为我想知道，你还记不记得那天的事。  
+*Xiǎolán: Yīnwèi wǒ xiǎng zhīdào, nǐ hái jì bu jìde nà tiān de shì.*  
+Tiểu Lan: Vì tớ muốn biết cậu còn nhớ chuyện hôm đó hay không.
 
-Tiểu Minh im lặng. Cậu chưa từng nghĩ mình đã quên một người quan trọng.
+Tiểu Minh im lặng. Cậu chưa từng nghĩ mình đã quên một chuyện quan trọng.
 
 **Lựa chọn của người chơi**
 
@@ -296,7 +296,7 @@ Tiểu Minh: Cô ấy tên gì?
 *Gōngzuò rényuán: Hǎoxiàng jiào Xiǎolán. Tā hái liú le yì zhāng zhǐ.*  
 Nhân viên: Hình như tên là Tiểu Lan. Cô ấy còn để lại một tờ giấy.
 
-Trên tờ giấy có một dòng chữ: “谢谢你，那天你帮了我。”
+Trên tờ giấy có một dòng chữ: “谢谢你，那天你帮了小美。——小兰”
 
 **小明：** 那天我帮了她？我怎么一点儿也不记得？  
 *Xiǎomíng: Nà tiān wǒ bāng le tā? Wǒ zěnme yìdiǎnr yě bú jìde?*  
@@ -329,7 +329,7 @@ Tiểu Mỹ đưa cho cậu một tờ giấy.
 *Xiǎoměi: Xiān bǎ zhège shōu hǎo. Míngtiān nǐ jiù zhīdào tā de yìsi le.*  
 Tiểu Mỹ: Cất cái này cẩn thận trước đi. Ngày mai cậu sẽ biết ý nghĩa của nó.
 
-Trên tờ giấy chỉ có một dòng: “谢谢你还记得我。”
+Trên tờ giấy chỉ có một dòng: “谢谢你，那天你没有让我一个人回家。”
 
 **Lựa chọn của người chơi**
 
@@ -346,17 +346,17 @@ Trên tờ giấy chỉ có một dòng: “谢谢你还记得我。”
 
 Tiểu Lan mở hộp. Bên trong không có tiền hay đồ quý giá, chỉ có một cuốn sổ nhỏ và một tấm thiệp.
 
-**小明：** 这本书是谁的？  
-*Xiǎomíng: Zhè běn shū shì shéi de?*  
+**小明：** 这个本子是谁的？  
+*Xiǎomíng: Zhège běnzi shì shéi de?*  
 Tiểu Minh: Cuốn sổ này là của ai?
 
-**小兰：** 是我的。去年我生病的时候，你帮我拿过书。  
-*Xiǎolán: Shì wǒ de. Qùnián wǒ shēngbìng de shíhou, nǐ bāng wǒ ná guo shū.*  
-Tiểu Lan: Là của tớ. Năm ngoái, khi tớ bị ốm, cậu từng giúp tớ mang sách.
+**小兰：** 是我和小美的。这是我们想送给你的礼物。  
+*Xiǎolán: Shì wǒ hé Xiǎoměi de. Zhè shì wǒmen xiǎng sòng gěi nǐ de lǐwù.*  
+Tiểu Lan: Là của tớ và Tiểu Mỹ. Đây là món quà bọn tớ muốn tặng cậu.
 
-**小明：** 等一下！你是不是那个转学的女生？  
-*Xiǎomíng: Děng yíxià! Nǐ shì bú shì nàge zhuǎnxué de nǚshēng?*  
-Tiểu Minh: Khoan đã! Có phải cậu là cô gái đã chuyển trường không?
+**小明：** 等一下！你是不是小美的朋友？  
+*Xiǎomíng: Děng yíxià! Nǐ shì bú shì Xiǎoměi de péngyou?*  
+Tiểu Minh: Khoan đã! Có phải cậu là bạn của Tiểu Mỹ không?
 
 **小兰：** 对！我一直想谢谢你。  
 *Xiǎolán: Duì! Wǒ yìzhí xiǎng xièxie nǐ.*  
@@ -379,9 +379,9 @@ Tiểu Lan: Đúng rồi! Tớ luôn muốn cảm ơn cậu.
 *Xiǎomíng: Nǐ wèishénme yídìng yào zhǎo wǒ?*  
 Tiểu Minh: Tại sao cậu nhất định phải tìm tớ?
 
-**小兰：** 因为那天，你帮了我一个很大的忙。  
-*Xiǎolán: Yīnwèi nà tiān, nǐ bāng le wǒ yí ge hěn dà de máng.*  
-Tiểu Lan: Vì hôm đó cậu đã giúp tớ một việc rất lớn.
+**小兰：** 因为那天，你帮了我最好的朋友一个很大的忙。  
+*Xiǎolán: Yīnwèi nà tiān, nǐ bāng le wǒ zuì hǎo de péngyou yí ge hěn dà de máng.*  
+Tiểu Lan: Vì hôm đó cậu đã giúp người bạn thân nhất của tớ một việc rất lớn.
 
 **小明：** 可是，我真的不记得了。  
 *Xiǎomíng: Kěshì, wǒ zhēn de bú jìde le.*  
@@ -391,11 +391,11 @@ Tiểu Minh: Nhưng tớ thật sự không nhớ.
 *Xiǎolán: Méi guānxi. Nǐ zhǐyào kànkan zhège jiù zhīdào le.*  
 Tiểu Lan: Không sao. Chỉ cần xem cái này, cậu sẽ biết.
 
-Cô ấy gửi một bức ảnh chụp một cô gái đang ngồi một mình trong bệnh viện.
+Cô ấy gửi một bức ảnh chụp một cô gái đang ngồi khóc một mình ở quán cà phê.
 
-**小明：** 这是你？  
-*Xiǎomíng: Zhè shì nǐ?*  
-Tiểu Minh: Đây là cậu sao?
+**小明：** 这是小美？  
+*Xiǎomíng: Zhè shì Xiǎoměi?*  
+Tiểu Minh: Đây là Tiểu Mỹ sao?
 
 **Lựa chọn của người chơi**
 
@@ -439,13 +439,13 @@ Tiểu Mỹ: Sau kỳ thi ngày mai, tớ sẽ kể cho cậu.
 
 *Cậu thật sự từng giúp tớ*
 
-**小兰：** 那天我第一次来这所学校，找不到教室。  
-*Xiǎolán: Nà tiān wǒ dì-yī cì lái zhè suǒ xuéxiào, zhǎo bú dào jiàoshì.*  
-Tiểu Lan: Hôm đó là lần đầu tớ đến trường này, tớ không tìm được phòng học.
+**小兰：** 那天小美在咖啡馆里哭，我不知道怎么安慰她。  
+*Xiǎolán: Nà tiān Xiǎoměi zài kāfēiguǎn lǐ kū, wǒ bù zhīdào zěnme ānwèi tā.*  
+Tiểu Lan: Hôm đó Tiểu Mỹ khóc trong quán cà phê, tớ không biết phải an ủi cậu ấy thế nào.
 
-**小兰：** 你带我去教室，还把你的笔记借给我。  
-*Xiǎolán: Nǐ dài wǒ qù jiàoshì, hái bǎ nǐ de bǐjì jiè gěi wǒ.*  
-Tiểu Lan: Cậu dẫn tớ đến lớp, còn cho tớ mượn vở ghi chép.
+**小兰：** 你陪她坐了一个小时，还把你的外套借给她。  
+*Xiǎolán: Nǐ péi tā zuò le yí ge xiǎoshí, hái bǎ nǐ de wàitào jiè gěi tā.*  
+Tiểu Lan: Cậu ngồi cùng cô ấy một tiếng, còn cho cô ấy mượn áo khoác.
 
 **小明：** 原来是这样！可是我为什么一点儿也不记得？  
 *Xiǎomíng: Yuánlái shì zhèyàng! Kěshì wǒ wèishénme yìdiǎnr yě bú jìde?*  
@@ -455,9 +455,9 @@ Tiểu Minh: Hóa ra là vậy! Nhưng sao tớ chẳng nhớ gì cả?
 *Xiǎolán: Yīnwèi duì nǐ lái shuō, nà zhǐ shì hěn xiǎo de yí jiàn shì.*  
 Tiểu Lan: Vì đối với cậu, đó chỉ là một việc rất nhỏ.
 
-**小兰：** 可是对我来说，那天很重要。  
-*Xiǎolán: Kěshì duì wǒ lái shuō, nà tiān hěn zhòngyào.*  
-Tiểu Lan: Nhưng đối với tớ, ngày hôm đó rất quan trọng.
+**小兰：** 可是对小美和我来说，那天很重要。  
+*Xiǎolán: Kěshì duì Xiǎoměi hé wǒ lái shuō, nà tiān hěn zhòngyào.*  
+Tiểu Lan: Nhưng đối với Tiểu Mỹ và tớ, ngày hôm đó rất quan trọng.
 
 **Lựa chọn của người chơi**
 
@@ -488,11 +488,11 @@ Tiểu Mỹ: Hôm đó cậu nhìn thấy tớ khóc bên ngoài, rồi ngồi c
 *Xiǎomíng: Wǒ jìde nà tiān wǒ qù mǎi kāfēi, kěshì…*  
 Tiểu Minh: Tớ nhớ hôm đó mình đi mua cà phê, nhưng mà…
 
-**小美：** 你还把自己的外套给了我。  
-*Xiǎoměi: Nǐ hái bǎ zìjǐ de wàitào gěi le wǒ.*  
-Tiểu Mỹ: Cậu còn đưa áo khoác của mình cho tớ.
+**小美：** 你还把自己的外套给了我。后来我请小兰帮我找你，因为我不好意思自己说。  
+*Xiǎoměi: Nǐ hái bǎ zìjǐ de wàitào gěi le wǒ. Hòulái wǒ qǐng Xiǎolán bāng wǒ zhǎo nǐ, yīnwèi wǒ bù hǎoyìsi zìjǐ shuō.*  
+Tiểu Mỹ: Cậu còn đưa áo khoác của mình cho tớ. Sau đó tớ nhờ Tiểu Lan giúp tìm cậu, vì tớ ngại tự mình nói.
 
-Tiểu Minh cuối cùng cũng nhớ ra. Nhưng cậu vẫn không hiểu vì sao Tiểu Mỹ phải nhờ người khác gửi ảnh.
+Tiểu Minh cuối cùng cũng nhớ ra. Nhưng cậu vẫn muốn biết vì sao Tiểu Mỹ không nói thẳng với mình.
 
 **Lựa chọn của người chơi**
 
@@ -515,7 +515,7 @@ Tiểu Minh cuối cùng cũng nhớ ra. Nhưng cậu vẫn không hiểu vì sa
 *Xiǎomíng: Duìbuqǐ, wǒ zhēn de bú rènshi nǐ.*  
 Tiểu Minh: Xin lỗi, tớ thật sự không quen cậu.
 
-Tiểu Minh rời đi. Sau đó, cậu mới biết Tiểu Lan chính là người bạn cùng lớp đã chuyển trường năm ngoái. Vì quá bận ôn thi, cậu đã bỏ lỡ cơ hội nối lại một tình bạn cũ.
+Tiểu Minh rời đi. Sau đó, cậu mới biết Tiểu Lan là bạn thân của Tiểu Mỹ, người mà cậu đã giúp hôm ở quán cà phê. Vì quá bận ôn thi, cậu đã bỏ lỡ lời cảm ơn của hai người.
 
 ## **ENDING 2 — 错过了真相**
 
@@ -541,9 +541,9 @@ Ngày hôm sau, Tiểu Mỹ đưa Tiểu Minh đến quán cà phê. Cô ấy k�
 
 *Câu chuyện bắt đầu từ một cốc cà phê*
 
-**小兰：** 谢谢你！今天我请你喝咖啡吧。  
-*Xiǎolán: Xièxie nǐ! Jīntiān wǒ qǐng nǐ hē kāfēi ba.*  
-Tiểu Lan: Cảm ơn cậu! Hôm nay để tớ mời cậu uống cà phê nhé.
+**小兰：** 谢谢你！我们一起喝杯咖啡吧。  
+*Xiǎolán: Xièxie nǐ! Wǒmen yìqǐ hē bēi kāfēi ba.*  
+Tiểu Lan: Cảm ơn cậu! Chúng mình cùng uống một cốc cà phê nhé.
 
 **小明：** 好啊！不过，我还要回家准备考试。  
 *Xiǎomíng: Hǎo a! Búguò, wǒ hái yào huí jiā zhǔnbèi kǎoshì.*  
@@ -607,7 +607,7 @@ Tiểu Minh: Không sao! Tớ luôn xem cậu là bạn tốt.
 *Xiǎoměi: Xièxie nǐ. Yǐhòu yǒu shì, wǒ huì zhíjiē gàosu nǐ.*  
 Tiểu Mỹ: Cảm ơn cậu. Sau này có chuyện gì, tớ sẽ nói thẳng với cậu.
 
-Hai người cùng đến quán cà phê. Bên ngoài trời vẫn mưa, nhưng lần này Tiểu Minh không còn phải đoán xem bạn mình đang nghĩ gì.
+Hai người cùng đến quán cà phê. Bên ngoài trời đã nắng, và lần này Tiểu Minh không còn phải đoán xem bạn mình đang nghĩ gì.
 
 # **TỪ VỰNG TRỌNG TÂM — BÀI 5**
 
@@ -616,7 +616,7 @@ Hai người cùng đến quán cà phê. Bên ngoài trời vẫn mưa, nhưng 
 | 外面 | wàimiàn | bên ngoài |
 | 准备 | zhǔnbèi | chuẩn bị |
 | 就 | jiù | liền, ngay |
-| 鱼 | yú | cá |
+| 知道 | zhīdào | biết |
 | 吧 | ba | nhé, đi, nào |
 | 件 | jiàn | lượng từ cho quần áo, sự việc |
 | 还 | hái | vẫn, còn |
@@ -628,4 +628,4 @@ Hai người cùng đến quán cà phê. Bên ngoài trời vẫn mưa, nhưng 
 | 对 | duì | đúng; đối với |
 | 以后 | yǐhòu | sau này, về sau |
 
-**Lưu ý biên tập:** Từ **鱼 (yú)** chưa được lồng vào mạch bí ẩn chính một cách tự nhiên trong bản này; có thể bổ sung vào một nhánh hẹn ăn tối để tránh làm câu chuyện mất logic. Các từ còn lại được sử dụng trong hội thoại hoặc phần kết thúc.
+**Lưu ý biên tập:** Tất cả từ vựng trên đều được dùng trong hội thoại hoặc phần kết thúc.
