@@ -6,6 +6,7 @@ import { TRON_HOC } from "./tron-hoc";
 import { SINH_NHAT } from "./sinh-nhat";
 import { CUOC_GOI_BI_AN } from "./cuoc-goi-bi-an";
 import { NGUOI_NGOAI_CUA_LA_AI } from "./nguoi-ngoai-cua-la-ai";
+import { MOT_GIO_CUOI_CUNG } from "./mot-gio-cuoi-cung";
 
 // Hai loại kịch bản:
 // - "quiz": hội thoại tuyến tính, mỗi lượt có đáp án đúng/sai (ChatStoryEngine)
@@ -24,6 +25,7 @@ const STORY_SCRIPTS: Record<string, StoryScript> = {
   "sinh-nhat": { kind: "branching", story: SINH_NHAT, vocab: SINH_NHAT.vocab },
   "cuoc-goi-bi-an": { kind: "branching", story: CUOC_GOI_BI_AN, vocab: CUOC_GOI_BI_AN.vocab },
   "nguoi-ngoai-cua-la-ai": { kind: "branching", story: NGUOI_NGOAI_CUA_LA_AI, vocab: NGUOI_NGOAI_CUA_LA_AI.vocab },
+  "mot-gio-cuoi-cung": { kind: "branching", story: MOT_GIO_CUOI_CUNG, vocab: MOT_GIO_CUOI_CUNG.vocab },
 };
 
 // Trả về null nếu truyện chưa có kịch bản.
