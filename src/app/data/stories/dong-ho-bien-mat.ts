@@ -11,6 +11,10 @@ import type { BranchingStory } from "../../types";
 // - 04B: hộp nhỏ dưới bàn chứa tấm thiệp cho ông Vương (bản gốc: đồng hồ nằm đây, mâu thuẫn với 4A và 4C)
 // - 04C: bỏ "đưa ảnh và mẩu giấy" vì đi tới được từ 3B (chưa có ảnh)
 // - END_1: bỏ "hai chiếc đồng hồ"
+// - 04A, 04B: thêm câu "hai người cùng mở hộp lớn và tìm thấy đồng hồ" (bản gốc: 04A nói đồng hồ không tìm thấy nữa, 04B để đồng hồ ở hộp lớn, nhưng END_1 và END_2 đều coi như đã có đồng hồ)
+// - 04C: lựa chọn "hỏi rõ Tiểu Mỹ" dẫn tới END_2 thay vì 04A (04C đã tìm thấy đồng hồ, còn 04A kể đồng hồ vẫn thất lạc)
+// - END_2: đáp án sai "你先应该告诉我" nghe vẫn tự nhiên nên thay bằng câu sai thật sự
+// - vocab: mỗi từ một câu ví dụ riêng (bản đầu nhiều từ dùng chung một câu)
 export const DONG_HO_BIEN_MAT: BranchingStory = {
   start: "01",
   characters: {
@@ -21,13 +25,13 @@ export const DONG_HO_BIEN_MAT: BranchingStory = {
     { word: "手表", py: "shǒubiǎo", vi: "đồng hồ đeo tay",
       ex: { zh: "小雨想送他一块手表。", py: "Xiǎoyǔ xiǎng sòng tā yí kuài shǒubiǎo.", vi: "Tiểu Vũ muốn tặng ông ấy một chiếc đồng hồ đeo tay." } },
     { word: "报纸", py: "bàozhǐ", vi: "báo",
-      ex: { zh: "桌子旁边有一张报纸，报纸上写着：“今天，红色的东西会带来好运！”", py: "Zhuōzi pángbiān yǒu yì zhāng bàozhǐ, bàozhǐ shàng xiězhe: “Jīntiān, hóngsè de dōngxi huì dài lái hǎoyùn!”", vi: "Bên cạnh bàn có một tờ báo. Trên báo viết: “Hôm nay, đồ vật màu đỏ sẽ mang lại may mắn!”" } },
+      ex: { zh: "小雨打开柜子，发现里面有牛奶、报纸，还有一个红色的袋子。", py: "Xiǎoyǔ dǎkāi guìzi, fāxiàn lǐmiàn yǒu niúnǎi, bàozhǐ, hái yǒu yí ge hóngsè de dàizi.", vi: "Tiểu Vũ mở tủ, phát hiện bên trong có sữa bò, báo và một chiếc túi màu đỏ." } },
     { word: "送", py: "sòng", vi: "tặng",
-      ex: { zh: "小雨想送他一块手表。", py: "Xiǎoyǔ xiǎng sòng tā yí kuài shǒubiǎo.", vi: "Tiểu Vũ muốn tặng ông ấy một chiếc đồng hồ đeo tay." } },
+      ex: { zh: "小美送给小雨一条粉色的裙子，因为她知道小雨最喜欢粉色。", py: "Xiǎoměi sòng gěi Xiǎoyǔ yì tiáo fěnsè de qúnzi, yīnwèi tā zhīdào Xiǎoyǔ zuì xǐhuan fěnsè.", vi: "Tiểu Mỹ tặng Tiểu Vũ một chiếc váy màu hồng vì cô biết Tiểu Vũ thích màu hồng nhất." } },
     { word: "牛奶", py: "niúnǎi", vi: "sữa bò",
       ex: { zh: "小雨把礼物放在房间里，然后去买牛奶。", py: "Xiǎoyǔ bǎ lǐwù fàng zài fángjiān lǐ, ránhòu qù mǎi niúnǎi.", vi: "Tiểu Vũ đặt món quà trong phòng rồi đi mua sữa bò." } },
     { word: "房间", py: "fángjiān", vi: "căn phòng",
-      ex: { zh: "小雨把礼物放在房间里，然后去买牛奶。", py: "Xiǎoyǔ bǎ lǐwù fàng zài fángjiān lǐ, ránhòu qù mǎi niúnǎi.", vi: "Tiểu Vũ đặt món quà trong phòng rồi đi mua sữa bò." } },
+      ex: { zh: "小美走进房间，很久都没有出来。", py: "Xiǎoměi zǒu jìn fángjiān, hěn jiǔ dōu méiyǒu chūlái.", vi: "Tiểu Mỹ đi vào phòng, rất lâu vẫn chưa ra." } },
     { word: "丈夫", py: "zhàngfu", vi: "chồng",
       ex: { zh: "小美的丈夫王先生今天过生日。", py: "Xiǎoměi de zhàngfu Wáng xiānsheng jīntiān guò shēngrì.", vi: "Chồng của Tiểu Mỹ, ông Vương, hôm nay tổ chức sinh nhật." } },
     { word: "旁边", py: "pángbiān", vi: "bên cạnh",
@@ -37,9 +41,9 @@ export const DONG_HO_BIEN_MAT: BranchingStory = {
     { word: "颜色", py: "yánsè", vi: "màu sắc",
       ex: { zh: "问他为什么知道手表的颜色。", py: "Wèn tā wèishénme zhīdào shǒubiǎo de yánsè.", vi: "Hỏi tại sao ông ấy biết màu của chiếc đồng hồ." } },
     { word: "左边", py: "zuǒbiān", vi: "bên trái",
-      ex: { zh: "小雨还发现，房间左边有一件粉色的衣服。", py: "Xiǎoyǔ hái fāxiàn, fángjiān zuǒbiān yǒu yí jiàn fěnsè de yīfu.", vi: "Tiểu Vũ còn phát hiện một chiếc áo màu hồng ở bên trái căn phòng." } },
+      ex: { zh: "红色的礼物在左边。", py: "Hóngsè de lǐwù zài zuǒbiān.", vi: "Món quà màu đỏ ở bên trái." } },
     { word: "红色", py: "hóngsè", vi: "màu đỏ",
-      ex: { zh: "桌子旁边有一张报纸，报纸上写着：“今天，红色的东西会带来好运！”", py: "Zhuōzi pángbiān yǒu yì zhāng bàozhǐ, bàozhǐ shàng xiězhe: “Jīntiān, hóngsè de dōngxi huì dài lái hǎoyùn!”", vi: "Bên cạnh bàn có một tờ báo. Trên báo viết: “Hôm nay, đồ vật màu đỏ sẽ mang lại may mắn!”" } },
+      ex: { zh: "小美手里拿着一个红色的小盒子。", py: "Xiǎoměi shǒu lǐ názhe yí ge hóngsè de xiǎo hézi.", vi: "Trong tay Tiểu Mỹ có một chiếc hộp nhỏ màu đỏ." } },
     { word: "惊喜", py: "jīngxǐ", vi: "bất ngờ",
       ex: { zh: "也许她想给你一个惊喜。", py: "Yěxǔ tā xiǎng gěi nǐ yí ge jīngxǐ.", vi: "Có lẽ cô ấy muốn tạo bất ngờ cho cháu." } },
     { word: "原谅", py: "yuánliàng", vi: "tha thứ",
@@ -346,6 +350,7 @@ export const DONG_HO_BIEN_MAT: BranchingStory = {
         ] },
         { kind: "npc", speaker: "小美", zh: "我想把大家的礼物都放进大箱子里，给王先生一个惊喜。可是，我不小心把你的手表也放进去了，现在找不到了。", py: "Wǒ xiǎng bǎ dàjiā de lǐwù dōu fàng jìn dà xiāngzi lǐ, gěi Wáng xiānsheng yí ge jīngxǐ. Kěshì, wǒ bù xiǎoxīn bǎ nǐ de shǒubiǎo yě fàng jìn qù le, xiànzài zhǎo bú dào le.", vi: "Tớ muốn bỏ quà của mọi người vào chiếc hộp lớn để tạo bất ngờ cho ông Vương. Nhưng tớ vô ý bỏ cả đồng hồ của cậu vào, giờ không tìm thấy nữa." },
         { kind: "quote", zh: "原来，这不是偷东西，而是一个误会！", py: "Yuánlái, zhè bú shì tōu dōngxi, ér shì yí ge wùhuì!", vi: "Hóa ra đây không phải là trộm đồ, mà chỉ là một sự hiểu lầm!" },
+        { kind: "quote", zh: "她们一起打开大箱子，终于找到了手表。", py: "Tāmen yìqǐ dǎkāi dà xiāngzi, zhōngyú zhǎodào le shǒubiǎo.", vi: "Hai người cùng mở chiếc hộp lớn, cuối cùng cũng tìm thấy chiếc đồng hồ." },
       ],
       choices: [
         {
@@ -373,6 +378,7 @@ export const DONG_HO_BIEN_MAT: BranchingStory = {
         { kind: "npc", speaker: "小美", zh: "对不起，这是给王先生的生日卡。我想给他一个惊喜，所以先把它藏起来了。", py: "Duìbuqǐ, zhè shì gěi Wáng xiānsheng de shēngrì kǎ. Wǒ xiǎng gěi tā yí ge jīngxǐ, suǒyǐ xiān bǎ tā cáng qǐlái le.", vi: "Xin lỗi, đây là thiệp sinh nhật cho ông Vương. Tớ muốn tạo bất ngờ cho ông ấy nên đã giấu nó đi trước." },
         { kind: "npc", speaker: "小美", zh: "你的手表我放进大箱子里了，我正在找。", py: "Nǐ de shǒubiǎo wǒ fàng jìn dà xiāngzi lǐ le, wǒ zhèngzài zhǎo.", vi: "Đồng hồ của cậu tớ để vào hộp lớn rồi, tớ đang tìm." },
         { kind: "quote", zh: "小雨松了一口气。", py: "Xiǎoyǔ sōng le yì kǒu qì.", vi: "Tiểu Vũ thở phào nhẹ nhõm." },
+        { kind: "quote", zh: "她们一起打开大箱子，终于找到了手表。", py: "Tāmen yìqǐ dǎkāi dà xiāngzi, zhōngyú zhǎodào le shǒubiǎo.", vi: "Hai người cùng mở chiếc hộp lớn, cuối cùng cũng tìm thấy chiếc đồng hồ." },
       ],
       choices: [
         {
@@ -422,7 +428,7 @@ export const DONG_HO_BIEN_MAT: BranchingStory = {
         {
           label: "Hỏi rõ Tiểu Mỹ",
           zh: "先问清楚小美为什么藏礼物。", py: "Xiān wèn qīngchu Xiǎoměi wèishénme cáng lǐwù.", vi: "Hỏi rõ Tiểu Mỹ tại sao lại giấu món quà trước.",
-          next: "04A",
+          next: "END_2",
           analysis: { structure: "先 + 问清楚 + …", explain: "清楚 là bổ ngữ kết quả: 问清楚 = hỏi cho rõ. 藏 = giấu." },
           vocab: [{ word: "清楚", py: "qīngchu", vi: "rõ ràng" }, { word: "藏", py: "cáng", vi: "giấu" }],
         },
@@ -459,8 +465,8 @@ export const DONG_HO_BIEN_MAT: BranchingStory = {
           { zh: "我知道你想给王先生惊喜一个，但是你应该先告诉我。", py: "Wǒ zhīdào nǐ xiǎng gěi Wáng xiānsheng jīngxǐ yí ge, dànshì nǐ yīnggāi xiān gàosu wǒ.", vi: "Tớ biết cậu muốn cho ông Vương bất ngờ một cái, nhưng cậu nên nói với tớ trước.", correct: false,
             analysis: { structure: "Sai vị trí số lượng từ", explain: "Số từ + lượng từ đứng trước danh từ: 一个惊喜, không đặt sau." },
             vocab: [{ word: "个", py: "ge", vi: "(lượng từ chung)" }] },
-          { zh: "我知道你想给王先生一个惊喜，但是你先应该告诉我。", py: "Wǒ zhīdào nǐ xiǎng gěi Wáng xiānsheng yí ge jīngxǐ, dànshì nǐ xiān yīnggāi gàosu wǒ.", vi: "Tớ biết cậu muốn cho ông Vương một bất ngờ, nhưng cậu trước nên nói với tớ.", correct: false,
-            analysis: { structure: "Sai thứ tự 应该 và 先", explain: "Động từ năng nguyện 应该 đứng trước 先: 应该先告诉我." },
+          { zh: "我知道你想给王先生一个惊喜，但是你应该告诉先我。", py: "Wǒ zhīdào nǐ xiǎng gěi Wáng xiānsheng yí ge jīngxǐ, dànshì nǐ yīnggāi gàosu xiān wǒ.", vi: "Tớ biết cậu muốn tạo bất ngờ cho ông Vương, nhưng cậu nên nói trước tớ.", correct: false,
+            analysis: { structure: "Sai vị trí 先", explain: "Phó từ 先 (trước) đứng trước động từ mà nó bổ nghĩa: 应该先告诉我. Không đặt 先 giữa 告诉 và 我." },
             vocab: [{ word: "先", py: "xiān", vi: "trước" }] },
           { zh: "我知道你想给王先生一个惊喜，但是你应该先告诉我。", py: "Wǒ zhīdào nǐ xiǎng gěi Wáng xiānsheng yí ge jīngxǐ, dànshì nǐ yīnggāi xiān gàosu wǒ.", vi: "Tớ biết cậu muốn tạo bất ngờ cho ông Vương, nhưng cậu nên nói với tớ trước.", correct: true,
             analysis: { structure: "知道 + Mệnh đề; 但是…应该先…", explain: "我知道… = tớ biết rằng… 应该先告诉我 = nên nói với tớ trước (应该 + 先 + động từ)." },

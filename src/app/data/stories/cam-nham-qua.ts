@@ -15,6 +15,10 @@ import type { BranchingStory } from "../../types";
 // - 04A: 小丽 nhớ đã bỏ đồng hồ vào túi đỏ ở bên phải bàn, còn mẩu giấy ghi sai trái/phải
 // - 04B: ông Lý trả túi hồng (không có đồng hồ); 我丈夫 -> 我妻子 (ông Lý là nam); bản gốc ghi đồng hồ vẫn ở trong túi hồng, mâu thuẫn với 3C
 // - END_2: vẫn tìm được đồng hồ ở túi đỏ nhưng muộn (bản gốc: túi đỏ không có đồng hồ, mâu thuẫn với END_1 và 4A)
+// - 04B: người đàn ông áo đỏ chính là ông Lý (ông mua sữa mỗi sáng ở cửa hàng, mang túi hồng đi nhầm); câu mở đầu "cô Trần gọi ông Lý tới" đổi thành cô Trần nhận ra ông, cho khớp với cả ba đường vào (trên đường 03C ông đang đứng ngay đó)
+// - 04B: thêm câu 小丽 nhớ đã để túi đỏ bên phải bàn và hai người tìm thấy nó (đường 04B → END_1 trước đó chưa ai tìm ra túi đỏ)
+// - END_1: đáp án sai "特别一天" nghe vẫn gần đúng nên thay bằng câu sai lượng từ
+// - vocab: mỗi từ một câu ví dụ riêng (bản đầu nhiều từ dùng chung một câu)
 export const CAM_NHAM_QUA: BranchingStory = {
   start: "01",
   characters: {
@@ -31,7 +35,7 @@ export const CAM_NHAM_QUA: BranchingStory = {
     { word: "牛奶", py: "niúnǎi", vi: "sữa bò",
       ex: { zh: "小安去买牛奶。", py: "Xiǎo Ān qù mǎi niúnǎi.", vi: "Tiểu An đi mua sữa bò." } },
     { word: "丈夫", py: "zhàngfu", vi: "chồng",
-      ex: { zh: "小丽想送丈夫一块手表。", py: "Xiǎo Lì xiǎng sòng zhàngfu yí kuài shǒubiǎo.", vi: "Tiểu Lệ muốn tặng chồng một chiếc đồng hồ." } },
+      ex: { zh: "我可以把手表送给丈夫了！", py: "Wǒ kěyǐ bǎ shǒubiǎo sòng gěi zhàngfu le!", vi: "Tớ có thể tặng đồng hồ cho chồng rồi!" } },
     { word: "旁边", py: "pángbiān", vi: "bên cạnh",
       ex: { zh: "她们买好东西以后，把两个袋子放在商店门口的桌子旁边。", py: "Tāmen mǎi hǎo dōngxi yǐhòu, bǎ liǎng ge dàizi fàng zài shāngdiàn ménkǒu de zhuōzi pángbiān.", vi: "Sau khi mua đồ xong, họ đặt hai chiếc túi bên cạnh chiếc bàn ở cửa cửa hàng." } },
     { word: "粉色", py: "fěnsè", vi: "màu hồng",
@@ -41,9 +45,9 @@ export const CAM_NHAM_QUA: BranchingStory = {
     { word: "左边", py: "zuǒbiān", vi: "bên trái",
       ex: { zh: "“红色的东西在左边，粉色的东西在右边。”", py: "“Hóngsè de dōngxi zài zuǒbiān, fěnsè de dōngxi zài yòubiān.”", vi: "“Đồ vật màu đỏ ở bên trái, đồ vật màu hồng ở bên phải.”" } },
     { word: "红色", py: "hóngsè", vi: "màu đỏ",
-      ex: { zh: "小安觉得红色的袋子很好看，小丽却喜欢粉色的袋子。", py: "Xiǎo Ān juéde hóngsè de dàizi hěn hǎokàn, Xiǎo Lì què xǐhuan fěnsè de dàizi.", vi: "Tiểu An thấy chiếc túi màu đỏ rất đẹp, còn Tiểu Lệ lại thích chiếc túi màu hồng." } },
+      ex: { zh: "他穿着红色的衣服。", py: "Tā chuānzhe hóngsè de yīfu.", vi: "Anh ta mặc quần áo màu đỏ." } },
     { word: "袋子", py: "dàizi", vi: "cái túi",
-      ex: { zh: "小安觉得红色的袋子很好看，小丽却喜欢粉色的袋子。", py: "Xiǎo Ān juéde hóngsè de dàizi hěn hǎokàn, Xiǎo Lì què xǐhuan fěnsè de dàizi.", vi: "Tiểu An thấy chiếc túi màu đỏ rất đẹp, còn Tiểu Lệ lại thích chiếc túi màu hồng." } },
+      ex: { zh: "她们跑到桌子右边，发现一个红色的袋子。", py: "Tāmen pǎo dào zhuōzi yòubiān, fāxiàn yí ge hóngsè de dàizi.", vi: "Hai người chạy sang bên phải bàn và phát hiện một chiếc túi màu đỏ." } },
     { word: "老板", py: "lǎobǎn", vi: "chủ cửa hàng",
       ex: { zh: "去问商店的老板。", py: "Qù wèn shāngdiàn de lǎobǎn.", vi: "Đi hỏi chủ cửa hàng." } },
     { word: "线索", py: "xiànsuǒ", vi: "manh mối",
@@ -354,12 +358,14 @@ export const CAM_NHAM_QUA: BranchingStory = {
     "04B": {
       id: "04B",
       lines: [
-        { kind: "quote", zh: "陈阿姨把李先生叫来了。", py: "Chén āyí bǎ Lǐ xiānsheng jiào lái le.", vi: "Cô Trần gọi ông Lý tới." },
+        { kind: "quote", zh: "陈阿姨看了看粉色的袋子，认出了李先生，让他过来。", py: "Chén āyí kàn le kàn fěnsè de dàizi, rènchū le Lǐ xiānsheng, ràng tā guòlái.", vi: "Cô Trần nhìn chiếc túi màu hồng, nhận ra ông Lý và gọi ông lại đây." },
+        { kind: "quote", zh: "小安这才发现，李先生穿的正是红色的衣服。", py: "Xiǎo Ān zhè cái fāxiàn, Lǐ xiānsheng chuān de zhèng shì hóngsè de yīfu.", vi: "Lúc này Tiểu An mới nhận ra, ông Lý chính là người mặc áo đỏ." },
         { kind: "npc", speaker: "李先生", zh: "对不起！我拿错袋子了！", py: "Duìbuqǐ! Wǒ ná cuò dàizi le!", vi: "Xin lỗi! Tôi đã cầm nhầm túi rồi!" },
         { kind: "quote", zh: "原来，他也买了一个粉色的袋子。他把两个袋子放在一起，离开的时候拿错了。", py: "Yuánlái, tā yě mǎi le yí ge fěnsè de dàizi. Tā bǎ liǎng ge dàizi fàng zài yìqǐ, líkāi de shíhou ná cuò le.", vi: "Hóa ra ông ấy cũng mua một chiếc túi màu hồng. Ông đặt hai chiếc túi cạnh nhau rồi cầm nhầm khi rời đi." },
         { kind: "npc", speaker: "李先生", zh: "真不好意思！我妻子也喜欢粉色的东西，所以我买了这个袋子。", py: "Zhēn bù hǎoyìsi! Wǒ qīzi yě xǐhuan fěnsè de dōngxi, suǒyǐ wǒ mǎi le zhège dàizi.", vi: "Thật xin lỗi! Vợ tôi cũng thích đồ màu hồng nên tôi đã mua chiếc túi này." },
         { kind: "quote", zh: "小丽打开袋子，里面有生日卡和粉色的衣服，可是没有手表。", py: "Xiǎo Lì dǎkāi dàizi, lǐmiàn yǒu shēngrì kǎ hé fěnsè de yīfu, kěshì méiyǒu shǒubiǎo.", vi: "Tiểu Lệ mở túi, bên trong có thiệp sinh nhật và áo màu hồng, nhưng không có đồng hồ." },
         { kind: "npc", speaker: "小丽", zh: "手表一定在红色的袋子里！我想起来了！", py: "Shǒubiǎo yídìng zài hóngsè de dàizi lǐ! Wǒ xiǎng qǐlái le!", vi: "Đồng hồ nhất định ở trong chiếc túi màu đỏ! Tớ nhớ ra rồi!" },
+        { kind: "quote", zh: "她们跑到桌子右边，发现一个红色的袋子。", py: "Tāmen pǎo dào zhuōzi yòubiān, fāxiàn yí ge hóngsè de dàizi.", vi: "Hai người chạy sang bên phải bàn và phát hiện một chiếc túi màu đỏ." },
       ],
       choices: [
         {
@@ -389,9 +395,9 @@ export const CAM_NHAM_QUA: BranchingStory = {
           { zh: "今天真是一天特别的！", py: "Jīntiān zhēn shì yì tiān tèbié de!", vi: "Hôm nay thật là một ngày đặc biệt của!", correct: false,
             analysis: { structure: "Sai trật tự định ngữ", explain: "Định ngữ 特别的 đứng trước danh từ 一天, không đứng sau." },
             vocab: [{ word: "特别", py: "tèbié", vi: "đặc biệt" }] },
-          { zh: "今天真是特别一天！", py: "Jīntiān zhēn shì tèbié yì tiān!", vi: "Hôm nay thật là đặc biệt một ngày!", correct: false,
-            analysis: { structure: "Thiếu 的", explain: "Tính từ làm định ngữ trước 一天 cần có 的: 特别的一天." },
-            vocab: [{ word: "的", py: "de", vi: "(trợ từ)" }] },
+          { zh: "今天真是特别的一个天！", py: "Jīntiān zhēn shì tèbié de yí ge tiān!", vi: "Hôm nay thật là một cái ngày đặc biệt!", correct: false,
+            analysis: { structure: "Sai lượng từ", explain: "天 (ngày) là đơn vị thời gian, tự nó đã đóng vai lượng từ nên nói 一天, không thêm 个: 特别的一天." },
+            vocab: [{ word: "一天", py: "yì tiān", vi: "một ngày" }] },
           { zh: "今天真是特别的一天！", py: "Jīntiān zhēn shì tèbié de yì tiān!", vi: "Hôm nay đúng là một ngày thật đặc biệt!", correct: true,
             analysis: { structure: "真是 + Tính từ + 的 + 一天", explain: "真是 nhấn mạnh nhận định. 特别的一天 = một ngày đặc biệt (tính từ + 的 + danh từ)." },
             vocab: [{ word: "特别", py: "tèbié", vi: "đặc biệt" }, { word: "一天", py: "yì tiān", vi: "một ngày" }] },

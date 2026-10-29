@@ -29,7 +29,7 @@ export const STORY_LIBRARY: Record<number, StoryEntry[]> = {
     { id: "dong-ho-bien-mat",  title: "Chiếc Đồng Hồ Biến Mất",  hsk: 2, lv: "Elementary",  color: "#0284c7", emoji: "⌚", tags: ["Bí ẩn","Quà tặng","Sinh nhật"],         chapters: 1,
       summary: "Chiếc đồng hồ định tặng ông Vương nhân dịp sinh nhật bỗng biến mất, chỉ còn lại một tờ báo và một chiếc áo màu hồng. Bạn vào vai 小雨 đi tìm: mỗi lựa chọn dẫn tới một nhánh khác, với 2 kết thúc.",
       hero: "tìm chiếc đồng hồ", character: "小雨 và 小美", minutes: 12, quote: "Hôm nay, đồ vật màu đỏ sẽ mang lại may mắn..." },
-    { id: "cam-nham-qua",      title: "Ai Đã Cầm Nhầm Quà?",     hsk: 2, lv: "Elementary",  color: "#a21caf", emoji: "👜", tags: ["Bí ẩn","Mua sắm","Quà tặng"],           chapters: 1,
+    { id: "cam-nham-qua",      title: "Ai Đã Cầm Nhầm Quà?",     hsk: 2, lv: "Elementary",  color: "#4d7c0f", emoji: "👜", tags: ["Bí ẩn","Mua sắm","Quà tặng"],           chapters: 1,
       summary: "Chiếc túi màu hồng của 小丽 biến mất trước cửa hàng, chỉ còn lại một tờ báo và mẩu giấy lạ. Bạn vào vai 小安 đi tìm: mỗi lựa chọn dẫn tới một nhánh khác, với 2 kết thúc.",
       hero: "tìm chiếc túi", character: "小安 và 小丽", minutes: 12, quote: "Đồ vật màu đỏ ở bên trái, đồ vật màu hồng ở bên phải..." },
     { id: "thay-tuong",       title: "Bí Mật Của Thầy Tướng",   hsk: 2, lv: "Elementary",  color: "#0891b2", emoji: "🔮", tags: ["Bí ẩn","Dự đoán","Thành phố"],          chapters: 5 },
