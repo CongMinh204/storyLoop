@@ -18,6 +18,7 @@ const CHIP: Record<string, string> = {
   "nguoi-ngoai-cua-la-ai": "Người ngoài cửa",
   "mot-gio-cuoi-cung": "Một giờ cuối cùng",
   "ai-lay-quan-ao": "Quần áo",
+  "chiec-xe-dap-ngoai-cua": "Xe đạp",
 };
 
 // Từ vựng có câu ví dụ → thẻ flashcard

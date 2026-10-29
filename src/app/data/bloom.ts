@@ -133,4 +133,14 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "看见", wordPy: "kànjiàn", wordVi: "nhìn thấy — 看见 + người/vật (看见我的衣服了吗)", missMsg: "Hãy dùng từ 看见 trong câu!" },
     ],
   },
+  "chiec-xe-dap-ngoai-cua": {
+    doneShort: "bài Chiếc Xe Đạp Ngoài Cửa", doneLong: "bài Chiếc Xe Đạp Ngoài Cửa", words: 4,
+    items: [
+      { type: "nhớ", char: "自行车", pinyin: "Zìxíngchē", pinyinColor: C.success, story: "Chiếc Xe Đạp Ngoài Cửa", q: "Nghĩa của từ này là gì?", opts: ["Xe máy", "Xe buýt", "Xe đạp", "Xe hơi"], correct: 2, explain: "自行车 (zìxíngchē) = xe đạp. Trong truyện: 不就在门外吗？ (Chẳng phải xe đạp ở bên ngoài cửa sao?) và 在我的自行车上啊 (Trên xe đạp của em ấy)." },
+      { type: "hiểu", sent: "经常 (jīngcháng)", sentVi: "Thường, thường xuyên", story: "Chiếc Xe Đạp Ngoài Cửa", q: "Câu nào dùng đúng 经常 trong tình huống câu chuyện?", opts: ["这个经常很好吃。", "我买了一个经常。", "你们以前经常来这里吗？", "经常在桌子上。"], optsVi: ["Cái thường này rất ngon.", "Tôi mua một cái thường.", "Trước đây hai người thường đến đây à?", "Thường ở trên bàn."], correct: 2, explain: "经常 là phó từ chỉ việc lặp lại nhiều lần, đứng trước động từ (经常来这里 = thường đến đây). Nó không phải danh từ nên không ăn, mua hay đặt lên bàn được." },
+      { type: "dùng", story: "Chiếc Xe Đạp Ngoài Cửa", q: "Hoàn thành câu theo tình huống:", prompt: "Tiểu Lan giải thích vì sao bây giờ cô mới tìm đến chị gái của Tiểu Minh.\nĐiền vào chỗ trống:", tmpl: "___我终于准备好了。", tmplVi: "___ cuối cùng em cũng đã sẵn sàng.", ans: "因为", hint: "Gợi ý: 因为 (yīnwèi)", explain: "因为 = bởi vì, mở đầu phần nêu nguyên nhân: 因为我终于准备好了 = vì cuối cùng em cũng đã sẵn sàng." },
+      { type: "viết", story: "Chiếc Xe Đạp Ngoài Cửa", q: "Viết một câu dùng từ 以前 (yǐqián = trước đây):", prompt: "Viết một câu kể chuyện ngày trước của bạn hoặc của một người bạn, nhớ dùng 以前.", ph: "Ví dụ: 以前，我和朋友经常一起打篮球。", explain: "Mẫu: 以前，我和朋友经常一起打篮球。 / 她是小兰，我以前的朋友。", check: (v: string) => v.includes("以前") && v.length > 3,
+        word: "以前", wordPy: "yǐqián", wordVi: "trước đây — 以前 + sự việc (以前，我们经常一起…)", missMsg: "Hãy dùng từ 以前 trong câu!" },
+    ],
+  },
 };
