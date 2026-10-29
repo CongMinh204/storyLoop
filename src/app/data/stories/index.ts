@@ -5,6 +5,8 @@ import { MEO_HOA_HOA_2 } from "./meo-hoa-hoa-2";
 import { TRON_HOC } from "./tron-hoc";
 import { SINH_NHAT } from "./sinh-nhat";
 import { CUOC_GOI_BI_AN } from "./cuoc-goi-bi-an";
+import { DONG_HO_BIEN_MAT } from "./dong-ho-bien-mat";
+import { CAM_NHAM_QUA } from "./cam-nham-qua";
 
 // Hai loại kịch bản:
 // - "quiz": hội thoại tuyến tính, mỗi lượt có đáp án đúng/sai (ChatStoryEngine)
@@ -22,6 +24,8 @@ const STORY_SCRIPTS: Record<string, StoryScript> = {
   "tron-hoc": { kind: "branching", story: TRON_HOC, vocab: TRON_HOC.vocab },
   "sinh-nhat": { kind: "branching", story: SINH_NHAT, vocab: SINH_NHAT.vocab },
   "cuoc-goi-bi-an": { kind: "branching", story: CUOC_GOI_BI_AN, vocab: CUOC_GOI_BI_AN.vocab },
+  "dong-ho-bien-mat": { kind: "branching", story: DONG_HO_BIEN_MAT, vocab: DONG_HO_BIEN_MAT.vocab },
+  "cam-nham-qua": { kind: "branching", story: CAM_NHAM_QUA, vocab: CAM_NHAM_QUA.vocab },
 };
 
 // Trả về null nếu truyện chưa có kịch bản.

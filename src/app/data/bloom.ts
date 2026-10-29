@@ -73,4 +73,24 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "给", wordPy: "gěi", wordVi: "cho — 给 + người + động từ (làm gì cho ai)", missMsg: "Hãy dùng từ 给 trong câu!" },
     ],
   },
+  "dong-ho-bien-mat": {
+    doneShort: "bài Chiếc Đồng Hồ Biến Mất", doneLong: "bài Chiếc Đồng Hồ Biến Mất", words: 4,
+    items: [
+      { type: "nhớ", char: "粉色", pinyin: "Fěnsè", pinyinColor: C.success, story: "Chiếc Đồng Hồ Biến Mất", q: "Nghĩa của từ này là gì?", opts: ["Màu đỏ", "Màu hồng", "Màu đen", "Màu xanh"], correct: 1, explain: "粉 (fěn) = hồng, 色 (sè) = màu. Trong truyện: 房间左边有一件粉色的衣服 (Bên trái căn phòng có một chiếc áo màu hồng)." },
+      { type: "hiểu", sent: "旁边 (pángbiān)", sentVi: "Bên cạnh", story: "Chiếc Đồng Hồ Biến Mất", q: "Câu nào dùng đúng 旁边 trong tình huống câu chuyện?", opts: ["桌子旁边有一张报纸。", "我旁边了一杯水。", "旁边在很好吃。", "他旁边手表。"], optsVi: ["Bên cạnh bàn có một tờ báo.", "Tôi bên cạnh một cốc nước.", "Bên cạnh ở rất ngon.", "Anh ấy bên cạnh đồng hồ."], correct: 0, explain: "旁边 là danh từ chỉ vị trí, đứng sau danh từ: 桌子旁边 = bên cạnh bàn. Nó không làm động từ và không ăn được." },
+      { type: "dùng", story: "Chiếc Đồng Hồ Biến Mất", q: "Hoàn thành câu theo tình huống:", prompt: "Hôm nay là sinh nhật ông Vương, Tiểu Vũ đã mua quà cho ông ấy.\nĐiền vào chỗ trống:", tmpl: "小雨想送王先生一块___。", tmplVi: "Tiểu Vũ muốn tặng ông Vương một chiếc ___.", ans: "手表", hint: "Gợi ý: 手表 (shǒubiǎo)", explain: "手表 = đồng hồ đeo tay, lượng từ là 块 (kuài): 一块手表. Trong truyện: 小雨想送他一块手表." },
+      { type: "viết", story: "Chiếc Đồng Hồ Biến Mất", q: "Viết một câu dùng từ 送 (sòng = tặng):", prompt: "Hôm nay là sinh nhật một người bạn của bạn. Viết một câu nói bạn tặng gì cho ai, nhớ dùng 送.", ph: "Ví dụ: 我想送朋友一本书。", explain: "Mẫu: 我想送朋友一本书。 / 小雨送王先生一块手表。", check: (v: string) => v.includes("送") && v.length > 3,
+        word: "送", wordPy: "sòng", wordVi: "tặng — 送 + người + món quà (送他一块手表)", missMsg: "Hãy dùng từ 送 trong câu!" },
+    ],
+  },
+  "cam-nham-qua": {
+    doneShort: "bài Ai Đã Cầm Nhầm Quà?", doneLong: "bài Ai Đã Cầm Nhầm Quà?", words: 4,
+    items: [
+      { type: "nhớ", char: "袋子", pinyin: "Dàizi", pinyinColor: C.success, story: "Ai Đã Cầm Nhầm Quà?", q: "Nghĩa của từ này là gì?", opts: ["Cái bàn", "Tờ báo", "Cái túi", "Chiếc áo"], correct: 2, explain: "袋子 (dàizi) = cái túi. Trong truyện: 粉色的袋子不见了 (Chiếc túi màu hồng đã biến mất)." },
+      { type: "hiểu", sent: "颜色 (yánsè)", sentVi: "Màu sắc", story: "Ai Đã Cầm Nhầm Quà?", q: "Câu nào dùng đúng 颜色 trong tình huống câu chuyện?", opts: ["看颜色，不如看里面。", "颜色在桌子上吃。", "我颜色了一个朋友。", "他颜色很好吃。"], optsVi: ["Đừng chỉ nhìn màu sắc, hãy xem bên trong.", "Màu sắc ăn ở trên bàn.", "Tôi màu sắc một người bạn.", "Anh ấy màu sắc rất ngon."], correct: 0, explain: "颜色 là danh từ \"màu sắc\": làm tân ngữ của 看 (看颜色) chứ không làm động từ, không ăn được." },
+      { type: "dùng", story: "Ai Đã Cầm Nhầm Quà?", q: "Hoàn thành câu theo tình huống:", prompt: "Mẩu giấy trên bàn cửa hàng cho biết vị trí của đồ vật màu đỏ.\nĐiền vào chỗ trống:", tmpl: "红色的东西在___，粉色的东西在右边。", tmplVi: "Đồ vật màu đỏ ở ___, đồ vật màu hồng ở bên phải.", ans: "左边", hint: "Gợi ý: 左边 (zuǒbiān)", explain: "左边 = bên trái, đối lập với 右边 (yòubiān) = bên phải. Trong truyện: 红色的东西在左边，粉色的东西在右边." },
+      { type: "viết", story: "Ai Đã Cầm Nhầm Quà?", q: "Viết một câu dùng từ 一下 (yíxià = một chút):", prompt: "Nhờ ai đó làm giúp bạn một việc nhỏ, nhớ dùng 一下, ví dụ 等一下 hoặc 看一下.", ph: "Ví dụ: 请你等我一下。", explain: "Mẫu: 请你等我一下。 / 请男人打开袋子看一下。", check: (v: string) => v.includes("一下") && v.length > 3,
+        word: "一下", wordPy: "yíxià", wordVi: "một chút — đứng sau động từ để làm nhẹ ngữ khí (看一下)", missMsg: "Hãy dùng từ 一下 trong câu!" },
+    ],
+  },
 };
