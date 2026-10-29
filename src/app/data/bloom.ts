@@ -93,4 +93,14 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "路", wordPy: "lù", wordVi: "con đường — 一条路, 走这条路 (đi đường này)", missMsg: "Hãy dùng từ 路 trong câu!" },
     ],
   },
+  "ai-lay-quan-ao": {
+    doneShort: "bài Ai Đã Lấy Quần Áo Của Tôi?", doneLong: "bài Ai Đã Lấy Quần Áo Của Tôi?", words: 4,
+    items: [
+      { type: "nhớ", char: "颜色", pinyin: "Yánsè", pinyinColor: C.success, story: "Ai Đã Lấy Quần Áo Của Tôi?", q: "Nghĩa của từ này là gì?", opts: ["Kích cỡ", "Màu sắc", "Giá tiền", "Kiểu dáng"], correct: 1, explain: "颜色 (yánsè) = màu sắc. Trong truyện: 那个人穿什么颜色的衣服？ (Người đó mặc quần áo màu gì?)" },
+      { type: "hiểu", sent: "一直 (yìzhí)", sentVi: "Cứ, suốt, liên tục", story: "Ai Đã Lấy Quần Áo Của Tôi?", q: "Câu nào dùng đúng 一直 trong tình huống câu chuyện?", opts: ["我买了一个一直。", "这件衣服一直很贵。", "因为我一直在找衣服！", "一直在椅子上。"], optsVi: ["Tôi mua một cái cứ.", "Chiếc áo này cứ rất đắt.", "Bởi vì tôi cứ phải tìm quần áo!", "Cứ ở trên ghế."], correct: 2, explain: "一直 là phó từ chỉ việc liên tục không dừng, đứng trước động từ (一直在找衣服 = cứ liên tục tìm quần áo). Nó không phải danh từ nên không mua được hay đặt lên ghế được; còn 一直很贵 không hợp vì \"đắt\" không phải hành động kéo dài." },
+      { type: "dùng", story: "Ai Đã Lấy Quần Áo Của Tôi?", q: "Hoàn thành câu theo tình huống:", prompt: "Ăn xong, Tiểu Minh phát hiện quần áo biến mất.\nĐiền vào chỗ trống:", tmpl: "小明很___。", tmplVi: "Tiểu Minh rất ___.", ans: "着急", hint: "Gợi ý: 着急 (zháojí)", explain: "着急 (zháojí) = sốt ruột, lo lắng. Trong truyện: 小明很着急 (Tiểu Minh rất sốt ruột)." },
+      { type: "viết", story: "Ai Đã Lấy Quần Áo Của Tôi?", q: "Viết một câu dùng từ 看见 (kànjiàn = nhìn thấy):", prompt: "Tiểu Minh hỏi một người xem họ có nhìn thấy quần áo của mình không. Hãy viết một câu hỏi như vậy, nhớ dùng 看见.", ph: "Ví dụ: 你看见我的衣服了吗？", explain: "Mẫu: 你看见我的衣服了吗？ / 请问，你看见我的朋友了吗？", check: (v: string) => v.includes("看见") && v.length > 3,
+        word: "看见", wordPy: "kànjiàn", wordVi: "nhìn thấy — 看见 + người/vật (看见我的衣服了吗)", missMsg: "Hãy dùng từ 看见 trong câu!" },
+    ],
+  },
 };
