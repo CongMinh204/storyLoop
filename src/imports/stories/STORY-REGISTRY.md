@@ -21,8 +21,8 @@ Doc cốt truyện: https://docs.google.com/document/d/1bsYDMmd7TKtire_IMHMA-3v5
 | 3 | Ai đã cầm nhầm quà? | Ai Đã Cầm Nhầm Quà? | Đã code, chờ merge | Viết lại một phần lời giải: đồng hồ nằm trong túi đỏ, ông Lý nói "vợ" |
 | 4 | Ai đã gọi điện đến? | Ai Đã Gọi Điện Đến? | Đã có trên main |  |
 | 4 | Hai người bạn mới trong bữa tiệc sinh nhật | Tiệc Sinh Nhật | Đã có trên main |  |
-| 5 | Ai đã gửi bức ảnh? | Ai Đã Gửi Bức Ảnh? | Đã code, chưa vào main | Chỉ ở nhánh VynhVQ12 |
-| 5 | Ai đã gửi bức ảnh? (bản 2) | không có | Trùng bản 1, không thêm | Chỉ khác một dòng ghi chú biên tập |
+| 5 | Ai đã gửi bức ảnh? | Ai Đã Gửi Bức Ảnh? | Đã code, chờ merge | Đã cập nhật theo bản Doc tác giả sửa lại (nhánh VynhVQ12). Còn 2 điểm nhờ tác giả xem: Tiểu Mỹ là bạn thân mà Tiểu Minh "không nhớ đã gặp" hôm đó; hộp vừa là đồ bị cầm nhầm vừa là quà tặng |
+| 5 | Ai đã gửi bức ảnh? (bản 2) | không có | Bản cũ, không thêm | Là bản trước khi tác giả sửa tab chính; nên xoá hoặc đánh dấu "bản cũ" trong Doc |
 | 6 | Chiếc xe đạp ngoài cửa | chưa có | Chưa thêm |  |
 | 6 | Người ngoài cửa là ai? | chưa có | Chưa thêm |  |
 | 7 | Một giờ cuối cùng | chưa có | Chưa thêm |  |
