@@ -8,6 +8,7 @@ import {
 } from "./ChatBubbles";
 import { EndingCard } from "./EndingCard";
 import { getProgress, reportProgress, markCompleted } from "../../lib/progress";
+import { playSound, preloadSounds } from "../../lib/sound";
 
 const LINE_DELAY = 550;    // ms giữa hai câu thoại
 const READ_DELAY = 1800;   // ms chờ sau khi hiện phân tích, để kịp đọc
@@ -62,6 +63,8 @@ export function BranchingStoryEngine({ story, tree, onHome, onBack, sidePanel }:
   const node = tree.nodes[nodeId];
   const activePick = phase === "pick" ? (queue[0] as PickLine) : null;
 
+  useEffect(preloadSounds, []);
+
   function scrollBottom() {
     setTimeout(() => scrollRef.current?.scrollTo({ top: 99999, behavior: "smooth" }), 60);
   }
@@ -95,6 +98,7 @@ export function BranchingStoryEngine({ story, tree, onHome, onBack, sidePanel }:
         setMessages(m => [...m, { type: "ending", node }]);
         setSeen(s => new Set(s).add(node.id));
         markCompleted(story.id, { ending: node.id, score: scoreRef.current });
+        playSound("complete");
         setPhase("ended");
       } else if (node.choices) {
         setPhase("choose");
@@ -110,6 +114,7 @@ export function BranchingStoryEngine({ story, tree, onHome, onBack, sidePanel }:
   function handlePick(opt: PickOption) {
     if (!activePick) return;
     const correct = activePick.options.find(o => o.correct)!;
+    playSound(opt.correct ? "right" : "wrong");
     setMessages(m => [...m, { type: "pick", option: opt }, { type: "pickAnalysis", option: opt, correct }]);
     const nextScore = { right: score.right + (opt.correct ? 1 : 0), total: score.total + 1 };
     scoreRef.current = nextScore;
