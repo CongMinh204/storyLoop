@@ -17,7 +17,7 @@ export type Me = {
   xp: number;
   streak: number;
 };
-export type RegisterForm = { fullName: string; email: string; password: string; confirmPassword: string };
+export type RegisterForm = { fullName: string; email: string; password: string; confirmPassword: string; referralSource: string; referralOther: string };
 export type UpdateMeForm = { fullName?: string; currentPassword?: string; newPassword?: string; confirmPassword?: string };
 type AuthResponse = Tokens & { user: Me };
 
@@ -121,7 +121,7 @@ export async function login(email: string, password: string) {
 
 export async function register(form: RegisterForm) {
   signIn(await api<AuthResponse>("/api/auth/register", { method: "POST", body: form }));
-  track("sign_up", { method: "email" });
+  track("sign_up", { method: "email", referral: form.referralSource });
 }
 
 // idToken: chuỗi Google Identity Services trả về sau khi người dùng chọn tài khoản Google

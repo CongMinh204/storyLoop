@@ -2,7 +2,7 @@ import { Router } from "express";
 import { pool } from "../db.js";
 import { env } from "../env.js";
 import { h, HttpError, isUniqueViolation, parse } from "../http.js";
-import { MSG } from "../shared/validation.js";
+import { MSG, referralValue } from "../shared/validation.js";
 import { findUser, toMe, type UserRow } from "../users.js";
 import { verifyGoogleToken } from "./google.js";
 import { loginIpLimiter, loginLimiter, signupLimiter } from "./limits.js";
@@ -16,11 +16,11 @@ const SIGNUP_CLOSED = "Hiện chưa mở đăng ký tài khoản mới";
 const WRONG_LOGIN = "Email hoặc mật khẩu không đúng";
 const emailTaken = () => new HttpError(409, MSG.emailTaken, { email: MSG.emailTaken });
 
-async function insertUser(email: string, fullName: string, auth: { passwordHash?: string; googleId?: string }) {
+async function insertUser(email: string, fullName: string, auth: { passwordHash?: string; googleId?: string }, referralSource: string | null = null) {
   try {
     const { rows } = await pool.query<UserRow>(
-      "INSERT INTO users (email, full_name, password_hash, google_id) VALUES ($1, $2, $3, $4) RETURNING *",
-      [email, fullName, auth.passwordHash ?? null, auth.googleId ?? null],
+      "INSERT INTO users (email, full_name, password_hash, google_id, referral_source) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [email, fullName, auth.passwordHash ?? null, auth.googleId ?? null, referralSource],
     );
     return rows[0];
   } catch (err) {
@@ -39,7 +39,8 @@ authRouter.post("/register", signupLimiter, h(async (req, res) => {
   if (!env.ALLOW_SIGNUP) throw new HttpError(403, SIGNUP_CLOSED);
   const body = parse(registerSchema, req.body);
   if (await findUser("email", body.email)) throw emailTaken();
-  const user = await insertUser(body.email, body.fullName, { passwordHash: await hashPassword(body.password) });
+  const user = await insertUser(body.email, body.fullName, { passwordHash: await hashPassword(body.password) },
+    body.referralSource ? referralValue(body.referralSource, body.referralOther) : null);
   res.status(201).json(await signIn(user));
 }));
 

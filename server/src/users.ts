@@ -12,6 +12,7 @@ export type UserRow = {
   role: Role;
   created_at: Date;
   last_login_at: Date | null;
+  referral_source: string | null;   // biết tới StoryLoop qua đâu (chỉ có ở tài khoản đăng ký bằng email)
 };
 
 export async function findUser(where: "id" | "email" | "google_id", value: string) {
