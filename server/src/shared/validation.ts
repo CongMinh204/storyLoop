@@ -7,6 +7,7 @@ export const NAME_MAX = 60;
 export const PASSWORD_MIN = 12;
 export const PASSWORD_MAX = 64; // bcrypt chỉ xét 72 byte đầu
 export const PASSWORD_HINT = "Tối thiểu 12 ký tự, gồm chữ hoa, chữ thường và số";
+export const REFERRAL_OTHER_MAX = 80;
 
 export const MSG = {
   nameRequired: "Vui lòng nhập họ và tên",
@@ -18,7 +19,17 @@ export const MSG = {
   passwordWeak: PASSWORD_HINT,
   passwordTooLong: `Mật khẩu tối đa ${PASSWORD_MAX} ký tự`,
   confirmMismatch: "Mật khẩu xác nhận không khớp",
+  referralRequired: "Vui lòng chọn nơi bạn biết tới StoryLoop",
+  referralOtherRequired: "Vui lòng ghi rõ bạn biết tới StoryLoop qua đâu",
+  referralOtherLength: `Tối đa ${REFERRAL_OTHER_MAX} ký tự`,
 };
+
+// Bạn biết tới StoryLoop qua đâu (form đăng ký). "other" thì người dùng tự ghi thêm.
+export const REFERRAL_OPTIONS = [
+  { value: "friend", label: "Bạn bè" },
+  { value: "facebook", label: "Facebook" },
+  { value: "other", label: "Khác" },
+] as const;
 
 export function normalizeEmail(email: string) {
   return email.trim().toLowerCase();
@@ -59,4 +70,22 @@ export function checkPassword(v: string): string | null {
 
 export function checkConfirm(password: string, confirm: string): string | null {
   return password === confirm ? null : MSG.confirmMismatch;
+}
+
+export function checkReferralSource(v: string): string | null {
+  return REFERRAL_OPTIONS.some(o => o.value === v) ? null : MSG.referralRequired;
+}
+
+// Chỉ bắt buộc khi đã chọn "Khác"
+export function checkReferralOther(source: string, other: string): string | null {
+  if (source !== "other") return null;
+  const s = other.trim();
+  if (!s) return MSG.referralOtherRequired;
+  if (s.length > REFERRAL_OTHER_MAX) return MSG.referralOtherLength;
+  return null;
+}
+
+// Giá trị lưu vào users.referral_source: "friend", "facebook" hoặc "other:<nội dung tự ghi>"
+export function referralValue(source: string, other: string) {
+  return source === "other" ? `other:${other.trim()}` : source;
 }
