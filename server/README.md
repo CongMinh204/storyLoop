@@ -52,10 +52,11 @@ Lỗi trả dạng `{ "error": "câu báo lỗi", "fields": { "email": "..." } }
 | POST | `/api/auth/google` | `idToken` | ID token từ Google Identity Services. Email đã đăng ký bằng mật khẩu thì không gắn Google, trả 409 |
 | POST | `/api/auth/refresh` | `refreshToken` | Trả cặp token mới; refresh token cũ hết dùng được |
 | POST | `/api/auth/logout` | `refreshToken` | Huỷ phiên |
-| GET | `/api/me` | | Cần đăng nhập. Thông tin, `xp`, `streak` |
+| GET | `/api/me` | | Cần đăng nhập. Thông tin, `xp`, `streak`, `bestStreak` (chuỗi dài nhất từng có) |
+| GET | `/api/me/activity` | | Cần đăng nhập. `{ today, since, days: [{ day, xp, correct, completed }] }`: từng ngày có hoạt động trong 6 tháng gần nhất (giờ Việt Nam). `correct` = số câu chọn đúng lần đầu, `completed` = số truyện hoàn thành lần đầu |
 | PATCH | `/api/me` | `fullName` và/hoặc `currentPassword, newPassword, confirmPassword` | Đổi mật khẩu thì đăng xuất các máy khác. Sai mật khẩu hiện tại quá 10 lần / 15 phút thì tạm khoá |
 | GET | `/api/progress` | | Cần đăng nhập. `{ progress: { "<storyId>": { status, pct, lastPlayed, endings?, bestScore? } } }`, cùng dạng localStorage |
-| PUT | `/api/progress/:storyId` | `pct?`, `step?: { key, correct }`, `complete?: { ending?, score?: { right, total } }` | Cần đăng nhập. Cập nhật tiến độ, cộng XP. Trả `{ progress, xpGained, xp, streak }` |
+| PUT | `/api/progress/:storyId` | `pct?`, `step?: { key, correct }`, `complete?: { ending?, score?: { right, total } }` | Cần đăng nhập. Cập nhật tiến độ, cộng XP. Trả `{ progress, xpGained, xp, streak, bestStreak }` |
 | POST | `/api/progress/import` | `progress` (object như localStorage) | Cần đăng nhập. Gộp tiến độ lúc chơi khách lên tài khoản, mục không hợp lệ bị bỏ qua |
 | GET | `/api/admin/users?q=&limit=&offset=` | | Chỉ admin. Danh sách người dùng kèm XP, streak, số truyện đã chơi/hoàn thành |
 | POST | `/api/admin/users/bulk` | `count` (1–200) | Chỉ admin. Tạo tài khoản dùng thử, trả email + mật khẩu (chỉ hiện một lần) |

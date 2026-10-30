@@ -16,6 +16,7 @@ export type Me = {
   createdAt: string;
   xp: number;
   streak: number;
+  bestStreak?: number;   // chuỗi dài nhất từng có; bản Me cũ lưu trên máy chưa có trường này
 };
 export type RegisterForm = { fullName: string; email: string; password: string; confirmPassword: string; referralSource: string; referralOther: string };
 export type UpdateMeForm = { fullName?: string; currentPassword?: string; newPassword?: string; confirmPassword?: string };
@@ -164,7 +165,7 @@ onSessionExpired(signOutLocal);
 
 // Mỗi lần gửi tiến độ, server trả về XP và streak mới
 onProgressStats(s => {
-  if (state.user) setUser({ ...state.user, xp: s.xp, streak: s.streak });
+  if (state.user) setUser({ ...state.user, xp: s.xp, streak: s.streak, bestStreak: s.bestStreak });
 });
 
 if (state.user) setProgressAccount(state.user.id);
