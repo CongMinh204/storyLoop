@@ -1,342 +1,560 @@
 # BÀI 2 — Phần 1: 早上六点的秘密
+**Bí mật lúc 6 giờ sáng**
 
-**Zǎoshang liù diǎn de mìmì**
-**Bí mật lúc sáu giờ sáng**
+*Thể loại:* Truyện tương tác – lựa chọn hướng đi
 
-**Nhân vật:**
+**Nhân vật:** 你 (người chơi) — Bạn, nhân vật chính; 小雨 (Xiǎoyǔ) — Tiểu Vũ, bạn cùng lớp; 哥哥 (Gēge) — anh trai của Tiểu Vũ.
 
-* **你** — sinh viên, dạo này rất bận (người chơi).
-* **小雨** — bạn cùng lớp.
-* **哥哥** — anh trai của 小雨.
+> Ở lựa chọn 3 của mỗi nhánh, Doc viết mỗi đáp án kèm luôn câu thoại và kết thúc của nó; ở đây tách mỗi kết thúc thành một node `END_<chữ>`.
 
-## NODE 01 — HOOK (23:47)
+## NODE 01 — MỞ ĐẦU: TIN NHẮN LÚC 23:47
 
-**小雨：** 你还没睡？
-*Pinyin:* Nǐ hái méi shuì?
-*Nghĩa:* Cậu vẫn chưa ngủ à?
+*Bối cảnh:* Đã gần 12 giờ đêm. Bạn vẫn đang ngồi trước bàn học. Ngày mai bạn có rất nhiều việc phải làm nên chưa thể đi ngủ.
 
-**你：** 没有。今天太忙了。
-*Pinyin:* Méiyǒu. Jīntiān tài máng le.
-*Nghĩa:* Chưa. Hôm nay bận quá.
+*Bối cảnh:* Đột nhiên, điện thoại sáng lên. Tiểu Vũ gửi cho bạn một tin nhắn.
 
-**小雨：** 你每天都这么忙吗？
-*Pinyin:* Nǐ měitiān dōu zhème máng ma?
-*Nghĩa:* Ngày nào cậu cũng bận thế à?
+**小雨：** 明天早上六点，你有时间吗？
+*Pinyin:* Míngtiān zǎoshang liù diǎn, nǐ yǒu shíjiān ma?
+*Nghĩa:* Sáng mai lúc 6 giờ, cậu có thời gian không?
 
-**你：** 差不多吧。我很累。
-*Pinyin:* Chàbuduō ba. Wǒ hěn lèi.
-*Nghĩa:* Gần như vậy. Tớ mệt lắm.
+**你：** 这么早？有什么事吗？
+*Pinyin:* Zhème zǎo? Yǒu shénme shì ma?
+*Nghĩa:* Sớm thế à? Có chuyện gì vậy?
 
-**小雨：** 那你明天六点起床。
-*Pinyin:* Nà nǐ míngtiān liù diǎn qǐchuáng.
-*Nghĩa:* Vậy ngày mai 6 giờ sáng dậy nhé.
+**小雨：** 我哥哥生病了，现在不太舒服。
+*Pinyin:* Wǒ gēge shēngbìng le, xiànzài bú tài shūfu.
+*Nghĩa:* Anh trai tớ bị bệnh rồi, bây giờ anh ấy không được khỏe lắm.
 
-**你：** ……啊？为什么？
-*Pinyin:* …A? Wèishénme?
-*Nghĩa:* …Hả? Tại sao?
+**你：** 他现在怎么样？
+*Pinyin:* Tā xiànzài zěnmeyàng?
+*Nghĩa:* Bây giờ anh ấy thế nào rồi?
 
-**小雨：** 六点来医院。
-*Pinyin:* Liù diǎn lái yīyuàn.
-*Nghĩa:* 6 giờ đến bệnh viện.
+**小雨：** 他在医院。我想请你明天早上来陪我。
+*Pinyin:* Tā zài yīyuàn. Wǒ xiǎng qǐng nǐ míngtiān zǎoshang lái péi wǒ.
+*Nghĩa:* Anh ấy đang ở bệnh viện. Tớ muốn nhờ cậu sáng mai đến ở cùng tớ.
 
-**你：** 医院？你生病了吗？
-*Pinyin:* Yīyuàn? Nǐ shēngbìng le ma?
-*Nghĩa:* Bệnh viện? Cậu bị bệnh à?
+*Bối cảnh:* Bạn nhìn đồng hồ. Đã 23:47. Bạn vừa buồn ngủ vừa lo lắng cho anh trai Tiểu Vũ.
 
-**小雨：** 不是我。
-*Pinyin:* Bú shì wǒ.
-*Nghĩa:* Không phải tớ.
+### LỰA CHỌN 1 — Bạn sẽ trả lời thế nào?
 
-**你：** 那是谁？
-*Pinyin:* Nà shì shéi?
-*Nghĩa:* Thế là ai?
+**A.** Đồng ý đến bệnh viện lúc 6 giờ sáng. → **NODE 02A**
 
-**小雨：** 明天你来了就知道。
-*Pinyin:* Míngtiān nǐ lái le jiù zhīdào.
-*Nghĩa:* Ngày mai cậu đến thì sẽ biết.
+**B.** Hỏi thêm về tình trạng của anh trai Tiểu Vũ. → **NODE 02B**
 
-### LỰA CHỌN 1
+**C.** Từ chối vì ngày mai bạn rất bận. → **NODE 02C**
 
-**A.** 好，我六点去。
-*Pinyin:* Hǎo, wǒ liù diǎn qù.
-*Nghĩa:* Được, 6 giờ tớ sẽ đến. → **NODE 03 (ROUTE A)**
+## NODE 02A — CUỘC GẶP LÚC 6 GIỜ
+*Nhánh A: đồng ý đến bệnh viện*
 
-**B.** 你先告诉我是谁。
-*Pinyin:* Nǐ xiān gàosu wǒ shì shéi.
-*Nghĩa:* Cậu nói cho tớ biết là ai trước đi.
+**你：** 好，我明天早上六点去。
+*Pinyin:* Hǎo, wǒ míngtiān zǎoshang liù diǎn qù.
+*Nghĩa:* Được, sáng mai 6 giờ tớ sẽ đến.
 
-> ⚠️ Doc thiếu: không ghi → và không viết nhánh B.
+**小雨：** 谢谢你！明天见。
+*Pinyin:* Xièxie nǐ! Míngtiān jiàn.
+*Nghĩa:* Cảm ơn cậu! Hẹn gặp ngày mai.
 
-**C.** 不行，我没有时间。
-*Pinyin:* Bù xíng, wǒ méiyǒu shíjiān.
-*Nghĩa:* Không được, tớ không có thời gian.
+*Bối cảnh:* Sáng hôm sau, bạn thức dậy lúc 5:30 và nhanh chóng chuẩn bị. Dù vẫn còn buồn ngủ, bạn không muốn đến muộn.
 
-> ⚠️ Doc thiếu: không ghi → và không viết nhánh C.
+*Bối cảnh:* Khi đến bệnh viện, bạn nhìn thấy Tiểu Vũ đang đứng chờ ở cửa.
 
-## NODE 03 — ROUTE A: Bạn đồng ý đi (06:03 — Bệnh viện)
+**小雨：** 你来了！谢谢你这么早来。
+*Pinyin:* Nǐ lái le! Xièxie nǐ zhème zǎo lái.
+*Nghĩa:* Cậu đến rồi! Cảm ơn cậu đã đến sớm như vậy.
 
-*Bối cảnh:* Bạn vừa đến nơi thì thấy 小雨 đang đứng trước cửa.
+**你：** 不用谢。你哥哥现在怎么样？
+*Pinyin:* Bú yòng xiè. Nǐ gēge xiànzài zěnmeyàng?
+*Nghĩa:* Không cần cảm ơn đâu. Anh trai cậu bây giờ thế nào rồi?
 
-**小雨：** 你真的来了！
-*Pinyin:* Nǐ zhēn de lái le!
-*Nghĩa:* Cậu thật sự đến rồi!
+**小雨：** 他好多了，但是还需要休息。
+*Pinyin:* Tā hǎo duō le, dànshì hái xūyào xiūxi.
+*Nghĩa:* Anh ấy đỡ hơn nhiều rồi, nhưng vẫn cần nghỉ ngơi.
 
-**你：** 我都不知道为什么我要来。
-*Pinyin:* Wǒ dōu bù zhīdào wèishénme wǒ yào lái.
-*Nghĩa:* Tớ còn chẳng biết tại sao mình phải đến.
+*Bối cảnh:* Hai người cùng đi vào phòng. Anh trai Tiểu Vũ đang nằm trên giường.
 
-**小雨：** 进去吧。
-*Pinyin:* Jìnqù ba.
-*Nghĩa:* Vào đi.
+**旁白：** 哥哥很高，可是现在看起来很累。
+*Pinyin:* Gēge hěn gāo, kěshì xiànzài kàn qǐlái hěn lèi.
+*Nghĩa:* Anh trai rất cao, nhưng bây giờ trông rất mệt.
 
-*Bối cảnh:* Trong phòng có một người đàn ông rất cao.
+**哥哥：** 小雨，这是谁？
+*Pinyin:* Xiǎoyǔ, zhè shì shéi?
+*Nghĩa:* Tiểu Vũ, đây là ai vậy?
 
-**你：** 哇，他好高。
-*Pinyin:* Wā, tā hǎo gāo.
-*Nghĩa:* Wow, anh ấy cao thật.
+**小雨：** 这是我的同学，今天早上来看你。
+*Pinyin:* Zhè shì wǒ de tóngxué, jīntiān zǎoshang lái kàn nǐ.
+*Nghĩa:* Đây là bạn học của em, sáng nay đến thăm anh.
 
-**小雨：** 他一米八五。
-*Pinyin:* Tā yī mǐ bā wǔ.
-*Nghĩa:* Anh ấy cao 1 mét 85.
+**哥哥：** 谢谢你。
+*Pinyin:* Xièxie nǐ.
+*Nghĩa:* Cảm ơn em.
 
-**哥哥：** 你好，我是小雨的哥哥。
-*Pinyin:* Nǐ hǎo, wǒ shì Xiǎoyǔ de gēge.
-*Nghĩa:* Chào em, anh là anh trai của Tiểu Vũ.
+*Bối cảnh:* Bạn nhìn thấy thuốc đặt trên bàn cạnh giường. Anh trai Tiểu Vũ có vẻ vẫn còn mệt.
 
-**你：** 你好。你生病了吗？
-*Pinyin:* Nǐ hǎo. Nǐ shēngbìng le ma?
-*Nghĩa:* Chào anh. Anh bị bệnh à?
+**你：** 你每天都需要吃药吗？
+*Pinyin:* Nǐ měitiān dōu xūyào chī yào ma?
+*Nghĩa:* Mỗi ngày anh đều cần uống thuốc à?
 
-**哥哥：** 现在好多了。我昨天还在住院。
-*Pinyin:* Xiànzài hǎo duō le. Wǒ zuótiān hái zài zhùyuàn.
-*Nghĩa:* Bây giờ đỡ hơn nhiều rồi. Hôm qua anh vẫn còn nằm viện.
+**哥哥：** 对，医生让我每天按时吃药，也要多休息。
+*Pinyin:* Duì, yīshēng ràng wǒ měitiān ànshí chī yào, yě yào duō xiūxi.
+*Nghĩa:* Đúng vậy, bác sĩ bảo anh mỗi ngày phải uống thuốc đúng giờ và nghỉ ngơi nhiều hơn.
 
-**小雨：** 他每天早上都跑步。
-*Pinyin:* Tā měitiān zǎoshang dōu pǎobù.
-*Nghĩa:* Ngày nào anh ấy cũng chạy bộ vào buổi sáng.
+*Bối cảnh:* Bạn muốn tìm hiểu thêm về thói quen sinh hoạt của anh ấy.
 
-**哥哥：** 以前是每天跑。现在医生让我多休息。
-*Pinyin:* Yǐqián shì měitiān pǎo. Xiànzài yīshēng ràng wǒ duō xiūxi.
-*Nghĩa:* Trước đây ngày nào anh cũng chạy. Bây giờ bác sĩ bảo anh nghỉ ngơi nhiều hơn.
+### LỰA CHỌN 2 — Bạn sẽ nói gì?
 
-*Bối cảnh:* Bạn nhìn thấy một túi thuốc trên bàn.
+**A.** Hỏi về thời gian thức dậy và thói quen chạy bộ của anh ấy. → **NODE 03A**
 
-**你：** 这些是药吗？
-*Pinyin:* Zhèxiē shì yào ma?
-*Nghĩa:* Đây là thuốc à?
+**B.** Khuyên anh ấy nghỉ ngơi và chú ý đến sức khỏe. → **NODE 03B**
 
-**哥哥：** 对，我还要吃药。
-*Pinyin:* Duì, wǒ hái yào chī yào.
-*Nghĩa:* Ừ, anh vẫn phải uống thuốc.
+**C.** Hỏi khi nào anh ấy có thể xuất viện. → **NODE 03C**
 
-**你：** 那你什么时候可以出院？
-*Pinyin:* Nà nǐ shénme shíhou kěyǐ chūyuàn?
-*Nghĩa:* Thế khi nào anh có thể xuất viện?
+## NODE 03A — HỎI VỀ THÓI QUEN SINH HOẠT
+*Nhánh A1*
 
-**哥哥：** 今天。
-*Pinyin:* Jīntiān.
-*Nghĩa:* Hôm nay.
+**你：** 哥哥，你每天早上几点起床？
+*Pinyin:* Gēge, nǐ měitiān zǎoshang jǐ diǎn qǐchuáng?
+*Nghĩa:* Anh ơi, mỗi buổi sáng anh thức dậy lúc mấy giờ?
 
-*Bối cảnh:* Bạn quay sang nhìn 小雨. Cô ấy đang nhìn bạn.
+**哥哥：** 我每天早上六点起床。
+*Pinyin:* Wǒ měitiān zǎoshang liù diǎn qǐchuáng.
+*Nghĩa:* Mỗi buổi sáng anh thức dậy lúc 6 giờ.
 
-**小雨：** 你每天也很忙，对吧？
-*Pinyin:* Nǐ měitiān yě hěn máng, duì ba?
-*Nghĩa:* Ngày nào cậu cũng rất bận, đúng không?
+**你：** 你每天早上都去跑步吗？
+*Pinyin:* Nǐ měitiān zǎoshang dōu qù pǎobù ma?
+*Nghĩa:* Mỗi buổi sáng anh đều đi chạy bộ à?
 
-**你：** ……对。
-*Pinyin:* …Duì.
-*Nghĩa:* …Ừ.
+**哥哥：** 对。可是这是我的秘密，家里人都不知道。
+*Pinyin:* Duì. Kěshì zhè shì wǒ de mìmì, jiālǐ rén dōu bù zhīdào.
+*Nghĩa:* Đúng vậy. Nhưng đây là bí mật của anh, người nhà đều không biết.
 
-**小雨：** 那你每天几点休息？
-*Pinyin:* Nà nǐ měitiān jǐ diǎn xiūxi?
-*Nghĩa:* Thế mỗi ngày cậu nghỉ ngơi lúc mấy giờ?
+**小雨：** 什么？你每天六点去跑步？可是你每天都很晚睡觉！
+*Pinyin:* Shénme? Nǐ měitiān liù diǎn qù pǎobù? Kěshì nǐ měitiān dōu hěn wǎn shuìjiào!
+*Nghĩa:* Cái gì? Ngày nào anh cũng đi chạy lúc 6 giờ à? Nhưng ngày nào anh cũng ngủ rất muộn!
 
-### LỰA CHỌN 2
+**哥哥：** 我每天跑五千米。我觉得身体很好，所以没告诉你们。
+*Pinyin:* Wǒ měitiān pǎo wǔqiān mǐ. Wǒ juéde shēntǐ hěn hǎo, suǒyǐ méi gàosu nǐmen.
+*Nghĩa:* Mỗi ngày anh chạy 5.000 mét. Anh thấy mình khỏe nên không nói với mọi người.
 
-**A.** 我每天都很忙，没时间休息。
-*Pinyin:* Wǒ měitiān dōu hěn máng, méi shíjiān xiūxi.
-*Nghĩa:* Ngày nào tớ cũng bận, không có thời gian nghỉ. → **NODE 04A (ROUTE A1)**
+**你：** 那你每天有多少时间休息？
+*Pinyin:* Nà nǐ měitiān yǒu duōshǎo shíjiān xiūxi?
+*Nghĩa:* Vậy mỗi ngày anh có bao nhiêu thời gian nghỉ ngơi?
 
-**B.** 我会休息，你不用担心。
-*Pinyin:* Wǒ huì xiūxi, nǐ bú yòng dānxīn.
-*Nghĩa:* Tớ vẫn nghỉ ngơi mà, cậu không cần lo.
+**哥哥：** 很少。我每天只睡五个小时。
+*Pinyin:* Hěn shǎo. Wǒ měitiān zhǐ shuì wǔ ge xiǎoshí.
+*Nghĩa:* Rất ít. Mỗi ngày anh chỉ ngủ 5 tiếng.
 
-> ⚠️ Doc thiếu: không ghi → và không viết nhánh B.
+*Bối cảnh:* Bạn nhận ra anh trai Tiểu Vũ đã không chăm sóc tốt cho sức khỏe của mình.
 
-**C.** 你为什么一直问我？
-*Pinyin:* Nǐ wèishénme yìzhí wèn wǒ?
-*Nghĩa:* Sao cậu cứ hỏi tớ vậy?
+### LỰA CHỌN 3A — Bạn sẽ khuyên anh ấy thế nào?
 
-> ⚠️ Doc thiếu: không ghi → và không viết nhánh C.
+**A.** Khuyên anh ấy giảm bớt công việc và nghỉ ngơi nhiều hơn. → **END_A**
 
-## NODE 04A — ROUTE A1: “Tớ không có thời gian nghỉ”
+**B.** Khuyên anh ấy ăn uống đầy đủ và tiếp tục chạy bộ khi khỏe lại. → **END_B**
 
-*Bối cảnh:* 小雨 không nói gì. 哥哥 nhìn bạn rồi cười.
+**C.** Không khuyên thêm, chỉ chúc anh ấy sớm khỏe lại. → **END_C**
 
-**哥哥：** 我以前也这么说。
-*Pinyin:* Wǒ yǐqián yě zhème shuō.
-*Nghĩa:* Trước đây anh cũng từng nói như vậy.
+## END_A — KẾT THÚC A: Thay đổi thói quen
 
-**你：** 然后呢？
-*Pinyin:* Ránhòu ne?
-*Nghĩa:* Rồi sao?
+**你：** 你不要太忙了。身体很重要，你应该多休息。
+*Pinyin:* Nǐ bú yào tài máng le. Shēntǐ hěn zhòngyào, nǐ yīnggāi duō xiūxi.
+*Nghĩa:* Anh đừng quá bận rộn nữa. Sức khỏe rất quan trọng, anh nên nghỉ ngơi nhiều hơn.
 
-**哥哥：** 然后我住院了。
-*Pinyin:* Ránhòu wǒ zhùyuàn le.
-*Nghĩa:* Rồi anh phải nhập viện.
+**哥哥：** 你说得对。我以后会注意身体的。
+*Pinyin:* Nǐ shuō de duì. Wǒ yǐhòu huì zhùyì shēntǐ de.
+*Nghĩa:* Em nói đúng. Sau này anh sẽ chú ý đến sức khỏe.
 
-*Bối cảnh:* Bạn im lặng.
+*Bối cảnh:* Anh trai Tiểu Vũ quyết định sắp xếp lại thời gian làm việc. Anh sẽ không thức quá khuya và dành nhiều thời gian hơn để nghỉ ngơi.
 
-**哥哥：** 现在我要吃药，也要休息。
-*Pinyin:* Xiànzài wǒ yào chī yào, yě yào xiūxi.
-*Nghĩa:* Bây giờ anh phải uống thuốc và cũng phải nghỉ ngơi.
+*Bối cảnh:* Tiểu Vũ rất vui vì cuối cùng anh trai cũng chịu lắng nghe lời khuyên.
 
-**小雨：** 所以我昨天问你，你每天为什么这么忙。
-*Pinyin:* Suǒyǐ wǒ zuótiān wèn nǐ, nǐ měitiān wèishénme zhème máng.
-*Nghĩa:* Vì vậy hôm qua tớ mới hỏi tại sao ngày nào cậu cũng bận như vậy.
+## END_B — KẾT THÚC B: Bắt đầu từ sức khỏe
 
-*Bối cảnh:* Bạn bắt đầu hiểu.
+**你：** 你应该好好休息。身体好了以后，可以再去跑步。
+*Pinyin:* Nǐ yīnggāi hǎohǎo xiūxi. Shēntǐ hǎo le yǐhòu, kěyǐ zài qù pǎobù.
+*Nghĩa:* Anh nên nghỉ ngơi thật tốt. Sau khi sức khỏe tốt hơn, anh có thể đi chạy bộ lại.
 
-**你：** 等等……
-*Pinyin:* Děngděng…
-*Nghĩa:* Khoan…
+**哥哥：** 好，我知道了。
+*Pinyin:* Hǎo, wǒ zhīdào le.
+*Nghĩa:* Được, anh biết rồi.
 
-**你：** 你叫我六点来医院，不是因为你哥哥。
-*Pinyin:* Nǐ jiào wǒ liù diǎn lái yīyuàn, bú shì yīnwèi nǐ gēge.
-*Nghĩa:* Cậu gọi tớ đến bệnh viện lúc 6 giờ không phải vì anh cậu.
+**小雨：** 我也希望他以后能多休息。
+*Pinyin:* Wǒ yě xīwàng tā yǐhòu néng duō xiūxi.
+*Nghĩa:* Em cũng hy vọng sau này anh ấy có thể nghỉ ngơi nhiều hơn.
 
-*Bối cảnh:* 小雨 cười.
+*Bối cảnh:* Anh trai Tiểu Vũ hứa sẽ chỉ chạy bộ trở lại khi sức khỏe đã ổn định. Anh cũng quyết định dành thời gian nghỉ ngơi mỗi ngày.
 
-**小雨：** 现在你知道了。
-*Pinyin:* Xiànzài nǐ zhīdào le.
-*Nghĩa:* Giờ thì cậu biết rồi.
+*Bối cảnh:* Bạn nhận ra rằng chạy bộ rất tốt, nhưng biết khi nào cần nghỉ ngơi cũng quan trọng không kém.
 
-→ **NODE 05 (CLIMAX)**
+## END_C — KẾT THÚC C: Một lời chúc tốt đẹp
 
-## NODE 05 — CLIMAX
+**你：** 希望你早点好起来。
+*Pinyin:* Xīwàng nǐ zǎodiǎn hǎo qǐlái.
+*Nghĩa:* Mong anh sớm khỏe lại.
 
-**小雨：** 我想让你看看我哥哥。
-*Pinyin:* Wǒ xiǎng ràng nǐ kànkan wǒ gēge.
-*Nghĩa:* Tớ muốn cậu gặp anh tớ.
+**哥哥：** 谢谢你，我会好好休息的。
+*Pinyin:* Xièxie nǐ, wǒ huì hǎohǎo xiūxi de.
+*Nghĩa:* Cảm ơn em, anh sẽ nghỉ ngơi thật tốt.
 
-**小雨：** 他以前每天都说“我很忙”。
-*Pinyin:* Tā yǐqián měitiān dōu shuō “wǒ hěn máng”.
-*Nghĩa:* Trước đây ngày nào anh ấy cũng nói “anh rất bận”.
+*Bối cảnh:* Bạn không nói thêm vì nghĩ rằng anh trai Tiểu Vũ đã hiểu mình cần làm gì. Bạn tạm biệt hai anh em và trở về nhà.
 
-**小雨：** 现在他终于有时间休息了。
-*Pinyin:* Xiànzài tā zhōngyú yǒu shíjiān xiūxi le.
-*Nghĩa:* Bây giờ cuối cùng anh ấy cũng có thời gian nghỉ ngơi.
+## NODE 03B — KHUYÊN ANH TRAI NGHỈ NGƠI
+*Nhánh A2*
 
-**小雨：** 我不想你也这样。
-*Pinyin:* Wǒ bù xiǎng nǐ yě zhèyàng.
-*Nghĩa:* Tớ không muốn cậu cũng như vậy.
+**你：** 你现在应该多休息，不要太忙了。
+*Pinyin:* Nǐ xiànzài yīnggāi duō xiūxi, bú yào tài máng le.
+*Nghĩa:* Bây giờ anh nên nghỉ ngơi nhiều hơn, đừng quá bận rộn nữa.
 
-*Bối cảnh:* Bạn nhìn đồng hồ. 06:20.
+**哥哥：** 我知道，但是我还有很多事情要做。
+*Pinyin:* Wǒ zhīdào, dànshì wǒ hái yǒu hěn duō shìqing yào zuò.
+*Nghĩa:* Anh biết, nhưng anh vẫn còn rất nhiều việc phải làm.
 
-**你：** 所以……六点起床，就是为了这个？
-*Pinyin:* Suǒyǐ… liù diǎn qǐchuáng, jiùshì wèile zhège?
-*Nghĩa:* Vậy… bắt tớ dậy lúc 6 giờ chỉ vì chuyện này?
+**小雨：** 哥哥，你应该先照顾好自己的身体。
+*Pinyin:* Gēge, nǐ yīnggāi xiān zhàogù hǎo zìjǐ de shēntǐ.
+*Nghĩa:* Anh ơi, anh nên chăm sóc tốt cho sức khỏe của mình trước.
 
-**小雨：** 对。
-*Pinyin:* Duì.
-*Nghĩa:* Đúng.
+*Bối cảnh:* Anh trai Tiểu Vũ im lặng một lúc. Có lẽ anh ấy cũng nhận ra mình đã quá bận rộn.
 
-**哥哥：** 明天早上一起散步？
-*Pinyin:* Míngtiān zǎoshang yìqǐ sànbù?
-*Nghĩa:* Sáng mai đi bộ cùng nhau không?
+### LỰA CHỌN 3B — Bạn sẽ làm gì?
 
-### LỰA CHỌN 3
+**A.** Ở lại trò chuyện với anh trai Tiểu Vũ. → **END_D**
 
-**A.** 好，明天一起散步。
-*Pinyin:* Hǎo, míngtiān yìqǐ sànbù.
-*Nghĩa:* Được, sáng mai cùng đi bộ. → **ENDING A**
+**B.** Hỏi Tiểu Vũ có cần bạn mua đồ ăn sáng không. → **END_E**
 
-**B.** 我不想跑步，但是可以散步。
-*Pinyin:* Wǒ bù xiǎng pǎobù, dànshì kěyǐ sànbù.
-*Nghĩa:* Tớ không muốn chạy, nhưng có thể đi bộ. → **ENDING B**
+**C.** Chào tạm biệt vì bạn còn nhiều việc phải làm. → **END_F**
 
-**C.** 不，我还是很忙。
-*Pinyin:* Bù, wǒ háishi hěn máng.
-*Nghĩa:* Không, tớ vẫn rất bận. → **ENDING C**
+## END_D — KẾT THÚC D: Buổi sáng vui vẻ
 
-> Doc không ghi → cho lựa chọn 3; ba lựa chọn khớp ba kết thúc A/B/C theo nội dung.
+**你：** 如果你觉得无聊，我可以陪你聊天。
+*Pinyin:* Rúguǒ nǐ juéde wúliáo, wǒ kěyǐ péi nǐ liáotiān.
+*Nghĩa:* Nếu anh cảm thấy buồn chán, em có thể ở lại trò chuyện với anh.
 
-## ENDING A — “6:00 AM” 🌤️ (Một thay đổi nhỏ)
+**哥哥：** 好啊，谢谢你。
+*Pinyin:* Hǎo a, xièxie nǐ.
+*Nghĩa:* Được chứ, cảm ơn em.
 
-*Bối cảnh:* Bạn chọn đi bộ cùng họ. Sáng hôm sau, bạn vẫn 起床 lúc 6 giờ. Không chạy. Chỉ đi bộ chậm.
+*Bối cảnh:* Bạn ở lại trò chuyện với hai anh em. Không khí trong phòng bệnh trở nên vui vẻ hơn.
 
-**小雨：** 今天累吗？
-*Pinyin:* Jīntiān lèi ma?
-*Nghĩa:* Hôm nay có mệt không?
+*Bối cảnh:* Anh trai Tiểu Vũ kể về những lần chạy bộ vào buổi sáng. Tiểu Vũ cũng kể nhiều câu chuyện thú vị khiến cả ba cùng bật cười.
 
-**你：** 有一点，但是感觉很好。
-*Pinyin:* Yǒu yìdiǎn, dànshì gǎnjué hěn hǎo.
-*Nghĩa:* Hơi mệt một chút, nhưng cảm thấy rất tốt.
+## END_E — KẾT THÚC E: Một bữa sáng nhỏ
 
-*Bối cảnh:* 哥哥 đã 出院. Anh ấy cũng không chạy như trước nữa. Ba người vừa 散步 vừa nói chuyện. Bạn nhận ra:
+**你：** 小雨，你吃早饭了吗？要不要我去买？
+*Pinyin:* Xiǎoyǔ, nǐ chī zǎofàn le ma? Yào bu yào wǒ qù mǎi?
+*Nghĩa:* Tiểu Vũ, cậu ăn sáng chưa? Có cần tớ đi mua không?
 
-**旁白：** 有时候，不需要做很多。先给自己一点时间。
-*Pinyin:* Yǒushíhou, bù xūyào zuò hěn duō. Xiān gěi zìjǐ yìdiǎn shíjiān.
-*Nghĩa:* Đôi khi không cần làm quá nhiều. Chỉ cần cho bản thân một chút thời gian trước.
+**小雨：** 我还没吃。你可以帮我买一点吗？
+*Pinyin:* Wǒ hái méi chī. Nǐ kěyǐ bāng wǒ mǎi yìdiǎn ma?
+*Nghĩa:* Tớ vẫn chưa ăn. Cậu có thể mua giúp tớ một chút không?
 
-## ENDING B — “不用跑，也可以开始。” 🌿 (Không chạy cũng được)
+**你：** 当然可以。你在这里等我。
+*Pinyin:* Dāngrán kěyǐ. Nǐ zài zhèlǐ děng wǒ.
+*Nghĩa:* Tất nhiên rồi. Cậu đợi tớ ở đây nhé.
 
-*Bối cảnh:* Bạn không muốn chạy bộ. Nhưng bạn đồng ý đi bộ.
+*Bối cảnh:* Bạn mua đồ ăn sáng cho Tiểu Vũ và anh trai cô ấy. Hai anh em rất cảm ơn bạn.
 
-**你：** 我不喜欢跑步。
-*Pinyin:* Wǒ bù xǐhuan pǎobù.
-*Nghĩa:* Tớ không thích chạy.
+*Bối cảnh:* Bạn cảm thấy vui vì có thể giúp đỡ họ bằng một hành động đơn giản.
 
-**小雨：** 没关系，散步也可以。
-*Pinyin:* Méi guānxi, sànbù yě kěyǐ.
-*Nghĩa:* Không sao, đi bộ cũng được.
+## END_F — KẾT THÚC F: Mỗi người đều có công việc riêng
 
-*Bối cảnh:* 哥哥 cười.
+**你：** 我今天还有很多事情要做，先回去了。
+*Pinyin:* Wǒ jīntiān hái yǒu hěn duō shìqing yào zuò, xiān huíqù le.
+*Nghĩa:* Hôm nay tớ còn rất nhiều việc phải làm, tớ về trước nhé.
 
-**哥哥：** 运动不一定要很累。
-*Pinyin:* Yùndòng bú yídìng yào hěn lèi.
-*Nghĩa:* Vận động không nhất thiết phải thật mệt.
+**小雨：** 好，谢谢你今天来看我们。
+*Pinyin:* Hǎo, xièxie nǐ jīntiān lái kàn wǒmen.
+*Nghĩa:* Được, cảm ơn cậu hôm nay đã đến thăm chúng tớ.
 
-*Bối cảnh:* Ba người đi bộ quanh bệnh viện. Lần đầu tiên sau một thời gian dài, bạn không nhìn điện thoại. Bạn chỉ đi.
+*Bối cảnh:* Bạn trở về nhà để tiếp tục hoàn thành công việc. Dù không ở lại lâu, bạn vẫn cảm thấy vui vì đã đến thăm anh trai Tiểu Vũ.
 
-**旁白：** 不用跑，也可以开始。
-*Pinyin:* Búyòng pǎo, yě kěyǐ kāishǐ.
-*Nghĩa:* Không cần chạy, vẫn có thể bắt đầu.
+## NODE 03C — HỎI KHI NÀO ANH TRAI CÓ THỂ XUẤT VIỆN
+*Nhánh A3*
 
-## ENDING C — “Maybe tomorrow.” 🌙 (Tớ vẫn rất bận)
+**你：** 哥哥，你什么时候可以出院？
+*Pinyin:* Gēge, nǐ shénme shíhou kěyǐ chūyuàn?
+*Nghĩa:* Anh ơi, khi nào anh có thể xuất viện?
 
-*Bối cảnh:* Bạn từ chối.
+**哥哥：** 医生说，如果我好好休息，明天就可以出院。
+*Pinyin:* Yīshēng shuō, rúguǒ wǒ hǎohǎo xiūxi, míngtiān jiù kěyǐ chūyuàn.
+*Nghĩa:* Bác sĩ nói nếu anh nghỉ ngơi thật tốt thì ngày mai có thể xuất viện.
 
-**你：** 对不起，我真的没有时间。
-*Pinyin:* Duìbuqǐ, wǒ zhēn de méiyǒu shíjiān.
-*Nghĩa:* Xin lỗi, tớ thật sự không có thời gian.
+**小雨：** 真的吗？太好了！
+*Pinyin:* Zhēn de ma? Tài hǎo le!
+*Nghĩa:* Thật sao? Tốt quá!
 
-*Bối cảnh:* 小雨 không ép bạn.
+**你：** 那你今天要好好休息。
+*Pinyin:* Nà nǐ jīntiān yào hǎohǎo xiūxi.
+*Nghĩa:* Vậy hôm nay anh phải nghỉ ngơi thật tốt nhé.
 
-**小雨：** 好吧。
-*Pinyin:* Hǎo ba.
-*Nghĩa:* Được thôi.
+### LỰA CHỌN 3C — Bạn sẽ nói gì?
 
-*Bối cảnh:* Bạn rời bệnh viện. Nhưng trước khi đi, 哥哥 gọi bạn lại.
+**A.** Chúc anh ấy sớm xuất viện. → **END_G**
 
-**哥哥：** 等一下。
-*Pinyin:* Děng yíxià.
-*Nghĩa:* Đợi một chút.
+**B.** Nhắc anh ấy uống thuốc đúng giờ. → **END_H**
 
-*Bối cảnh:* Anh đưa cho bạn một mẩu giấy. Trên đó chỉ có một câu:
+**C.** Hỏi Tiểu Vũ xem cô ấy có vui không. → **END_I**
 
-**旁白：** “每天给自己一点时间。”
-*Pinyin:* “Měitiān gěi zìjǐ yìdiǎn shíjiān.”
-*Nghĩa:* “Mỗi ngày hãy dành cho bản thân một chút thời gian.”
+## END_G — KẾT THÚC G: Tin vui
 
-*Bối cảnh:* Bạn cất mẩu giấy vào túi. Tối hôm đó, 23:47. Điện thoại sáng lên.
+**你：** 希望你明天可以出院。
+*Pinyin:* Xīwàng nǐ míngtiān kěyǐ chūyuàn.
+*Nghĩa:* Mong ngày mai anh có thể xuất viện.
 
-**小雨：** 明天六点？
-*Pinyin:* Míngtiān liù diǎn?
-*Nghĩa:* 6 giờ sáng mai nhé?
+**哥哥：** 谢谢你！
+*Pinyin:* Xièxie nǐ!
+*Nghĩa:* Cảm ơn em!
 
-*Bối cảnh:* Bạn nhìn tin nhắn rất lâu.
+*Bối cảnh:* Ngày hôm sau, anh trai Tiểu Vũ được xuất viện. Tiểu Vũ vui vẻ gửi tin nhắn thông báo cho bạn.
 
-**你：** ……我知道了。
-*Pinyin:* …Wǒ zhīdào le.
-*Nghĩa:* …Tớ hiểu rồi.
+## END_H — KẾT THÚC H: Đừng quên uống thuốc
+
+**你：** 出院以后，也要记得按时吃药。
+*Pinyin:* Chūyuàn yǐhòu, yě yào jìde ànshí chī yào.
+*Nghĩa:* Sau khi xuất viện, anh cũng phải nhớ uống thuốc đúng giờ.
+
+**哥哥：** 好，我知道了。
+*Pinyin:* Hǎo, wǒ zhīdào le.
+*Nghĩa:* Được, anh biết rồi.
+
+*Bối cảnh:* Anh trai Tiểu Vũ hứa sẽ uống thuốc theo hướng dẫn. Anh cũng hiểu rằng xuất viện không có nghĩa là đã hoàn toàn khỏe mạnh, vì vậy vẫn cần nghỉ ngơi.
+
+## END_I — KẾT THÚC I: Niềm vui của Tiểu Vũ
+
+**你：** 小雨，你现在开心吗？
+*Pinyin:* Xiǎoyǔ, nǐ xiànzài kāixīn ma?
+*Nghĩa:* Tiểu Vũ, bây giờ cậu vui không?
+
+**小雨：** 当然开心！哥哥明天就可以出院了。
+*Pinyin:* Dāngrán kāixīn! Gēge míngtiān jiù kěyǐ chūyuàn le.
+*Nghĩa:* Tất nhiên là vui rồi! Ngày mai anh trai tớ có thể xuất viện rồi.
+
+*Bối cảnh:* Tiểu Vũ cuối cùng cũng có thể yên tâm. Bạn vui vì anh trai cô ấy sắp được về nhà.
+
+## NODE 02B — CÂU CHUYỆN ĐƯỢC TIẾT LỘ
+*Nhánh B: hỏi thêm về tình trạng của anh trai*
+
+**你：** 你哥哥怎么了？他生什么病了？
+*Pinyin:* Nǐ gēge zěnme le? Tā shēng shénme bìng le?
+*Nghĩa:* Anh trai cậu bị sao vậy? Anh ấy mắc bệnh gì?
+
+**小雨：** 他最近太忙了，身体不太好。昨天晚上突然不舒服，所以去了医院。
+*Pinyin:* Tā zuìjìn tài máng le, shēntǐ bú tài hǎo. Zuótiān wǎnshang tūrán bù shūfu, suǒyǐ qù le yīyuàn.
+*Nghĩa:* Gần đây anh ấy quá bận, sức khỏe không được tốt. Tối qua anh ấy đột nhiên cảm thấy không khỏe nên đã đến bệnh viện.
+
+**你：** 他现在需要吃药吗？
+*Pinyin:* Tā xiànzài xūyào chī yào ma?
+*Nghĩa:* Bây giờ anh ấy có cần uống thuốc không?
+
+**小雨：** 需要。医生还让他多休息。
+*Pinyin:* Xūyào. Yīshēng hái ràng tā duō xiūxi.
+*Nghĩa:* Có. Bác sĩ còn bảo anh ấy nghỉ ngơi nhiều hơn.
+
+*Bối cảnh:* Bạn cảm thấy lo lắng. Sau khi suy nghĩ, bạn quyết định đến bệnh viện.
+
+**你：** 好，我明天早上去医院。
+*Pinyin:* Hǎo, wǒ míngtiān zǎoshang qù yīyuàn.
+*Nghĩa:* Được, sáng mai tớ sẽ đến bệnh viện.
+
+**小雨：** 谢谢你！
+*Pinyin:* Xièxie nǐ!
+*Nghĩa:* Cảm ơn cậu!
+
+## NODE 03D — ĐẾN THĂM ANH TRAI
+
+*Bối cảnh:* Sáng hôm sau, bạn đến bệnh viện. Tiểu Vũ đang chờ bạn ở cửa.
+
+**小雨：** 你来了！我们进去吧。
+*Pinyin:* Nǐ lái le! Wǒmen jìnqù ba.
+*Nghĩa:* Cậu đến rồi! Chúng ta vào trong nhé.
+
+**哥哥：** 你好，谢谢你来看我。
+*Pinyin:* Nǐ hǎo, xièxie nǐ lái kàn wǒ.
+*Nghĩa:* Chào em, cảm ơn em đã đến thăm anh.
+
+**你：** 不用谢。你现在感觉怎么样？
+*Pinyin:* Bú yòng xiè. Nǐ xiànzài gǎnjué zěnmeyàng?
+*Nghĩa:* Không cần cảm ơn đâu. Bây giờ anh cảm thấy thế nào?
+
+**哥哥：** 好多了。我今天可以下床走一走了。
+*Pinyin:* Hǎo duō le. Wǒ jīntiān kěyǐ xià chuáng zǒu yi zǒu le.
+*Nghĩa:* Đỡ hơn nhiều rồi. Hôm nay anh đã có thể xuống giường đi lại một chút.
+
+### LỰA CHỌN 3D — Bạn sẽ làm gì?
+
+**A.** Hỏi về thói quen chạy bộ trước đây của anh ấy. → **END_J**
+
+**B.** Hỏi anh ấy có thể xuất viện chưa. → **END_K**
+
+**C.** Hỏi anh ấy có thường xuyên bận rộn không. → **END_L**
+
+## END_J — KẾT THÚC J: Trở lại với thói quen tốt
+
+**你：** 你以前每天早上都跑步吗？
+*Pinyin:* Nǐ yǐqián měitiān zǎoshang dōu pǎobù ma?
+*Nghĩa:* Trước đây mỗi buổi sáng anh đều chạy bộ à?
+
+**哥哥：** 对。告诉你一个秘密：我每天早上六点起床跑步，可是晚上只睡五个小时。
+*Pinyin:* Duì. Gàosu nǐ yí ge mìmì: wǒ měitiān zǎoshang liù diǎn qǐchuáng pǎobù, kěshì wǎnshang zhǐ shuì wǔ ge xiǎoshí.
+*Nghĩa:* Đúng vậy. Nói cho em một bí mật: mỗi sáng anh dậy lúc 6 giờ để chạy, nhưng buổi tối chỉ ngủ 5 tiếng.
+
+**你：** 身体好了以后，可以再跑步。
+*Pinyin:* Shēntǐ hǎo le yǐhòu, kěyǐ zài pǎobù.
+*Nghĩa:* Sau khi sức khỏe tốt hơn, anh có thể chạy bộ lại.
+
+*Bối cảnh:* Anh trai Tiểu Vũ quyết định sẽ chạy bộ trở lại khi sức khỏe ổn định. Anh cũng hứa không làm việc quá sức nữa.
+
+## END_K — KẾT THÚC K: Chờ đợi tin vui
+
+**你：** 你什么时候可以出院？
+*Pinyin:* Nǐ shénme shíhou kěyǐ chūyuàn?
+*Nghĩa:* Khi nào anh có thể xuất viện?
+
+**哥哥：** 如果我明天感觉很好，就可以出院。
+*Pinyin:* Rúguǒ wǒ míngtiān gǎnjué hěn hǎo, jiù kěyǐ chūyuàn.
+*Nghĩa:* Nếu ngày mai anh cảm thấy khỏe thì có thể xuất viện.
+
+**小雨：** 希望明天一切都好。
+*Pinyin:* Xīwàng míngtiān yíqiè dōu hǎo.
+*Nghĩa:* Hy vọng ngày mai mọi chuyện đều tốt đẹp.
+
+*Bối cảnh:* Bạn và Tiểu Vũ cùng hy vọng anh trai có thể sớm trở về nhà. Anh ấy cũng hứa sẽ nghỉ ngơi và uống thuốc đầy đủ.
+
+## END_L — KẾT THÚC L: Công việc không phải tất cả
+
+**你：** 你平时很忙吗？
+*Pinyin:* Nǐ píngshí hěn máng ma?
+*Nghĩa:* Bình thường anh có bận lắm không?
+
+**哥哥：** 是的，我每天都有很多事情要做。
+*Pinyin:* Shì de, wǒ měitiān dōu yǒu hěn duō shìqing yào zuò.
+*Nghĩa:* Đúng vậy, ngày nào anh cũng có rất nhiều việc phải làm.
+
+**你：** 你应该多休息，也要注意身体。
+*Pinyin:* Nǐ yīnggāi duō xiūxi, yě yào zhùyì shēntǐ.
+*Nghĩa:* Anh nên nghỉ ngơi nhiều hơn và cũng cần chú ý đến sức khỏe.
+
+*Bối cảnh:* Anh trai Tiểu Vũ nhận ra rằng mình cần cân bằng giữa công việc và thời gian nghỉ ngơi. Anh quyết định thay đổi thói quen sau khi xuất viện.
+
+## NODE 02C — QUYẾT ĐỊNH CỦA BẠN
+*Nhánh C: từ chối đến bệnh viện*
+
+**你：** 对不起，我明天很忙，没有时间去医院。
+*Pinyin:* Duìbuqǐ, wǒ míngtiān hěn máng, méiyǒu shíjiān qù yīyuàn.
+*Nghĩa:* Xin lỗi, ngày mai tớ rất bận, không có thời gian đến bệnh viện.
+
+**小雨：** 没关系，我知道你很忙。
+*Pinyin:* Méi guānxi, wǒ zhīdào nǐ hěn máng.
+*Nghĩa:* Không sao, tớ biết cậu rất bận.
+
+**你：** 希望你哥哥早点好起来。
+*Pinyin:* Xīwàng nǐ gēge zǎodiǎn hǎo qǐlái.
+*Nghĩa:* Mong anh trai cậu sớm khỏe lại nhé.
+
+**小雨：** 谢谢你。
+*Pinyin:* Xièxie nǐ.
+*Nghĩa:* Cảm ơn cậu.
+
+*Bối cảnh:* Bạn tiếp tục hoàn thành công việc của mình. Sáng hôm sau, bạn nhận được tin nhắn từ Tiểu Vũ.
+
+**小雨：** 我哥哥好多了，医生说他明天可以出院。
+*Pinyin:* Wǒ gēge hǎo duō le, yīshēng shuō tā míngtiān kěyǐ chūyuàn.
+*Nghĩa:* Anh trai tớ đỡ hơn nhiều rồi, bác sĩ nói ngày mai anh ấy có thể xuất viện.
+
+**小雨：** 我今天才知道哥哥的秘密：他每天早上六点去跑步，可是晚上睡得太少。
+*Pinyin:* Wǒ jīntiān cái zhīdào gēge de mìmì: tā měitiān zǎoshang liù diǎn qù pǎobù, kěshì wǎnshang shuì de tài shǎo.
+*Nghĩa:* Hôm nay tớ mới biết bí mật của anh trai: sáng nào anh ấy cũng đi chạy lúc 6 giờ, nhưng buổi tối lại ngủ quá ít.
+
+**你：** 真的吗？太好了！
+*Pinyin:* Zhēn de ma? Tài hǎo le!
+*Nghĩa:* Thật sao? Tốt quá!
+
+**小雨：** 昨天我很担心，但是现在我放心了。
+*Pinyin:* Zuótiān wǒ hěn dānxīn, dànshì xiànzài wǒ fàngxīn le.
+*Nghĩa:* Hôm qua tớ rất lo lắng, nhưng bây giờ tớ yên tâm rồi.
+
+### LỰA CHỌN 3E — Bạn sẽ trả lời thế nào?
+
+**A.** Chúc anh trai Tiểu Vũ sớm khỏe lại. → **END_M**
+
+**B.** Xin lỗi vì không thể đến bệnh viện hôm qua. → **END_N**
+
+**C.** Hẹn gặp Tiểu Vũ vào buổi chiều. → **END_O**
+
+## END_M — KẾT THÚC M: Tin vui buổi sáng
+
+**你：** 太好了！希望他早点康复。
+*Pinyin:* Tài hǎo le! Xīwàng tā zǎodiǎn kāngfù.
+*Nghĩa:* Tốt quá! Mong anh ấy sớm hồi phục.
+
+**小雨：** 谢谢你，我会告诉他的。
+*Pinyin:* Xièxie nǐ, wǒ huì gàosu tā de.
+*Nghĩa:* Cảm ơn cậu, tớ sẽ nói với anh ấy.
+
+*Bối cảnh:* Bạn cảm thấy vui khi biết anh trai Tiểu Vũ đã khỏe hơn. Dù không thể đến bệnh viện, bạn vẫn quan tâm và hỏi thăm tình hình của cô ấy.
+
+## END_N — KẾT THÚC N: Sự thông cảm
+
+**你：** 对不起，昨天我没有时间去医院。
+*Pinyin:* Duìbuqǐ, zuótiān wǒ méiyǒu shíjiān qù yīyuàn.
+*Nghĩa:* Xin lỗi, hôm qua tớ không có thời gian đến bệnh viện.
+
+**小雨：** 没关系，你不用道歉。
+*Pinyin:* Méi guānxi, nǐ bú yòng dàoqiàn.
+*Nghĩa:* Không sao, cậu không cần xin lỗi đâu.
+
+*Bối cảnh:* Tiểu Vũ hiểu rằng bạn cũng có những công việc riêng. Cô ấy không trách bạn mà còn cảm ơn vì bạn vẫn quan tâm đến gia đình mình.
+
+## END_O — KẾT THÚC O: Cuộc hẹn sau cơn lo lắng
+
+**你：** 今天下午你有时间吗？我们一起吃饭吧。
+*Pinyin:* Jīntiān xiàwǔ nǐ yǒu shíjiān ma? Wǒmen yìqǐ chīfàn ba.
+*Nghĩa:* Chiều nay cậu có thời gian không? Chúng ta cùng đi ăn nhé.
+
+**小雨：** 有时间！我也想和你见面。
+*Pinyin:* Yǒu shíjiān! Wǒ yě xiǎng hé nǐ jiànmiàn.
+*Nghĩa:* Có thời gian! Tớ cũng muốn gặp cậu.
+
+**你：** 好，那我们下午见。
+*Pinyin:* Hǎo, nà wǒmen xiàwǔ jiàn.
+*Nghĩa:* Được, vậy chiều nay gặp nhé.
+
+*Bối cảnh:* Buổi chiều, bạn và Tiểu Vũ cùng đi ăn. Cô ấy kể rằng anh trai đã khỏe hơn và sắp được xuất viện.
+
+*Bối cảnh:* Hai người trò chuyện vui vẻ. Bạn nhận ra rằng tình bạn không chỉ nằm ở việc luôn có mặt bên cạnh nhau, mà còn ở sự quan tâm và chia sẻ.
+
+## KẾT THÚC CHUNG
+*Đoạn kết hiện sau mọi kết thúc*
+
+*Bối cảnh:* Dù bạn lựa chọn con đường nào, câu chuyện lúc 6 giờ sáng cũng nhắc nhở chúng ta rằng sức khỏe rất quan trọng.
+
+*Bối cảnh:* Có những người luôn bận rộn với công việc, học tập và những kế hoạch của riêng mình. Nhưng chúng ta không nên quên dành thời gian để nghỉ ngơi và quan tâm đến những người xung quanh.
+
+**旁白：** 每个人都应该照顾好自己的身体。
+*Pinyin:* Měi ge rén dōu yīnggāi zhàogù hǎo zìjǐ de shēntǐ.
+*Nghĩa:* Mỗi người đều nên chăm sóc tốt cho sức khỏe của mình.
+
+**旁白：** 每天早上起床以后，可以去跑步，但是也要记得休息。
+*Pinyin:* Měitiān zǎoshang qǐchuáng yǐhòu, kěyǐ qù pǎobù, dànshì yě yào jìde xiūxi.
+*Nghĩa:* Sau khi thức dậy mỗi buổi sáng, chúng ta có thể đi chạy bộ, nhưng cũng cần nhớ nghỉ ngơi.
+
+**旁白：** 身体健康比什么都重要。
+*Pinyin:* Shēntǐ jiànkāng bǐ shénme dōu zhòngyào.
+*Nghĩa:* Sức khỏe quan trọng hơn tất cả mọi thứ.
+
+## TỪ VỰNG
+
+| Từ vựng | Pinyin | Nghĩa |
+|---|---|---|
+| 生病 | shēngbìng | Bị bệnh, bị ốm |
+| 每 | měi | Mỗi |
+| 早上 | zǎoshang | Buổi sáng |
+| 跑步 | pǎobù | Chạy bộ |
+| 起床 | qǐchuáng | Thức dậy |
+| 药 | yào | Thuốc |
+| 身体 | shēntǐ | Sức khỏe, cơ thể |
+| 出院 | chūyuàn | Xuất viện |
+| 高 | gāo | Cao |
+| 米 | mǐ | Mét |
+| 知道 | zhīdào | Biết |
+| 休息 | xiūxi | Nghỉ ngơi |
+| 忙 | máng | Bận |
+| 时间 | shíjiān | Thời gian |
