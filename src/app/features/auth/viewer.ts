@@ -1,4 +1,5 @@
 import { useAuth } from "./useAuth";
+import type { DailyStats } from "../../lib/progress";
 
 // Thông tin người đang dùng app để hiển thị (trang chủ, Profile, thanh bên). XP và streak chỉ có khi đã
 // đăng nhập; khách hiện lời nhắc đăng ký thay cho các số này.
@@ -23,6 +24,23 @@ export function streakLine(streak: number) {
 
 export const formatNumber = (n: number) => n.toLocaleString("en-US"); // "3,890" như bản Figma
 
+// Lời chào theo giờ trên máy người dùng
+export function greeting(hour = new Date().getHours()) {
+  if (hour >= 5 && hour < 11) return "Chào buổi sáng";
+  if (hour >= 11 && hour < 13) return "Chào buổi trưa";
+  if (hour >= 13 && hour < 18) return "Chào buổi chiều";
+  return "Chào buổi tối";
+}
+
+// Ngày hiện tại theo giờ Việt Nam (YYYY-MM-DD), giống vnDay ở server
+const vnToday = () => new Date(Date.now() + 7 * 3600_000).toISOString().slice(0, 10);
+
+// Thử thách hôm nay. Bản lưu từ hôm trước (hoặc server cũ chưa có thử thách) thì coi như chưa kiếm được gì.
+function dailyOf(d: DailyStats | undefined) {
+  const fresh = !!d && d.day === vnToday();
+  return { goal: d?.goal ?? 50, bonus: d?.bonus ?? 50, xp: fresh ? d.xp : 0, done: fresh && d.done };
+}
+
 export function useViewer() {
   const auth = useAuth();
   const user = auth.user;
@@ -38,5 +56,6 @@ export function useViewer() {
     xp: user?.xp ?? 0,
     streak: user?.streak ?? 0,
     bestStreak: Math.max(user?.bestStreak ?? 0, user?.streak ?? 0),
+    daily: dailyOf(user?.daily),
   };
 }

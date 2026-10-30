@@ -21,7 +21,7 @@ export function DesktopApp({ screen, setScreen, story, onOpenStory, onBack, onLi
       <div style={{ display: "flex", height: "100vh", background: C.bg, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
         <DesktopSidebar active={screen} onChange={setScreen} />
         <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-          {screen === "home"     && <DesktopHomeScreen onOpenStory={onOpenStory} />}
+          {screen === "home"     && <DesktopHomeScreen onOpenStory={onOpenStory} onOpenLibrary={onLibrary} />}
           {screen === "library"  && <LibraryScreen onOpenStory={onOpenStory} />}
           {screen === "chat"     && <DesktopChatScreen story={story} onHome={() => setScreen("home")} onBack={onBack} onLibrary={onLibrary} />}
           {screen === "bloom"    && <DesktopBloomScreen />}

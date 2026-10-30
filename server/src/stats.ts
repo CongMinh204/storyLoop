@@ -34,17 +34,36 @@ export function longestStreak(days: string[]) {
   return best;
 }
 
-// Tổng XP và streak từ activity_days
+// Thử thách hàng ngày: ngày nào kiếm đủ DAILY_GOAL_XP (giờ Việt Nam) thì được thưởng thêm XP_DAILY_BONUS,
+// một lần mỗi ngày. Mốc đã thưởng ghi ở xp_claims với story_id DAILY_CLAIM_STORY (không trùng được id truyện,
+// vì id truyện phải bắt đầu bằng chữ hoặc số) và claim_key "bonus:<ngày>".
+export const DAILY_GOAL_XP = 50;
+export const XP_DAILY_BONUS = 50;
+export const DAILY_CLAIM_STORY = "_daily";
+export const dailyClaimKey = (day: string) => `bonus:${day}`;
+
+// Tổng XP, streak và thử thách hôm nay từ activity_days
 export async function getStats(userId: string) {
-  const { rows } = await pool.query<{ day: string; xp: number }>(
-    "SELECT to_char(day, 'YYYY-MM-DD') AS day, xp FROM activity_days WHERE user_id = $1",
-    [userId],
-  );
+  const today = vnDay();
+  const [{ rows }, bonus] = await Promise.all([
+    pool.query<{ day: string; xp: number }>(
+      "SELECT to_char(day, 'YYYY-MM-DD') AS day, xp FROM activity_days WHERE user_id = $1",
+      [userId],
+    ),
+    pool.query("SELECT 1 FROM xp_claims WHERE user_id = $1 AND story_id = $2 AND claim_key = $3", [userId, DAILY_CLAIM_STORY, dailyClaimKey(today)]),
+  ]);
   const days = rows.map(r => r.day);
   return {
     xp: rows.reduce((sum, r) => sum + r.xp, 0),
-    streak: computeStreak(days),
+    streak: computeStreak(days, today),
     bestStreak: longestStreak(days),
+    daily: {
+      day: today,
+      xp: rows.find(r => r.day === today)?.xp ?? 0,
+      goal: DAILY_GOAL_XP,
+      bonus: XP_DAILY_BONUS,
+      done: (bonus.rowCount ?? 0) > 0,
+    },
   };
 }
 

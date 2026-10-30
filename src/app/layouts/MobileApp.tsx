@@ -26,7 +26,7 @@ export function MobileApp({ screen, setScreen, story, onOpenStory, onBack, onLib
           {/* Chừa chỗ cho tai thỏ / thanh trạng thái khi mở như app cài trên màn hình chính */}
           <div style={{ height: "env(safe-area-inset-top)", background: C.surface, flexShrink: 0 }} />
           <div style={{ flex: 1, minHeight: 0, overflow: "hidden", display: "flex", flexDirection: "column" }}>
-            {screen === "home"     && <MobileHomeScreen onOpenStory={onOpenStory} />}
+            {screen === "home"     && <MobileHomeScreen onOpenStory={onOpenStory} onOpenLibrary={onLibrary} />}
             {screen === "library"  && <LibraryScreen onOpenStory={onOpenStory} />}
             {screen === "chat"     && <MobileChatScreen story={story} onHome={() => setScreen("home")} onBack={onBack} onLibrary={onLibrary} />}
             {screen === "bloom"    && <MobileBloomScreen />}

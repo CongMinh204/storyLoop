@@ -52,11 +52,11 @@ Lỗi trả dạng `{ "error": "câu báo lỗi", "fields": { "email": "..." } }
 | POST | `/api/auth/google` | `idToken` | ID token từ Google Identity Services. Email đã đăng ký bằng mật khẩu thì không gắn Google, trả 409 |
 | POST | `/api/auth/refresh` | `refreshToken` | Trả cặp token mới; refresh token cũ hết dùng được |
 | POST | `/api/auth/logout` | `refreshToken` | Huỷ phiên |
-| GET | `/api/me` | | Cần đăng nhập. Thông tin, `xp`, `streak`, `bestStreak` (chuỗi dài nhất từng có) |
+| GET | `/api/me` | | Cần đăng nhập. Thông tin, `xp`, `streak`, `bestStreak` (chuỗi dài nhất từng có), `daily: { day, xp, goal, bonus, done }` (thử thách hôm nay) |
 | GET | `/api/me/activity` | | Cần đăng nhập. `{ today, since, days: [{ day, xp, correct, completed }] }`: từng ngày có hoạt động trong 6 tháng gần nhất (giờ Việt Nam). `correct` = số câu chọn đúng lần đầu, `completed` = số truyện hoàn thành lần đầu |
 | PATCH | `/api/me` | `fullName` và/hoặc `currentPassword, newPassword, confirmPassword` | Đổi mật khẩu thì đăng xuất các máy khác. Sai mật khẩu hiện tại quá 10 lần / 15 phút thì tạm khoá |
 | GET | `/api/progress` | | Cần đăng nhập. `{ progress: { "<storyId>": { status, pct, lastPlayed, endings?, bestScore? } } }`, cùng dạng localStorage |
-| PUT | `/api/progress/:storyId` | `pct?`, `step?: { key, correct }`, `complete?: { ending?, score?: { right, total } }` | Cần đăng nhập. Cập nhật tiến độ, cộng XP. Trả `{ progress, xpGained, xp, streak, bestStreak }` |
+| PUT | `/api/progress/:storyId` | `pct?`, `step?: { key, correct }`, `complete?: { ending?, score?: { right, total } }` | Cần đăng nhập. Cập nhật tiến độ, cộng XP. Trả `{ progress, xpGained, xp, streak, bestStreak, daily }` |
 | POST | `/api/progress/import` | `progress` (object như localStorage) | Cần đăng nhập. Gộp tiến độ lúc chơi khách lên tài khoản, mục không hợp lệ bị bỏ qua |
 | GET | `/api/admin/users?q=&limit=&offset=` | | Chỉ admin. Danh sách người dùng kèm XP, streak, số truyện đã chơi/hoàn thành |
 | POST | `/api/admin/users/bulk` | `count` (1–200) | Chỉ admin. Tạo tài khoản dùng thử, trả email + mật khẩu (chỉ hiện một lần) |
@@ -72,6 +72,7 @@ Muốn cấp quyền admin cho một tài khoản: `UPDATE users SET role = 'adm
 - Luật gộp tiến độ giống `src/app/lib/progress.ts` của frontend: `pct` chỉ tăng, đã hoàn thành thì giữ, gộp các kết thúc đã mở, giữ điểm tốt nhất theo tỉ lệ đúng.
 - 10 XP mỗi bước đúng. Mỗi `step.key` của mỗi truyện chỉ cộng một lần (ghi ở bảng `xp_claims`); chọn sai không chiếm mốc nên làm lại đúng vẫn được cộng. Khoá bước: truyện quiz `t<id lượt>`, truyện rẽ nhánh `<id cảnh>#<số thứ tự câu>`.
 - 50 XP khi hoàn thành truyện lần đầu. Tối đa 500 XP mỗi ngày theo giờ Việt Nam.
+- Thử thách hàng ngày: lần `PUT` làm XP trong ngày (giờ Việt Nam) đạt 50 thì được thưởng thêm 50 XP, một lần mỗi ngày (mốc `_daily` / `bonus:<ngày>` ở `xp_claims`), vẫn tính trong trần 500. Thưởng không được tính vào số câu đúng hay số truyện hoàn thành ở `/api/me/activity`.
 - Mỗi lần `PUT` đánh dấu hôm đó có hoạt động, kể cả khi được 0 XP. Streak là số ngày liên tiếp có hoạt động; hôm nay chưa chơi mà hôm qua có thì chuỗi vẫn còn.
 - Import không cộng XP và không tính là hoạt động trong ngày (localStorage không có từng bước và ngày chơi). Truyện đã hoàn thành qua import thì chơi lại không nhận thêm 50 XP.
 - Server không kiểm chứng được câu trả lời (nội dung truyện nằm ở frontend), nên XP chỉ được chặn gian lận bằng mốc một lần và trần ngày.

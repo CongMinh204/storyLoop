@@ -3,6 +3,9 @@ import { getStoryScript } from "../../data/stories";
 import { useStoryProgress } from "../../lib/progress";
 import type { StoryEntry } from "../../types";
 
+// Truyện chơi được (có kịch bản, không premium), theo thứ tự thư viện
+export const PLAYABLE = Object.values(STORY_LIBRARY).flat().filter(s => !s.premium && getStoryScript(s.id));
+
 export type ContinueTarget = {
   story: StoryEntry;
   pct: number;
@@ -15,7 +18,7 @@ export type ContinueTarget = {
 // 3. nếu đã hoàn thành hết: truyện chơi gần nhất, để chơi lại.
 export function useContinueStory(): ContinueTarget {
   const progress = useStoryProgress();
-  const playable = Object.values(STORY_LIBRARY).flat().filter(s => !s.premium && getStoryScript(s.id));
+  const playable = PLAYABLE;
   const byRecent = (a: StoryEntry, b: StoryEntry) => (progress[b.id]?.lastPlayed ?? 0) - (progress[a.id]?.lastPlayed ?? 0);
 
   const started = playable.filter(s => progress[s.id]?.status === "started").sort(byRecent)[0];
