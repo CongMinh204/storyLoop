@@ -143,4 +143,14 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "以前", wordPy: "yǐqián", wordVi: "trước đây — 以前 + sự việc (以前，我们经常一起…)", missMsg: "Hãy dùng từ 以前 trong câu!" },
     ],
   },
+  "bi-mat-luc-sau-gio-sang": {
+    doneShort: "bài Bí Mật Lúc Sáu Giờ Sáng", doneLong: "bài Bí Mật Lúc Sáu Giờ Sáng", words: 4,
+    items: [
+      { type: "nhớ", char: "跑步", pinyin: "Pǎobù", pinyinColor: C.success, story: "Bí Mật Lúc Sáu Giờ Sáng", q: "Nghĩa của từ này là gì?", opts: ["Đi bộ", "Chạy bộ", "Bơi", "Đá bóng"], correct: 1, explain: "跑步 (pǎobù) = chạy bộ (跑 = chạy, 步 = bước). Trong truyện: 你每天早上都去跑步吗？ (Mỗi buổi sáng anh đều đi chạy bộ à?)" },
+      { type: "hiểu", sent: "忙 (máng)", sentVi: "Bận", story: "Bí Mật Lúc Sáu Giờ Sáng", q: "Câu nào dùng đúng 忙 trong tình huống câu chuyện?", opts: ["我买了一个忙。", "忙在桌子上。", "没关系，我知道你很忙。", "我很喜欢喝忙。"], optsVi: ["Tôi đã mua một cái bận.", "Bận ở trên bàn.", "Không sao, tớ biết cậu rất bận.", "Tôi rất thích uống bận."], correct: 2, explain: "忙 là tính từ chỉ trạng thái bận rộn, làm vị ngữ sau 很 (你很忙 = cậu rất bận). Nó không phải đồ vật nên không mua, không đặt lên bàn hay uống được." },
+      { type: "dùng", story: "Bí Mật Lúc Sáu Giờ Sáng", q: "Hoàn thành câu theo tình huống:", prompt: "Anh trai Tiểu Vũ kể về giờ thức dậy mỗi sáng của mình.\nĐiền vào chỗ trống:", tmpl: "我每天早上六点___。", tmplVi: "Mỗi buổi sáng anh ___ lúc 6 giờ.", ans: "起床", hint: "Gợi ý: 起床 (qǐchuáng)", explain: "起床 = thức dậy, rời khỏi giường. Giờ giấc đứng trước động từ: 每天早上六点起床 = mỗi sáng thức dậy lúc 6 giờ." },
+      { type: "viết", story: "Bí Mật Lúc Sáu Giờ Sáng", q: "Viết một câu dùng từ 身体 (shēntǐ = sức khỏe, cơ thể):", prompt: "Viết một câu khuyên một người bận rộn chú ý đến sức khỏe, nhớ dùng 身体.", ph: "Ví dụ: 身体很重要，你应该多休息。", explain: "Mẫu: 你不要太忙了。身体很重要，你应该多休息。 / 身体健康比什么都重要。", check: (v: string) => v.includes("身体") && v.length > 3,
+        word: "身体", wordPy: "shēntǐ", wordVi: "sức khỏe, cơ thể — 身体 + 很重要 / 注意身体", missMsg: "Hãy dùng từ 身体 trong câu!" },
+    ],
+  },
 };

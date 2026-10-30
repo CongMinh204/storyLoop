@@ -15,7 +15,7 @@ Doc cốt truyện: https://docs.google.com/document/d/1bsYDMmd7TKtire_IMHMA-3v5
 |---|---|---|---|---|
 | 1 | Chuyến du lịch của Hoa Hoa | Chú Mèo Hoa Hoa | Đã có trên main |  |
 | 1 | Hoa Hoa biến mất! | Chú Mèo Hoa Hoa 2 | Đã có trên main |  |
-| 2 | Bí mật lúc sáu giờ sáng | chưa có | Chưa thêm | Mới có bản .md gốc; Doc thiếu nhánh B, C của lựa chọn 1 và 2 |
+| 2 | Bí mật lúc sáu giờ sáng | Bí Mật Lúc Sáu Giờ Sáng | Đã code, chờ merge | Theo bản Doc tác giả viết lại đủ nhánh (15 kết thúc). Chỉnh nhẹ: thêm chi tiết đôi giày chạy bộ ở cảnh 02A và 03D (người chơi hỏi về chạy bộ khi chưa ai nhắc tới); cảnh 02C sửa mốc thời gian cho khớp câu "hôm qua"; tên kết thúc bằng chữ Hán là bản dịch từ tên tiếng Việt |
 | 2 | Tại sao cậu ấy không đến lớp? | Trốn Học | Đã có trên main |  |
 | 3 | Ai đã tặng nhầm quà? | Chiếc Đồng Hồ Biến Mất | Đã có trên main | Đổi tên vì không ai tặng nhầm quà; sửa mạch truyện cho khớp mọi đường vào |
 | 3 | Ai đã cầm nhầm quà? | Ai Đã Cầm Nhầm Quà? | Đã có trên main | Viết lại một phần lời giải: đồng hồ nằm trong túi đỏ, ông Lý nói "vợ" |

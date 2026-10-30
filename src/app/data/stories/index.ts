@@ -12,6 +12,7 @@ import { NGUOI_NGOAI_CUA_LA_AI } from "./nguoi-ngoai-cua-la-ai";
 import { MOT_GIO_CUOI_CUNG } from "./mot-gio-cuoi-cung";
 import { AI_LAY_QUAN_AO } from "./ai-lay-quan-ao";
 import { CHIEC_XE_DAP_NGOAI_CUA } from "./chiec-xe-dap-ngoai-cua";
+import { BI_MAT_LUC_SAU_GIO_SANG } from "./bi-mat-luc-sau-gio-sang";
 
 // Hai loại kịch bản:
 // - "quiz": hội thoại tuyến tính, mỗi lượt có đáp án đúng/sai (ChatStoryEngine)
@@ -36,6 +37,7 @@ const STORY_SCRIPTS: Record<string, StoryScript> = {
   "mot-gio-cuoi-cung": { kind: "branching", story: MOT_GIO_CUOI_CUNG, vocab: MOT_GIO_CUOI_CUNG.vocab },
   "ai-lay-quan-ao": { kind: "branching", story: AI_LAY_QUAN_AO, vocab: AI_LAY_QUAN_AO.vocab },
   "chiec-xe-dap-ngoai-cua": { kind: "branching", story: CHIEC_XE_DAP_NGOAI_CUA, vocab: CHIEC_XE_DAP_NGOAI_CUA.vocab },
+  "bi-mat-luc-sau-gio-sang": { kind: "branching", story: BI_MAT_LUC_SAU_GIO_SANG, vocab: BI_MAT_LUC_SAU_GIO_SANG.vocab },
 };
 
 // Trả về null nếu truyện chưa có kịch bản.
