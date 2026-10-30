@@ -13,7 +13,7 @@ export type StoryProgress = ProgressDto;
 // Một lần người chơi chọn đáp án: key phân biệt các bước trong truyện, correct để server cộng XP
 export type StepInfo = { key: string; correct: boolean };
 type Store = Record<string, StoryProgress>;
-export type ProgressStats = { xp: number; streak: number };
+export type ProgressStats = { xp: number; streak: number; bestStreak: number };
 
 const GUEST_KEY = "storyloop.progress.v1";
 const userKey = (uid: string) => `storyloop.progress.u.${uid}`;

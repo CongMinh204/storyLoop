@@ -6,12 +6,14 @@ import type { StoryEntry } from "../../types";
 import { useStoryProgress } from "../../lib/progress";
 import { useViewer, streakLine, formatNumber } from "../auth/viewer";
 import { GuestReminder } from "../auth/GuestReminder";
+import { useLearningSummary } from "../progress/learningStats";
 import { showIntro } from "../auth/useAuth";
 import { BrandMark } from "../../components/BrandMark";
 
 export function MobileHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry) => void }) {
   const target = useContinueStory(), txt = heroText(target);
   const v = useViewer(), sl = streakLine(v.streak), played = Object.keys(useStoryProgress()).length;
+  const learn = useLearningSummary();
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: C.bg }}>
       <div style={{ background: C.surface, padding: "10px 18px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0, borderBottom: `0.5px solid ${C.border}` }}>
@@ -63,7 +65,7 @@ export function MobileHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry)
           </div>
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8 }}>
-          {[{ icon: "📚", bg: C.primaryBg, val: "1,247", lbl: "Từ đã học" }, { icon: "🎮", bg: C.ctaBg, val: String(played), lbl: "Câu chuyện" }, { icon: "⚡", bg: C.rewardBg, val: formatNumber(v.xp), lbl: "Tổng XP" }].map((s, i) => (
+          {[{ icon: "📚", bg: C.primaryBg, val: formatNumber(learn.words), lbl: "Từ đã học" }, { icon: "🎮", bg: C.ctaBg, val: String(played), lbl: "Câu chuyện" }, { icon: "⚡", bg: C.rewardBg, val: formatNumber(v.xp), lbl: "Tổng XP" }].map((s, i) => (
             <div key={i} style={{ background: C.surface, borderRadius: 14, border: `0.5px solid ${C.border}`, padding: "14px 10px", display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}>
               <div style={{ width: 34, height: 34, borderRadius: 10, background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 16 }}>{s.icon}</div>
               <div style={{ fontSize: 16, fontWeight: 700, color: C.ink }}>{s.val}</div>

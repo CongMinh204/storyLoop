@@ -7,10 +7,12 @@ import { DesktopTopbar } from "../../layouts/desktop/DesktopChrome";
 import { useStoryProgress } from "../../lib/progress";
 import { useViewer, streakLine, formatNumber } from "../auth/viewer";
 import { GuestReminder } from "../auth/GuestReminder";
+import { useLearningSummary } from "../progress/learningStats";
 
 export function DesktopHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry) => void }) {
   const target = useContinueStory(), txt = heroText(target), st = target.story;
   const v = useViewer(), sl = streakLine(v.streak), played = Object.keys(useStoryProgress()).length;
+  const learn = useLearningSummary();
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
       <DesktopTopbar title={`Chào buổi sáng, ${v.name} 👋`} />
@@ -46,7 +48,7 @@ export function DesktopHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry
           {/* Right: Stats + Daily */}
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-              {[{ icon: "📚", bg: C.primaryBg, val: "1,247", lbl: "Từ đã học" }, { icon: "🎮", bg: C.ctaBg, val: String(played), lbl: "Câu chuyện" }, { icon: "⚡", bg: C.rewardBg, val: formatNumber(v.xp), lbl: "Tổng XP" }, { icon: "🏆", bg: C.rewardBg, val: "5/10", lbl: "Thành tích" }].map((s, i) => (
+              {[{ icon: "📚", bg: C.primaryBg, val: formatNumber(learn.words), lbl: "Từ đã học" }, { icon: "🎮", bg: C.ctaBg, val: String(played), lbl: "Câu chuyện" }, { icon: "⚡", bg: C.rewardBg, val: formatNumber(v.xp), lbl: "Tổng XP" }, { icon: "🏆", bg: C.rewardBg, val: `${learn.achievementsDone}/${learn.achievements.length}`, lbl: "Thành tích" }].map((s, i) => (
                 <div key={i} style={{ background: C.surface, borderRadius: 14, border: `0.5px solid ${C.border}`, padding: "14px 12px", display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}>
                   <div style={{ width: 36, height: 36, borderRadius: 10, background: s.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17 }}>{s.icon}</div>
                   <div style={{ fontSize: 18, fontWeight: 700, color: C.ink }}>{s.val}</div>

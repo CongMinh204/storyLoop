@@ -37,5 +37,6 @@ export function useViewer() {
     hasPassword: user?.hasPassword ?? false,
     xp: user?.xp ?? 0,
     streak: user?.streak ?? 0,
+    bestStreak: Math.max(user?.bestStreak ?? 0, user?.streak ?? 0),
   };
 }
