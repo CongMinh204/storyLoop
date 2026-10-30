@@ -1,21 +1,22 @@
-import { Flame, Lock, Zap } from "lucide-react";
+import { Flame } from "lucide-react";
 import { C, GRADIENT, ON_PRIMARY_CHIP } from "../../lib/colors";
-import { LIBRARY } from "../../data/library";
 import { useContinueStory, heroText } from "./continueStory";
+import { useHomeStories } from "./homeStories";
+import { DailyChallenge } from "./DailyChallenge";
 import type { StoryEntry } from "../../types";
 import { DesktopTopbar } from "../../layouts/desktop/DesktopChrome";
 import { useStoryProgress } from "../../lib/progress";
-import { useViewer, streakLine, formatNumber } from "../auth/viewer";
+import { useViewer, streakLine, formatNumber, greeting } from "../auth/viewer";
 import { GuestReminder } from "../auth/GuestReminder";
 import { useLearningSummary } from "../progress/learningStats";
 
-export function DesktopHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry) => void }) {
+export function DesktopHomeScreen({ onOpenStory, onOpenLibrary }: { onOpenStory: (s: StoryEntry) => void; onOpenLibrary: () => void }) {
   const target = useContinueStory(), txt = heroText(target), st = target.story;
   const v = useViewer(), sl = streakLine(v.streak), played = Object.keys(useStoryProgress()).length;
-  const learn = useLearningSummary();
+  const learn = useLearningSummary(), stories = useHomeStories(st.id);
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
-      <DesktopTopbar title={`Chào buổi sáng, ${v.name} 👋`} />
+      <DesktopTopbar title={`${greeting()}, ${v.name} 👋`} />
       <div style={{ flex: 1, overflowY: "auto", padding: "28px 32px", background: C.bg }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: 20, marginBottom: 24 }}>
           {/* Left: Hero + Continue */}
@@ -56,11 +57,7 @@ export function DesktopHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry
                 </div>
               ))}
             </div>
-            <div style={{ background: C.rewardBg, border: `0.5px solid ${C.rewardBorder}`, borderRadius: 14, padding: "14px 16px", display: "flex", alignItems: "center", gap: 12 }}>
-              <div style={{ width: 44, height: 44, background: C.reward, borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}><Flame size={22} color={C.ink} /></div>
-              <div style={{ flex: 1 }}><div style={{ fontSize: 13, fontWeight: 700, color: C.ink, marginBottom: 3 }}>Thử thách hàng ngày <span style={{ background: C.rewardBorder, color: C.ink, fontSize: 9, padding: "1px 7px", borderRadius: 20, marginLeft: 4, fontWeight: 600 }}>Mới</span></div><div style={{ fontSize: 11, color: C.inkMuted }}>Hoàn thành 3 cảnh trong câu chuyện hôm nay</div></div>
-              <div style={{ background: C.reward, color: C.ink, fontSize: 11, fontWeight: 700, padding: "6px 12px", borderRadius: 20, display: "flex", alignItems: "center", gap: 4, flexShrink: 0 }}><Zap size={12} /> +50 XP</div>
-            </div>
+            <DailyChallenge />
             {v.signedIn || !v.authEnabled ? (
               <div style={{ background: C.rewardBg, borderRadius: 14, padding: "13px 16px", display: "flex", alignItems: "center", gap: 8, border: `0.5px solid ${C.rewardBorder}` }}>
                 <Flame size={16} color={C.rewardDeep} />
@@ -71,18 +68,18 @@ export function DesktopHomeScreen({ onOpenStory }: { onOpenStory: (s: StoryEntry
         </div>
         {/* Library grid */}
         <div>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}><span style={{ fontSize: 15, fontWeight: 700, color: C.ink }}>Thư viện câu chuyện</span><span style={{ fontSize: 12, color: C.primaryText, cursor: "pointer", fontWeight: 500 }}>Xem tất cả ›</span></div>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}><span style={{ fontSize: 15, fontWeight: 700, color: C.ink }}>Thư viện câu chuyện</span><button onClick={onOpenLibrary} style={{ background: "none", border: "none", padding: 0, fontSize: 12, color: C.primaryText, cursor: "pointer", fontWeight: 500, fontFamily: "inherit" }}>Xem tất cả ›</button></div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 12 }}>
-            {LIBRARY.map((s, i) => (
-              <div key={i} style={{ background: C.surface, borderRadius: 14, border: `0.5px solid ${C.border}`, overflow: "hidden", cursor: "pointer" }}
+            {stories.map(({ story: s, prog }) => (
+              <div key={s.id} role="button" tabIndex={0} onClick={() => onOpenStory(s)} onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onOpenStory(s); } }} style={{ background: C.surface, borderRadius: 14, border: `0.5px solid ${C.border}`, overflow: "hidden", cursor: "pointer" }}
                 onMouseEnter={e => (e.currentTarget.style.borderColor = C.primary)} onMouseLeave={e => (e.currentTarget.style.borderColor = C.border)}>
-                <div style={{ height: 80, background: s.color, display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
+                <div style={{ height: 80, background: s.color, display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <span style={{ fontSize: 32 }}>{s.emoji}</span>
-                  {s.premium && <div style={{ position: "absolute", top: 6, right: 6 }}><Lock size={12} color="rgba(255,255,255,.85)" /></div>}
                 </div>
                 <div style={{ padding: "10px 11px" }}>
                   <div style={{ fontSize: 12, fontWeight: 600, color: C.ink, marginBottom: 6, lineHeight: 1.35 }}>{s.title}</div>
-                  <div style={{ display: "flex", gap: 5 }}><span style={{ fontSize: 9, padding: "2px 7px", borderRadius: 20, background: C.primaryBg, color: C.primaryText, fontWeight: 600 }}>{s.hsk}</span><span style={{ fontSize: 9, padding: "2px 7px", borderRadius: 20, background: C.inkBg, color: C.ink, fontWeight: 600 }}>{s.lv}</span></div>
+                  <div style={{ display: "flex", gap: 5, flexWrap: "wrap" as const }}><span style={{ fontSize: 9, padding: "2px 7px", borderRadius: 20, background: C.primaryBg, color: C.primaryText, fontWeight: 600 }}>HSK {s.hsk}</span><span style={{ fontSize: 9, padding: "2px 7px", borderRadius: 20, background: C.inkBg, color: C.ink, fontWeight: 600 }}>{s.lv}</span></div>
+                  {prog && <div style={{ fontSize: 9, color: C.inkMuted, marginTop: 6 }}>{prog.status === "completed" ? "Hoàn thành ✓" : `Đã học ${prog.pct}%`}</div>}
                 </div>
               </div>
             ))}

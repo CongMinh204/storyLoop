@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from "react";
 import { api, API_ENABLED, ApiError, getTokens, onSessionExpired, setTokens, TOKENS_KEY, type Tokens } from "../../lib/api";
-import { flushProgress, onProgressStats, setProgressAccount } from "../../lib/progress";
+import { flushProgress, onProgressStats, setProgressAccount, type DailyStats } from "../../lib/progress";
 import { track } from "../../lib/analytics";
 
 // Trạng thái đăng nhập dùng chung cho cả app (mobile và desktop), đồng bộ giữa các tab.
@@ -17,6 +17,7 @@ export type Me = {
   xp: number;
   streak: number;
   bestStreak?: number;   // chuỗi dài nhất từng có; bản Me cũ lưu trên máy chưa có trường này
+  daily?: DailyStats;    // thử thách hôm nay; server cũ chưa có trường này
 };
 export type RegisterForm = { fullName: string; email: string; password: string; confirmPassword: string; referralSource: string; referralOther: string };
 export type UpdateMeForm = { fullName?: string; currentPassword?: string; newPassword?: string; confirmPassword?: string };
@@ -165,7 +166,7 @@ onSessionExpired(signOutLocal);
 
 // Mỗi lần gửi tiến độ, server trả về XP và streak mới
 onProgressStats(s => {
-  if (state.user) setUser({ ...state.user, xp: s.xp, streak: s.streak, bestStreak: s.bestStreak });
+  if (state.user) setUser({ ...state.user, xp: s.xp, streak: s.streak, bestStreak: s.bestStreak, daily: s.daily });
 });
 
 if (state.user) setProgressAccount(state.user.id);

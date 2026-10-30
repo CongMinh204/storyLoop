@@ -34,6 +34,10 @@ React 18, TypeScript, Vite 6, Tailwind CSS v4 (via `@tailwindcss/vite`, no `tail
   - XP, streak and the activity charts (XP and "Câu trả lời đúng" per day, by week or month) come from the server (`GET /api/me/activity`, `bestStreak` in `/api/me`) and need an account. Guests see `GuestReminder` instead of the charts; with no backend the chart card is hidden.
   - Words learned, the 5-axis skill radar and achievements are computed by `features/progress/learningStats.ts` (`useLearningSummary()`, also used by the home stats) from story progress and practice progress. Achievements are listed in `data/achievements.ts` and grant no XP.
   - Practice progress is not synced yet, so on another device "Từ đã học" only counts words from completed stories.
+- The home screens (`features/home/`) use real data too:
+  - The greeting follows the device clock (`greeting()` in `features/auth/viewer.ts`).
+  - The "Thư viện câu chuyện" row (`homeStories.ts`) shows 5 playable stories, excluding the one in the banner: in-progress stories first, then unplayed ones, then completed ones. "Xem tất cả" opens the library.
+  - `DailyChallenge.tsx` is the daily challenge, shown only when signed in. Reaching 50 XP in a day (Vietnam time) makes the server add a 50 XP bonus once per day (`server/src/stats.ts`, `progress/service.ts`); the state comes back as `daily` from `/api/me` and every progress report.
 - `src/app/components/ui/` is the shadcn component set. Most of it is currently unused. Prefer these over writing new primitives.
 - `src/app/components/figma/ImageWithFallback.tsx` is the Figma helper for images.
 - `src/styles/` holds `fonts.css` (Plus Jakarta Sans), `tailwind.css`, `theme.css` (design tokens) and `index.css` (imports them all).
