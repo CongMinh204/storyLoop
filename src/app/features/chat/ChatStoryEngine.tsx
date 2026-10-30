@@ -1,10 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ArrowLeft, Eye, EyeOff, Lightbulb } from "lucide-react";
 import { C } from "../../lib/colors";
 import type { ChatChoice, ChatTurn, StoryEntry } from "../../types";
 import { SituationBubble, NpcBubble, NpcReplyBubble, PlayerBubble, AnalysisBubble } from "./ChatBubbles";
 import { ResultScreen } from "./ResultScreen";
 import { reportProgress, markCompleted } from "../../lib/progress";
+import { playSound, preloadSounds } from "../../lib/sound";
 
 type ChatMsg =
   | { type: "situation"; text: string }
@@ -31,6 +32,8 @@ export function ChatStoryEngine({ story, turns, onHome, onBack, sidePanel }: { s
   const currentTurn = turns[turn];
   const waiting = chosen === null && !finished;
 
+  useEffect(preloadSounds, []);
+
   function scrollBottom() {
     setTimeout(() => scrollRef.current?.scrollTo({ top: 99999, behavior: "smooth" }), 60);
   }
@@ -39,6 +42,7 @@ export function ChatStoryEngine({ story, turns, onHome, onBack, sidePanel }: { s
     if (chosen !== null) return;
     const c = currentTurn.choices[idx];
     const newScore = score + (c.correct ? 1 : 0);
+    playSound(c.correct ? "right" : "wrong");
     setChosen(idx);
     setScore(newScore);
     setHintOpen(false);
@@ -62,6 +66,7 @@ export function ChatStoryEngine({ story, turns, onHome, onBack, sidePanel }: { s
       if (nextTurn >= turns.length) {
         setMessages(m => [...m, { type: "result", score: newScore, total: turns.length }]);
         setFinished(true);
+        playSound("complete");
       } else {
         const next = turns[nextTurn];
         setMessages(m => [...m,

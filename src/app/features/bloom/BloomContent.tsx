@@ -3,6 +3,7 @@ import { Brain, Coffee, Bolt, Pencil, Zap, Eye } from "lucide-react";
 import { C } from "../../lib/colors";
 import { BLOOM_STAGES } from "../../data/bloom";
 import type { BloomSet, BloomDung, BloomViet, BloomHieu } from "../../types";
+import { playSound, preloadSounds } from "../../lib/sound";
 
 export function BloomContent({ items, emoji, stage, onNext, onComplete, pinyinOn = true }: { items: BloomSet["items"]; emoji: string; stage: number; onNext: () => void; onComplete: () => void; pinyinOn?: boolean }) {
   const data = items[stage], meta = BLOOM_STAGES[stage], xp = (stage + 1) * 10;
@@ -17,6 +18,8 @@ export function BloomContent({ items, emoji, stage, onNext, onComplete, pinyinOn
     setWriteVal(""); setWriteState("idle"); setFeedback(null);
   }, [stage]);
 
+  useEffect(preloadSounds, []);
+
   // Strip "(pinyin)" annotations when pinyin is off
   const stripPy = (s: string) => pinyinOn ? s : s.replace(/\s*\([^)]*\)/g, "");
 
@@ -26,6 +29,7 @@ export function BloomContent({ items, emoji, stage, onNext, onComplete, pinyinOn
     if (answered) return;
     setAnswered(true); setChosen(idx);
     const correct = (data as any).correct;
+    playSound(idx === correct ? "right" : "wrong");
     setFeedback(idx === correct
       ? { ok: true,  text: `<strong>Chính xác!</strong> ${(data as any).explain}` }
       : { ok: false, text: `<strong>Chưa đúng.</strong> ${(data as any).explain}` });
@@ -34,12 +38,14 @@ export function BloomContent({ items, emoji, stage, onNext, onComplete, pinyinOn
   function checkFill() {
     if (answered) return;
     const d = data as BloomDung;
+    playSound(fillVal.includes(d.ans) ? "right" : "wrong");
     if (fillVal.includes(d.ans)) { setFillState("correct"); setAnswered(true); setFeedback({ ok: true, text: `<strong>Xuất sắc!</strong> ${d.explain}` }); }
     else { setFillState("wrong"); setFeedback({ ok: false, text: `<strong>Thử lại!</strong> Đáp án: <strong>${d.ans}</strong>` }); setTimeout(() => { setFillState("idle"); setFillVal(""); setFeedback(null); }, 1200); }
   }
 
   function checkWrite() {
     const d = data as BloomViet;
+    playSound(d.check(writeVal) ? "right" : "wrong");
     if (d.check(writeVal)) { setWriteState("correct"); setAnswered(true); setFeedback({ ok: true, text: d.explain.replace(/\n/g, "<br>") }); }
     else { setWriteState("wrong"); setFeedback({ ok: false, text: `<strong>${d.missMsg}</strong>` }); setTimeout(() => setWriteState("idle"), 1000); }
   }
@@ -98,7 +104,7 @@ export function BloomContent({ items, emoji, stage, onNext, onComplete, pinyinOn
         {(data.type === "dùng" || data.type === "viết") && !answered && <button onClick={showHint} style={{ background: C.surface, color: C.inkMuted, border: `0.5px solid ${C.border}`, borderRadius: 12, padding: "12px 14px", fontSize: 11, cursor: "pointer", fontFamily: "inherit", display: "flex", alignItems: "center", gap: 4 }}><Eye size={13} /></button>}
         {!answered && (data.type === "nhớ" || data.type === "hiểu") ? null : !answered
           ? <button onClick={data.type === "dùng" ? checkFill : checkWrite} style={{ flex: 1, background: C.primaryDeep, color: C.onFill, border: "none", borderRadius: 12, padding: 13, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "inherit" }}>{data.type === "dùng" ? "Kiểm tra ✓" : "Nộp bài ✓"}</button>
-          : <button onClick={stage < 3 ? onNext : onComplete} style={{ flex: 1, background: C.primaryDeep, color: C.onFill, border: "none", borderRadius: 12, padding: 13, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "inherit" }}>{stage < 3 ? "Tiếp theo →" : "Hoàn thành 🏆"}</button>}
+          : <button onClick={stage < 3 ? onNext : () => { playSound("complete"); onComplete(); }}style={{ flex: 1, background: C.primaryDeep, color: C.onFill, border: "none", borderRadius: 12, padding: 13, fontSize: 13, fontWeight: 700, cursor: "pointer", fontFamily: "inherit" }}>{stage < 3 ? "Tiếp theo →" : "Hoàn thành 🏆"}</button>}
       </div>
     </div>
   );
