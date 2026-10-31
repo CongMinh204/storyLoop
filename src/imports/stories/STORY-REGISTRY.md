@@ -22,7 +22,7 @@ Doc cốt truyện: https://docs.google.com/document/d/1bsYDMmd7TKtire_IMHMA-3v5
 | 4 | Ai đã gọi điện đến? | Ai Đã Gọi Điện Đến? | Đã có trên main |  |
 | 4 | Hai người bạn mới trong bữa tiệc sinh nhật | Tiệc Sinh Nhật | Đã có trên main |  |
 | 5 | Ai đã gửi bức ảnh? | Ai Đã Gửi Bức Ảnh? | Đã có trên main | Đã cập nhật theo bản Doc tác giả sửa lại (nhánh VynhVQ12). Còn 2 điểm nhờ tác giả xem: Tiểu Mỹ là bạn thân mà Tiểu Minh "không nhớ đã gặp" hôm đó; hộp vừa là đồ bị cầm nhầm vừa là quà tặng |
-| 5 | Ai đã gửi bức ảnh? (bản 2) | không có | Bản cũ, không thêm | Là bản trước khi tác giả sửa tab chính; nên xoá hoặc đánh dấu "bản cũ" trong Doc |
+| 5 | Ai đã gửi bức ảnh? (bản 2) | Bài Kiểm Tra Hôm Nay | Đã code, chờ merge | Tab vẫn mang tên "(bản 2)" nhưng tác giả đã thay nội dung bằng truyện mới 今天的考试 (9 kết thúc); nên đổi tên tab trong Doc. Doc chỉ có lựa chọn tiếng Việt: câu chữ Hán của lựa chọn và tên kết thúc bằng chữ Hán là bản dịch. Chỉnh nhẹ: thêm cảnh 03R (bản gốc 04 → "từ chối, về nhà" quay lại 03, tạo vòng lặp); lời dẫn cảnh 06 sửa cho khớp đường đi từ nhà. Còn nhờ tác giả xem: ở cảnh 03 mẹ đã nấu cá rồi mà lựa chọn C vẫn là "đi mua cá giúp mẹ"; cảnh 06 nói "còn phải về nhà ăn tối" cả khi Tiểu Lâm đã ăn cơm ở cảnh 03 |
 | 6 | Chiếc xe đạp ngoài cửa | Chiếc Xe Đạp Ngoài Cửa | Đã code, chờ merge | Doc đã sửa: một chỗ chỉnh nhẹ ở cảnh 03A (lựa chọn B hỏi vì sao túi đỏ nằm trên xe, thay vì "mang theo túi"). Còn nhờ tác giả xem: cảnh 06A đi từ 05A thì chị gái đang ngồi đó nhưng Tiểu Lan kể về chị ở ngôi thứ ba; cảnh 04A đi từ 03C có câu "có người nói chị không muốn em biết" khi chưa ai nói |
 | 6 | Người ngoài cửa là ai? | Người Ngoài Cửa Là Ai? | Đã có trên main |  |
 | 7 | Một giờ cuối cùng | Một Giờ Cuối Cùng | Đã có trên main |  |
