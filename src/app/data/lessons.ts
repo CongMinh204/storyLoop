@@ -21,6 +21,8 @@ const CHIP: Record<string, string> = {
   "chiec-xe-dap-ngoai-cua": "Xe đạp",
   "bi-mat-luc-sau-gio-sang": "Sáu giờ sáng",
   "bai-kiem-tra-hom-nay": "Bài kiểm tra",
+  "chi-di-dau-roi": "Chị đi đâu",
+  "do-cua-toi-dau-mat-roi": "Đồ của tôi",
 };
 
 // Từ vựng có câu ví dụ → thẻ flashcard

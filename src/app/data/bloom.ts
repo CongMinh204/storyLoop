@@ -163,4 +163,24 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "不错", wordPy: "búcuò", wordVi: "khá tốt, không tệ — Danh từ + 不错 / 不错的 + Danh từ", missMsg: "Hãy dùng từ 不错 trong câu!" },
     ],
   },
+  "chi-di-dau-roi": {
+    doneShort: "truyện Chị Đi Đâu Rồi?", doneLong: "truyện Chị Đi Đâu Rồi?", words: 4,
+    items: [
+      { type: "nhớ", char: "公司", pinyin: "Gōngsī", pinyinColor: C.success, story: "Chị Đi Đâu Rồi?", q: "Nghĩa của từ này là gì?", opts: ["Trường học", "Công ty", "Sân bay", "Chợ"], correct: 1, explain: "公司 (gōngsī) = công ty. Trong truyện: 我现在在公司。 (Bây giờ chị đang ở công ty.). Trường học là 学校, sân bay là 机场, chợ là 市场." },
+      { type: "hiểu", sent: "过 (guo)", sentVi: "Đã từng (đứng sau động từ)", story: "Chị Đi Đâu Rồi?", q: "Câu nào dùng đúng 过 trong tình huống câu chuyện?", opts: ["他看了过手机。", "今天我没有发消息过。", "姐姐真的来过这里吗？", "我明天去过机场。"], optsVi: ["Cậu ấy đã đã từng xem điện thoại.", "Hôm nay chị chưa gửi tin nhắn từng.", "Chị tôi thật sự đã đến đây sao?", "Ngày mai tôi đã từng đi sân bay."], correct: 2, explain: "过 đứng ngay sau động từ để nói việc đã từng làm: 来过, 发过, 打过. Nó không đi liền với 了 (了过), không đứng sau tân ngữ (发消息过 → 发过消息) và không dùng cho việc ở tương lai (明天)." },
+      { type: "dùng", story: "Chị Đi Đâu Rồi?", q: "Hoàn thành câu theo tình huống:", prompt: "Tiểu Lâm ngồi trên xe buýt đi sân bay, xe chạy mãi không tới nơi.\nĐiền vào chỗ trống:", tmpl: "公共汽车开得很___。", tmplVi: "Xe buýt chạy rất ___.", ans: "慢", hint: "Gợi ý: 慢 (màn)", explain: "慢 = chậm, trái nghĩa với 快 (nhanh). Động từ + 得 + 很 + Tính từ: 开得很慢 = chạy rất chậm." },
+      { type: "viết", story: "Chị Đi Đâu Rồi?", q: "Viết một câu dùng từ 消息 (xiāoxi = tin nhắn, tin tức):", prompt: "Viết một câu kể về một tin nhắn bạn đã gửi hoặc nhận, nhớ dùng 消息.", ph: "Ví dụ: 我给姐姐发了一条消息。", explain: "Mẫu: 姐姐又发来一条消息。 / 这条消息是昨天的。 / 我没有看到你的消息。 Lượng từ của 消息 là 条: 一条消息.", check: (v: string) => v.includes("消息") && v.length > 3,
+        word: "消息", wordPy: "xiāoxi", wordVi: "tin nhắn, tin tức — 一条消息 / 发消息", missMsg: "Hãy dùng từ 消息 trong câu!" },
+    ],
+  },
+  "do-cua-toi-dau-mat-roi": {
+    doneShort: "truyện Đồ Của Tôi Đâu Mất Rồi?", doneLong: "truyện Đồ Của Tôi Đâu Mất Rồi?", words: 4,
+    items: [
+      { type: "nhớ", char: "贵", pinyin: "Guì", pinyinColor: C.success, story: "Đồ Của Tôi Đâu Mất Rồi?", q: "Nghĩa của từ này là gì?", opts: ["Rẻ", "Đắt", "Đẹp", "Mới"], correct: 1, explain: "贵 (guì) = đắt. Trong truyện: 太贵了！有没有便宜一点儿的？ (Đắt quá! Có chiếc nào rẻ hơn một chút không?). Trái nghĩa là 便宜 (rẻ)." },
+      { type: "hiểu", sent: "让 (ràng)", sentVi: "Bảo, để (ai làm gì)", story: "Đồ Của Tôi Đâu Mất Rồi?", q: "Câu nào dùng đúng 让 trong tình huống câu chuyện?", opts: ["这件衣服让八百块。", "妈妈让我买一件白色的衣服。", "我让在商店门口等你。", "让，我知道了！"], optsVi: ["Chiếc áo này bảo 800 tệ.", "Mẹ bảo tôi mua một chiếc áo màu trắng.", "Tôi bảo ở cửa hàng đợi cậu.", "Bảo, con biết rồi!"], correct: 1, explain: "让 + người + việc = bảo / để ai làm gì: 妈妈让我买… (mẹ bảo tôi mua…). Sau 让 phải có người nhận lời bảo rồi mới tới việc. Nói giá thì nói thẳng 八百块, đồng ý thì dùng 好." },
+      { type: "dùng", story: "Đồ Của Tôi Đâu Mất Rồi?", q: "Hoàn thành câu theo tình huống:", prompt: "Chiếc áo thứ hai chỉ 300 tệ, trong khi chiếc đầu tiên tới 800 tệ.\nĐiền vào chỗ trống:", tmpl: "三百块？___多了！我买这件吧。", tmplVi: "300 tệ à? ___ hơn nhiều rồi! Tôi mua chiếc này nhé.", ans: "便宜", hint: "Gợi ý: 便宜 (piányi)", explain: "便宜 = rẻ, trái nghĩa với 贵 (đắt). Tính từ + 多了 = … hơn nhiều: 便宜多了 = rẻ hơn nhiều." },
+      { type: "viết", story: "Đồ Của Tôi Đâu Mất Rồi?", q: "Viết một câu dùng từ 告诉 (gàosu = nói cho biết):", prompt: "Viết một câu nhờ ai đó báo cho bạn biết một việc, nhớ dùng 告诉.", ph: "Ví dụ: 买完东西就告诉我。", explain: "Mẫu: 你告诉我价格，我帮你选。 / 我想告诉妈妈这件事。 / 请告诉我你的电话。 Cấu trúc: 告诉 + người + điều muốn nói.", check: (v: string) => v.includes("告诉") && v.length > 3,
+        word: "告诉", wordPy: "gàosu", wordVi: "nói cho biết — 告诉 + người + việc", missMsg: "Hãy dùng từ 告诉 trong câu!" },
+    ],
+  },
 };
