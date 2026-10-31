@@ -153,4 +153,14 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "身体", wordPy: "shēntǐ", wordVi: "sức khỏe, cơ thể — 身体 + 很重要 / 注意身体", missMsg: "Hãy dùng từ 身体 trong câu!" },
     ],
   },
+  "bai-kiem-tra-hom-nay": {
+    doneShort: "truyện Bài Kiểm Tra Hôm Nay", doneLong: "truyện Bài Kiểm Tra Hôm Nay", words: 4,
+    items: [
+      { type: "nhớ", char: "鱼", pinyin: "Yú", pinyinColor: C.success, story: "Bài Kiểm Tra Hôm Nay", q: "Nghĩa của từ này là gì?", opts: ["Thịt", "Cá", "Gà", "Rau"], correct: 1, explain: "鱼 (yú) = cá. Trong truyện: 妈妈，我去买鱼了！ (Mẹ ơi, con đi mua cá đây!). Lượng từ của cá là 条: 一条鱼." },
+      { type: "hiểu", sent: "件 (jiàn)", sentVi: "Lượng từ cho quần áo, sự việc", story: "Bài Kiểm Tra Hôm Nay", q: "Câu nào dùng đúng 件 trong tình huống câu chuyện?", opts: ["我去买一件鱼。", "这是一件不错的办法。", "你看看那件蓝色的衣服旁边吧。", "我再喝一件咖啡。"], optsVi: ["Con đi mua một chiếc cá.", "Đây là một chiếc cách khá tốt.", "Con thử nhìn bên cạnh chiếc áo màu xanh kia xem.", "Mình uống thêm một chiếc cà phê."], correct: 2, explain: "件 là lượng từ cho quần áo (一件衣服) và sự việc (一件事). Cá dùng 条 (一条鱼), cách làm dùng 个 (一个办法), cà phê dùng 杯 (一杯咖啡)." },
+      { type: "dùng", story: "Bài Kiểm Tra Hôm Nay", q: "Hoàn thành câu theo tình huống:", prompt: "Giáo viên nhắn tin nhắc giờ làm bài ngày mai.\nĐiền vào chỗ trống:", tmpl: "明天早上九点___，请不要迟到。", tmplVi: "Ngày mai ___ lúc 9 giờ sáng, xin đừng đến muộn.", ans: "考试", hint: "Gợi ý: 考试 (kǎoshì)", explain: "考试 = thi, làm bài kiểm tra. Giờ giấc đứng trước động từ: 明天早上九点考试 = ngày mai thi lúc 9 giờ sáng." },
+      { type: "viết", story: "Bài Kiểm Tra Hôm Nay", q: "Viết một câu dùng từ 不错 (búcuò = khá tốt, không tệ):", prompt: "Viết một câu khen thời tiết, một món ăn hoặc một cách học, nhớ dùng 不错.", ph: "Ví dụ: 今天天气不错。", explain: "Mẫu: 外面天气不错。 / 这真是一个不错的办法！ / 听说那家饭馆的菜不错。", check: (v: string) => v.includes("不错") && v.length > 3,
+        word: "不错", wordPy: "búcuò", wordVi: "khá tốt, không tệ — Danh từ + 不错 / 不错的 + Danh từ", missMsg: "Hãy dùng từ 不错 trong câu!" },
+    ],
+  },
 };
