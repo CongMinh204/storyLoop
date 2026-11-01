@@ -183,4 +183,24 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "告诉", wordPy: "gàosu", wordVi: "nói cho biết — 告诉 + người + việc", missMsg: "Hãy dùng từ 告诉 trong câu!" },
     ],
   },
+  "mot-buoi-bieu-dien-dac-biet": {
+    doneShort: "truyện Một Buổi Biểu Diễn Đặc Biệt", doneLong: "truyện Một Buổi Biểu Diễn Đặc Biệt", words: 4,
+    items: [
+      { type: "nhớ", char: "跳舞", pinyin: "Tiào wǔ", pinyinColor: C.success, story: "Một Buổi Biểu Diễn Đặc Biệt", q: "Nghĩa của từ này là gì?", opts: ["Hát", "Nhảy múa", "Chạy bộ", "Vẽ tranh"], correct: 1, explain: "跳舞 (tiào wǔ) = nhảy múa. Trong truyện: 小明很喜欢跳舞。 (Tiểu Minh rất thích nhảy múa.). Hát là 唱歌, chạy bộ là 跑步, vẽ tranh là 画画." },
+      { type: "hiểu", sent: "希望 (xīwàng)", sentVi: "Mong, hy vọng", story: "Một Buổi Biểu Diễn Đặc Biệt", q: "Câu nào dùng đúng 希望 trong tình huống câu chuyện?", opts: ["我买了一个希望。", "这个希望很好吃。", "希望在桌子上。", "我希望你在表演的时候开心一点儿。"], optsVi: ["Tôi đã mua một cái hy vọng.", "Cái hy vọng này rất ngon.", "Hy vọng ở trên bàn.", "Bố hy vọng con sẽ vui vẻ hơn khi biểu diễn."], correct: 3, explain: "希望 là động từ \"mong, hy vọng\", theo sau là cả một việc: 希望 + (ai) + làm gì (我希望你开心一点儿). Nó không phải đồ vật nên không mua, không ăn hay đặt lên bàn được." },
+      { type: "dùng", story: "Một Buổi Biểu Diễn Đặc Biệt", q: "Hoàn thành câu theo tình huống:", prompt: "Tiểu Hồng làm thật chậm động tác khó một lần, Tiểu Minh chăm chú nhìn theo.\nĐiền vào chỗ trống:", tmpl: "小明认真地看着她，终于___了。", tmplVi: "Tiểu Minh chăm chú nhìn cô ấy, cuối cùng cũng ___.", ans: "懂", hint: "Gợi ý: 懂 (dǒng)", explain: "懂 = hiểu. 终于懂了 = cuối cùng cũng hiểu: 了 cho biết đã có thay đổi (trước chưa hiểu, giờ đã hiểu)." },
+      { type: "viết", story: "Một Buổi Biểu Diễn Đặc Biệt", q: "Viết một câu dùng từ 欢迎 (huānyíng = hoan nghênh, chào đón):", prompt: "Viết một câu chào đón một người bạn mới đến lớp, đến nhà hoặc vào đội của bạn, nhớ dùng 欢迎.", ph: "Ví dụ: 欢迎你来我家！", explain: "Mẫu: 欢迎你加入我们的舞蹈队！ / 欢迎你们来中国。 / 小红欢迎小明加入舞蹈队。 Cấu trúc: 欢迎 + người + (làm gì).", check: (v: string) => v.includes("欢迎") && v.length > 3,
+        word: "欢迎", wordPy: "huānyíng", wordVi: "hoan nghênh, chào đón — 欢迎 + người + việc", missMsg: "Hãy dùng từ 欢迎 trong câu!" },
+    ],
+  },
+  "mot-chuyen-di-dang-nho": {
+    doneShort: "truyện Một Chuyến Đi Đáng Nhớ", doneLong: "truyện Một Chuyến Đi Đáng Nhớ", words: 4,
+    items: [
+      { type: "nhớ", char: "公园", pinyin: "Gōngyuán", pinyinColor: C.success, story: "Một Chuyến Đi Đáng Nhớ", q: "Nghĩa của từ này là gì?", opts: ["Trường học", "Cửa hàng", "Công viên", "Nhà hàng"], correct: 2, explain: "公园 (gōngyuán) = công viên. Trong truyện: 三个朋友终于到了公园。 (Ba người bạn cuối cùng cũng đến công viên.). Trường học là 学校, cửa hàng là 商店, nhà hàng là 饭店." },
+      { type: "hiểu", sent: "从 (cóng)", sentVi: "Từ (chỉ điểm xuất phát)", story: "Một Chuyến Đi Đáng Nhớ", q: "Câu nào dùng đúng 从 trong tình huống câu chuyện?", opts: ["我们从学校坐车去公园吧！", "我想吃从米饭。", "从小刚是我的好朋友。", "她今天从很开心。"], optsVi: ["Chúng ta đi xe từ trường đến công viên nhé!", "Tớ muốn ăn từ cơm.", "Từ Tiểu Cương là bạn thân của tớ.", "Hôm nay cô ấy từ rất vui."], correct: 0, explain: "从 + nơi chốn (hoặc thời điểm) + động từ chỉ điểm xuất phát: 从学校去公园 = từ trường đến công viên. 从 không đứng trước món ăn, tên người làm chủ ngữ hay tính từ." },
+      { type: "dùng", story: "Một Chuyến Đi Đáng Nhớ", q: "Hoàn thành câu theo tình huống:", prompt: "Cả nhóm hẹn 9 giờ có mặt ở trường. Tiểu Mỹ nhắc mọi người đi cho đúng giờ.\nĐiền vào chỗ trống:", tmpl: "九点，我们不要___！", tmplVi: "Chín giờ, chúng ta đừng ___ nhé!", ans: "迟到", hint: "Gợi ý: 迟到 (chídào)", explain: "迟到 = đến muộn. 不要 + Động từ = đừng làm gì: 不要迟到 = đừng đến muộn." },
+      { type: "viết", story: "Một Chuyến Đi Đáng Nhớ", q: "Viết một câu dùng từ 照片 (zhàopiàn = ảnh, bức ảnh):", prompt: "Viết một câu kể về một bức ảnh bạn đã chụp hoặc muốn chụp, nhớ dùng 照片.", ph: "Ví dụ: 我们一起拍了一张照片。", explain: "Mẫu: 这是我和朋友的照片。 / 我把照片发给了妈妈。 / 我们一起拍张照片吧！ Lượng từ của 照片 là 张: 一张照片.", check: (v: string) => v.includes("照片") && v.length > 3,
+        word: "照片", wordPy: "zhàopiàn", wordVi: "ảnh, bức ảnh — 一张照片 / 拍照片", missMsg: "Hãy dùng từ 照片 trong câu!" },
+    ],
+  },
 };
