@@ -6,6 +6,9 @@ import { SituationBubble, NpcBubble, NpcReplyBubble, PlayerBubble, AnalysisBubbl
 import { ResultScreen } from "./ResultScreen";
 import { reportProgress, markCompleted } from "../../lib/progress";
 import { playSound, preloadSounds } from "../../lib/sound";
+import { useLessonCelebration } from "../celebrate/useLessonCelebration";
+
+const RESULT_DELAY = 900;   // ms từ lúc chọn tới khi hiện lượt kế hoặc màn kết quả
 
 type ChatMsg =
   | { type: "situation"; text: string }
@@ -28,6 +31,7 @@ export function ChatStoryEngine({ story, turns, onHome, onBack, sidePanel }: { s
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const celebration = useLessonCelebration();   // màn chuỗi ngày / nhiệm vụ sau lượt cuối
 
   const currentTurn = turns[turn];
   const waiting = chosen === null && !finished;
@@ -50,7 +54,7 @@ export function ChatStoryEngine({ story, turns, onHome, onBack, sidePanel }: { s
     // Lưu tiến độ: lượt cuối thì hoàn thành kèm điểm, còn lại ghi phần trăm số lượt đã qua.
     // step: lượt này đúng hay sai, để server cộng XP (mỗi lượt chỉ được cộng một lần)
     const step = { key: `t${currentTurn.id}`, correct: c.correct };
-    if (turn + 1 >= turns.length) markCompleted(story.id, { score: { right: newScore, total: turns.length }, step });
+    if (turn + 1 >= turns.length) celebration.finish(markCompleted(story.id, { score: { right: newScore, total: turns.length }, step }), RESULT_DELAY);
     else reportProgress(story.id, ((turn + 1) / turns.length) * 100, step);
 
     const playerMsg: ChatMsg = { type: "player", choice: c, pinyinOn };
@@ -77,11 +81,12 @@ export function ChatStoryEngine({ story, turns, onHome, onBack, sidePanel }: { s
         setChosen(null);
       }
       scrollBottom();
-    }, 900);
+    }, RESULT_DELAY);
   }
 
   function restart() {
     setTurn(0); setChosen(null); setScore(0); setFinished(false); setHintOpen(false);
+    celebration.restart();
     setMessages([
       { type: "situation", text: turns[0].situation },
       { type: "npc", turn: turns[0], pinyinOn: true },
@@ -171,6 +176,7 @@ export function ChatStoryEngine({ story, turns, onHome, onBack, sidePanel }: { s
 
       {/* Optional side panel (desktop) */}
       {sidePanel}
+      {celebration.dialog}
     </div>
   );
 }

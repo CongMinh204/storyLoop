@@ -9,6 +9,7 @@ import {
 import { EndingCard } from "./EndingCard";
 import { getProgress, reportProgress, markCompleted } from "../../lib/progress";
 import { playSound, preloadSounds } from "../../lib/sound";
+import { useLessonCelebration } from "../celebrate/useLessonCelebration";
 
 const LINE_DELAY = 550;    // ms giữa hai câu thoại
 const READ_DELAY = 1800;   // ms chờ sau khi hiện phân tích, để kịp đọc
@@ -57,6 +58,7 @@ export function BranchingStoryEngine({ story, tree, onHome, onBack, sidePanel }:
   const [pinyinOn, setPinyinOn] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
   const readPause = useRef(false);   // true ngay sau khi hiện phân tích: chờ lâu hơn trước câu kế
+  const celebration = useLessonCelebration();   // màn chuỗi ngày / nhiệm vụ sau khi tới kết thúc
 
   const maxScenes = useMemo(() => longestPath(tree), [tree]);
   const allEndings = useMemo(() => Object.values(tree.nodes).filter(n => n.ending), [tree]);
@@ -97,7 +99,7 @@ export function BranchingStoryEngine({ story, tree, onHome, onBack, sidePanel }:
       } else if (node.ending) {
         setMessages(m => [...m, { type: "ending", node }]);
         setSeen(s => new Set(s).add(node.id));
-        markCompleted(story.id, { ending: node.id, score: scoreRef.current });
+        celebration.finish(markCompleted(story.id, { ending: node.id, score: scoreRef.current }));
         playSound("complete");
         setPhase("ended");
       } else if (node.choices) {
@@ -155,6 +157,7 @@ export function BranchingStoryEngine({ story, tree, onHome, onBack, sidePanel }:
     setScore({ right: 0, total: 0 });
     scoreRef.current = { right: 0, total: 0 };
     readPause.current = false;
+    celebration.restart();
     setPhase("reveal");
     setTimeout(() => scrollRef.current?.scrollTo({ top: 0, behavior: "auto" }), 50);
   }
@@ -265,6 +268,7 @@ export function BranchingStoryEngine({ story, tree, onHome, onBack, sidePanel }:
 
       {/* Optional side panel (desktop) */}
       {sidePanel}
+      {celebration.dialog}
     </div>
   );
 }
