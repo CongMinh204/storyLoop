@@ -16,6 +16,8 @@ import { BI_MAT_LUC_SAU_GIO_SANG } from "./bi-mat-luc-sau-gio-sang";
 import { BAI_KIEM_TRA_HOM_NAY } from "./bai-kiem-tra-hom-nay";
 import { CHI_DI_DAU_ROI } from "./chi-di-dau-roi";
 import { DO_CUA_TOI_DAU_MAT_ROI } from "./do-cua-toi-dau-mat-roi";
+import { MOT_BUOI_BIEU_DIEN_DAC_BIET } from "./mot-buoi-bieu-dien-dac-biet";
+import { MOT_CHUYEN_DI_DANG_NHO } from "./mot-chuyen-di-dang-nho";
 
 // Hai loại kịch bản:
 // - "quiz": hội thoại tuyến tính, mỗi lượt có đáp án đúng/sai (ChatStoryEngine)
@@ -44,6 +46,8 @@ const STORY_SCRIPTS: Record<string, StoryScript> = {
   "bai-kiem-tra-hom-nay": { kind: "branching", story: BAI_KIEM_TRA_HOM_NAY, vocab: BAI_KIEM_TRA_HOM_NAY.vocab },
   "chi-di-dau-roi": { kind: "branching", story: CHI_DI_DAU_ROI, vocab: CHI_DI_DAU_ROI.vocab },
   "do-cua-toi-dau-mat-roi": { kind: "branching", story: DO_CUA_TOI_DAU_MAT_ROI, vocab: DO_CUA_TOI_DAU_MAT_ROI.vocab },
+  "mot-buoi-bieu-dien-dac-biet": { kind: "branching", story: MOT_BUOI_BIEU_DIEN_DAC_BIET, vocab: MOT_BUOI_BIEU_DIEN_DAC_BIET.vocab },
+  "mot-chuyen-di-dang-nho": { kind: "branching", story: MOT_CHUYEN_DI_DANG_NHO, vocab: MOT_CHUYEN_DI_DANG_NHO.vocab },
 };
 
 // Trả về null nếu truyện chưa có kịch bản.

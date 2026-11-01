@@ -1,6 +1,9 @@
 # Sổ theo dõi cốt truyện: Google Doc ↔ app
 
-Doc cốt truyện: https://docs.google.com/document/d/1bsYDMmd7TKtire_IMHMA-3v5U0HGMjzxpE4PTf3f0JU
+Doc cốt truyện:
+
+- Bài 1–8: https://docs.google.com/document/d/1bsYDMmd7TKtire_IMHMA-3v5U0HGMjzxpE4PTf3f0JU
+- Bài 9 trở đi ("(2) HSK 2"): https://docs.google.com/document/d/1Q3DH_TXfkrGvVNVA8tENMNJoWetkpfc3BncvBF5rK88
 
 ## Cách dùng
 
@@ -29,5 +32,13 @@ Doc cốt truyện: https://docs.google.com/document/d/1bsYDMmd7TKtire_IMHMA-3v5
 | 7 | Chị đi đâu rồi? | Chị Đi Đâu Rồi? | Đã code, chờ merge | Tên gốc 姐姐去哪儿了？, 8 kết thúc; Doc có sẵn chữ Hán cho lựa chọn và tên kết thúc. Chỉnh nhẹ (chỉ cách nối cảnh, không đổi câu chữ): thêm cảnh 03R (bản gốc 04 → "xuống xe, quay lại công ty" về 03, tạo vòng lặp); 09 → "nghỉ ngơi trước" bỏ đoạn đầu kết thúc 02 (Tiểu Lâm về nhà hỏi chị đi đâu) vì cậu đã ở nhà và đã nghe chị kể. Còn nhờ tác giả xem: 07 → "hỏi người đó có quen chị không" sang thẳng 08 (gọi cho chị), thiếu câu trả lời của người đó; kết thúc 03 "về nhà rồi gọi cho chị" mà chị nói "chị đợi em ở nhà lâu rồi" (cả hai đều đang ở nhà); tên kết thúc 07 "明天再去 / Ngày mai quay lại" không khớp nội dung (xem lại lịch sử tin nhắn) |
 | 8 | Ai đã lấy quần áo của tôi? | Ai Đã Lấy Quần Áo Của Tôi? | Đã có trên main |  |
 | 8 | Ai nói thật? | Đồ Của Tôi Đâu Mất Rồi? | Đã code, chờ merge | Tab mang tên "Ai nói thật?" nhưng nội dung là truyện 我的东西去哪儿了？ (8 kết thúc); nên đổi tên tab. Đã import theo bản tác giả sửa lại (cảnh 07 chỉ còn đi từ 06, hết vòng lặp 06 ↔ 07, Tiểu Minh không còn gọi điện khi đang đi cùng). Doc chỉ có lựa chọn tiếng Việt: câu chữ Hán của lựa chọn và tên kết thúc bằng chữ Hán là bản dịch. Chỉnh nhẹ: cảnh 04 "lấy điện thoại để thanh toán" → "định thanh toán" (trả bằng điện thoại thì không cần ví). Còn nhờ tác giả xem: 03 → "nhờ Tiểu Minh nhắn hỏi mẹ còn cần mua gì" nhưng không có câu trả lời của mẹ; 02 → "không mua áo nữa" mà cảnh 09 vẫn có đủ áo trắng; kết thúc 07 "con còn hỏi nhân viên" không đúng với đường đi qua 08; tên kết thúc 06 "Nhầm lẫn của Tiểu Minh" trong khi Tiểu Minh không nhầm gì |
+| 9 | Bài 9 – Một buổi biểu diễn đặc biệt | Một Buổi Biểu Diễn Đặc Biệt | Đã code, chờ merge | Tên gốc 一次特别的表演, 5 kết thúc, ở Doc thứ hai. Doc chỉ có lựa chọn tiếng Việt: câu chữ Hán của lựa chọn và tên kết thúc bằng chữ Hán là bản dịch. Không chỉnh câu chữ hay cách nối cảnh. Bản gốc chỉ có 3 câu nói của Tiểu Minh nên chỉ có 3 bước chọn câu; đường "tự tập ở nhà → tiếp tục → nghỉ ngơi → lên sân khấu → ăn mừng" không có bước nào. Còn nhờ tác giả xem: kết thúc 04 "Tiểu Minh cảm ơn Tiểu Hồng đã giúp mình" nhưng nếu đi đường tự tập ở nhà (02 → 05 → 07) thì Tiểu Hồng chưa giúp gì; cảnh 08 Tiểu Hồng vội đến trường giúp mà lựa chọn B lại tự nhớ một mình (cũng không rõ Tiểu Minh đang ở trường); cảnh 04 tên "Gặp người bạn mới" nhưng Tiểu Hồng là bạn cùng lớp; từ 题 và 完 (đứng riêng) trong bảng từ vựng không xuất hiện trong truyện |
+| 9 | Bài 9 – Một chuyến đi đáng nhớ | Một Chuyến Đi Đáng Nhớ | Đã code, chờ merge | Tên gốc 一次难忘的旅行, 6 kết thúc, ở Doc thứ hai. Doc chỉ có lựa chọn tiếng Việt: câu chữ Hán của lựa chọn và tên kết thúc bằng chữ Hán là bản dịch. Không chỉnh câu chữ hay cách nối cảnh. Còn nhờ tác giả xem: cảnh 03 Tiểu Lệ nói "chúng tớ đã đợi cậu nửa tiếng" nhưng sang cảnh 02 Tiểu Cương vẫn chưa đến; 09 → "mua nước uống rồi mới đi" nhưng ở kết thúc 03 cả nhóm ngồi lại nhà hàng, không đi tiếp; cảnh 07 Tiểu Mỹ vừa nói "quay lại thôi" mà lựa chọn B là tiếp tục tìm; các từ 第一, 问题, 上班, 题 trong bảng từ vựng không có trong truyện |
+| 10 | Bài 10 – Anh trai không có ở nhà | | Chưa thêm |  |
+| 10 | Bài 10 – Điện thoại đi đâu mất rồi? | | Chưa thêm |  |
+| 11 | Bài 11 – Bạn học mới là ai? | | Chưa thêm |  |
+| 11 | Bài 11 – Buổi hòa nhạc cuối tuần | | Chưa thêm |  |
+| 12 | Bài 12 – Sinh nhật ở khách sạn | | Chưa thêm |  |
+| 12 | Bài 12 – Tấm vé cuối cùng | | Chưa thêm |  |
 
 Không thuộc Doc này: "Thử thách của Ngọc Hoàng" (HSK1).
