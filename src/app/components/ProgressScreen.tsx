@@ -9,6 +9,7 @@ import {
   CheckCircle2, Circle, ChevronLeft, ChevronRight,
 } from "lucide-react";
 import { C } from "../lib/colors";
+import { ACHIEVEMENT_TONE } from "../data/achievements";
 import { useViewer, formatNumber } from "../features/auth/viewer";
 import { GuestReminder } from "../features/auth/GuestReminder";
 import { useActivity } from "../features/progress/useActivity";
@@ -21,14 +22,9 @@ import {
 // tính từ tiến độ truyện và Phòng tập (features/progress/learningStats.ts).
 
 // Màu của thành tích theo tông (data/achievements.ts); chưa mở thì xám
-const TONE = {
-  reward: { color: C.rewardDeep, bg: C.rewardBg, border: C.rewardBorder },
-  primary: { color: C.primaryText, bg: C.primaryBg, border: C.primaryBorder },
-  ink: { color: C.ink, bg: C.inkBg, border: C.inkBorder },
-};
 const LOCKED = { color: C.inkMuted, bg: C.bg, border: C.border };
 const STATUS_LABEL: Record<AchievementStatus, string> = { done: "Đạt được", active: "Đang làm", locked: "Chưa mở" };
-const toneOf = (a: AchievementState) => (a.status === "locked" ? LOCKED : TONE[a.tone]);
+const toneOf = (a: AchievementState) => (a.status === "locked" ? LOCKED : ACHIEVEMENT_TONE[a.tone]);
 
 // ─── Custom tooltip ───────────────────────────────────────────────────────────
 type TooltipProps = { active?: boolean; payload?: { value: number | null; payload?: { full?: string } }[]; label?: string };

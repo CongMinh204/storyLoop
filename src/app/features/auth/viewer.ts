@@ -33,7 +33,7 @@ export function greeting(hour = new Date().getHours()) {
 }
 
 // Ngày hiện tại theo giờ Việt Nam (YYYY-MM-DD), giống vnDay ở server
-const vnToday = () => new Date(Date.now() + 7 * 3600_000).toISOString().slice(0, 10);
+export const vnToday = () =>new Date(Date.now() + 7 * 3600_000).toISOString().slice(0, 10);
 
 // Thử thách hôm nay. Bản lưu từ hôm trước (hoặc server cũ chưa có thử thách) thì coi như chưa kiếm được gì.
 function dailyOf(d: DailyStats | undefined) {

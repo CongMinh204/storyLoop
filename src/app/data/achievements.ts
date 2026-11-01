@@ -1,4 +1,5 @@
 import { Award, BookOpen, Brain, Compass, Flame, Star, Target, Trophy, type LucideIcon } from "lucide-react";
+import { C } from "../lib/colors";
 
 // Thành tích ở màn Tiến trình. Tiến độ tính từ dữ liệu thật (features/progress/learningStats.ts); đạt được
 // không cộng XP.
@@ -22,6 +23,13 @@ export type Achievement = {
   metric: AchievementMetric;
   target: number | "all";
   tone: "reward" | "primary" | "ink";
+};
+
+// Màu theo tông (màn Tiến trình, màn nhiệm vụ sau bài học). color: icon, thanh tiến độ
+export const ACHIEVEMENT_TONE: Record<Achievement["tone"], { color: string; bg: string; border: string }> = {
+  reward: { color: C.rewardDeep, bg: C.rewardBg, border: C.rewardBorder },
+  primary: { color: C.primaryText, bg: C.primaryBg, border: C.primaryBorder },
+  ink: { color: C.ink, bg: C.inkBg, border: C.inkBorder },
 };
 
 export const ACHIEVEMENTS: Achievement[] = [
