@@ -29,5 +29,7 @@ Doc cốt truyện: https://docs.google.com/document/d/1bsYDMmd7TKtire_IMHMA-3v5
 | 7 | Chị đi đâu rồi? | chưa có | Chưa thêm |  |
 | 8 | Ai đã lấy quần áo của tôi? | chưa có | Chưa thêm |  |
 | 8 | Ai nói thật? | chưa có | Chưa thêm |  |
+| 11 | Bạn học mới là ai? | Bạn Học Mới Là Ai? | Đã code, chờ merge | id: ban-hoc-moi-la-ai; rẽ nhánh cuối cảnh 7 để mở 2 kết thúc END_3, END_4 |
+| 11 | Buổi hòa nhạc cuối tuần | Buổi Hòa Nhạc Cuối Tuần | Đã code, chờ merge | id: buoi-hoa-nhac-cuoi-tuan; thêm 2 cảnh đệm 03A, 04B nối mạch và đủ 11 flashcards |
 
 Không thuộc Doc này: "Thử thách của Ngọc Hoàng" (HSK1).
