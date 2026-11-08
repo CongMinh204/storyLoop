@@ -243,4 +243,14 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "正在", wordPy: "zhèngzài", wordVi: "đang — 正在 + Động từ (正在找手机)", missMsg: "Hãy dùng từ 正在 trong câu!" },
     ],
   },
+  "sinh-nhat-o-khach-san": {
+    doneShort: "truyện Sinh Nhật Ở Khách Sạn", doneLong: "truyện Sinh Nhật Ở Khách Sạn", words: 4,
+    items: [
+      { type: "nhớ", char: "宾馆", pinyin: "Bīnguǎn", pinyinColor: C.success, story: "Sinh Nhật Ở Khách Sạn", q: "Nghĩa của từ này là gì?", opts: ["Nhà ga", "Trường học", "Khách sạn", "Cửa hàng"], correct: 2, explain: "宾馆 (bīnguǎn) = khách sạn. Trong truyện: 他今天在宾馆，我想去看他。 (Hôm nay bố tớ ở khách sạn, tớ muốn đến thăm bố.). Nhà ga là 火车站, trường học là 学校, cửa hàng là 商店." },
+      { type: "hiểu", sent: "一直 (yìzhí)", sentVi: "Luôn, liên tục, cứ", story: "Sinh Nhật Ở Khách Sạn", q: "Câu nào dùng đúng 一直 trong tình huống câu chuyện?", opts: ["她看着一直手机很高兴。", "她一直看着手机，好像在等一个电话。", "宾馆很一直漂亮。", "一直桌子在上有书。"], optsVi: ["Cô ấy nhìn cứ điện thoại rất vui.", "Cô ấy cứ nhìn điện thoại, dường như đang đợi một cuộc gọi.", "Khách sạn rất cứ đẹp.", "Cứ bàn ở trên có sách."], correct: 1, explain: "一直 là phó từ (luôn, cứ), đứng trước động từ để nói hành động kéo dài liên tục: 一直看着手机. Không đứng sau động từ, không đứng trước tính từ hay danh từ." },
+      { type: "dùng", story: "Sinh Nhật Ở Khách Sạn", q: "Hoàn thành câu theo tình huống:", prompt: "Hai bạn rời trường và đi về phía bên ngoài cổng.\nĐiền vào chỗ trống:", tmpl: "你们___学校外面走。", tmplVi: "Hai người đi ___ bên ngoài trường học.", ans: "往", hint: "Gợi ý: 往 (wǎng)", explain: "往 + hướng + Động từ = đi về phía…: 往学校外面走 = đi về phía bên ngoài trường. 往 là giới từ, đứng trước hướng và động từ." },
+      { type: "viết", story: "Sinh Nhật Ở Khách Sạn", q: "Viết một câu dùng từ 着 (zhe = đang, giữ trạng thái):", prompt: "Viết một câu mô tả ai đó đang cầm hoặc mặc gì đó, nhớ dùng 着.", ph: "Ví dụ: 她拿着一支铅笔。", explain: "Mẫu: 她穿着红色的衣服。 / 他看着手机。 / 我拿着一本书。 着 đứng ngay sau động từ để nói trạng thái đang kéo dài.", check: (v: string) => v.includes("着") && v.length > 3,
+        word: "着", wordPy: "zhe", wordVi: "(trợ từ) đang, giữ trạng thái — 拿着 / 穿着 / 看着", missMsg: "Hãy dùng từ 着 trong câu!" },
+    ],
+  },
 };

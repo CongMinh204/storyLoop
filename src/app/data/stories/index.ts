@@ -22,6 +22,7 @@ import { MOT_BUOI_BIEU_DIEN_DAC_BIET } from "./mot-buoi-bieu-dien-dac-biet";
 import { MOT_CHUYEN_DI_DANG_NHO } from "./mot-chuyen-di-dang-nho";
 import { MOT_NGAY_CUNG_ANH_TRAI } from "./mot-ngay-cung-anh-trai";
 import { DIEN_THOAI_DI_DAU_MAT_ROI } from "./dien-thoai-di-dau-mat-roi";
+import { SINH_NHAT_O_KHACH_SAN } from "./sinh-nhat-o-khach-san";
 
 // Hai loại kịch bản:
 // - "quiz": hội thoại tuyến tính, mỗi lượt có đáp án đúng/sai (ChatStoryEngine)
@@ -56,6 +57,7 @@ const STORY_SCRIPTS: Record<string, StoryScript> = {
   "mot-chuyen-di-dang-nho": { kind: "branching", story: MOT_CHUYEN_DI_DANG_NHO, vocab: MOT_CHUYEN_DI_DANG_NHO.vocab },
   "mot-ngay-cung-anh-trai": { kind: "branching", story: MOT_NGAY_CUNG_ANH_TRAI, vocab: MOT_NGAY_CUNG_ANH_TRAI.vocab },
   "dien-thoai-di-dau-mat-roi": { kind: "branching", story: DIEN_THOAI_DI_DAU_MAT_ROI, vocab: DIEN_THOAI_DI_DAU_MAT_ROI.vocab },
+  "sinh-nhat-o-khach-san": { kind: "branching", story: SINH_NHAT_O_KHACH_SAN, vocab: SINH_NHAT_O_KHACH_SAN.vocab },
 };
 
 // Trả về null nếu truyện chưa có kịch bản.
