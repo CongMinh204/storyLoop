@@ -11,6 +11,8 @@ import { CAM_NHAM_QUA } from "./cam-nham-qua";
 import { NGUOI_NGOAI_CUA_LA_AI } from "./nguoi-ngoai-cua-la-ai";
 import { MOT_GIO_CUOI_CUNG } from "./mot-gio-cuoi-cung";
 import { AI_LAY_QUAN_AO } from "./ai-lay-quan-ao";
+import { BAN_HOC_MOI_LA_AI } from "./ban-hoc-moi-la-ai";
+import { BUOI_HOA_NHAC_CUOI_TUAN } from "./buoi-hoa-nhac-cuoi-tuan";
 import { CHIEC_XE_DAP_NGOAI_CUA } from "./chiec-xe-dap-ngoai-cua";
 import { BI_MAT_LUC_SAU_GIO_SANG } from "./bi-mat-luc-sau-gio-sang";
 import { BAI_KIEM_TRA_HOM_NAY } from "./bai-kiem-tra-hom-nay";
@@ -41,6 +43,8 @@ const STORY_SCRIPTS: Record<string, StoryScript> = {
   "nguoi-ngoai-cua-la-ai": { kind: "branching", story: NGUOI_NGOAI_CUA_LA_AI, vocab: NGUOI_NGOAI_CUA_LA_AI.vocab },
   "mot-gio-cuoi-cung": { kind: "branching", story: MOT_GIO_CUOI_CUNG, vocab: MOT_GIO_CUOI_CUNG.vocab },
   "ai-lay-quan-ao": { kind: "branching", story: AI_LAY_QUAN_AO, vocab: AI_LAY_QUAN_AO.vocab },
+  "ban-hoc-moi-la-ai": { kind: "branching", story: BAN_HOC_MOI_LA_AI, vocab: BAN_HOC_MOI_LA_AI.vocab },
+  "buoi-hoa-nhac-cuoi-tuan": { kind: "branching", story: BUOI_HOA_NHAC_CUOI_TUAN, vocab: BUOI_HOA_NHAC_CUOI_TUAN.vocab },
   "chiec-xe-dap-ngoai-cua": { kind: "branching", story: CHIEC_XE_DAP_NGOAI_CUA, vocab: CHIEC_XE_DAP_NGOAI_CUA.vocab },
   "bi-mat-luc-sau-gio-sang": { kind: "branching", story: BI_MAT_LUC_SAU_GIO_SANG, vocab: BI_MAT_LUC_SAU_GIO_SANG.vocab },
   "bai-kiem-tra-hom-nay": { kind: "branching", story: BAI_KIEM_TRA_HOM_NAY, vocab: BAI_KIEM_TRA_HOM_NAY.vocab },

@@ -36,8 +36,8 @@ Doc cốt truyện:
 | 9 | Bài 9 – Một chuyến đi đáng nhớ | Một Chuyến Đi Đáng Nhớ | Đã code, chờ merge | Tên gốc 一次难忘的旅行, 6 kết thúc, ở Doc thứ hai. Doc chỉ có lựa chọn tiếng Việt: câu chữ Hán của lựa chọn và tên kết thúc bằng chữ Hán là bản dịch. Không chỉnh câu chữ hay cách nối cảnh. Còn nhờ tác giả xem: cảnh 03 Tiểu Lệ nói "chúng tớ đã đợi cậu nửa tiếng" nhưng sang cảnh 02 Tiểu Cương vẫn chưa đến; 09 → "mua nước uống rồi mới đi" nhưng ở kết thúc 03 cả nhóm ngồi lại nhà hàng, không đi tiếp; cảnh 07 Tiểu Mỹ vừa nói "quay lại thôi" mà lựa chọn B là tiếp tục tìm; các từ 第一, 问题, 上班, 题 trong bảng từ vựng không có trong truyện |
 | 10 | Bài 10 – Anh trai không có ở nhà | | Chưa thêm |  |
 | 10 | Bài 10 – Điện thoại đi đâu mất rồi? | | Chưa thêm |  |
-| 11 | Bài 11 – Bạn học mới là ai? | | Chưa thêm |  |
-| 11 | Bài 11 – Buổi hòa nhạc cuối tuần | | Chưa thêm |  |
+| 11 | Bài 11 – Bạn học mới là ai? | Bạn Học Mới Là Ai? | Đã code, chờ merge | Tên gốc 《新同学是谁？》, 4 kết thúc. Chỉnh so với bản gốc (tác giả đã đồng ý): thêm đoạn đệm cuối cảnh 07 (hai người ra sân trường, em trai Lý Minh đứng xem) và hai lựa chọn mở kết thúc 3, 4 ("cùng xem rồi về", "quay lại mua điện thoại") |
+| 11 | Bài 11 – Buổi hòa nhạc cuối tuần | Buổi Hòa Nhạc Cuối Tuần | Đã code, chờ merge | Tên gốc 《周末的音乐会》, 4 kết thúc. Chỉnh so với bản gốc (tác giả đã đồng ý): thêm hai cảnh đệm 03A (sau khi mua túi, gặp Tiểu Lệ) và 04B (đi tìm mẹ thì gặp đứa trẻ lạc) để nối mạch và đủ từ 右边, 男 cho flashcard |
 | 12 | Bài 12 – Sinh nhật ở khách sạn | | Chưa thêm |  |
 | 12 | Bài 12 – Tấm vé cuối cùng | | Chưa thêm |  |
 
