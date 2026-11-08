@@ -13,7 +13,9 @@ export type StoryProgress = ProgressDto;
 // Một lần người chơi chọn đáp án: key phân biệt các bước trong truyện, correct để server cộng XP
 export type StepInfo = { key: string; correct: boolean };
 type Store = Record<string, StoryProgress>;
-export type ProgressStats = { xp: number; streak: number };
+// Thử thách hàng ngày (server/src/stats.ts): XP đã kiếm hôm nay (giờ Việt Nam), mục tiêu, phần thưởng, đã nhận chưa
+export type DailyStats = { day: string; xp: number; goal: number; bonus: number; done: boolean };
+export type ProgressStats = { xp: number; streak: number; bestStreak: number; daily: DailyStats };
 
 const GUEST_KEY = "storyloop.progress.v1";
 const userKey = (uid: string) => `storyloop.progress.u.${uid}`;
@@ -21,6 +23,7 @@ const OUTBOX_KEY = "storyloop.outbox.v1";
 const MAX_OUTBOX = 1000;
 const RETRY_MIN = 5_000;
 const RETRY_MAX = 120_000;
+const COMPLETE_WAIT = 6_000;  // markCompleted chờ kết quả của server tối đa bấy lâu
 const STEP_KEY_RE = /^[A-Za-z0-9_.:#-]{1,64}$/; // giống server/src/progress/schemas.ts
 
 function isValid(p: unknown): p is StoryProgress {
@@ -82,17 +85,21 @@ export function reportProgress(id: string, pct: number, step?: StepInfo) {
 }
 
 // Gọi khi tới màn kết quả / kết thúc. Đã hoàn thành thì luôn giữ trạng thái hoàn thành.
-export function markCompleted(id: string, info: { ending?: string; score?: Score; step?: StepInfo } = {}) {
+// Trả về XP, streak và thử thách hôm nay sau khi server ghi nhận lần hoàn thành này (cho màn chuỗi ngày và
+// nhiệm vụ); null nếu là khách, server từ chối, hoặc quá COMPLETE_WAIT chưa gửi được (mục vẫn nằm trong hàng
+// đợi và được gửi lại sau như thường).
+export function markCompleted(id: string, info: { ending?: string; score?: Score; step?: StepInfo } = {}): Promise<ProgressStats | null> {
   track("story_complete", {
     story_id: id,
     ...(info.ending ? { ending: info.ending } : {}),
     ...(validScore(info.score) ? { score_right: info.score.right, score_total: info.score.total } : {}),
   });
   update(id, p => applyReport(p, { complete: { ending: info.ending, score: info.score } }, Date.now()));
-  enqueue(id, {
+  const item = enqueue(id, {
     complete: { ...(info.ending ? { ending: info.ending } : {}), ...(validScore(info.score) ? { score: info.score } : {}) },
     ...stepPart(info.step),
   });
+  return item ? waitFor(item) : Promise.resolve(null);
 }
 
 export function getProgress(id: string): StoryProgress | undefined {
@@ -125,10 +132,29 @@ function writeOutbox(list: Pending[]) {
 
 const newId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
 
-function enqueue(storyId: string, body: ReportBody) {
-  if (!account) return;
-  writeOutbox([...readOutbox(), { id: newId(), uid: account, storyId, body }].slice(-MAX_OUTBOX));
+// Trả về id của mục vừa thêm, null nếu là khách (không gửi gì)
+function enqueue(storyId: string, body: ReportBody): string | null {
+  if (!account) return null;
+  const id = newId();
+  writeOutbox([...readOutbox(), { id, uid: account, storyId, body }].slice(-MAX_OUTBOX));
   void flush();
+  return id;
+}
+
+// Chờ server trả kết quả của một mục trong hàng đợi (theo id mục). Mục do tab khác gửi giúp thì tab này
+// không nhận được kết quả, sẽ hết giờ chờ.
+const waiters = new Map<string, (s: ProgressStats | null) => void>();
+
+function waitFor(id: string) {
+  return new Promise<ProgressStats | null>(resolve => {
+    const timer = setTimeout(() => settle(null), COMPLETE_WAIT);
+    function settle(s: ProgressStats | null) {
+      clearTimeout(timer);
+      waiters.delete(id);
+      resolve(s);
+    }
+    waiters.set(id, settle);
+  });
 }
 
 let statsListener: (s: ProgressStats) => void = () => {};
@@ -164,9 +190,11 @@ async function flush(): Promise<void> {
             mergeIn({ [item.storyId]: res.progress });
             statsListener(res);
           }
+          waiters.get(item.id)?.(account === uid ? res : null);
         } catch (err) {
           if (!isPermanent(err)) throw err;
           console.warn("Bỏ một mục tiến độ bị server từ chối:", item, (err as Error).message);
+          waiters.get(item.id)?.(null);
         }
         writeOutbox(readOutbox().filter(i => i.id !== item.id));
       }

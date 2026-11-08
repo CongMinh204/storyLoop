@@ -9,7 +9,8 @@ import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { cn } from "../../components/ui/utils";
 import {
-  checkConfirm, checkEmail, checkFullName, checkPassword, MSG, passwordChecks,
+  checkConfirm, checkEmail, checkFullName, checkPassword, checkReferralOther, checkReferralSource, MSG, passwordChecks,
+  REFERRAL_OPTIONS, REFERRAL_OTHER_MAX,
 } from "../../../../server/src/shared/validation";
 import { chooseGuest, login, openAuth, register, useAuth } from "./useAuth";
 import { GoogleButton } from "./GoogleButton";
@@ -63,6 +64,34 @@ function PasswordInput({ id, bind, invalid, autoComplete, placeholder }: { id: s
         {show ? <EyeOff size={16} /> : <Eye size={16} />}
       </button>
     </div>
+  );
+}
+
+// "Bạn biết tới StoryLoop qua đâu?": ba nút chọn một; chọn "Khác" thì hiện thêm ô tự ghi
+function ReferralPicker({ source, other, sourceInvalid, otherInvalid }: { source: Bind; other: Bind; sourceInvalid: boolean; otherInvalid: boolean }) {
+  return (
+    <>
+      <div id="auth-referralSource" role="radiogroup" aria-label="Bạn biết tới StoryLoop qua đâu?" tabIndex={-1}
+        aria-invalid={sourceInvalid || undefined} aria-describedby={sourceInvalid ? "auth-referralSource-error" : undefined}
+        style={{ display: "flex", flexWrap: "wrap", gap: 8, outline: "none" }}>
+        {REFERRAL_OPTIONS.map(o => {
+          const on = source.value === o.value;
+          return (
+            <button key={o.value} type="button" role="radio" aria-checked={on}
+              onClick={() => { source.onChange(o.value); if (o.value === "other") setTimeout(() => document.getElementById("auth-referralOther")?.focus(), 0); }}
+              style={{ minHeight: 44, padding: "0 18px", borderRadius: 999, cursor: "pointer", fontFamily: "inherit", fontSize: 14, fontWeight: on ? 700 : 500,
+                background: on ? "var(--sl-primary-bg)" : C.surface, color: on ? C.primaryText : C.ink,
+                border: `1.5px solid ${on ? "var(--sl-primary)" : sourceInvalid ? C.danger : "var(--sl-primary-border)"}` }}>
+              {o.label}
+            </button>
+          );
+        })}
+      </div>
+      {source.value === "other" && (
+        <TextInput id="auth-referralOther" bind={other} invalid={otherInvalid} maxLength={REFERRAL_OTHER_MAX}
+          aria-label="Bạn biết tới StoryLoop qua đâu (ghi rõ)" placeholder="Ví dụ: TikTok, thầy cô, Google…" />
+      )}
+    </>
   );
 }
 
@@ -170,12 +199,14 @@ const formStyle: React.CSSProperties = { display: "flex", flexDirection: "column
 export function RegisterForm({ googleWidth }: { googleWidth: number }) {
   const { googleEnabled } = useAuth();
   const f = useForm(
-    { fullName: "", email: "", password: "", confirmPassword: "" },
+    { fullName: "", email: "", password: "", confirmPassword: "", referralSource: "", referralOther: "" },
     {
       fullName: v => checkFullName(v.fullName),
       email: v => checkEmail(v.email),
       password: v => checkPassword(v.password),
       confirmPassword: v => checkConfirm(v.password, v.confirmPassword),
+      referralSource: v => checkReferralSource(v.referralSource),
+      referralOther: v => checkReferralOther(v.referralSource, v.referralOther),
     },
   );
   // Mật khẩu yếu đã được tô đỏ trong dòng gợi ý, không lặp lại câu báo lỗi
@@ -196,6 +227,10 @@ export function RegisterForm({ googleWidth }: { googleWidth: number }) {
       </Field>
       <Field id="auth-confirmPassword" label="Xác nhận mật khẩu" error={f.error("confirmPassword")}>
         <PasswordInput id="auth-confirmPassword" bind={f.bind("confirmPassword")} invalid={!!f.error("confirmPassword")} autoComplete="new-password" placeholder="Nhập lại mật khẩu" />
+      </Field>
+      <Field id="auth-referralSource" label="Bạn biết tới StoryLoop qua đâu?" error={f.error("referralSource") ?? f.error("referralOther")}>
+        <ReferralPicker source={f.bind("referralSource")} other={f.bind("referralOther")}
+          sourceInvalid={!!f.error("referralSource")} otherInvalid={!!f.error("referralOther")} />
       </Field>
       <FormError message={f.formError} />
       <SubmitButton busy={f.busy} label="Đăng Ký Tài Khoản" busyLabel="Đang tạo tài khoản..." />

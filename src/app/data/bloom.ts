@@ -153,4 +153,74 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "比", wordPy: "bǐ", wordVi: "hơn — A 比 B + Tính từ (比我的好听)", missMsg: "Hãy dùng từ 比 trong câu!" },
     ],
   },
+  "chiec-xe-dap-ngoai-cua": {
+    doneShort: "bài Chiếc Xe Đạp Ngoài Cửa", doneLong: "bài Chiếc Xe Đạp Ngoài Cửa", words: 4,
+    items: [
+      { type: "nhớ", char: "自行车", pinyin: "Zìxíngchē", pinyinColor: C.success, story: "Chiếc Xe Đạp Ngoài Cửa", q: "Nghĩa của từ này là gì?", opts: ["Xe máy", "Xe buýt", "Xe đạp", "Xe hơi"], correct: 2, explain: "自行车 (zìxíngchē) = xe đạp. Trong truyện: 不就在门外吗？ (Chẳng phải xe đạp ở bên ngoài cửa sao?) và 在我的自行车上啊 (Trên xe đạp của em ấy)." },
+      { type: "hiểu", sent: "经常 (jīngcháng)", sentVi: "Thường, thường xuyên", story: "Chiếc Xe Đạp Ngoài Cửa", q: "Câu nào dùng đúng 经常 trong tình huống câu chuyện?", opts: ["这个经常很好吃。", "我买了一个经常。", "你们以前经常来这里吗？", "经常在桌子上。"], optsVi: ["Cái thường này rất ngon.", "Tôi mua một cái thường.", "Trước đây hai người thường đến đây à?", "Thường ở trên bàn."], correct: 2, explain: "经常 là phó từ chỉ việc lặp lại nhiều lần, đứng trước động từ (经常来这里 = thường đến đây). Nó không phải danh từ nên không ăn, mua hay đặt lên bàn được." },
+      { type: "dùng", story: "Chiếc Xe Đạp Ngoài Cửa", q: "Hoàn thành câu theo tình huống:", prompt: "Tiểu Lan giải thích vì sao bây giờ cô mới tìm đến chị gái của Tiểu Minh.\nĐiền vào chỗ trống:", tmpl: "___我终于准备好了。", tmplVi: "___ cuối cùng em cũng đã sẵn sàng.", ans: "因为", hint: "Gợi ý: 因为 (yīnwèi)", explain: "因为 = bởi vì, mở đầu phần nêu nguyên nhân: 因为我终于准备好了 = vì cuối cùng em cũng đã sẵn sàng." },
+      { type: "viết", story: "Chiếc Xe Đạp Ngoài Cửa", q: "Viết một câu dùng từ 以前 (yǐqián = trước đây):", prompt: "Viết một câu kể chuyện ngày trước của bạn hoặc của một người bạn, nhớ dùng 以前.", ph: "Ví dụ: 以前，我和朋友经常一起打篮球。", explain: "Mẫu: 以前，我和朋友经常一起打篮球。 / 她是小兰，我以前的朋友。", check: (v: string) => v.includes("以前") && v.length > 3,
+        word: "以前", wordPy: "yǐqián", wordVi: "trước đây — 以前 + sự việc (以前，我们经常一起…)", missMsg: "Hãy dùng từ 以前 trong câu!" },
+    ],
+  },
+  "bi-mat-luc-sau-gio-sang": {
+    doneShort: "bài Bí Mật Lúc Sáu Giờ Sáng", doneLong: "bài Bí Mật Lúc Sáu Giờ Sáng", words: 4,
+    items: [
+      { type: "nhớ", char: "跑步", pinyin: "Pǎobù", pinyinColor: C.success, story: "Bí Mật Lúc Sáu Giờ Sáng", q: "Nghĩa của từ này là gì?", opts: ["Đi bộ", "Chạy bộ", "Bơi", "Đá bóng"], correct: 1, explain: "跑步 (pǎobù) = chạy bộ (跑 = chạy, 步 = bước). Trong truyện: 你每天早上都去跑步吗？ (Mỗi buổi sáng anh đều đi chạy bộ à?)" },
+      { type: "hiểu", sent: "忙 (máng)", sentVi: "Bận", story: "Bí Mật Lúc Sáu Giờ Sáng", q: "Câu nào dùng đúng 忙 trong tình huống câu chuyện?", opts: ["我买了一个忙。", "忙在桌子上。", "没关系，我知道你很忙。", "我很喜欢喝忙。"], optsVi: ["Tôi đã mua một cái bận.", "Bận ở trên bàn.", "Không sao, tớ biết cậu rất bận.", "Tôi rất thích uống bận."], correct: 2, explain: "忙 là tính từ chỉ trạng thái bận rộn, làm vị ngữ sau 很 (你很忙 = cậu rất bận). Nó không phải đồ vật nên không mua, không đặt lên bàn hay uống được." },
+      { type: "dùng", story: "Bí Mật Lúc Sáu Giờ Sáng", q: "Hoàn thành câu theo tình huống:", prompt: "Anh trai Tiểu Vũ kể về giờ thức dậy mỗi sáng của mình.\nĐiền vào chỗ trống:", tmpl: "我每天早上六点___。", tmplVi: "Mỗi buổi sáng anh ___ lúc 6 giờ.", ans: "起床", hint: "Gợi ý: 起床 (qǐchuáng)", explain: "起床 = thức dậy, rời khỏi giường. Giờ giấc đứng trước động từ: 每天早上六点起床 = mỗi sáng thức dậy lúc 6 giờ." },
+      { type: "viết", story: "Bí Mật Lúc Sáu Giờ Sáng", q: "Viết một câu dùng từ 身体 (shēntǐ = sức khỏe, cơ thể):", prompt: "Viết một câu khuyên một người bận rộn chú ý đến sức khỏe, nhớ dùng 身体.", ph: "Ví dụ: 身体很重要，你应该多休息。", explain: "Mẫu: 你不要太忙了。身体很重要，你应该多休息。 / 身体健康比什么都重要。", check: (v: string) => v.includes("身体") && v.length > 3,
+        word: "身体", wordPy: "shēntǐ", wordVi: "sức khỏe, cơ thể — 身体 + 很重要 / 注意身体", missMsg: "Hãy dùng từ 身体 trong câu!" },
+    ],
+  },
+  "bai-kiem-tra-hom-nay": {
+    doneShort: "truyện Bài Kiểm Tra Hôm Nay", doneLong: "truyện Bài Kiểm Tra Hôm Nay", words: 4,
+    items: [
+      { type: "nhớ", char: "鱼", pinyin: "Yú", pinyinColor: C.success, story: "Bài Kiểm Tra Hôm Nay", q: "Nghĩa của từ này là gì?", opts: ["Thịt", "Cá", "Gà", "Rau"], correct: 1, explain: "鱼 (yú) = cá. Trong truyện: 妈妈，我去买鱼了！ (Mẹ ơi, con đi mua cá đây!). Lượng từ của cá là 条: 一条鱼." },
+      { type: "hiểu", sent: "件 (jiàn)", sentVi: "Lượng từ cho quần áo, sự việc", story: "Bài Kiểm Tra Hôm Nay", q: "Câu nào dùng đúng 件 trong tình huống câu chuyện?", opts: ["我去买一件鱼。", "这是一件不错的办法。", "你看看那件蓝色的衣服旁边吧。", "我再喝一件咖啡。"], optsVi: ["Con đi mua một chiếc cá.", "Đây là một chiếc cách khá tốt.", "Con thử nhìn bên cạnh chiếc áo màu xanh kia xem.", "Mình uống thêm một chiếc cà phê."], correct: 2, explain: "件 là lượng từ cho quần áo (一件衣服) và sự việc (一件事). Cá dùng 条 (一条鱼), cách làm dùng 个 (一个办法), cà phê dùng 杯 (一杯咖啡)." },
+      { type: "dùng", story: "Bài Kiểm Tra Hôm Nay", q: "Hoàn thành câu theo tình huống:", prompt: "Giáo viên nhắn tin nhắc giờ làm bài ngày mai.\nĐiền vào chỗ trống:", tmpl: "明天早上九点___，请不要迟到。", tmplVi: "Ngày mai ___ lúc 9 giờ sáng, xin đừng đến muộn.", ans: "考试", hint: "Gợi ý: 考试 (kǎoshì)", explain: "考试 = thi, làm bài kiểm tra. Giờ giấc đứng trước động từ: 明天早上九点考试 = ngày mai thi lúc 9 giờ sáng." },
+      { type: "viết", story: "Bài Kiểm Tra Hôm Nay", q: "Viết một câu dùng từ 不错 (búcuò = khá tốt, không tệ):", prompt: "Viết một câu khen thời tiết, một món ăn hoặc một cách học, nhớ dùng 不错.", ph: "Ví dụ: 今天天气不错。", explain: "Mẫu: 外面天气不错。 / 这真是一个不错的办法！ / 听说那家饭馆的菜不错。", check: (v: string) => v.includes("不错") && v.length > 3,
+        word: "不错", wordPy: "búcuò", wordVi: "khá tốt, không tệ — Danh từ + 不错 / 不错的 + Danh từ", missMsg: "Hãy dùng từ 不错 trong câu!" },
+    ],
+  },
+  "chi-di-dau-roi": {
+    doneShort: "truyện Chị Đi Đâu Rồi?", doneLong: "truyện Chị Đi Đâu Rồi?", words: 4,
+    items: [
+      { type: "nhớ", char: "公司", pinyin: "Gōngsī", pinyinColor: C.success, story: "Chị Đi Đâu Rồi?", q: "Nghĩa của từ này là gì?", opts: ["Trường học", "Công ty", "Sân bay", "Chợ"], correct: 1, explain: "公司 (gōngsī) = công ty. Trong truyện: 我现在在公司。 (Bây giờ chị đang ở công ty.). Trường học là 学校, sân bay là 机场, chợ là 市场." },
+      { type: "hiểu", sent: "过 (guo)", sentVi: "Đã từng (đứng sau động từ)", story: "Chị Đi Đâu Rồi?", q: "Câu nào dùng đúng 过 trong tình huống câu chuyện?", opts: ["他看了过手机。", "今天我没有发消息过。", "姐姐真的来过这里吗？", "我明天去过机场。"], optsVi: ["Cậu ấy đã đã từng xem điện thoại.", "Hôm nay chị chưa gửi tin nhắn từng.", "Chị tôi thật sự đã đến đây sao?", "Ngày mai tôi đã từng đi sân bay."], correct: 2, explain: "过 đứng ngay sau động từ để nói việc đã từng làm: 来过, 发过, 打过. Nó không đi liền với 了 (了过), không đứng sau tân ngữ (发消息过 → 发过消息) và không dùng cho việc ở tương lai (明天)." },
+      { type: "dùng", story: "Chị Đi Đâu Rồi?", q: "Hoàn thành câu theo tình huống:", prompt: "Tiểu Lâm ngồi trên xe buýt đi sân bay, xe chạy mãi không tới nơi.\nĐiền vào chỗ trống:", tmpl: "公共汽车开得很___。", tmplVi: "Xe buýt chạy rất ___.", ans: "慢", hint: "Gợi ý: 慢 (màn)", explain: "慢 = chậm, trái nghĩa với 快 (nhanh). Động từ + 得 + 很 + Tính từ: 开得很慢 = chạy rất chậm." },
+      { type: "viết", story: "Chị Đi Đâu Rồi?", q: "Viết một câu dùng từ 消息 (xiāoxi = tin nhắn, tin tức):", prompt: "Viết một câu kể về một tin nhắn bạn đã gửi hoặc nhận, nhớ dùng 消息.", ph: "Ví dụ: 我给姐姐发了一条消息。", explain: "Mẫu: 姐姐又发来一条消息。 / 这条消息是昨天的。 / 我没有看到你的消息。 Lượng từ của 消息 là 条: 一条消息.", check: (v: string) => v.includes("消息") && v.length > 3,
+        word: "消息", wordPy: "xiāoxi", wordVi: "tin nhắn, tin tức — 一条消息 / 发消息", missMsg: "Hãy dùng từ 消息 trong câu!" },
+    ],
+  },
+  "do-cua-toi-dau-mat-roi": {
+    doneShort: "truyện Đồ Của Tôi Đâu Mất Rồi?", doneLong: "truyện Đồ Của Tôi Đâu Mất Rồi?", words: 4,
+    items: [
+      { type: "nhớ", char: "贵", pinyin: "Guì", pinyinColor: C.success, story: "Đồ Của Tôi Đâu Mất Rồi?", q: "Nghĩa của từ này là gì?", opts: ["Rẻ", "Đắt", "Đẹp", "Mới"], correct: 1, explain: "贵 (guì) = đắt. Trong truyện: 太贵了！有没有便宜一点儿的？ (Đắt quá! Có chiếc nào rẻ hơn một chút không?). Trái nghĩa là 便宜 (rẻ)." },
+      { type: "hiểu", sent: "让 (ràng)", sentVi: "Bảo, để (ai làm gì)", story: "Đồ Của Tôi Đâu Mất Rồi?", q: "Câu nào dùng đúng 让 trong tình huống câu chuyện?", opts: ["这件衣服让八百块。", "妈妈让我买一件白色的衣服。", "我让在商店门口等你。", "让，我知道了！"], optsVi: ["Chiếc áo này bảo 800 tệ.", "Mẹ bảo tôi mua một chiếc áo màu trắng.", "Tôi bảo ở cửa hàng đợi cậu.", "Bảo, con biết rồi!"], correct: 1, explain: "让 + người + việc = bảo / để ai làm gì: 妈妈让我买… (mẹ bảo tôi mua…). Sau 让 phải có người nhận lời bảo rồi mới tới việc. Nói giá thì nói thẳng 八百块, đồng ý thì dùng 好." },
+      { type: "dùng", story: "Đồ Của Tôi Đâu Mất Rồi?", q: "Hoàn thành câu theo tình huống:", prompt: "Chiếc áo thứ hai chỉ 300 tệ, trong khi chiếc đầu tiên tới 800 tệ.\nĐiền vào chỗ trống:", tmpl: "三百块？___多了！我买这件吧。", tmplVi: "300 tệ à? ___ hơn nhiều rồi! Tôi mua chiếc này nhé.", ans: "便宜", hint: "Gợi ý: 便宜 (piányi)", explain: "便宜 = rẻ, trái nghĩa với 贵 (đắt). Tính từ + 多了 = … hơn nhiều: 便宜多了 = rẻ hơn nhiều." },
+      { type: "viết", story: "Đồ Của Tôi Đâu Mất Rồi?", q: "Viết một câu dùng từ 告诉 (gàosu = nói cho biết):", prompt: "Viết một câu nhờ ai đó báo cho bạn biết một việc, nhớ dùng 告诉.", ph: "Ví dụ: 买完东西就告诉我。", explain: "Mẫu: 你告诉我价格，我帮你选。 / 我想告诉妈妈这件事。 / 请告诉我你的电话。 Cấu trúc: 告诉 + người + điều muốn nói.", check: (v: string) => v.includes("告诉") && v.length > 3,
+        word: "告诉", wordPy: "gàosu", wordVi: "nói cho biết — 告诉 + người + việc", missMsg: "Hãy dùng từ 告诉 trong câu!" },
+    ],
+  },
+  "mot-buoi-bieu-dien-dac-biet": {
+    doneShort: "truyện Một Buổi Biểu Diễn Đặc Biệt", doneLong: "truyện Một Buổi Biểu Diễn Đặc Biệt", words: 4,
+    items: [
+      { type: "nhớ", char: "跳舞", pinyin: "Tiào wǔ", pinyinColor: C.success, story: "Một Buổi Biểu Diễn Đặc Biệt", q: "Nghĩa của từ này là gì?", opts: ["Hát", "Nhảy múa", "Chạy bộ", "Vẽ tranh"], correct: 1, explain: "跳舞 (tiào wǔ) = nhảy múa. Trong truyện: 小明很喜欢跳舞。 (Tiểu Minh rất thích nhảy múa.). Hát là 唱歌, chạy bộ là 跑步, vẽ tranh là 画画." },
+      { type: "hiểu", sent: "希望 (xīwàng)", sentVi: "Mong, hy vọng", story: "Một Buổi Biểu Diễn Đặc Biệt", q: "Câu nào dùng đúng 希望 trong tình huống câu chuyện?", opts: ["我买了一个希望。", "这个希望很好吃。", "希望在桌子上。", "我希望你在表演的时候开心一点儿。"], optsVi: ["Tôi đã mua một cái hy vọng.", "Cái hy vọng này rất ngon.", "Hy vọng ở trên bàn.", "Bố hy vọng con sẽ vui vẻ hơn khi biểu diễn."], correct: 3, explain: "希望 là động từ \"mong, hy vọng\", theo sau là cả một việc: 希望 + (ai) + làm gì (我希望你开心一点儿). Nó không phải đồ vật nên không mua, không ăn hay đặt lên bàn được." },
+      { type: "dùng", story: "Một Buổi Biểu Diễn Đặc Biệt", q: "Hoàn thành câu theo tình huống:", prompt: "Tiểu Hồng làm thật chậm động tác khó một lần, Tiểu Minh chăm chú nhìn theo.\nĐiền vào chỗ trống:", tmpl: "小明认真地看着她，终于___了。", tmplVi: "Tiểu Minh chăm chú nhìn cô ấy, cuối cùng cũng ___.", ans: "懂", hint: "Gợi ý: 懂 (dǒng)", explain: "懂 = hiểu. 终于懂了 = cuối cùng cũng hiểu: 了 cho biết đã có thay đổi (trước chưa hiểu, giờ đã hiểu)." },
+      { type: "viết", story: "Một Buổi Biểu Diễn Đặc Biệt", q: "Viết một câu dùng từ 欢迎 (huānyíng = hoan nghênh, chào đón):", prompt: "Viết một câu chào đón một người bạn mới đến lớp, đến nhà hoặc vào đội của bạn, nhớ dùng 欢迎.", ph: "Ví dụ: 欢迎你来我家！", explain: "Mẫu: 欢迎你加入我们的舞蹈队！ / 欢迎你们来中国。 / 小红欢迎小明加入舞蹈队。 Cấu trúc: 欢迎 + người + (làm gì).", check: (v: string) => v.includes("欢迎") && v.length > 3,
+        word: "欢迎", wordPy: "huānyíng", wordVi: "hoan nghênh, chào đón — 欢迎 + người + việc", missMsg: "Hãy dùng từ 欢迎 trong câu!" },
+    ],
+  },
+  "mot-chuyen-di-dang-nho": {
+    doneShort: "truyện Một Chuyến Đi Đáng Nhớ", doneLong: "truyện Một Chuyến Đi Đáng Nhớ", words: 4,
+    items: [
+      { type: "nhớ", char: "公园", pinyin: "Gōngyuán", pinyinColor: C.success, story: "Một Chuyến Đi Đáng Nhớ", q: "Nghĩa của từ này là gì?", opts: ["Trường học", "Cửa hàng", "Công viên", "Nhà hàng"], correct: 2, explain: "公园 (gōngyuán) = công viên. Trong truyện: 三个朋友终于到了公园。 (Ba người bạn cuối cùng cũng đến công viên.). Trường học là 学校, cửa hàng là 商店, nhà hàng là 饭店." },
+      { type: "hiểu", sent: "从 (cóng)", sentVi: "Từ (chỉ điểm xuất phát)", story: "Một Chuyến Đi Đáng Nhớ", q: "Câu nào dùng đúng 从 trong tình huống câu chuyện?", opts: ["我们从学校坐车去公园吧！", "我想吃从米饭。", "从小刚是我的好朋友。", "她今天从很开心。"], optsVi: ["Chúng ta đi xe từ trường đến công viên nhé!", "Tớ muốn ăn từ cơm.", "Từ Tiểu Cương là bạn thân của tớ.", "Hôm nay cô ấy từ rất vui."], correct: 0, explain: "从 + nơi chốn (hoặc thời điểm) + động từ chỉ điểm xuất phát: 从学校去公园 = từ trường đến công viên. 从 không đứng trước món ăn, tên người làm chủ ngữ hay tính từ." },
+      { type: "dùng", story: "Một Chuyến Đi Đáng Nhớ", q: "Hoàn thành câu theo tình huống:", prompt: "Cả nhóm hẹn 9 giờ có mặt ở trường. Tiểu Mỹ nhắc mọi người đi cho đúng giờ.\nĐiền vào chỗ trống:", tmpl: "九点，我们不要___！", tmplVi: "Chín giờ, chúng ta đừng ___ nhé!", ans: "迟到", hint: "Gợi ý: 迟到 (chídào)", explain: "迟到 = đến muộn. 不要 + Động từ = đừng làm gì: 不要迟到 = đừng đến muộn." },
+      { type: "viết", story: "Một Chuyến Đi Đáng Nhớ", q: "Viết một câu dùng từ 照片 (zhàopiàn = ảnh, bức ảnh):", prompt: "Viết một câu kể về một bức ảnh bạn đã chụp hoặc muốn chụp, nhớ dùng 照片.", ph: "Ví dụ: 我们一起拍了一张照片。", explain: "Mẫu: 这是我和朋友的照片。 / 我把照片发给了妈妈。 / 我们一起拍张照片吧！ Lượng từ của 照片 là 张: 一张照片.", check: (v: string) => v.includes("照片") && v.length > 3,
+        word: "照片", wordPy: "zhàopiàn", wordVi: "ảnh, bức ảnh — 一张照片 / 拍照片", missMsg: "Hãy dùng từ 照片 trong câu!" },
+    ],
+  },
 };

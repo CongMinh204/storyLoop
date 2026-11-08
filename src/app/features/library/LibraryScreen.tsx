@@ -4,12 +4,13 @@ import { C } from "../../lib/colors";
 import { STORY_LIBRARY } from "../../data/library";
 import type { StoryEntry } from "../../types";
 import { useStoryProgress, type StoryProgress } from "../../lib/progress";
+import { getStoryScript } from "../../data/stories";
 
 type ProgressMap = Record<string, StoryProgress>;
 
 // Nhớ mục HSK đang mở và thẻ lọc trong phiên làm việc, để vào một truyện rồi bấm "Quay lại" thì Thư viện
-// còn nguyên như lúc rời đi (mở lại trang thì quay về mặc định: chỉ mở HSK 1).
-const memory: { open: Set<number>; tag: string | null } = { open: new Set([1]), tag: null };
+// còn nguyên như lúc rời đi (mở lại trang thì quay về mặc định: mọi cấp HSK đều đóng).
+const memory: { open: Set<number>; tag: string | null } = { open: new Set(), tag: null };
 
 export function LibStoryTag({ label }: { label: string }) {
   return (
@@ -21,22 +22,25 @@ export function LibStoryTag({ label }: { label: string }) {
 
 export function LibStoryCard({ story, prog, onStart }: { story: StoryEntry; prog?: StoryProgress; onStart: () => void }) {
   const pct = prog?.pct ?? 0;
+  const ready = !!getStoryScript(story.id);   // đã có kịch bản chơi được
+  const corner = (bg: string, fg: string): React.CSSProperties => ({ background: bg, color: fg, padding: "3px 10px", fontSize: 9, fontWeight: 700 });
   return (
     <button
       onClick={story.premium ? undefined : onStart}
       style={{ width: "100%", background: C.surface, border: `0.5px solid ${C.border}`, borderRadius: 14, padding: "12px 13px", cursor: story.premium ? "default" : "pointer", textAlign: "left", fontFamily: "inherit", position: "relative", overflow: "hidden" }}
     >
-      {story.premium && (
-        <div style={{ position: "absolute", top: 0, right: 0, background: C.reward, borderRadius: "0 14px 0 10px", padding: "3px 10px", fontSize: 9, color: C.ink, fontWeight: 700 }}>
-          PREMIUM
-        </div>
-      )}
+      <div style={{ position: "absolute", top: 0, right: 0, display: "flex", flexDirection: "row-reverse", borderRadius: "0 14px 0 10px", overflow: "hidden" }}>
+        {ready
+          ? <span style={corner(C.successBg, C.success)}>SẴN SÀNG</span>
+          : <span style={corner(C.bgSunken, C.inkMuted)}>UPCOMING</span>}
+        {story.premium && <span style={corner(C.reward, C.ink)}>PREMIUM</span>}
+      </div>
       <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
         <div style={{ width: 44, height: 44, borderRadius: 12, background: story.color + "20", border: `1.5px solid ${story.color}40`, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 21 }}>
           {story.emoji}
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: 12, fontWeight: 700, color: story.premium ? C.inkMuted : C.ink, marginBottom: 5, lineHeight: 1.35, paddingRight: story.premium ? 56 : 0 }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: story.premium ? C.inkMuted : C.ink, marginBottom: 5, lineHeight: 1.35, paddingRight: story.premium ? 128 : 66 }}>
             {story.title}
           </div>
           <div style={{ display: "flex", flexWrap: "wrap" as const, gap: 4, marginBottom: prog ? 8 : 0 }}>
@@ -81,7 +85,6 @@ export function LibHSKAccordion({ level, stories, progress, onStart }: { level: 
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          {level > 1 && <div style={{ background: C.primaryBg, borderRadius: 20, padding: "2px 9px", fontSize: 9, color: C.primaryText, fontWeight: 600 }}>🔒 Level {level}</div>}
           <div style={{ color: C.inkMuted, transform: open ? "rotate(180deg)" : "none", transition: "transform .2s", display: "flex" }}>
             <ChevronDown size={16} />
           </div>

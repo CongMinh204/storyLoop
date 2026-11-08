@@ -1,6 +1,6 @@
 import { z } from "zod";
 import {
-  checkConfirm, checkEmail, checkFullName, checkPassword, normalizeEmail, MSG,
+  checkConfirm, checkEmail, checkFullName, checkPassword, checkReferralOther, checkReferralSource, normalizeEmail, MSG,
 } from "../shared/validation.js";
 
 // Chuỗi từ body; thiếu hoặc sai kiểu thì coi như chuỗi rỗng để báo lỗi bằng câu tiếng Việt
@@ -23,9 +23,18 @@ export const registerSchema = z.object({
   email,
   password,
   confirmPassword: str,
+  // Form đăng ký bắt buộc chọn; server vẫn nhận request không có trường này (bản app cũ đang mở trên máy
+  // người dùng) và lưu NULL. Đã gửi thì phải hợp lệ.
+  referralSource: str,
+  referralOther: str,
 }).superRefine((d, ctx) => {
   const message = checkConfirm(d.password, d.confirmPassword);
   if (message) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["confirmPassword"], message });
+  if (!d.referralSource) return;
+  const source = checkReferralSource(d.referralSource);
+  if (source) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["referralSource"], message: source });
+  const other = checkReferralOther(d.referralSource, d.referralOther);
+  if (other) ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["referralOther"], message: other });
 });
 
 export const loginSchema = z.object({

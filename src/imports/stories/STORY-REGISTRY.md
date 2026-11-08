@@ -1,6 +1,9 @@
 # Sổ theo dõi cốt truyện: Google Doc ↔ app
 
-Doc cốt truyện: https://docs.google.com/document/d/1bsYDMmd7TKtire_IMHMA-3v5U0HGMjzxpE4PTf3f0JU
+Doc cốt truyện:
+
+- Bài 1–8: https://docs.google.com/document/d/1bsYDMmd7TKtire_IMHMA-3v5U0HGMjzxpE4PTf3f0JU
+- Bài 9 trở đi ("(2) HSK 2"): https://docs.google.com/document/d/1Q3DH_TXfkrGvVNVA8tENMNJoWetkpfc3BncvBF5rK88
 
 ## Cách dùng
 
@@ -15,21 +18,27 @@ Doc cốt truyện: https://docs.google.com/document/d/1bsYDMmd7TKtire_IMHMA-3v5
 |---|---|---|---|---|
 | 1 | Chuyến du lịch của Hoa Hoa | Chú Mèo Hoa Hoa | Đã có trên main |  |
 | 1 | Hoa Hoa biến mất! | Chú Mèo Hoa Hoa 2 | Đã có trên main |  |
-| 2 | Bí mật lúc sáu giờ sáng | chưa có | Chưa thêm | Mới có bản .md gốc; Doc thiếu nhánh B, C của lựa chọn 1 và 2 |
+| 2 | Bí mật lúc sáu giờ sáng | Bí Mật Lúc Sáu Giờ Sáng | Đã code, chờ merge | Theo bản Doc tác giả viết lại đủ nhánh (15 kết thúc). Chỉnh nhẹ: thêm chi tiết đôi giày chạy bộ ở cảnh 02A và 03D (người chơi hỏi về chạy bộ khi chưa ai nhắc tới); cảnh 02C sửa mốc thời gian cho khớp câu "hôm qua"; tên kết thúc bằng chữ Hán là bản dịch từ tên tiếng Việt |
 | 2 | Tại sao cậu ấy không đến lớp? | Trốn Học | Đã có trên main |  |
-| 3 | Ai đã tặng nhầm quà? | Chiếc Đồng Hồ Biến Mất | Đã code, chờ merge | Đổi tên vì không ai tặng nhầm quà; sửa mạch truyện cho khớp mọi đường vào |
-| 3 | Ai đã cầm nhầm quà? | Ai Đã Cầm Nhầm Quà? | Đã code, chờ merge | Viết lại một phần lời giải: đồng hồ nằm trong túi đỏ, ông Lý nói "vợ" |
+| 3 | Ai đã tặng nhầm quà? | Chiếc Đồng Hồ Biến Mất | Đã có trên main | Đổi tên vì không ai tặng nhầm quà; sửa mạch truyện cho khớp mọi đường vào |
+| 3 | Ai đã cầm nhầm quà? | Ai Đã Cầm Nhầm Quà? | Đã có trên main | Viết lại một phần lời giải: đồng hồ nằm trong túi đỏ, ông Lý nói "vợ" |
 | 4 | Ai đã gọi điện đến? | Ai Đã Gọi Điện Đến? | Đã có trên main |  |
 | 4 | Hai người bạn mới trong bữa tiệc sinh nhật | Tiệc Sinh Nhật | Đã có trên main |  |
-| 5 | Ai đã gửi bức ảnh? | Ai Đã Gửi Bức Ảnh? | Đã code, chờ merge | Đã cập nhật theo bản Doc tác giả sửa lại (nhánh VynhVQ12). Còn 2 điểm nhờ tác giả xem: Tiểu Mỹ là bạn thân mà Tiểu Minh "không nhớ đã gặp" hôm đó; hộp vừa là đồ bị cầm nhầm vừa là quà tặng |
-| 5 | Ai đã gửi bức ảnh? (bản 2) | không có | Bản cũ, không thêm | Là bản trước khi tác giả sửa tab chính; nên xoá hoặc đánh dấu "bản cũ" trong Doc |
-| 6 | Chiếc xe đạp ngoài cửa | chưa có | Chưa thêm |  |
-| 6 | Người ngoài cửa là ai? | chưa có | Chưa thêm |  |
-| 7 | Một giờ cuối cùng | chưa có | Chưa thêm |  |
-| 7 | Chị đi đâu rồi? | chưa có | Chưa thêm |  |
-| 8 | Ai đã lấy quần áo của tôi? | chưa có | Chưa thêm |  |
-| 8 | Ai nói thật? | chưa có | Chưa thêm |  |
-| 11 | Bạn học mới là ai? | Bạn Học Mới Là Ai? | Đã code, chờ merge | id: ban-hoc-moi-la-ai; rẽ nhánh cuối cảnh 7 để mở 2 kết thúc END_3, END_4 |
-| 11 | Buổi hòa nhạc cuối tuần | Buổi Hòa Nhạc Cuối Tuần | Đã code, chờ merge | id: buoi-hoa-nhac-cuoi-tuan; thêm 2 cảnh đệm 03A, 04B nối mạch và đủ 11 flashcards |
+| 5 | Ai đã gửi bức ảnh? | Ai Đã Gửi Bức Ảnh? | Đã có trên main | Đã cập nhật theo bản Doc tác giả sửa lại (nhánh VynhVQ12). Còn 2 điểm nhờ tác giả xem: Tiểu Mỹ là bạn thân mà Tiểu Minh "không nhớ đã gặp" hôm đó; hộp vừa là đồ bị cầm nhầm vừa là quà tặng |
+| 5 | Ai đã gửi bức ảnh? (bản 2) | Bài Kiểm Tra Hôm Nay | Đã code, chờ merge | Tab vẫn mang tên "(bản 2)" nhưng tác giả đã thay nội dung bằng truyện mới 今天的考试 (9 kết thúc); nên đổi tên tab trong Doc. Doc chỉ có lựa chọn tiếng Việt: câu chữ Hán của lựa chọn và tên kết thúc bằng chữ Hán là bản dịch. Chỉnh nhẹ: thêm cảnh 03R (bản gốc 04 → "từ chối, về nhà" quay lại 03, tạo vòng lặp); lời dẫn cảnh 06 sửa cho khớp đường đi từ nhà. Còn nhờ tác giả xem: ở cảnh 03 mẹ đã nấu cá rồi mà lựa chọn C vẫn là "đi mua cá giúp mẹ"; cảnh 06 nói "còn phải về nhà ăn tối" cả khi Tiểu Lâm đã ăn cơm ở cảnh 03 |
+| 6 | Chiếc xe đạp ngoài cửa | Chiếc Xe Đạp Ngoài Cửa | Đã code, chờ merge | Doc đã sửa: một chỗ chỉnh nhẹ ở cảnh 03A (lựa chọn B hỏi vì sao túi đỏ nằm trên xe, thay vì "mang theo túi"). Còn nhờ tác giả xem: cảnh 06A đi từ 05A thì chị gái đang ngồi đó nhưng Tiểu Lan kể về chị ở ngôi thứ ba; cảnh 04A đi từ 03C có câu "có người nói chị không muốn em biết" khi chưa ai nói |
+| 6 | Người ngoài cửa là ai? | Người Ngoài Cửa Là Ai? | Đã có trên main |  |
+| 7 | Một giờ cuối cùng | Một Giờ Cuối Cùng | Đã có trên main |  |
+| 7 | Chị đi đâu rồi? | Chị Đi Đâu Rồi? | Đã code, chờ merge | Tên gốc 姐姐去哪儿了？, 8 kết thúc; Doc có sẵn chữ Hán cho lựa chọn và tên kết thúc. Chỉnh nhẹ (chỉ cách nối cảnh, không đổi câu chữ): thêm cảnh 03R (bản gốc 04 → "xuống xe, quay lại công ty" về 03, tạo vòng lặp); 09 → "nghỉ ngơi trước" bỏ đoạn đầu kết thúc 02 (Tiểu Lâm về nhà hỏi chị đi đâu) vì cậu đã ở nhà và đã nghe chị kể. Còn nhờ tác giả xem: 07 → "hỏi người đó có quen chị không" sang thẳng 08 (gọi cho chị), thiếu câu trả lời của người đó; kết thúc 03 "về nhà rồi gọi cho chị" mà chị nói "chị đợi em ở nhà lâu rồi" (cả hai đều đang ở nhà); tên kết thúc 07 "明天再去 / Ngày mai quay lại" không khớp nội dung (xem lại lịch sử tin nhắn) |
+| 8 | Ai đã lấy quần áo của tôi? | Ai Đã Lấy Quần Áo Của Tôi? | Đã có trên main |  |
+| 8 | Ai nói thật? | Đồ Của Tôi Đâu Mất Rồi? | Đã code, chờ merge | Tab mang tên "Ai nói thật?" nhưng nội dung là truyện 我的东西去哪儿了？ (8 kết thúc); nên đổi tên tab. Đã import theo bản tác giả sửa lại (cảnh 07 chỉ còn đi từ 06, hết vòng lặp 06 ↔ 07, Tiểu Minh không còn gọi điện khi đang đi cùng). Doc chỉ có lựa chọn tiếng Việt: câu chữ Hán của lựa chọn và tên kết thúc bằng chữ Hán là bản dịch. Chỉnh nhẹ: cảnh 04 "lấy điện thoại để thanh toán" → "định thanh toán" (trả bằng điện thoại thì không cần ví). Còn nhờ tác giả xem: 03 → "nhờ Tiểu Minh nhắn hỏi mẹ còn cần mua gì" nhưng không có câu trả lời của mẹ; 02 → "không mua áo nữa" mà cảnh 09 vẫn có đủ áo trắng; kết thúc 07 "con còn hỏi nhân viên" không đúng với đường đi qua 08; tên kết thúc 06 "Nhầm lẫn của Tiểu Minh" trong khi Tiểu Minh không nhầm gì |
+| 9 | Bài 9 – Một buổi biểu diễn đặc biệt | Một Buổi Biểu Diễn Đặc Biệt | Đã code, chờ merge | Tên gốc 一次特别的表演, 5 kết thúc, ở Doc thứ hai. Doc chỉ có lựa chọn tiếng Việt: câu chữ Hán của lựa chọn và tên kết thúc bằng chữ Hán là bản dịch. Không chỉnh câu chữ hay cách nối cảnh. Bản gốc chỉ có 3 câu nói của Tiểu Minh nên chỉ có 3 bước chọn câu; đường "tự tập ở nhà → tiếp tục → nghỉ ngơi → lên sân khấu → ăn mừng" không có bước nào. Còn nhờ tác giả xem: kết thúc 04 "Tiểu Minh cảm ơn Tiểu Hồng đã giúp mình" nhưng nếu đi đường tự tập ở nhà (02 → 05 → 07) thì Tiểu Hồng chưa giúp gì; cảnh 08 Tiểu Hồng vội đến trường giúp mà lựa chọn B lại tự nhớ một mình (cũng không rõ Tiểu Minh đang ở trường); cảnh 04 tên "Gặp người bạn mới" nhưng Tiểu Hồng là bạn cùng lớp; từ 题 và 完 (đứng riêng) trong bảng từ vựng không xuất hiện trong truyện |
+| 9 | Bài 9 – Một chuyến đi đáng nhớ | Một Chuyến Đi Đáng Nhớ | Đã code, chờ merge | Tên gốc 一次难忘的旅行, 6 kết thúc, ở Doc thứ hai. Doc chỉ có lựa chọn tiếng Việt: câu chữ Hán của lựa chọn và tên kết thúc bằng chữ Hán là bản dịch. Không chỉnh câu chữ hay cách nối cảnh. Còn nhờ tác giả xem: cảnh 03 Tiểu Lệ nói "chúng tớ đã đợi cậu nửa tiếng" nhưng sang cảnh 02 Tiểu Cương vẫn chưa đến; 09 → "mua nước uống rồi mới đi" nhưng ở kết thúc 03 cả nhóm ngồi lại nhà hàng, không đi tiếp; cảnh 07 Tiểu Mỹ vừa nói "quay lại thôi" mà lựa chọn B là tiếp tục tìm; các từ 第一, 问题, 上班, 题 trong bảng từ vựng không có trong truyện |
+| 10 | Bài 10 – Anh trai không có ở nhà | | Chưa thêm |  |
+| 10 | Bài 10 – Điện thoại đi đâu mất rồi? | | Chưa thêm |  |
+| 11 | Bài 11 – Bạn học mới là ai? | Bạn Học Mới Là Ai? | Đã code, chờ merge | Tên gốc 《新同学是谁？》, 4 kết thúc. Chỉnh so với bản gốc (tác giả đã đồng ý): thêm đoạn đệm cuối cảnh 07 (hai người ra sân trường, em trai Lý Minh đứng xem) và hai lựa chọn mở kết thúc 3, 4 ("cùng xem rồi về", "quay lại mua điện thoại") |
+| 11 | Bài 11 – Buổi hòa nhạc cuối tuần | Buổi Hòa Nhạc Cuối Tuần | Đã code, chờ merge | Tên gốc 《周末的音乐会》, 4 kết thúc. Chỉnh so với bản gốc (tác giả đã đồng ý): thêm hai cảnh đệm 03A (sau khi mua túi, gặp Tiểu Lệ) và 04B (đi tìm mẹ thì gặp đứa trẻ lạc) để nối mạch và đủ từ 右边, 男 cho flashcard |
+| 12 | Bài 12 – Sinh nhật ở khách sạn | | Chưa thêm |  |
+| 12 | Bài 12 – Tấm vé cuối cùng | | Chưa thêm |  |
 
 Không thuộc Doc này: "Thử thách của Ngọc Hoàng" (HSK1).

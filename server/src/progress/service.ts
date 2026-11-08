@@ -1,7 +1,7 @@
 import type { PoolClient } from "pg";
 import { pool } from "../db.js";
 import { HttpError } from "../http.js";
-import { vnDay } from "../stats.js";
+import { DAILY_CLAIM_STORY, DAILY_GOAL_XP, dailyClaimKey, vnDay, XP_DAILY_BONUS } from "../stats.js";
 import { applyReport, mergeProgress, type ProgressDto, type Report } from "./merge.js";
 
 export const XP_PER_CORRECT_STEP = 10;
@@ -74,8 +74,8 @@ async function claim(c: PoolClient, userId: string, storyId: string, key: string
 
 export type StepReport = { key: string; correct: boolean };
 
-// Báo tiến độ một truyện: cập nhật tiến độ, cộng XP (đúng một bước = 10, hoàn thành lần đầu = 50),
-// và đánh dấu hôm nay có hoạt động cho streak.
+// Báo tiến độ một truyện: cập nhật tiến độ, cộng XP (đúng một bước = 10, hoàn thành lần đầu = 50, đủ
+// thử thách hàng ngày = thêm 50 một lần mỗi ngày), và đánh dấu hôm nay có hoạt động cho streak.
 export async function reportProgress(
   userId: string, storyId: string, body: Report & { step?: StepReport }, now = Date.now(),
 ) {
@@ -100,7 +100,12 @@ export async function reportProgress(
 
     const day = vnDay(new Date(now));
     const today = (await c.query<{ xp: number }>("SELECT xp FROM activity_days WHERE user_id = $1 AND day = $2", [userId, day])).rows[0];
-    const gain = Math.max(0, Math.min(raw, XP_DAILY_CAP - (today?.xp ?? 0)));
+    const before = today?.xp ?? 0;
+    let gain = Math.max(0, Math.min(raw, XP_DAILY_CAP - before));
+    // Thử thách hàng ngày: vừa đủ mục tiêu thì thưởng, mốc của ngày chỉ chiếm được một lần
+    if (before + gain >= DAILY_GOAL_XP && (await claim(c, userId, DAILY_CLAIM_STORY, dailyClaimKey(day)))) {
+      gain += Math.max(0, Math.min(XP_DAILY_BONUS, XP_DAILY_CAP - before - gain));
+    }
     await c.query(
       `INSERT INTO activity_days (user_id, day, xp) VALUES ($1, $2, $3)
        ON CONFLICT (user_id, day) DO UPDATE SET xp = activity_days.xp + EXCLUDED.xp`,

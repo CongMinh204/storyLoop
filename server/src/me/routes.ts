@@ -6,6 +6,7 @@ import { updateMeSchema } from "../auth/schemas.js";
 import { revokeOtherSessions } from "../auth/tokens.js";
 import { pool } from "../db.js";
 import { h, HttpError, parse } from "../http.js";
+import { getActivity } from "../stats.js";
 import { findUser, loadMe, toMe, type UserRow } from "../users.js";
 
 export const meRouter = Router();
@@ -14,6 +15,11 @@ meRouter.use(requireAuth);
 // Thông tin tài khoản kèm tổng XP và streak
 meRouter.get("/", h(async (req, res) => {
   res.json(await loadMe(req.auth!.sub));
+}));
+
+// Hoạt động theo ngày 6 tháng gần nhất (XP, câu đúng, truyện hoàn thành) cho biểu đồ ở màn Tiến trình
+meRouter.get("/activity", h(async (req, res) => {
+  res.json(await getActivity(req.auth!.sub));
 }));
 
 // Đổi họ tên và/hoặc mật khẩu. Đổi mật khẩu thì đăng xuất mọi máy khác, giữ máy đang dùng.
