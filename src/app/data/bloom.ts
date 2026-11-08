@@ -223,4 +223,24 @@ export const BLOOM_SETS: Record<string, BloomSet> = {
         word: "照片", wordPy: "zhàopiàn", wordVi: "ảnh, bức ảnh — 一张照片 / 拍照片", missMsg: "Hãy dùng từ 照片 trong câu!" },
     ],
   },
+  "mot-ngay-cung-anh-trai": {
+    doneShort: "truyện Một Ngày Cùng Anh Trai", doneLong: "truyện Một Ngày Cùng Anh Trai", words: 4,
+    items: [
+      { type: "nhớ", char: "鸡蛋", pinyin: "Jīdàn", pinyinColor: C.success, story: "Một Ngày Cùng Anh Trai", q: "Nghĩa của từ này là gì?", opts: ["Dưa hấu", "Trứng gà", "Bữa sáng", "Điện thoại"], correct: 1, explain: "鸡蛋 (jīdàn) = trứng gà. Trong truyện: 小安拿了几个鸡蛋，准备做早饭。 (Tiểu An lấy vài quả trứng gà, chuẩn bị làm bữa sáng.). Dưa hấu là 西瓜, bữa sáng là 早饭, điện thoại là 手机." },
+      { type: "hiểu", sent: "别 (bié)", sentVi: "Đừng", story: "Một Ngày Cùng Anh Trai", q: "Câu nào dùng đúng 别 trong tình huống câu chuyện?", opts: ["哥哥别厨房做早饭。", "西瓜很别好吃。", "别让鸡蛋掉在地上！", "我昨天别去公园了。"], optsVi: ["Anh trai đừng nhà bếp làm bữa sáng.", "Dưa hấu rất đừng ngon.", "Đừng để trứng gà rơi xuống sàn!", "Hôm qua tôi đừng đi công viên rồi."], correct: 2, explain: "别 + Động từ = đừng làm gì (lời khuyên, lời dặn): 别让鸡蛋掉在地上. 别 phải đứng trước động từ; không đứng trước danh từ hay tính từ và không dùng cho việc đã xảy ra." },
+      { type: "dùng", story: "Một Ngày Cùng Anh Trai", q: "Hoàn thành câu theo tình huống:", prompt: "Sáng thứ Bảy, Tiểu An xem TV ở nhà còn anh trai thì đang làm bữa sáng.\nĐiền vào chỗ trống:", tmpl: "哥哥___做早饭。", tmplVi: "Anh trai ___ làm bữa sáng.", ans: "正在", hint: "Gợi ý: 正在 (zhèngzài)", explain: "正在 + Động từ = đang làm gì: 哥哥正在做早饭 = anh trai đang làm bữa sáng. 正在 đứng trước động từ." },
+      { type: "viết", story: "Một Ngày Cùng Anh Trai", q: "Viết một câu dùng từ 洗 (xǐ = rửa, giặt):", prompt: "Viết một câu nói về việc rửa một thứ gì đó, nhớ dùng 洗.", ph: "Ví dụ: 哥哥在洗水果。", explain: "Mẫu: 我帮哥哥洗西瓜。 / 他正在洗水果。 / 吃饭以前请先洗手。", check: (v: string) => v.includes("洗") && v.length > 3,
+        word: "洗", wordPy: "xǐ", wordVi: "rửa, giặt — 洗水果 / 洗西瓜", missMsg: "Hãy dùng từ 洗 trong câu!" },
+    ],
+  },
+  "dien-thoai-di-dau-mat-roi": {
+    doneShort: "truyện Điện Thoại Đi Đâu Mất Rồi?", doneLong: "truyện Điện Thoại Đi Đâu Mất Rồi?", words: 4,
+    items: [
+      { type: "nhớ", char: "手机", pinyin: "Shǒujī", pinyinColor: C.success, story: "Điện Thoại Đi Đâu Mất Rồi?", q: "Nghĩa của từ này là gì?", opts: ["Cặp sách", "Điện thoại", "Bàn học", "Quyển sách"], correct: 1, explain: "手机 (shǒujī) = điện thoại di động. Trong truyện: 小雨的手机突然响了。 (Điện thoại của Tiểu Vũ đột nhiên reo lên.). Cặp sách là 书包, bàn là 桌子, sách là 书." },
+      { type: "hiểu", sent: "帮助 (bāngzhù)", sentVi: "Giúp đỡ", story: "Điện Thoại Đi Đâu Mất Rồi?", q: "Câu nào dùng đúng 帮助 trong tình huống câu chuyện?", opts: ["我很帮助哥哥西瓜。", "帮助我老师回答这个问题。", "老师帮助了的我很多。", "谁可以帮助我回答这个问题？"], optsVi: ["Tôi rất giúp đỡ anh trai dưa hấu.", "Giúp đỡ tôi cô giáo trả lời câu hỏi này.", "Cô giáo giúp đỡ rồi của tôi rất nhiều.", "Ai có thể giúp tôi trả lời câu hỏi này?"], correct: 3, explain: "帮助 + người + việc cần làm: 帮助我回答这个问题 = giúp tôi trả lời câu hỏi này. Người được giúp đứng ngay sau 帮助; không chen 的 sau 了 và không ghép tân ngữ vô nghĩa phía sau." },
+      { type: "dùng", story: "Điện Thoại Đi Đâu Mất Rồi?", q: "Hoàn thành câu theo tình huống:", prompt: "Giáo viên nhắc Tiểu Vũ khi điện thoại reo giữa giờ học.\nĐiền vào chỗ trống:", tmpl: "上课的时候，___玩手机！", tmplVi: "Trong giờ học, ___ chơi điện thoại!", ans: "别", hint: "Gợi ý: 别 (bié)", explain: "别 + Động từ = đừng làm gì: 别玩手机 = đừng chơi điện thoại. 别 đứng trước động từ." },
+      { type: "viết", story: "Điện Thoại Đi Đâu Mất Rồi?", q: "Viết một câu dùng từ 正在 (zhèngzài = đang):", prompt: "Viết một câu nói về việc ai đó đang làm, nhớ dùng 正在.", ph: "Ví dụ: 老师正在教学生说汉语。", explain: "Mẫu: 我正在找我的手机。 / 他正在看书。 / 哥哥正在洗西瓜。 正在 đứng trước động từ.", check: (v: string) => v.includes("正在") && v.length > 3,
+        word: "正在", wordPy: "zhèngzài", wordVi: "đang — 正在 + Động từ (正在找手机)", missMsg: "Hãy dùng từ 正在 trong câu!" },
+    ],
+  },
 };
