@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-// Chạy local: đọc server/.env nếu có. Trên Railway biến môi trường được đặt sẵn, không có file này.
+// Chạy local: đọc server/.env nếu có. Trên Render biến môi trường được đặt sẵn, không có file này.
 try { process.loadEnvFile(); } catch { /* không có .env thì thôi */ }
 
 const required = { required_error: "thiếu biến này" };

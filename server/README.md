@@ -27,7 +27,7 @@ curl http://localhost:3000/api/health   # {"ok":true,"db":true}
 | --- | --- |
 | `DATABASE_URL` | Chuỗi kết nối Postgres (bắt buộc) |
 | `JWT_SECRET` | Khoá ký access token, ít nhất 32 ký tự ngẫu nhiên (bắt buộc) |
-| `PORT` | Cổng server, mặc định 3000 (Railway tự đặt) |
+| `PORT` | Cổng server, mặc định 3000 (Render tự đặt) |
 | `CORS_ORIGIN` | Origin frontend được phép, ngăn cách bằng dấu phẩy. Bản deploy: `https://congminh204.github.io` |
 | `NODE_ENV` | `development` hoặc `production` (production bật SSL cho DB từ xa) |
 | `ALLOW_SIGNUP` | `false` thì tắt đăng ký mới, kể cả tạo tài khoản mới qua Google. Mặc định bật |
@@ -38,7 +38,7 @@ curl http://localhost:3000/api/health   # {"ok":true,"db":true}
 - `npm run dev`: chạy với tsx watch.
 - `npm run build`: biên dịch ra `dist/`.
 - `npm start`: chạy bản build.
-- `npm run seed:testers -- 20`: tạo 20 tài khoản `testerNN@storyloop.test` (số nối tiếp các tester đã có) với mật khẩu ngẫu nhiên, in ra và ghi file `testers-<thời gian>.csv`. File CSV chứa mật khẩu nên đã nằm trong `.gitignore`. Muốn tạo trên DB Railway thì đặt `DATABASE_URL` trong `.env` bằng `DATABASE_PUBLIC_URL` của Railway rồi chạy ở máy mình.
+- `npm run seed:testers -- 20`: tạo 20 tài khoản `testerNN@storyloop.test` (số nối tiếp các tester đã có) với mật khẩu ngẫu nhiên, in ra và ghi file `testers-<thời gian>.csv`. File CSV chứa mật khẩu nên đã nằm trong `.gitignore`. Muốn tạo trên DB Neon thì đặt `DATABASE_URL` trong `.env` bằng chuỗi kết nối của Neon rồi chạy ở máy mình.
 
 ## API
 
@@ -77,9 +77,11 @@ Muốn cấp quyền admin cho một tài khoản: `UPDATE users SET role = 'adm
 - Import không cộng XP và không tính là hoạt động trong ngày (localStorage không có từng bước và ngày chơi). Truyện đã hoàn thành qua import thì chơi lại không nhận thêm 50 XP.
 - Server không kiểm chứng được câu trả lời (nội dung truyện nằm ở frontend), nên XP chỉ được chặn gian lận bằng mốc một lần và trần ngày.
 
-## Railway
+## Render
 
-Root Directory = `server`, thêm PostgreSQL, đặt `DATABASE_URL`, `JWT_SECRET`, `CORS_ORIGIN`, `ALLOW_SIGNUP`, `GOOGLE_CLIENT_ID`. Build `npm run build`, Start `npm start`, Healthcheck `/api/health`.
+Backend chạy ở https://storyloop.onrender.com, database là Neon. Root Directory = `server`, đặt `DATABASE_URL` (chuỗi kết nối Neon), `JWT_SECRET`, `CORS_ORIGIN`, `ALLOW_SIGNUP`, `GOOGLE_CLIENT_ID`. Build `npm run build`, Start `npm start`, Health Check Path `/api/health`.
+
+`CORS_ORIGIN` của bản deploy cần có đủ các origin, ngăn cách bằng dấu phẩy: `https://storyloop.io.vn,https://www.storyloop.io.vn,https://congminh204.github.io`.
 
 ## Migration
 
