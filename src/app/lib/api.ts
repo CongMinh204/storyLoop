@@ -1,5 +1,5 @@
 // Gọi API của backend (thư mục server/). Địa chỉ lấy từ VITE_API_URL lúc build; không có thì app chỉ chạy
-// chế độ khách như trước. Token lưu trong localStorage: frontend (github.io) và API (railway.app) khác site
+// chế độ khách như trước. Token lưu trong localStorage: frontend (github.io) và API (onrender.com) khác site
 // nên cookie httpOnly sẽ bị trình duyệt chặn.
 
 const BASE = (import.meta.env.VITE_API_URL ?? "").trim().replace(/\/+$/, "");

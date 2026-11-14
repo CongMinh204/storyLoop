@@ -1,7 +1,7 @@
 import pg from "pg";
 import { env } from "./env.js";
 
-// Railway Postgres (kết nối ngoài) cần SSL; Postgres local trong Docker thì không.
+// Postgres từ xa (Neon) cần SSL; Postgres local trong Docker thì không.
 const useSsl = env.NODE_ENV === "production" && !/localhost|127\.0\.0\.1/.test(env.DATABASE_URL);
 
 export const pool = new pg.Pool({

@@ -11,12 +11,12 @@ import { progressRouter } from "./progress/routes.js";
 export const app = express();
 
 app.disable("x-powered-by");
-// Railway đặt server sau một proxy; cần để rate limit thấy IP thật của người dùng
+// Render đặt server sau một proxy; cần để rate limit thấy IP thật của người dùng
 app.set("trust proxy", 1);
 app.use(cors({ origin: env.corsOrigins }));
 app.use(express.json({ limit: "100kb" }));
 
-// Railway dùng route này làm healthcheck
+// Render dùng route này làm health check
 app.get("/api/health", async (_req, res) => {
   try {
     await pool.query("SELECT 1");
